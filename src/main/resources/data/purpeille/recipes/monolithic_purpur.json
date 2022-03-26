@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CC",
+    "CC"
+  ],
+  "key": {
+    "C": {
+      "item": "purpeille:remnant_chunk"
+    }
+  },
+  "result": {
+    "item": "purpeille:monolithic_purpur",
+    "count": 1
+  }
+}
