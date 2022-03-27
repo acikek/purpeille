@@ -25,13 +25,13 @@ public class WarpathRecipe extends SpecialCraftingRecipe {
         super(id);
     }
 
-    public Pair<Item, Pair<Integer, Integer>> getCraftingData(CraftingInventory inventory) {
-        Item base = null;
+    public Pair<ItemStack, Pair<Integer, Integer>> getCraftingData(CraftingInventory inventory) {
+        ItemStack base = null;
         Pair<Integer, Integer> components = new Pair<>(-1, -1);
         for (int i = 0; i < inventory.size(); i++) {
             ItemStack stack = inventory.getStack(i);
             if (base == null && stack.isIn(WARPATH_BASE)) {
-                base = stack.getItem();
+                base = stack;
             }
             else if (components.getLeft() == -1 && stack.isOf(ModItems.SMOLDERED_PURPEILLE_INGOT)) {
                 components.setLeft(i);
@@ -43,19 +43,22 @@ public class WarpathRecipe extends SpecialCraftingRecipe {
                 return null;
             }
         }
+        if (base == null) {
+            return null;
+        }
         return new Pair<>(base, components);
     }
 
     @Override
     public boolean matches(CraftingInventory inventory, World world) {
-        Pair<Item, Pair<Integer, Integer>> data = getCraftingData(inventory);
-        return data != null && data.getLeft() != null && data.getRight().getLeft() != -1;
+        Pair<ItemStack, Pair<Integer, Integer>> data = getCraftingData(inventory);
+        return data != null && !data.getLeft().getOrCreateNbt().contains(Component.Type.REVELATION.nbtKey) && data.getRight().getLeft() != -1;
     }
 
     @Override
     public ItemStack craft(CraftingInventory inventory) {
-        Pair<Item, Pair<Integer, Integer>> data = getCraftingData(inventory);
-        ItemStack stack = new ItemStack(data.getLeft());
+        Pair<ItemStack, Pair<Integer, Integer>> data = getCraftingData(inventory);
+        ItemStack stack = data.getLeft().copy();
         Component.Type.REVELATION.addNbt(stack, data.getRight().getLeft());
         Component.Type.REVELATION.applyModifier(stack, data.getRight().getLeft());
         if (data.getRight().getRight() != -1) {
