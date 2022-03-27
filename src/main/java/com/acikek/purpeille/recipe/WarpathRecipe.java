@@ -59,11 +59,7 @@ public class WarpathRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingInventory inventory) {
         Pair<ItemStack, Pair<Integer, Integer>> data = getCraftingData(inventory);
         ItemStack stack = data.getLeft().copy();
-        Component.Type.REVELATION.addNbt(stack, data.getRight().getLeft());
-        Component.Type.REVELATION.applyModifier(stack, data.getRight().getLeft());
-        if (data.getRight().getRight() != -1) {
-            Component.Type.ASPECT.addNbt(stack, 8 - data.getRight().getRight());
-        }
+        Component.apply(stack, data.getRight().getLeft(), data.getRight().getRight());
         return stack;
     }
 

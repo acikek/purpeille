@@ -5,7 +5,9 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolItem;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -16,42 +18,66 @@ import java.util.UUID;
 public enum Component {
 
     // Aspects
-    VIRTUOUS("virtuous", Type.ASPECT, Tone.STRENGTH, 0, null, 0.0),
-    EXCESS("excess", Type.ASPECT, Tone.STRENGTH, 1, null, 0.0),
-    HEROIC("heroic", Type.ASPECT, Tone.STRENGTH, 2, null, 0.0),
-    TERRAN("terran", Type.ASPECT, Tone.TENSION, 0, null, 0.0),
-    SHOCKING("shocking", Type.ASPECT, Tone.TENSION, 1, null, 0.0),
-    DEATHLY("deathly", Type.ASPECT, Tone.TENSION, 2, null, 0.0),
-    LIMITLESS("limitless", Type.ASPECT, Tone.RELEASE, 0, null, 0.0),
-    TRANQUIL("tranquil", Type.ASPECT, Tone.RELEASE, 1, null, 0.0),
-    UNRIVALED("unrivaled", Type.ASPECT, Tone.RELEASE, 2, null, 0.0),
+    VIRTUOUS("virtuous", Type.ASPECT, Tone.STRENGTH, 0, null, 1.0),
+    EXCESS("excess", Type.ASPECT, Tone.STRENGTH, 1, null, 1.0),
+    HEROIC("heroic", Type.ASPECT, Tone.STRENGTH, 2, null, 1.0),
+    TERRAN("terran", Type.ASPECT, Tone.TENSION, 0, null, 1.0),
+    SHOCKING("shocking", Type.ASPECT, Tone.TENSION, 1, null, 1.0),
+    DEATHLY("deathly", Type.ASPECT, Tone.TENSION, 2, null, 1.0),
+    LIMITLESS("limitless", Type.ASPECT, Tone.RELEASE, 0, null, 1.3),
+    TRANQUIL("tranquil", Type.ASPECT, Tone.RELEASE, 1, null, 1.0),
+    UNRIVALED("unrivaled", Type.ASPECT, Tone.RELEASE, 2, null, 1.0),
 
     // Revelations
-    SPIRIT("spirit", Type.REVELATION, Tone.STRENGTH, 0, null, 0.0),
-    VIGOR("vigor", Type.REVELATION, Tone.STRENGTH, 1, null, 0.0),
-    TOTALITY("totality", Type.REVELATION, Tone.STRENGTH, 2, null, 0.0),
-    AVARICE("avarice", Type.REVELATION, Tone.TENSION, 0, null, 0.0),
+    SPIRIT("spirit", Type.REVELATION, Tone.STRENGTH, 0, EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.0),
+    VIGOR("vigor", Type.REVELATION, Tone.STRENGTH, 1, EntityAttributes.GENERIC_ATTACK_SPEED, 1.0),
+    TOTALITY("totality", Type.REVELATION, Tone.STRENGTH, 2, EntityAttributes.GENERIC_MAX_HEALTH, 1.0),
+    AVARICE("avarice", Type.REVELATION, Tone.TENSION, 0, EntityAttributes.GENERIC_LUCK, 0.0),
+    // TODO poison themed stuff
     MALAISE("malaise", Type.REVELATION, Tone.TENSION, 1, null, 0.0),
-    TERROR("terror", Type.REVELATION, Tone.TENSION, 2, null, 0.0),
+    TERROR("terror", Type.REVELATION, Tone.TENSION, 2, EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0),
     BOUND("bound", Type.REVELATION, Tone.RELEASE, 0, ModAttributes.GENERIC_JUMP_BOOST, 0.25),
     PACE("pace", Type.REVELATION, Tone.RELEASE, 1, EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25),
+    // TODO basically water movement speed
     IMMERSION("immersion", Type.REVELATION, Tone.RELEASE, 2, null, 0.0);
 
+    public String name;
     public Type type;
     public Tone tone;
     public int index;
     public EntityAttribute attribute;
-    public double baseModifier;
-    public MutableText text;
+    public double modifier;
 
-    Component(String name, Type type, Tone tone, int index, EntityAttribute attribute, double baseModifier) {
+    Component(String name, Type type, Tone tone, int index, EntityAttribute attribute, double modifier) {
+        this.name = name;
         this.type = type;
         this.tone = tone;
         this.index = index;
         this.attribute = attribute;
-        this.baseModifier = baseModifier;
-        text = tone.getText(type.translationKey, name, index);
+        this.modifier = modifier;
     }
+
+    public MutableText getText() {
+        return new TranslatableText(type.translationKey + ".purpeille." + name).formatted(tone.formatting[index]);
+    }
+
+    public Text getRite() {
+        return new TranslatableText("rite.purpeille." + name).formatted(Formatting.GRAY);
+    }
+
+    public double getModifier(Component aspect) {
+        if (tone.getOpposition() == aspect.tone) {
+            return -modifier;
+        }
+        double value = modifier * aspect.modifier;
+        return tone == aspect.tone ? value * 1.5 : value;
+    }
+
+    public boolean getSynergized(Component aspect) {
+        return tone == aspect.tone && index == aspect.index;
+    }
+
+    public static UUID WARPATH_ID = UUID.fromString("2c67c058-5d5e-4b39-98e3-b3eb9965f7eb");
 
     public static Component[] ASPECTS = {
             VIRTUOUS, EXCESS, HEROIC, TERRAN, SHOCKING, DEATHLY, LIMITLESS, TRANQUIL, UNRIVALED
@@ -61,15 +87,45 @@ public enum Component {
             SPIRIT, VIGOR, TOTALITY, AVARICE, MALAISE, TERROR, BOUND, PACE, IMMERSION
     };
 
-    public static Text getMessage(Component revelation, Component aspect) {
+    public static Text getWarpath(Component revelation, Component aspect) {
         if (aspect == null) {
-            return revelation.text;
+            return revelation.getText();
         }
         else {
             Text separator = new TranslatableText("separator.purpeille.warpath").formatted(Formatting.GRAY);
-            MutableText aspectText = aspect.text.copy().formatted(aspect.tone.formatting[aspect.index]);
-            return aspectText.append(separator).append(revelation.text);
+            MutableText aspectText = aspect.getText().formatted(aspect.tone.formatting[aspect.index]);
+            return aspectText.append(separator).append(revelation.getText());
         }
+    }
+
+    public static EquipmentSlot getSlot(ItemStack stack) {
+        if (stack.getItem() instanceof ToolItem) {
+            return EquipmentSlot.MAINHAND;
+        }
+        if (stack.getItem() instanceof ArmorItem armorItem) {
+            return armorItem.getSlotType();
+        }
+        return null;
+    }
+
+    public static void addModifiers(ItemStack stack, int revelationIndex, int aspectIndex) {
+        Component revelation = Type.REVELATION.getComponents()[revelationIndex];
+        double modifier = aspectIndex != -1 ? revelation.getModifier(Type.ASPECT.getComponents()[8 - aspectIndex]) : revelation.modifier;
+        EntityAttributeModifier attributeModifier = new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", modifier, EntityAttributeModifier.Operation.ADDITION);
+        if (revelation.attribute != null) {
+            EquipmentSlot slot = getSlot(stack);
+            if (slot != null) {
+                stack.addAttributeModifier(revelation.attribute, attributeModifier, slot);
+            }
+        }
+    }
+
+    public static void apply(ItemStack stack, int revelationIndex, int aspectIndex) {
+        Type.REVELATION.addNbt(stack, revelationIndex);
+        if (aspectIndex != -1) {
+            Type.ASPECT.addNbt(stack, 8 - aspectIndex);
+        }
+        addModifiers(stack, revelationIndex, aspectIndex);
     }
 
     public enum Type {
@@ -100,22 +156,6 @@ public enum Component {
 
         public void addNbt(ItemStack stack, int index) {
             stack.getOrCreateNbt().putInt(nbtKey, index);
-        }
-
-        public void applyModifier(ItemStack stack, int index) {
-            Component component = getComponents()[index];
-            if (component.attribute != null) {
-                stack.addAttributeModifier(
-                        component.attribute,
-                        new EntityAttributeModifier(
-                                UUID.fromString("2c67c058-5d5e-4b39-98e3-b3eb9965f7eb"),
-                                "Weapon modifier",
-                                component.baseModifier,
-                                EntityAttributeModifier.Operation.ADDITION
-                        ),
-                        EquipmentSlot.MAINHAND
-                );
-            }
         }
     }
 }

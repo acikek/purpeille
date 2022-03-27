@@ -22,7 +22,10 @@ public class ItemMixin {
         Component revelation = Component.Type.REVELATION.getFromNbt(stack);
         if (revelation != null) {
             Component aspect = Component.Type.ASPECT.getFromNbt(stack);
-            tooltip.add(Component.getMessage(revelation, aspect));
+            tooltip.add(Component.getWarpath(revelation, aspect));
+            if (aspect != null && revelation.getSynergized(aspect)) {
+                tooltip.add(revelation.getRite());
+            }
         }
     }
 }

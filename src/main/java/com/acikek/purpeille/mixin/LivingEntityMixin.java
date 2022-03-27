@@ -27,7 +27,7 @@ public abstract class LivingEntityMixin {
     private void jumpBoost(CallbackInfoReturnable<Float> cir) {
         EntityAttributeInstance instance = getAttributeInstance(ModAttributes.GENERIC_JUMP_BOOST);
         if (instance != null) {
-            cir.setReturnValue(cir.getReturnValue() * (float) (instance.getValue() + 1.0));
+            cir.setReturnValue(cir.getReturnValue() * (float) (instance.getValue()));
         }
     }
 }

@@ -19,4 +19,12 @@ public enum Tone {
     public MutableText getText(String key, String name, int index) {
         return new TranslatableText(key + ".purpeille." + name).formatted(formatting[index]);
     }
+
+    public Tone getOpposition() {
+        return switch (this) {
+            case STRENGTH -> TENSION;
+            case TENSION -> RELEASE;
+            case RELEASE -> STRENGTH;
+        };
+    }
 }
