@@ -33,7 +33,7 @@ public enum Component {
     AVARICE("avarice", Type.REVELATION, Tone.TENSION, 0, null, 0.0),
     MALAISE("malaise", Type.REVELATION, Tone.TENSION, 1, null, 0.0),
     TERROR("terror", Type.REVELATION, Tone.TENSION, 2, null, 0.0),
-    BOUND("bound", Type.REVELATION, Tone.RELEASE, 0, ModAttributes.GENERIC_JUMP_BOOST, 0.5),
+    BOUND("bound", Type.REVELATION, Tone.RELEASE, 0, ModAttributes.GENERIC_JUMP_BOOST, 0.25),
     PACE("pace", Type.REVELATION, Tone.RELEASE, 1, EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25),
     IMMERSION("immersion", Type.REVELATION, Tone.RELEASE, 2, null, 0.0);
 
@@ -111,7 +111,7 @@ public enum Component {
                                 UUID.fromString("2c67c058-5d5e-4b39-98e3-b3eb9965f7eb"),
                                 "Weapon modifier",
                                 component.baseModifier,
-                                EntityAttributeModifier.Operation.MULTIPLY_TOTAL
+                                EntityAttributeModifier.Operation.ADDITION
                         ),
                         EquipmentSlot.MAINHAND
                 );

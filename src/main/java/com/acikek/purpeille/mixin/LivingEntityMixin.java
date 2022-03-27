@@ -23,14 +23,11 @@ public abstract class LivingEntityMixin {
         cir.getReturnValue().add(ModAttributes.GENERIC_JUMP_BOOST);
     }
 
-    @Inject(method = "getJumpBoostVelocityModifier", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void jumpBoost(CallbackInfoReturnable<Double> cir) {
+    @Inject(method = "getJumpVelocity", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    private void jumpBoost(CallbackInfoReturnable<Float> cir) {
         EntityAttributeInstance instance = getAttributeInstance(ModAttributes.GENERIC_JUMP_BOOST);
-        System.out.println(instance);
         if (instance != null) {
-            System.out.println(instance.toNbt().toString());
-            System.out.println(instance.getValue());
-            cir.setReturnValue(cir.getReturnValueD() * instance.getValue());
+            cir.setReturnValue(cir.getReturnValue() * (float) (instance.getValue() + 1.0));
         }
     }
 }
