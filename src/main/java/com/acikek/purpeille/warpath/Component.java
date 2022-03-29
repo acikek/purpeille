@@ -32,10 +32,10 @@ public enum Component {
     SPIRIT("spirit", Type.REVELATION, Tone.STRENGTH, 0, EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.0),
     VIGOR("vigor", Type.REVELATION, Tone.STRENGTH, 1, EntityAttributes.GENERIC_ATTACK_SPEED, 1.0),
     TOTALITY("totality", Type.REVELATION, Tone.STRENGTH, 2, EntityAttributes.GENERIC_MAX_HEALTH, 1.0),
-    AVARICE("avarice", Type.REVELATION, Tone.TENSION, 0, EntityAttributes.GENERIC_LUCK, 0.0),
+    AVARICE("avarice", Type.REVELATION, Tone.TENSION, 0, EntityAttributes.GENERIC_LUCK, 2.0),
     // TODO poison themed stuff
     MALAISE("malaise", Type.REVELATION, Tone.TENSION, 1, null, 0.0),
-    TERROR("terror", Type.REVELATION, Tone.TENSION, 2, EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0),
+    TERROR("terror", Type.REVELATION, Tone.TENSION, 2, EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0),
     BOUND("bound", Type.REVELATION, Tone.RELEASE, 0, ModAttributes.GENERIC_JUMP_BOOST, 0.25),
     PACE("pace", Type.REVELATION, Tone.RELEASE, 1, EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25),
     // TODO basically water movement speed
