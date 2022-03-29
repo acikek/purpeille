@@ -26,7 +26,7 @@ public enum Component {
     DEATHLY("deathly", Type.ASPECT, Tone.TENSION, 2, null, 1.0),
     LIMITLESS("limitless", Type.ASPECT, Tone.RELEASE, 0, null, 1.3),
     TRANQUIL("tranquil", Type.ASPECT, Tone.RELEASE, 1, null, 1.0),
-    UNRIVALED("unrivaled", Type.ASPECT, Tone.RELEASE, 2, null, 1.0),
+    UNRIVALED("unrivaled", Type.ASPECT, Tone.RELEASE, 2, null, 1.4),
 
     // Revelations
     SPIRIT("spirit", Type.REVELATION, Tone.STRENGTH, 0, EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.0),
@@ -38,8 +38,7 @@ public enum Component {
     TERROR("terror", Type.REVELATION, Tone.TENSION, 2, EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0),
     BOUND("bound", Type.REVELATION, Tone.RELEASE, 0, ModAttributes.GENERIC_JUMP_BOOST, 0.25),
     PACE("pace", Type.REVELATION, Tone.RELEASE, 1, EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25),
-    // TODO basically water movement speed
-    IMMERSION("immersion", Type.REVELATION, Tone.RELEASE, 2, null, 0.0);
+    IMMERSION("immersion", Type.REVELATION, Tone.RELEASE, 2, ModAttributes.GENERIC_WATER_SPEED, 1.3);
 
     public String name;
     public Type type;

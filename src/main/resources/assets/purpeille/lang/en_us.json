@@ -35,6 +35,15 @@
   "revelation.purpeille.pace": "Pace",
   "revelation.purpeille.immersion": "Immersion",
   "separator.purpeille.warpath": " ",
-  "rite.purpeille.spirit": "Form of the swing comes from within.",
-  "attribute.name.generic_jump_boost": "Jump Boost"
+  "rite.purpeille.spirit": "A swing's form comes from within.",
+  "rite.purpeille.vigor": "One must learn to control surplus.",
+  "rite.purpeille.totality": "Valiance carries hidden benefits.",
+  "rite.purpeille.avarice": "Draw from the earth what you deserve.",
+  "rite.purpeille.malaise": "A quick poison denies reflection.",
+  "rite.purpeille.terror": "This world is driven by fear.",
+  "rite.purpeille.bound": "Rise to the gods.",
+  "rite.purpeille.pace": "A purposeful walk brings solace.",
+  "rite.purpeille.immersion": "Become deft yet determined.",
+  "attribute.name.generic_jump_boost": "Jump Boost",
+  "attribute.name.generic_water_speed": "Water Speed"
 }

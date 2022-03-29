@@ -10,11 +10,15 @@ import java.util.Map;
 
 public class ModAttributes {
 
+    public static final EntityAttribute GENERIC_POISON_RESISTANCE = new ClampedEntityAttribute("attribute.name.generic_poison_resistance", 1.0, 0.0, 10.0).setTracked(true);
+    public static final EntityAttribute GENERIC_WATER_SPEED = new ClampedEntityAttribute("attribute.name.generic_water_speed", 1.0, 0.0, 2.0).setTracked(true);
     public static final EntityAttribute GENERIC_JUMP_BOOST = new ClampedEntityAttribute("attribute.name.generic_jump_boost", 1.0, 0.0, 2.0).setTracked(true);
 
     public static Map<String, EntityAttribute> ATTRIBUTES = new LinkedHashMap<>();
 
     static {
+        ATTRIBUTES.put("generic.poison_resistance", GENERIC_POISON_RESISTANCE);
+        ATTRIBUTES.put("generic.water_speed", GENERIC_WATER_SPEED);
         ATTRIBUTES.put("generic.jump_boost", GENERIC_JUMP_BOOST);
     }
 
