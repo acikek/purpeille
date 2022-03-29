@@ -22,7 +22,7 @@ public enum Component {
     EXCESS("excess", Type.ASPECT, Tone.STRENGTH, 1, null, 1.0),
     HEROIC("heroic", Type.ASPECT, Tone.STRENGTH, 2, null, 1.0),
     TERRAN("terran", Type.ASPECT, Tone.TENSION, 0, null, 1.0),
-    SHOCKING("shocking", Type.ASPECT, Tone.TENSION, 1, null, 1.0),
+    SHOCKING("shocking", Type.ASPECT, Tone.TENSION, 1, null, 2.0),
     DEATHLY("deathly", Type.ASPECT, Tone.TENSION, 2, null, 1.0),
     LIMITLESS("limitless", Type.ASPECT, Tone.RELEASE, 0, null, 1.3),
     TRANQUIL("tranquil", Type.ASPECT, Tone.RELEASE, 1, null, 1.0),
@@ -33,8 +33,7 @@ public enum Component {
     VIGOR("vigor", Type.REVELATION, Tone.STRENGTH, 1, EntityAttributes.GENERIC_ATTACK_SPEED, 1.0),
     TOTALITY("totality", Type.REVELATION, Tone.STRENGTH, 2, EntityAttributes.GENERIC_MAX_HEALTH, 1.0),
     AVARICE("avarice", Type.REVELATION, Tone.TENSION, 0, EntityAttributes.GENERIC_LUCK, 2.0),
-    // TODO poison themed stuff
-    MALAISE("malaise", Type.REVELATION, Tone.TENSION, 1, null, 0.0),
+    MALAISE("malaise", Type.REVELATION, Tone.TENSION, 1, ModAttributes.GENERIC_POISON_RESISTANCE, 4.0),
     TERROR("terror", Type.REVELATION, Tone.TENSION, 2, EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0),
     BOUND("bound", Type.REVELATION, Tone.RELEASE, 0, ModAttributes.GENERIC_JUMP_BOOST, 0.25),
     PACE("pace", Type.REVELATION, Tone.RELEASE, 1, EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25),
