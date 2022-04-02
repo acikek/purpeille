@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -16,7 +17,7 @@ import java.util.Map;
 public class ModBlocks {
 
     public static Block PURPUR_REMNANTS = new Block(PurpurRemnants.SETTINGS);
-    public static Block MONOLITHIC_PURPUR = new Block(FabricBlockSettings.of(Material.STONE).strength(5.0f).requiresTool());
+    public static Block MONOLITHIC_PURPUR = new Block(FabricBlockSettings.of(Material.STONE).strength(5.0f).sounds(BlockSoundGroup.BONE).requiresTool());
 
     public static Map<String, Block> BLOCKS = new LinkedHashMap<>();
 
