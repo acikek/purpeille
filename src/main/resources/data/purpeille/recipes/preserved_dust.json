@@ -1,0 +1,9 @@
+{
+  "type": "voidcrafting:void_crafting",
+  "input": {
+    "item": "purpeille:impure_preserved_dust"
+  },
+  "result": {
+    "item": "purpeille:preserved_dust"
+  }
+}
