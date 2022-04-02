@@ -46,5 +46,17 @@
   "rite.purpeille.immersion": "Become deft yet determined.",
   "attribute.name.generic_poison_resistance": "Poison Resistance",
   "attribute.name.generic_jump_boost": "Jump Boost",
-  "attribute.name.generic_water_speed": "Water Speed"
+  "attribute.name.generic_water_speed": "Water Speed",
+  "advancements.purpeille.root.title": "Purpeille",
+  "advancements.purpeille.root.description": "A journey of allegiance",
+  "advancements.purpeille.impure_preserved_dust.title": "In Times of Old",
+  "advancements.purpeille.impure_preserved_dust.description": "Mine the underground remnants of an End City",
+  "advancements.purpeille.preserved_dust.title": "Gone and Forgotten",
+  "advancements.purpeille.preserved_dust.description": "Lose some Impure Preserved Dust to the void",
+  "advancements.purpeille.purpeille_ingot.title": "When Forged in Fire",
+  "advancements.purpeille.purpeille_ingot.description": "Obtain a Purpeille Ingot",
+  "advancements.purpeille.smoldered_purpeille_ingot.title": "It Comes With Patience",
+  "advancements.purpeille.smoldered_purpeille_ingot.description": "Leave a Purpeille Ingot by the fire",
+  "advancements.purpeille.warpath.title": "Hence My Chant",
+  "advancements.purpeille.warpath.description": "Engrave a warpath on a Purpeille item"
 }

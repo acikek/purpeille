@@ -1,0 +1,37 @@
+{
+  "parent": "purpeille:purpeille/purpeille_ingot",
+  "display": {
+    "icon": {
+      "item": "purpeille:smoldered_purpeille_ingot"
+    },
+    "title": {
+      "translate": "advancements.purpeille.smoldered_purpeille_ingot.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.smoldered_purpeille_ingot.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:smoldered_purpeille_ingot"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_ingot"
+    ]
+  ]
+}

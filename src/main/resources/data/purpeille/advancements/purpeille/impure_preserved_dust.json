@@ -1,0 +1,37 @@
+{
+  "parent": "purpeille:purpeille/root",
+  "display": {
+    "icon": {
+      "item": "purpeille:impure_preserved_dust"
+    },
+    "title": {
+      "translate": "advancements.purpeille.impure_preserved_dust.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.impure_preserved_dust.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:impure_preserved_dust"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_dust"
+    ]
+  ]
+}

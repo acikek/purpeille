@@ -1,0 +1,31 @@
+{
+  "parent": "purpeille:purpeille/impure_preserved_dust",
+  "display": {
+    "icon": {
+      "item": "purpeille:preserved_dust"
+    },
+    "title": {
+      "translate": "advancements.purpeille.preserved_dust.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.preserved_dust.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_dust": {
+      "trigger": "voidcrafting:void_craft_success",
+      "conditions": {
+        "recipe": "purpeille:preserved_dust"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_dust"
+    ]
+  ]
+}
