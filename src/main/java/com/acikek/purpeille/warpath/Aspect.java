@@ -11,7 +11,7 @@ public enum Aspect {
     SHOCKING("shocking", Tone.TENSION, 1, 1.5),
     DEATHLY("deathly", Tone.TENSION, 2, 1.2),
     LIMITLESS("limitless", Tone.RELEASE, 0, 1.3),
-    TRANQUIL("tranquil", Tone.RELEASE, 1, 1.1),
+    TRANQUIL("tranquil", Tone.RELEASE, 1, 1.2),
     UNRIVALED("unrivaled", Tone.RELEASE, 2, 1.4);
 
     public String name;

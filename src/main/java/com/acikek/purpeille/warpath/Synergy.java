@@ -14,6 +14,9 @@ public enum Synergy {
     }
 
     public static Synergy getSynergy(Revelation revelation, Aspect aspect) {
+        if (aspect == null) {
+            return null;
+        }
         if (revelation.tone.getOpposition() == aspect.tone) {
             return OPPOSITION;
         }

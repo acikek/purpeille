@@ -41,7 +41,7 @@ public class Warpath {
 
     public static void addModifiers(ItemStack stack, int revelationIndex, int aspectIndex) {
         Revelation revelation = Revelation.values()[revelationIndex];
-        double modifier = aspectIndex != -1 ? revelation.getModifier(Aspect.values()[8 - aspectIndex]) : revelation.modifier;
+        double modifier = revelation.getModifier(stack, aspectIndex != -1 ? Aspect.values()[8 - aspectIndex] : null);
         EntityAttributeModifier attributeModifier = new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", modifier, EntityAttributeModifier.Operation.ADDITION);
         if (revelation.attribute != null) {
             EquipmentSlot slot = getSlot(stack);
