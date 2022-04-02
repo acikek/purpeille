@@ -2,7 +2,7 @@
   "parent": "purpeille:purpeille/smoldered_purpeille_ingot",
   "display": {
     "icon": {
-      "item": "purpeille:purpeille_sword"
+      "item": "purpeille:purpeille_axe"
     },
     "title": {
       "translate": "advancements.purpeille.warpath.title"

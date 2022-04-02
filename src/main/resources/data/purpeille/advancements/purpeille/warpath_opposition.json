@@ -1,0 +1,34 @@
+{
+  "parent": "purpeille:purpeille/warpath",
+  "display": {
+    "icon": {
+      "item": "purpeille:purpeille_helmet"
+    },
+    "title": {
+      "translate": "advancements.purpeille.warpath_opposition.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.warpath_opposition.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "create_warpath": {
+      "trigger": "purpeille:warpath_created",
+      "conditions": {
+        "item": {
+          "item": "purpeille:purpeille_helmet"
+        },
+        "synergy": "opposition"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "create_warpath"
+    ]
+  ]
+}

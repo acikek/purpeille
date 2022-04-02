@@ -1,0 +1,37 @@
+{
+  "parent": "purpeille:purpeille/impure_preserved_dust",
+  "display": {
+    "icon": {
+      "item": "purpeille:monolithic_purpur"
+    },
+    "title": {
+      "translate": "advancements.purpeille.monolithic_purpur.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.monolithic_purpur.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_monolithic_purpur": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:monolithic_purpur"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_monolithic_purpur"
+    ]
+  ]
+}

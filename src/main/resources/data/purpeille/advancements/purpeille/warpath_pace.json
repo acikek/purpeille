@@ -1,0 +1,36 @@
+{
+  "parent": "purpeille:purpeille/warpath",
+  "display": {
+    "icon": {
+      "item": "purpeille:purpeille_boots"
+    },
+    "title": {
+      "translate": "advancements.purpeille.warpath_pace.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.warpath_pace.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "create_warpath": {
+      "trigger": "purpeille:warpath_created",
+      "conditions": {
+        "item": {
+          "item": "purpeille:purpeille_boots"
+        },
+        "revelation": "pace",
+        "aspect": "tranquil",
+        "synergy": "identical"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "create_warpath"
+    ]
+  ]
+}
