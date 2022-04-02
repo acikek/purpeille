@@ -1,6 +1,6 @@
 package com.acikek.purpeille.mixin;
 
-import com.acikek.purpeille.warpath.Component;
+import com.acikek.purpeille.warpath.*;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,11 +19,11 @@ public class ItemMixin {
 
     @Inject(method = "appendTooltip", at = @At(value = "TAIL"))
     private void appendWarpath(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
-        Component revelation = Component.Type.REVELATION.getFromNbt(stack);
+        Revelation revelation = Revelation.getFromNbt(stack);
         if (revelation != null) {
-            Component aspect = Component.Type.ASPECT.getFromNbt(stack);
-            tooltip.add(Component.getWarpath(revelation, aspect));
-            if (aspect != null && revelation.getSynergized(aspect)) {
+            Aspect aspect = Aspect.getFromNbt(stack);
+            tooltip.add(Warpath.getWarpath(revelation, aspect));
+            if (aspect != null && Synergy.getSynergy(revelation, aspect) == Synergy.IDENTICAL) {
                 tooltip.add(revelation.getRite());
             }
         }

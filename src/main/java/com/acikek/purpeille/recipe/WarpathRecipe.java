@@ -2,7 +2,8 @@ package com.acikek.purpeille.recipe;
 
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.item.ModItems;
-import com.acikek.purpeille.warpath.Component;
+import com.acikek.purpeille.warpath.Warpath;
+import com.acikek.purpeille.warpath.Type;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -52,14 +53,14 @@ public class WarpathRecipe extends SpecialCraftingRecipe {
     @Override
     public boolean matches(CraftingInventory inventory, World world) {
         Pair<ItemStack, Pair<Integer, Integer>> data = getCraftingData(inventory);
-        return data != null && !data.getLeft().getOrCreateNbt().contains(Component.Type.REVELATION.nbtKey) && data.getRight().getLeft() != -1;
+        return data != null && !data.getLeft().getOrCreateNbt().contains(Type.REVELATION.nbtKey) && data.getRight().getLeft() != -1;
     }
 
     @Override
     public ItemStack craft(CraftingInventory inventory) {
         Pair<ItemStack, Pair<Integer, Integer>> data = getCraftingData(inventory);
         ItemStack stack = data.getLeft().copy();
-        Component.apply(stack, data.getRight().getLeft(), data.getRight().getRight());
+        Warpath.apply(stack, data.getRight().getLeft(), data.getRight().getRight());
         return stack;
     }
 
