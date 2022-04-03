@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "purpeille:purpeille_ingot"
+    ]
+  },
+  "criteria": {
+    "has_preserved_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:preserved_dust"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "purpeille:purpeille_ingot"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_preserved_dust",
+      "has_the_recipe"
+    ]
+  ]
+}
