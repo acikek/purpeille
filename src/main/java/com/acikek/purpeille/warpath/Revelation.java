@@ -18,7 +18,7 @@ public enum Revelation {
     MALAISE("malaise", Tone.TENSION, 1, ModAttributes.GENERIC_POISON_RESISTANCE, ModItems.PURPEILLE_HOE, 4.0),
     TERROR("terror", Tone.TENSION, 2, EntityAttributes.GENERIC_ATTACK_DAMAGE, ModItems.PURPEILLE_SWORD, 2.0),
     BOUND("bound", Tone.RELEASE, 0, ModAttributes.GENERIC_JUMP_BOOST, ModItems.PURPEILLE_SHOVEL, 0.25),
-    PACE("pace", Tone.RELEASE, 1, EntityAttributes.GENERIC_MOVEMENT_SPEED, ModItems.PURPEILLE_BOOTS, 0.10),
+    PACE("pace", Tone.RELEASE, 1, EntityAttributes.GENERIC_MOVEMENT_SPEED, ModItems.PURPEILLE_BOOTS, 0.05),
     IMMERSION("immersion", Tone.RELEASE, 2, ModAttributes.GENERIC_WATER_SPEED, ModItems.PURPEILLE_LEGGINGS, 0.4);
 
     public String name;
