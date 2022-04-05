@@ -26,7 +26,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modImplementation include("maven.modrinth:voidcrafting:${project.voidcrafting_version}")
-    modImplementation include("maven.modrinth:combinedmodifiers:${project.combinedmodifiers_version}")
+    modImplementation include("maven.modrinth:cmods:${project.cmods_version}")
 }
 
 processResources {
