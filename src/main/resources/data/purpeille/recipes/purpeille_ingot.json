@@ -1,9 +1,12 @@
 {
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "purpeille:preserved_dust"
-  },
-  "result": "purpeille:purpeille_ingot",
-  "cookingtime": 1200,
-  "experience": 30.0
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "purpeille:purpeille_block"
+    }
+  ],
+  "result": {
+    "item": "purpeille:purpeille_ingot",
+    "count": 9
+  }
 }

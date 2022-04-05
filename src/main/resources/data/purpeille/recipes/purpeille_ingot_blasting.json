@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "purpeille:preserved_dust"
+  },
+  "result": "purpeille:purpeille_ingot",
+  "cookingtime": 1200,
+  "experience": 30.0
+}

@@ -2,18 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:purpeille_ingot",
-      "purpeille:purpeille_block"
+      "purpeille:purpeille_ingot_blasting"
     ]
   },
   "criteria": {
-    "has_purpeille_ingot": {
+    "has_preserved_dust": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "purpeille:purpeille_ingot"
+              "purpeille:preserved_dust"
             ]
           }
         ]
@@ -22,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:purpeille_ingot"
+        "recipe": "purpeille:purpeille_ingot_blasting"
       }
     }
   },
   "requirements": [
     [
-      "has_purpeille_ingot",
+      "has_preserved_dust",
       "has_the_recipe"
     ]
   ]

@@ -18,12 +18,14 @@ public class ModBlocks {
 
     public static Block PURPUR_REMNANTS = new Block(PurpurRemnants.SETTINGS);
     public static Block MONOLITHIC_PURPUR = new Block(FabricBlockSettings.of(Material.STONE).strength(5.0f).sounds(BlockSoundGroup.BONE).requiresTool());
+    public static Block PURPEILLE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(8.0f).sounds(BlockSoundGroup.METAL).requiresTool());
 
     public static Map<String, Block> BLOCKS = new LinkedHashMap<>();
 
     static {
         BLOCKS.put("purpur_remnants", PURPUR_REMNANTS);
         BLOCKS.put("monolithic_purpur", MONOLITHIC_PURPUR);
+        BLOCKS.put("purpeille_block", PURPEILLE_BLOCK);
     }
 
     public static void register() {
