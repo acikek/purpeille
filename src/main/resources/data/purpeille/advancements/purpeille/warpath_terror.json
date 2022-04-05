@@ -20,7 +20,9 @@
       "trigger": "purpeille:warpath_created",
       "conditions": {
         "item": {
-          "item": "purpeille:purpeille_sword"
+          "items": [
+            "purpeille:purpeille_sword"
+          ]
         },
         "revelation": "terror"
       }
