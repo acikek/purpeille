@@ -16,7 +16,7 @@ public enum Type {
     }
 
     public boolean hasNbt(ItemStack stack) {
-        return stack.getOrCreateNbt().contains(nbtKey);
+        return stack.hasNbt() && stack.getOrCreateNbt().contains(nbtKey);
     }
 
     public <T extends Enum<T>> T getFromNbt(ItemStack stack, T[] values) {
