@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " C ",
-    "CDC",
-    " C "
+    "CC",
+    "CC"
   ],
   "key": {
     "C": {
       "item": "purpeille:remnant_chunk"
-    },
-    "D": {
-      "item": "purpeille:preserved_dust"
     }
   },
   "result": {
-    "item": "purpeille:monolithic_purpur",
+    "item": "purpeille:remnant_bricks",
     "count": 1
   }
 }

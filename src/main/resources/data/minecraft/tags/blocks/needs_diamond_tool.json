@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "purpeille:monolithic_purpur",
+    "purpeille:remnant_bricks",
     "purpeille:purpeille_block"
   ]
 }
