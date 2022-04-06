@@ -3,6 +3,7 @@ package com.acikek.purpeille;
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.block.ModBlocks;
+import com.acikek.purpeille.block.PurpurRemnants;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.recipe.WarpathRecipe;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;

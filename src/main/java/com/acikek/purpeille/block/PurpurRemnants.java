@@ -1,6 +1,6 @@
-package com.acikek.purpeille;
+package com.acikek.purpeille.block;
 
-import com.acikek.purpeille.block.ModBlocks;
+import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -31,8 +30,7 @@ public class PurpurRemnants {
 
     public static final AbstractBlock.Settings SETTINGS = FabricBlockSettings.of(Material.STONE)
             .requiresTool()
-            .strength(7.0f, 50.0f)
-            .sounds(BlockSoundGroup.DEEPSLATE_BRICKS);
+            .strength(7.0f, 50.0f);
 
     public static void build(int size, int count, int distance, String name) {
         ConfiguredFeature<?, ?> configuredFeature = new ConfiguredFeature<>(
