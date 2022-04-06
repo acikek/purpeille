@@ -7,14 +7,16 @@
   "authors": [
     "acikek"
   ],
-  "contact": {},
+  "contact": {
+    "sources": "https://github.com/acikek/purpeille",
+    "homepage": "https://github.com/acikek/purpeille#README",
+    "issues": "https://github.com/acikek/purpeille/issues",
+    "discord": "https://discord.gg/QYymKz84tR"
+  },
   "license": "MIT",
   "icon": "assets/purpeille/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "com.acikek.purpeille.client.PurpeilleClient"
-    ],
     "main": [
       "com.acikek.purpeille.Purpeille"
     ]
@@ -25,6 +27,7 @@
   "depends": {
     "fabricloader": ">=0.13.3",
     "fabric": "*",
-    "minecraft": "1.18.2"
+    "minecraft": "1.18.2",
+    "voidcrafting": ">=1.3.0"
   }
 }
