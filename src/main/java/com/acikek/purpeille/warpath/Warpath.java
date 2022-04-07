@@ -1,5 +1,6 @@
 package com.acikek.purpeille.warpath;
 
+import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ArmorItem;
@@ -16,15 +17,14 @@ public class Warpath {
 
     public static UUID WARPATH_ID = UUID.fromString("2c67c058-5d5e-4b39-98e3-b3eb9965f7eb");
 
-    public static Text getWarpath(Revelation revelation, Aspect aspect) {
-        MutableText revelationText = revelation.tone.getText(Type.REVELATION.translationKey, revelation.name, revelation.index);
+    public static Text getWarpath(Revelations revelation, Aspects aspect) {
+        MutableText revelationText = revelation.value.getText();
         if (aspect == null) {
             return revelationText;
         }
         else {
             Text separator = new TranslatableText("separator.purpeille.warpath").formatted(Formatting.GRAY);
-            MutableText aspectText = aspect.tone.getText(Type.ASPECT.translationKey, aspect.name, aspect.index)
-                    .formatted(aspect.tone.formatting[aspect.index]);
+            MutableText aspectText = aspect.value.getText();
             return aspectText.append(separator).append(revelationText);
         }
     }
@@ -40,8 +40,8 @@ public class Warpath {
     }
 
     public static void addModifiers(ItemStack stack, int revelationIndex, int aspectIndex) {
-        Revelation revelation = Revelation.values()[revelationIndex];
-        double modifier = revelation.getModifier(stack, aspectIndex != -1 ? Aspect.values()[8 - aspectIndex] : null);
+        Revelation revelation = Revelations.values()[revelationIndex].value;
+        double modifier = revelation.getModifier(stack, aspectIndex != -1 ? Aspects.values()[8 - aspectIndex].value : null);
         EntityAttributeModifier attributeModifier = new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", modifier, revelation.operation);
         if (revelation.attribute != null) {
             EquipmentSlot slot = getSlot(stack);

@@ -1,5 +1,8 @@
 package com.acikek.purpeille.warpath;
 
+import com.acikek.purpeille.warpath.component.Aspect;
+import com.acikek.purpeille.warpath.component.Revelation;
+
 public enum Synergy {
 
     OPPOSITION(-1.0),
@@ -13,10 +16,14 @@ public enum Synergy {
         this.modifier = modifier;
     }
 
-    public static Synergy getSynergy(Revelation revelation, Aspect aspect) {
+    public static Synergy getSynergy(Revelations revelation, Aspects aspect) {
         if (aspect == null) {
             return null;
         }
+        return getSynergy(revelation.value, aspect.value);
+    }
+
+    public static Synergy getSynergy(Revelation revelation, Aspect aspect) {
         if (revelation.tone.getOpposition() == aspect.tone) {
             return OPPOSITION;
         }

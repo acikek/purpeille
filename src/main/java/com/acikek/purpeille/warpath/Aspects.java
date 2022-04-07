@@ -1,8 +1,9 @@
 package com.acikek.purpeille.warpath;
 
+import com.acikek.purpeille.warpath.component.Aspect;
 import net.minecraft.item.ItemStack;
 
-public enum Aspect {
+public enum Aspects {
 
     VIRTUOUS("virtuous", Tone.STRENGTH, 0, 1.4),
     EXCESS("excess", Tone.STRENGTH, 1, 1.35),
@@ -14,19 +15,13 @@ public enum Aspect {
     TRANQUIL("tranquil", Tone.RELEASE, 1, 1.15),
     UNRIVALED("unrivaled", Tone.RELEASE, 2, 1.4);
 
-    public String name;
-    public Tone tone;
-    public int index;
-    public double modifier;
+    public Aspect value;
 
-    Aspect(String name, Tone tone, int index, double modifier) {
-        this.name = name;
-        this.tone = tone;
-        this.index = index;
-        this.modifier = modifier;
+    Aspects(String name, Tone tone, int index, double modifier) {
+        value = new Aspect(name, tone, index, modifier);
     }
 
-    public static Aspect getFromNbt(ItemStack stack) {
+    public static Aspects getFromNbt(ItemStack stack) {
         return Type.ASPECT.getFromNbt(stack, values());
     }
 }

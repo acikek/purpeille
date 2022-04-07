@@ -2,15 +2,13 @@ package com.acikek.purpeille.warpath;
 
 import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.item.ModItems;
+import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.*;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
-public enum Revelation {
+public enum Revelations {
 
     SPIRIT("spirit", Tone.STRENGTH, 0, EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2, true, ModItems.PURPEILLE_HELMET),
     VIGOR("vigor", Tone.STRENGTH, 1, EntityAttributes.GENERIC_ATTACK_SPEED, 0.15, true, ModItems.PURPEILLE_AXE),
@@ -22,37 +20,13 @@ public enum Revelation {
     PACE("pace", Tone.RELEASE, 1, EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20, true, ModItems.PURPEILLE_BOOTS),
     IMMERSION("immersion", Tone.RELEASE, 2, ModAttributes.GENERIC_WATER_SPEED, 0.4, true, ModItems.PURPEILLE_LEGGINGS);
 
-    public String name;
-    public Tone tone;
-    public int index;
-    public EntityAttribute attribute;
-    public Item item;
-    public double modifier;
-    public EntityAttributeModifier.Operation operation;
+    public Revelation value;
 
-    Revelation(String name, Tone tone, int index, EntityAttribute attribute, double modifier, boolean multiply, Item item) {
-        this.name = name;
-        this.tone = tone;
-        this.index = index;
-        this.attribute = attribute;
-        this.modifier = modifier;
-        operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
-        this.item = item;
+    Revelations(String name, Tone tone, int index, EntityAttribute attribute, double modifier, boolean multiply, Item item) {
+        value = new Revelation(name, tone, index, modifier, attribute, item, multiply);
     }
 
-    public Text getRite() {
-        return new TranslatableText("rite.purpeille." + name).formatted(Formatting.GRAY);
-    }
-
-    public double getModifier(ItemStack stack, Aspect aspect) {
-        double value = stack.isOf(item) ? modifier * 1.2 : modifier;
-        if (aspect == null) {
-            return value;
-        }
-        return value * aspect.modifier * Synergy.getSynergy(this, aspect).modifier;
-    }
-
-    public static Revelation getFromNbt(ItemStack stack) {
+    public static Revelations getFromNbt(ItemStack stack) {
         return Type.REVELATION.getFromNbt(stack, values());
     }
 }

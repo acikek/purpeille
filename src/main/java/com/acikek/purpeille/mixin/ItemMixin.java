@@ -23,11 +23,11 @@ public class ItemMixin {
     @Inject(method = "appendTooltip", at = @At(value = "TAIL"))
     private void appendWarpath(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
         if (Type.REVELATION.hasNbt(stack)) {
-            Revelation revelation = Revelation.getFromNbt(stack);
-            Aspect aspect = Aspect.getFromNbt(stack);
+            Revelations revelation = Revelations.getFromNbt(stack);
+            Aspects aspect = Aspects.getFromNbt(stack);
             tooltip.add(Warpath.getWarpath(revelation, aspect));
-            if (aspect != null && Synergy.getSynergy(revelation, aspect) == Synergy.IDENTICAL) {
-                tooltip.add(revelation.getRite());
+            if (aspect != null && Synergy.getSynergy(revelation.value, aspect.value) == Synergy.IDENTICAL) {
+                tooltip.add(revelation.value.getRite());
             }
         }
     }
@@ -35,8 +35,8 @@ public class ItemMixin {
     @Inject(method = "onCraft", at = @At(value = "TAIL"))
     private void triggerCriterion(ItemStack stack, World world, PlayerEntity player, CallbackInfo ci) {
         if (!world.isClient() && Type.REVELATION.hasNbt(stack)) {
-            Revelation revelation = Revelation.getFromNbt(stack);
-            Aspect aspect = Aspect.getFromNbt(stack);
+            Revelations revelation = Revelations.getFromNbt(stack);
+            Aspects aspect = Aspects.getFromNbt(stack);
             ModCriteria.WARPATH_CREATED.trigger((ServerPlayerEntity) player, stack, revelation, aspect, Synergy.getSynergy(revelation, aspect));
         }
     }
