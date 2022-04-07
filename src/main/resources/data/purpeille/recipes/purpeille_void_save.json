@@ -1,0 +1,8 @@
+{
+  "type": "voidcrafting:void_crafting",
+  "input": {
+    "tag": "purpeille:warpath_base"
+  },
+  "radius": 10,
+  "replicate": true
+}
