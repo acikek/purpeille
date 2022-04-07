@@ -1,7 +1,6 @@
 # Purpeille <img src="https://user-images.githubusercontent.com/26909391/162001387-3210d6ed-650d-4812-a051-f191b42b03d1.png" width="30">
 
-
-An endgame resource expansion
+A journey of allegiance; endgame resource expansion
 
 ## About
 
