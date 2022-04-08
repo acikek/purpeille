@@ -5,7 +5,8 @@ import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.PurpurRemnants;
 import com.acikek.purpeille.item.ModItems;
-import com.acikek.purpeille.recipe.WarpathRecipe;
+import com.acikek.purpeille.recipe.WarpathCreateRecipe;
+import com.acikek.purpeille.recipe.WarpathRemoveRecipe;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -36,7 +37,8 @@ public class Purpeille implements ModInitializer {
         ModItems.register();
         ModAttributes.register();
         ModCriteria.register();
-        WarpathRecipe.register();
+        WarpathCreateRecipe.register();
+        WarpathRemoveRecipe.register();
         EndCityProximityPlacementModifier.register();
         PurpurRemnants.build();
     }

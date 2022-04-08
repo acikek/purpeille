@@ -11,11 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
-import java.util.UUID;
-
 public class Warpath {
-
-    public static UUID WARPATH_ID = UUID.fromString("2c67c058-5d5e-4b39-98e3-b3eb9965f7eb");
 
     public static Text getWarpath(Revelations revelation, Aspects aspect) {
         MutableText revelationText = revelation.value.getText();
@@ -41,12 +37,11 @@ public class Warpath {
 
     public static void addModifiers(ItemStack stack, int revelationIndex, int aspectIndex) {
         Revelation revelation = Revelations.values()[revelationIndex].value;
-        double modifier = revelation.getModifier(stack, aspectIndex != -1 ? Aspects.values()[8 - aspectIndex].value : null);
-        EntityAttributeModifier attributeModifier = new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", modifier, revelation.operation);
         if (revelation.attribute != null) {
+            EntityAttributeModifier modifier = revelation.getModifier(stack, aspectIndex != -1 ? Aspects.values()[8 - aspectIndex].value : null);
             EquipmentSlot slot = getSlot(stack);
             if (slot != null) {
-                stack.addAttributeModifier(revelation.attribute, attributeModifier, slot);
+                stack.addAttributeModifier(revelation.attribute, modifier, slot);
             }
         }
     }
@@ -57,5 +52,13 @@ public class Warpath {
             Type.ASPECT.addNbt(stack, 8 - aspectIndex);
         }
         addModifiers(stack, revelationIndex, aspectIndex);
+    }
+
+    public static void remove(ItemStack stack) {
+        stack.getOrCreateNbt().remove("AttributeModifiers");
+        Type.REVELATION.removeNbt(stack);
+        if (Type.ASPECT.hasNbt(stack)) {
+            Type.ASPECT.removeNbt(stack);
+        }
     }
 }

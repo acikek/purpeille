@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
+import java.util.UUID;
+
 public class Revelation extends Aspect {
 
     public EntityAttribute attribute;
@@ -28,15 +30,21 @@ public class Revelation extends Aspect {
         return Type.REVELATION;
     }
 
+    public static UUID WARPATH_ID = UUID.fromString("2c67c058-5d5e-4b39-98e3-b3eb9965f7eb");
+
     public Text getRite() {
         return new TranslatableText("rite.purpeille." + name).styled(style -> style.withColor(13421772));
     }
 
-    public double getModifier(ItemStack stack, Aspect aspect) {
+    public double getModifierValue(ItemStack stack, Aspect aspect) {
         double value = stack.isOf(item) ? modifier * 1.2 : modifier;
         if (aspect == null) {
             return value;
         }
         return value * aspect.modifier * Synergy.getSynergy(this, aspect).modifier;
+    }
+
+    public EntityAttributeModifier getModifier(ItemStack stack, Aspect aspect) {
+        return new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", getModifierValue(stack, aspect), operation);
     }
 }

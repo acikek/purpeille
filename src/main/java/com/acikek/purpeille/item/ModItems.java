@@ -6,6 +6,7 @@ import com.acikek.purpeille.item.material.PurpeilleToolMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
@@ -32,6 +33,9 @@ public class ModItems {
     public static final ToolItem PURPEILLE_PICKAXE = new PurpeilleToolMaterial.PurpeillePickaxeItem(1, -2.8f);
     public static final ToolItem PURPEILLE_AXE = new PurpeilleToolMaterial.PurpeilleAxeItem(5.0f, -3.0f);
     public static final ToolItem PURPEILLE_HOE = new PurpeilleToolMaterial.PurpeilleHoeItem(-4, -0.0f);
+
+    // Tags
+    public static final TagKey<Item> WARPATH_BASE = TagKey.of(Registry.ITEM_KEY, Purpeille.id("warpath_base"));
 
     public static FabricItemSettings defaultSettings() {
         return new FabricItemSettings().group(Purpeille.ITEM_GROUP);

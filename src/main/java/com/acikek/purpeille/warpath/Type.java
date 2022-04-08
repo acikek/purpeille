@@ -28,4 +28,8 @@ public enum Type {
     public void addNbt(ItemStack stack, int index) {
         stack.getOrCreateNbt().putInt(nbtKey, index);
     }
+
+    public void removeNbt(ItemStack stack) {
+        stack.getOrCreateNbt().remove(nbtKey);
+    }
 }
