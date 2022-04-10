@@ -21,7 +21,6 @@ public class StatusEffectMixin {
             EntityAttributeInstance instance = entity.getAttributeInstance(ModAttributes.GENERIC_POISON_RESISTANCE);
             if (instance != null) {
                 float max = 1.0f + (float) instance.getValue() / 3.0f;
-                System.out.println(max);
                 if (entity.getHealth() > max) {
                     entity.damage(DamageSource.MAGIC, 1.0f);
                 }
