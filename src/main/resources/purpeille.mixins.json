@@ -4,6 +4,7 @@
   "package": "com.acikek.purpeille.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BlockMixin",
     "ItemMixin",
     "LivingEntityMixin",
     "StatusEffectInstanceAccessor",

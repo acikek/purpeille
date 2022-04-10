@@ -2,6 +2,7 @@ package com.acikek.purpeille.recipe;
 
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.item.ModItems;
+import com.acikek.purpeille.tag.ModTags;
 import com.acikek.purpeille.warpath.Type;
 import com.acikek.purpeille.warpath.Warpath;
 import net.minecraft.inventory.CraftingInventory;
@@ -26,7 +27,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         ItemStack base = null;
         for (int i = 0; i < inventory.size(); i++) {
             ItemStack stack = inventory.getStack(i);
-            if (base == null && stack.isIn(ModItems.WARPATH_BASE)) {
+            if (base == null && stack.isIn(ModTags.WARPATH_BASE)) {
                 if (!strict) {
                     return stack;
                 }
@@ -49,7 +50,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
             else if (components.getRight() == -1 && stack.isOf(ModItems.PRESERVED_DUST)) {
                 components.setRight(i);
             }
-            else if (!stack.isEmpty() && !stack.isIn(ModItems.WARPATH_BASE)) {
+            else if (!stack.isEmpty() && !stack.isIn(ModTags.WARPATH_BASE)) {
                 return null;
             }
         }
@@ -62,7 +63,6 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         if (base == null || Type.REVELATION.hasNbt(base)) {
             return false;
         }
-        System.out.println("has base");
         Pair<Integer, Integer> indices = getIndices(inventory);
         return indices != null && indices.getLeft() != -1;
     }

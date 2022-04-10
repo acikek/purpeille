@@ -13,7 +13,7 @@ public enum Revelations {
     SPIRIT("spirit", Tone.STRENGTH, 0, EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2, true, ModItems.PURPEILLE_HELMET),
     VIGOR("vigor", Tone.STRENGTH, 1, EntityAttributes.GENERIC_ATTACK_SPEED, 0.15, true, ModItems.PURPEILLE_AXE),
     TOTALITY("totality", Tone.STRENGTH, 2, EntityAttributes.GENERIC_MAX_HEALTH, 2.0, false, ModItems.PURPEILLE_CHESTPLATE),
-    AVARICE("avarice", Tone.TENSION, 0, EntityAttributes.GENERIC_LUCK, 1.5, false, ModItems.PURPEILLE_PICKAXE),
+    AVARICE("avarice", Tone.TENSION, 0, ModAttributes.GENERIC_MINING_EXPERIENCE, 1.0, false, ModItems.PURPEILLE_PICKAXE),
     MALAISE("malaise", Tone.TENSION, 1, ModAttributes.GENERIC_POISON_RESISTANCE, 12.0, false, ModItems.PURPEILLE_HOE),
     TERROR("terror", Tone.TENSION, 2, EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0, false, ModItems.PURPEILLE_SWORD),
     BOUND("bound", Tone.RELEASE, 0, ModAttributes.GENERIC_JUMP_BOOST, 0.25, true, ModItems.PURPEILLE_SHOVEL),

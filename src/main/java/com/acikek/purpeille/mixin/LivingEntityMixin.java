@@ -25,6 +25,7 @@ public abstract class LivingEntityMixin {
     @Inject(method = "createLivingAttributes", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
     private static void addCustomAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
         cir.getReturnValue()
+                .add(ModAttributes.GENERIC_MINING_EXPERIENCE)
                 .add(ModAttributes.GENERIC_POISON_RESISTANCE)
                 .add(ModAttributes.GENERIC_JUMP_BOOST)
                 .add(ModAttributes.GENERIC_WATER_SPEED);
