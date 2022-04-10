@@ -6,7 +6,8 @@
   "mixins": [
     "ItemMixin",
     "LivingEntityMixin",
-    "StatusEffectInstanceAccessor"
+    "StatusEffectInstanceAccessor",
+    "StatusEffectMixin"
   ],
   "client": [
   ],
