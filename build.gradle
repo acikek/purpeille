@@ -1,6 +1,9 @@
+import com.modrinth.minotaur.dependencies.ModDependency
+
 plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
+    id "com.modrinth.minotaur" version "2.+"
 }
 
 version = project.mod_version
@@ -83,4 +86,23 @@ publishing {
         // The repositories here will be used for publishing your artifact, not for
         // retrieving dependencies.
     }
+}
+
+modrinth {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in))
+    System.out.println("Token: ")
+    token = br.readLine()
+    System.out.println("Version name: ")
+    versionName = br.readLine()
+    System.out.println("Changelog: ")
+    changelog = br.readLine()
+    projectId = "yoEkK5RL"
+    uploadFile = remapJar
+    gameVersions = [ "1.18.2" ]
+    loaders = [ "fabric" ]
+    dependencies = [
+            new ModDependency("P7dR8mSH", "required"), // Fabric API
+            new ModDependency("E9dV0G8I", "optional"), // Void Crafting
+            new ModDependency("X5JJNmDn", "optional")  // Combined Modifiers
+    ]
 }
