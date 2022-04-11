@@ -89,13 +89,9 @@ publishing {
 }
 
 modrinth {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in))
-    System.out.println("Token: ")
-    token = br.readLine()
-    System.out.println("Version name: ")
-    versionName = br.readLine()
-    System.out.println("Changelog: ")
-    changelog = br.readLine()
+    token = System.getenv("MODRINTH_TOKEN")
+    versionName = project.version
+    changelog = "Placeholder changelog"
     projectId = "yoEkK5RL"
     uploadFile = remapJar
     gameVersions = [ "1.18.2" ]
