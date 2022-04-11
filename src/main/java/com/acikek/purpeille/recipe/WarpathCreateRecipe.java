@@ -47,8 +47,8 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
             if (components.getLeft() == -1 && stack.isOf(ModItems.SMOLDERED_PURPEILLE_INGOT)) {
                 components.setLeft(i);
             }
-            else if (components.getRight() == -1 && stack.isOf(ModItems.PRESERVED_DUST)) {
-                components.setRight(i);
+            else if (components.getRight() == -1 && stack.isIn(ModTags.WARPATH_DUST)) {
+                components.setRight(stack.isOf(ModItems.IMPURE_PRESERVED_DUST) ? 4 : i);
             }
             else if (!stack.isEmpty() && !stack.isIn(ModTags.WARPATH_BASE)) {
                 return null;
