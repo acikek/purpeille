@@ -1,5 +1,8 @@
 import com.modrinth.minotaur.dependencies.ModDependency
 
+import java.nio.file.Files
+import java.nio.file.Paths
+
 plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
@@ -91,7 +94,7 @@ publishing {
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     versionName = project.version
-    changelog = "Placeholder changelog"
+    changelog = new String(Files.readAllBytes(Paths.get("./modrinth/CHANGELOG.md")))
     projectId = "yoEkK5RL"
     uploadFile = remapJar
     gameVersions = [ "1.18.2" ]
