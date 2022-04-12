@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "CC",
-    "CC"
+    "BB",
+    "BB"
   ],
   "key": {
-    "C": {
-      "item": "purpeille:remnant_chunk"
+    "B": {
+      "item": "purpeille:remnant_brick"
     }
   },
   "result": {

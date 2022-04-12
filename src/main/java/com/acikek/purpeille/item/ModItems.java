@@ -17,6 +17,7 @@ public class ModItems {
     public static final Item IMPURE_PRESERVED_DUST = new Item(defaultSettings());
     public static final Item PRESERVED_DUST = new Item(defaultSettings());
     public static final Item REMNANT_CHUNK = new Item(defaultSettings());
+    public static final Item REMNANT_BRICK = new Item(defaultSettings());
     public static final Item PURPEILLE_INGOT = new Item(defaultSettings());
     public static final Item SMOLDERED_PURPEILLE_INGOT = new Item(defaultSettings());
 
@@ -43,6 +44,7 @@ public class ModItems {
         ITEMS.put("impure_preserved_dust", IMPURE_PRESERVED_DUST);
         ITEMS.put("preserved_dust", PRESERVED_DUST);
         ITEMS.put("remnant_chunk", REMNANT_CHUNK);
+        ITEMS.put("remnant_brick", REMNANT_BRICK);
         ITEMS.put("purpeille_ingot", PURPEILLE_INGOT);
         ITEMS.put("smoldered_purpeille_ingot", SMOLDERED_PURPEILLE_INGOT);
         ITEMS.put("purpeille_helmet", PURPEILLE_HELMET);

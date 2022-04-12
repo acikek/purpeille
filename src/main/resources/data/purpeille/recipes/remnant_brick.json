@@ -1,0 +1,10 @@
+{
+  "type": "voidcrafting:void_crafting",
+  "input": {
+    "item": "purpeille:remnant_chunk"
+  },
+  "radius": 7.5,
+  "result": {
+    "item": "purpeille:remnant_brick"
+  }
+}
