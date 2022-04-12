@@ -2,12 +2,11 @@ package com.acikek.purpeille.block;
 
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.item.ModItems;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.OreBlock;
 import net.minecraft.item.BlockItem;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
@@ -15,10 +14,10 @@ import java.util.Map;
 
 public class ModBlocks {
 
-    public static Block PURPUR_REMNANTS = new Block(PurpurRemnants.SETTINGS);
-    public static Block MONOLITHIC_PURPUR = new Block(FabricBlockSettings.of(Material.STONE).strength(5.0f).sounds(BlockSoundGroup.BONE).requiresTool());
-    public static Block REMNANT_BRICKS = new Block(FabricBlockSettings.of(Material.STONE).strength(5.0f).sounds(BlockSoundGroup.DEEPSLATE_BRICKS).requiresTool());
-    public static Block PURPEILLE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(8.0f).sounds(BlockSoundGroup.METAL).requiresTool());
+    public static Block PURPUR_REMNANTS = new OreBlock(PurpurRemnants.SETTINGS, UniformIntProvider.create(2, 3));
+    public static Block MONOLITHIC_PURPUR = new Block(BlockSettings.MONOLITHIC_PURPUR);
+    public static Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
+    public static Block PURPEILLE_BLOCK = new Block(BlockSettings.PURPEILLE_BLOCK);
 
     public static Map<String, Block> BLOCKS = new LinkedHashMap<>();
 
