@@ -3,12 +3,14 @@
   "block.purpeille.monolithic_purpur": "Monolithic Purpur",
   "block.purpeille.remnant_bricks": "Remnant Bricks",
   "block.purpeille.purpeille_block": "Block of Purpeille",
+  "block.purpeille.ancient_gateway": "Ancient Gateway",
   "item.purpeille.impure_preserved_dust": "Impure Preserved Dust",
   "item.purpeille.preserved_dust": "Preserved Dust",
   "item.purpeille.remnant_chunk": "Remnant Chunk",
   "item.purpeille.remnant_brick": "Remnant Brick",
   "item.purpeille.purpeille_ingot": "Purpeille Ingot",
   "item.purpeille.smoldered_purpeille_ingot": "Smoldered Purpeille Ingot",
+  "item.purpeille.encased_core": "Encased Core",
   "item.purpeille.purpeille_helmet": "Purpeille Helmet",
   "item.purpeille.purpeille_chestplate": "Purpeille Chestpiece",
   "item.purpeille.purpeille_leggings": "Purpeille Leggings",
@@ -70,5 +72,6 @@
   "advancements.purpeille.warpath_opposition.title": "Mental Torture",
   "advancements.purpeille.warpath_opposition.description": "Put a negative bonus on a helmet",
   "advancements.purpeille.warpath_pace.title": "The Full Potential",
-  "advancements.purpeille.warpath_pace.description": "Create the fastest possible bonus"
+  "advancements.purpeille.warpath_pace.description": "Create the fastest possible bonus",
+  "subtitle.purpeille.ancient_gateway.teleport": "Ancient Gateway Teleports"
 }

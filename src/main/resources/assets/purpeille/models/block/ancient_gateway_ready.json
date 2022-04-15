@@ -1,0 +1,7 @@
+{
+  "parent": "purpeille:block/ancient_machine",
+  "textures": {
+    "top": "purpeille:block/ancient_gateway_top",
+    "front": "purpeille:block/ancient_gateway_front_on"
+  }
+}

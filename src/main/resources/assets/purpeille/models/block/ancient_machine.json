@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "purpeille:block/ancient_machine_side",
+    "down": "purpeille:block/ancient_machine_bottom",
+    "up": "#top",
+    "north": "#front",
+    "east": "purpeille:block/ancient_machine_side",
+    "west": "purpeille:block/ancient_machine_side",
+    "south": "purpeille:block/ancient_machine_side"
+  }
+}

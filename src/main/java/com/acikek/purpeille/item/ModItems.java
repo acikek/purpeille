@@ -20,6 +20,7 @@ public class ModItems {
     public static final Item REMNANT_BRICK = new Item(defaultSettings());
     public static final Item PURPEILLE_INGOT = new Item(defaultSettings());
     public static final Item SMOLDERED_PURPEILLE_INGOT = new Item(defaultSettings());
+    public static final Item ENCASED_CORE = new Item(defaultSettings());
 
     // Armor
     public static final ArmorItem PURPEILLE_HELMET = PurpeilleArmorMaterial.getItem(EquipmentSlot.HEAD);
@@ -47,6 +48,7 @@ public class ModItems {
         ITEMS.put("remnant_brick", REMNANT_BRICK);
         ITEMS.put("purpeille_ingot", PURPEILLE_INGOT);
         ITEMS.put("smoldered_purpeille_ingot", SMOLDERED_PURPEILLE_INGOT);
+        ITEMS.put("encased_core", ENCASED_CORE);
         ITEMS.put("purpeille_helmet", PURPEILLE_HELMET);
         ITEMS.put("purpeille_chestplate", PURPEILLE_CHESTPLATE);
         ITEMS.put("purpeille_leggings", PURPEILLE_LEGGINGS);
