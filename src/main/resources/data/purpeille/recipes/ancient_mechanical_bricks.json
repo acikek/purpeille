@@ -1,0 +1,11 @@
+{
+  "type": "voidcrafting:void_crafting",
+  "input": {
+    "item": "purpeille:remnant_bricks"
+  },
+  "radius": 3.0,
+  "absolute": true,
+  "result": {
+    "item": "purpeille:ancient_mechanical_bricks"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MPM",
+    "BCB",
+    "MIM"
+  ],
+  "key": {
+    "M": {
+      "item": "purpeille:ancient_mechanical_bricks"
+    },
+    "P": {
+      "item": "minecraft:ender_pearl"
+    },
+    "B": {
+      "item": "purpeille:remnant_brick"
+    },
+    "C": {
+      "item": "minecraft:end_crystal"
+    },
+    "I": {
+      "item": "purpeille:purpeille_ingot"
+    }
+  },
+  "result": {
+    "item": "purpeille:ancient_gateway",
+    "count": 1
+  }
+}

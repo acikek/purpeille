@@ -1,0 +1,86 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "purpeille:ancient_gateway"
+    ]
+  },
+  "criteria": {
+    "has_ancient_mechanical_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:ancient_mechanical_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_ender_pearl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:ender_pearl"
+            ]
+          }
+        ]
+      }
+    },
+    "has_remnant_brick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:remnant_brick"
+            ]
+          }
+        ]
+      }
+    },
+    "has_end_crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:end_crystal"
+            ]
+          }
+        ]
+      }
+    },
+    "has_purpeille_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:purpeille_ingot"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "purpeille:ancient_gateway"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ancient_mechanical_bricks",
+      "has_ender_pearl",
+      "has_remnant_brick",
+      "has_end_crystal",
+      "has_purpeille_ingot",
+      "has_the_recipe"
+    ]
+  ]
+}
