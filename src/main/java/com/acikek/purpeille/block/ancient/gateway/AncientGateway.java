@@ -1,7 +1,7 @@
 package com.acikek.purpeille.block.ancient.gateway;
 
+import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.item.ModItems;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -9,7 +9,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -29,10 +28,7 @@ public class AncientGateway extends BlockWithEntity implements BlockEntityProvid
     public static BooleanProperty CHARGING = BooleanProperty.of("charging");
     public static DirectionProperty FACING = HorizontalFacingBlock.FACING;
 
-    public static Settings SETTINGS = FabricBlockSettings.of(Material.STONE)
-            .strength(6.0f)
-            .requiresTool()
-            .sounds(BlockSoundGroup.NETHER_BRICKS)
+    public static Settings SETTINGS = BlockSettings.ANCIENT_MECHANICAL_BRICKS
             .luminance(state -> state.get(READY) ? 2 : 0);
 
     public AncientGateway(Settings settings) {

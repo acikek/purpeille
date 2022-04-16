@@ -3,6 +3,8 @@
   "values": [
     "purpeille:monolithic_purpur",
     "purpeille:remnant_bricks",
-    "purpeille:purpeille_block"
+    "purpeille:purpeille_block",
+    "purpeille:ancient_mechanical_bricks",
+    "purpeille:ancient_gateway"
   ]
 }

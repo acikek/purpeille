@@ -21,4 +21,9 @@ public class BlockSettings {
             .strength(8.0f)
             .sounds(BlockSoundGroup.METAL)
             .requiresTool();
+
+    public static AbstractBlock.Settings ANCIENT_MECHANICAL_BRICKS = FabricBlockSettings.of(Material.STONE)
+            .strength(6.0f)
+            .requiresTool()
+            .sounds(BlockSoundGroup.NETHER_BRICKS);
 }
