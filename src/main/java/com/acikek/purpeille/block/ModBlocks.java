@@ -5,6 +5,7 @@ import com.acikek.purpeille.block.ancient.gateway.AncientGateway;
 import com.acikek.purpeille.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.OreBlock;
+import net.minecraft.block.PillarBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -16,7 +17,7 @@ import java.util.Map;
 public class ModBlocks {
 
     public static Block PURPUR_REMNANTS = new OreBlock(PurpurRemnants.SETTINGS, UniformIntProvider.create(2, 3));
-    public static Block MONOLITHIC_PURPUR = new Block(BlockSettings.MONOLITHIC_PURPUR);
+    public static Block MONOLITHIC_PURPUR = new PillarBlock(BlockSettings.MONOLITHIC_PURPUR);
     public static Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
     public static Block PURPEILLE_BLOCK = new Block(BlockSettings.PURPEILLE_BLOCK);
     public static Block ANCIENT_MECHANICAL_BRICKS = new Block(BlockSettings.ANCIENT_MECHANICAL_BRICKS);

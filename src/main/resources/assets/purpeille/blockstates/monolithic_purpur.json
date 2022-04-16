@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "purpeille:block/monolithic_purpur_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
       "model": "purpeille:block/monolithic_purpur"
+    },
+    "axis=z": {
+      "model": "purpeille:block/monolithic_purpur_horizontal",
+      "x": 90
     }
   }
 }
