@@ -1,7 +1,9 @@
 package com.acikek.purpeille.block;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.gateway.AncientGateway;
+import com.acikek.purpeille.block.ancient.oven.AncientOven;
 import com.acikek.purpeille.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.OreBlock;
@@ -20,8 +22,11 @@ public class ModBlocks {
     public static Block MONOLITHIC_PURPUR = new PillarBlock(BlockSettings.MONOLITHIC_PURPUR);
     public static Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
     public static Block PURPEILLE_BLOCK = new Block(BlockSettings.PURPEILLE_BLOCK);
-    public static Block ANCIENT_MECHANICAL_BRICKS = new Block(BlockSettings.ANCIENT_MECHANICAL_BRICKS);
+    public static Block ANCIENT_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
+
+    // Machines
     public static AncientGateway ANCIENT_GATEWAY = new AncientGateway(AncientGateway.SETTINGS);
+    public static AncientOven ANCIENT_OVEN = new AncientOven(AncientOven.SETTINGS);
 
     public static Map<String, Block> BLOCKS = new LinkedHashMap<>();
 
@@ -32,6 +37,7 @@ public class ModBlocks {
         BLOCKS.put("purpeille_block", PURPEILLE_BLOCK);
         BLOCKS.put("ancient_mechanical_bricks", ANCIENT_MECHANICAL_BRICKS);
         BLOCKS.put("ancient_gateway", ANCIENT_GATEWAY);
+        BLOCKS.put("ancient_oven", ANCIENT_OVEN);
     }
 
     public static void register() {

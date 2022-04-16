@@ -1,0 +1,7 @@
+{
+  "parent": "purpeille:block/ancient_machine",
+  "textures": {
+    "top": "purpeille:block/ancient_machine_bottom",
+    "front": "minecraft:block/furnace_front"
+  }
+}

@@ -1,43 +1,34 @@
 package com.acikek.purpeille.block.ancient.gateway;
 
-import com.acikek.purpeille.block.BlockSettings;
+import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.item.ModItems;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
-public class AncientGateway extends BlockWithEntity implements BlockEntityProvider {
+public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
 
     public static BooleanProperty READY = BooleanProperty.of("ready");
     public static BooleanProperty CHARGING = BooleanProperty.of("charging");
-    public static DirectionProperty FACING = HorizontalFacingBlock.FACING;
 
-    public static Settings SETTINGS = BlockSettings.ANCIENT_MECHANICAL_BRICKS
+    public static Settings SETTINGS = AncientMachine.SETTINGS
             .luminance(state -> state.get(READY) ? 2 : 0);
 
     public AncientGateway(Settings settings) {
-        super(settings);
-        setDefaultState(getStateManager().getDefaultState()
-                .with(READY, false)
-                .with(CHARGING, false)
-                .with(FACING, Direction.NORTH)
-        );
+        super(settings, AncientGatewayBlockEntity::new, AncientGatewayBlockEntity::tick);
+        setDefaultState(getDefaultFacing().with(READY, false).with(CHARGING, false));
     }
 
     @Override
@@ -48,12 +39,12 @@ public class AncientGateway extends BlockWithEntity implements BlockEntityProvid
         if (world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity) {
             SoundEvent event = null;
             ItemStack handStack = player.getStackInHand(hand);
-            if (blockEntity.hasCore()) {
+            if (blockEntity.hasItem()) {
                 event = SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM;
                 if (!player.isCreative()) {
-                    player.getInventory().offerOrDrop(blockEntity.getCore());
+                    player.getInventory().offerOrDrop(blockEntity.getItem());
                 }
-                blockEntity.removeCore();
+                blockEntity.removeItem();
                 BlockState newState = state.with(READY, false);
                 if (state.get(CHARGING)) {
                     newState = newState.with(CHARGING, false);
@@ -63,7 +54,7 @@ public class AncientGateway extends BlockWithEntity implements BlockEntityProvid
             }
             else if (handStack.isOf(ModItems.ENCASED_CORE)) {
                 event = SoundEvents.BLOCK_END_PORTAL_FRAME_FILL;
-                blockEntity.addCore();
+                blockEntity.addItem(ModItems.ENCASED_CORE);
                 if (!player.isCreative()) {
                     handStack.setCount(handStack.getCount() - 1);
                 }
@@ -93,49 +84,13 @@ public class AncientGateway extends BlockWithEntity implements BlockEntityProvid
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.getBlock() != newState.getBlock()
-                && world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity) {
-            ItemScatterer.spawn(world, pos, blockEntity.items);
-            world.removeBlockEntity(pos);
-        }
-    }
-
-    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(READY).add(CHARGING).add(FACING);
-    }
-
-    @Nullable
-    @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+        super.appendProperties(builder);
+        builder.add(READY).add(CHARGING);
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
-    }
-
-    @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, AncientGatewayBlockEntity.BLOCK_ENTITY_TYPE, AncientGatewayBlockEntity::tick);
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new AncientGatewayBlockEntity(pos, state);
+    public BlockEntityType<AncientGatewayBlockEntity> getBlockEntityType() {
+        return AncientGatewayBlockEntity.BLOCK_ENTITY_TYPE;
     }
 }

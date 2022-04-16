@@ -5,6 +5,7 @@ import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.PurpurRemnants;
 import com.acikek.purpeille.block.ancient.gateway.AncientGatewayBlockEntity;
+import com.acikek.purpeille.block.ancient.oven.AncientOvenBlockEntity;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.recipe.WarpathCreateRecipe;
 import com.acikek.purpeille.recipe.WarpathRemoveRecipe;
@@ -41,6 +42,7 @@ public class Purpeille implements ModInitializer {
         ModCriteria.register();
         ModSoundEvents.register();
         AncientGatewayBlockEntity.register();
+        AncientOvenBlockEntity.register();
         WarpathCreateRecipe.register();
         WarpathRemoveRecipe.register();
         EndCityProximityPlacementModifier.register();

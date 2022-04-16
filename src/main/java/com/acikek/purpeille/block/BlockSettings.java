@@ -7,23 +7,18 @@ import net.minecraft.sound.BlockSoundGroup;
 
 public class BlockSettings {
 
-    public static AbstractBlock.Settings MONOLITHIC_PURPUR = FabricBlockSettings.of(Material.STONE)
+    public static final AbstractBlock.Settings MONOLITHIC_PURPUR = FabricBlockSettings.of(Material.STONE)
             .strength(5.0f)
             .sounds(BlockSoundGroup.BONE)
             .requiresTool();
 
-    public static AbstractBlock.Settings REMNANT_BRICKS = FabricBlockSettings.of(Material.STONE)
+    public static final AbstractBlock.Settings REMNANT_BRICKS = FabricBlockSettings.of(Material.STONE)
             .strength(5.0f)
             .sounds(BlockSoundGroup.DEEPSLATE_BRICKS)
             .requiresTool();
 
-    public static AbstractBlock.Settings PURPEILLE_BLOCK = FabricBlockSettings.of(Material.METAL)
+    public static final AbstractBlock.Settings PURPEILLE_BLOCK = FabricBlockSettings.of(Material.METAL)
             .strength(8.0f)
             .sounds(BlockSoundGroup.METAL)
             .requiresTool();
-
-    public static AbstractBlock.Settings ANCIENT_MECHANICAL_BRICKS = FabricBlockSettings.of(Material.STONE)
-            .strength(6.0f)
-            .requiresTool()
-            .sounds(BlockSoundGroup.NETHER_BRICKS);
 }
