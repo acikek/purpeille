@@ -54,10 +54,10 @@ public class AncientGateway extends BlockWithEntity implements BlockEntityProvid
             ItemStack handStack = player.getStackInHand(hand);
             if (blockEntity.hasCore()) {
                 event = SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM;
-                blockEntity.removeCore();
                 if (!player.isCreative()) {
                     player.getInventory().offerOrDrop(blockEntity.getCore());
                 }
+                blockEntity.removeCore();
                 BlockState newState = state.with(READY, false);
                 if (state.get(CHARGING)) {
                     newState = newState.with(CHARGING, false);
