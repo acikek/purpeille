@@ -73,7 +73,9 @@ public class AncientGateway extends BlockWithEntity implements BlockEntityProvid
                 }
                 world.setBlockState(pos, state.with(READY, true).with(CHARGING, world.isReceivingRedstonePower(pos)));
             }
-            world.playSound(null, pos, event, SoundCategory.BLOCKS, 1.0f, 1.0f);
+            if (event != null) {
+                world.playSound(null, pos, event, SoundCategory.BLOCKS, 1.0f, 1.0f);
+            }
         }
         return ActionResult.SUCCESS;
     }
