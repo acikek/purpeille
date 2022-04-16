@@ -80,6 +80,7 @@ public class AncientGatewayBlockEntity extends BlockEntity {
         Vec3d destination = getDestination(player, state, blocks);
         player.teleport(destination.getX(), destination.getY(), destination.getZ());
         player.playSound(ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        world.playSound(player, pos, ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, AncientGatewayBlockEntity blockEntity) {
