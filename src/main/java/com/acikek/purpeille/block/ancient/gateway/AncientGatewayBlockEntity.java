@@ -52,11 +52,17 @@ public class AncientGatewayBlockEntity extends BlockEntity {
     }
 
     public PlayerEntity getPlayer(World world, BlockPos pos) {
-        return world.getClosestPlayer(pos.getX(), pos.up().getY(), pos.getZ(), 1.5, false);
+        BlockPos top = pos.up();
+        Vec3d center = Vec3d.ofCenter(top);
+        PlayerEntity player = world.getClosestPlayer(center.x, center.y, center.z, 1.0, false);
+        if (player == null || !player.getBlockPos().equals(top)) {
+            return null;
+        }
+        return player;
     }
 
     public int getBlocks() {
-        int blocks = charge / 5;
+        int blocks = charge / 4;
         charge = 0;
         return blocks;
     }
