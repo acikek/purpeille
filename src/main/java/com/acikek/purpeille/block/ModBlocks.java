@@ -4,6 +4,7 @@ import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.gateway.AncientGateway;
 import com.acikek.purpeille.block.ancient.oven.AncientOven;
+import com.acikek.purpeille.block.ancient.oven.Damage;
 import com.acikek.purpeille.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.OreBlock;
@@ -26,7 +27,9 @@ public class ModBlocks {
 
     // Machines
     public static AncientGateway ANCIENT_GATEWAY = new AncientGateway(AncientGateway.SETTINGS);
-    public static AncientOven ANCIENT_OVEN = new AncientOven(AncientOven.SETTINGS);
+    public static AncientOven ANCIENT_OVEN = Damage.NONE.getOven();
+    public static AncientOven ANCIENT_OVEN_DIM = Damage.DIM.getOven();
+    public static AncientOven ANCIENT_OVEN_VERY_DIM = Damage.VERY_DIM.getOven();
 
     public static Map<String, Block> BLOCKS = new LinkedHashMap<>();
 
@@ -38,6 +41,8 @@ public class ModBlocks {
         BLOCKS.put("ancient_mechanical_bricks", ANCIENT_MECHANICAL_BRICKS);
         BLOCKS.put("ancient_gateway", ANCIENT_GATEWAY);
         BLOCKS.put("ancient_oven", ANCIENT_OVEN);
+        BLOCKS.put("ancient_oven_dim", ANCIENT_OVEN_DIM);
+        BLOCKS.put("ancient_oven_very_dim", ANCIENT_OVEN_VERY_DIM);
     }
 
     public static void register() {

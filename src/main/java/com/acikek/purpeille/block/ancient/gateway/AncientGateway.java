@@ -27,16 +27,13 @@ public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
             .luminance(state -> state.get(READY) ? 2 : 0);
 
     public AncientGateway(Settings settings) {
-        super(settings, AncientGatewayBlockEntity::new, AncientGatewayBlockEntity::tick);
+        super(settings, AncientGatewayBlockEntity::tick, AncientGatewayBlockEntity::new);
         setDefaultState(getDefaultFacing().with(READY, false).with(CHARGING, false));
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient()) {
-            return ActionResult.SUCCESS;
-        }
-        if (world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity) {
+        if (!world.isClient() && world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity) {
             SoundEvent event = null;
             ItemStack handStack = player.getStackInHand(hand);
             if (blockEntity.hasItem()) {

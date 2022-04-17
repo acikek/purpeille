@@ -30,8 +30,12 @@ public abstract class AncientMachineBlockEntity extends BlockEntity {
         return !getItem().isEmpty();
     }
 
+    public void addItem(ItemStack stack) {
+        items.set(0, stack);
+    }
+
     public void addItem(Item item) {
-        items.set(0, new ItemStack(item));
+        addItem(new ItemStack(item));
     }
 
     public void removeItem() {

@@ -28,17 +28,29 @@ public abstract class AncientMachine<T extends AncientMachineBlockEntity> extend
             .requiresTool()
             .sounds(BlockSoundGroup.NETHER_BRICKS);
 
-    public BiFunction<BlockPos, BlockState, T> supplier;
     public BlockEntityTicker<T> ticker;
+    public BiFunction<BlockPos, BlockState, T> supplier;
 
-    public AncientMachine(Settings settings, BiFunction<BlockPos, BlockState, T> supplier, BlockEntityTicker<T> ticker) {
+    public AncientMachine(Settings settings, BlockEntityTicker<T> ticker, BiFunction<BlockPos, BlockState, T> supplier) {
         super(settings);
-        this.supplier = supplier;
         this.ticker = ticker;
+        this.supplier = supplier;
+    }
+
+    public AncientMachine(Settings settings, BlockEntityTicker<T> ticker) {
+        this(settings, ticker, null);
     }
 
     public BlockState getDefaultFacing() {
         return getStateManager().getDefaultState().with(FACING, Direction.NORTH);
+    }
+
+    public boolean isStateAllowed(BlockState state, BlockState newState) {
+        return state.getBlock() == newState.getBlock();
+    }
+
+    public void breakParticles(World world, BlockPos pos, BlockState state) {
+        spawnBreakParticles(world, null, pos, state);
     }
 
     public abstract BlockEntityType<T> getBlockEntityType();
@@ -50,10 +62,13 @@ public abstract class AncientMachine<T extends AncientMachineBlockEntity> extend
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.getBlock() != newState.getBlock()
-                && world.getBlockEntity(pos) instanceof AncientMachineBlockEntity blockEntity) {
-            ItemScatterer.spawn(world, pos, blockEntity.items);
-            world.removeBlockEntity(pos);
+        if (world.getBlockEntity(pos) instanceof AncientMachineBlockEntity blockEntity) {
+            if (!isStateAllowed(state, newState)) {
+                ItemScatterer.spawn(world, pos, blockEntity.items);
+            }
+            if (state.getBlock() != newState.getBlock()) {
+                world.removeBlockEntity(pos);
+            }
         }
     }
 
@@ -81,6 +96,9 @@ public abstract class AncientMachine<T extends AncientMachineBlockEntity> extend
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        if (supplier == null) {
+            return null;
+        }
         return supplier.apply(pos, state);
     }
 

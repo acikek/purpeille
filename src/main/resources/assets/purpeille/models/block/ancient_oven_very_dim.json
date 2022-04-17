@@ -1,7 +1,7 @@
 {
   "parent": "purpeille:block/ancient_machine",
   "textures": {
-    "top": "purpeille:block/ancient_oven_top",
+    "top": "purpeille:block/ancient_oven_top_very_dim",
     "front": "purpeille:block/ancient_oven_front"
   }
 }

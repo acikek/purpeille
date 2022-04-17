@@ -2,6 +2,6 @@
   "parent": "purpeille:block/ancient_machine",
   "textures": {
     "top": "purpeille:block/ancient_oven_top_full",
-    "front": "purpeille:block/ancient_oven_front_on"
+    "front": "purpeille:block/ancient_oven_front"
   }
 }
