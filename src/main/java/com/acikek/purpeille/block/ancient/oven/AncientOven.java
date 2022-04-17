@@ -3,12 +3,14 @@ package com.acikek.purpeille.block.ancient.oven;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
+import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
@@ -58,20 +60,18 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> {
             boolean lit = state.get(LIT);
             boolean full = state.get(FULL);
             if (blockEntity.hasItem() && !lit && full) {
-                player.getInventory().offerOrDrop(blockEntity.getItem());
-                blockEntity.removeItem();
-                blockEntity.durability -= 100;
-                if (!blockEntity.checkDamage(world, pos, state)) {
-                    world.setBlockState(pos, state.with(FULL, false));
-                }
+                blockEntity.finishRecipe(world, player, pos, state);
             }
             else if (!handStack.isEmpty() && !full) {
-                blockEntity.addItem(handStack.getItem());
-                if (!player.isCreative()) {
-                    handStack.setCount(handStack.getCount() - 1);
-                }
-                blockEntity.cookTime = 80;
-                world.setBlockState(pos, state.with(LIT, true).with(FULL, true));
+                SimpleInventory inventory = new SimpleInventory(handStack);
+                world.getRecipeManager().getFirstMatch(AncientOvenRecipe.Type.INSTANCE, inventory, world).ifPresent(match -> {
+                    blockEntity.addItem(handStack.getItem());
+                    blockEntity.addRecipe(match);
+                    if (!player.isCreative()) {
+                        handStack.setCount(handStack.getCount() - 1);
+                    }
+                    world.setBlockState(pos, state.with(LIT, true).with(FULL, true));
+                });
             }
         }
         return ActionResult.SUCCESS;

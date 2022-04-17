@@ -2,8 +2,11 @@ package com.acikek.purpeille.block.ancient.oven;
 
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
+import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,9 +19,12 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
 
     public int durability;
     public int cookTime;
+    public int damageToTake;
+    public ItemStack result;
 
     public AncientOvenBlockEntity(BlockPos pos, BlockState state) {
         super(state.getBlock() instanceof AncientOven block ? block.getBlockEntityType() : BLOCK_ENTITY_TYPE, pos, state);
+        result = ItemStack.EMPTY;
     }
 
     public AncientOvenBlockEntity(BlockPos pos, BlockState state, Damage damage) {
@@ -26,22 +32,40 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         this.durability = damage.value;
     }
 
+    public void addRecipe(AncientOvenRecipe recipe) {
+        cookTime = recipe.cookTime();
+        damageToTake = recipe.damage();
+        result = recipe.result().copy();
+    }
+
     public boolean checkDamage(World world, BlockPos pos, BlockState state) {
         if (state.getBlock() instanceof AncientOven block) {
             if (durability <= block.damage.min) {
                 world.setBlockState(pos, block.getNextState(state));
                 block.breakParticles(world, pos, state);
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
+    }
+
+    public void finishRecipe(World world, PlayerEntity player, BlockPos pos, BlockState state) {
+        player.getInventory().offerOrDrop(getItem());
+        removeItem();
+        durability -= damageToTake;
+        damageToTake = 0;
+        result = ItemStack.EMPTY;
+        if (checkDamage(world, pos, state)) {
+            world.setBlockState(pos, state.with(AncientOven.FULL, false));
+        }
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, AncientOvenBlockEntity blockEntity) {
-        if (state.get(AncientOven.LIT)) {
+        if (!world.isClient() && state.get(AncientOven.LIT)) {
             blockEntity.cookTime--;
             if (blockEntity.cookTime == 0) {
                 world.setBlockState(pos, state.with(AncientOven.LIT, false));
+                blockEntity.addItem(blockEntity.result);
             }
         }
     }
@@ -51,12 +75,16 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         super.readNbt(nbt);
         durability = nbt.getInt("Durability");
         cookTime = nbt.getInt("CookTime");
+        damageToTake = nbt.getInt("DamageToTake");
+        result = ItemStack.fromNbt(nbt.getCompound("Result"));
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.putInt("Durability", durability);
         nbt.putInt("CookTime", cookTime);
+        nbt.putInt("DamageToTake", damageToTake);
+        nbt.put("Result", result.writeNbt(new NbtCompound()));
         super.writeNbt(nbt);
     }
 

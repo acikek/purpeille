@@ -7,8 +7,9 @@ import com.acikek.purpeille.block.PurpurRemnants;
 import com.acikek.purpeille.block.ancient.gateway.AncientGatewayBlockEntity;
 import com.acikek.purpeille.block.ancient.oven.AncientOvenBlockEntity;
 import com.acikek.purpeille.item.ModItems;
-import com.acikek.purpeille.recipe.WarpathCreateRecipe;
-import com.acikek.purpeille.recipe.WarpathRemoveRecipe;
+import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
+import com.acikek.purpeille.recipe.warpath.WarpathCreateRecipe;
+import com.acikek.purpeille.recipe.warpath.WarpathRemoveRecipe;
 import com.acikek.purpeille.sound.ModSoundEvents;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import net.fabricmc.api.ModInitializer;
@@ -45,6 +46,7 @@ public class Purpeille implements ModInitializer {
         AncientOvenBlockEntity.register();
         WarpathCreateRecipe.register();
         WarpathRemoveRecipe.register();
+        AncientOvenRecipe.register();
         EndCityProximityPlacementModifier.register();
         PurpurRemnants.build();
     }

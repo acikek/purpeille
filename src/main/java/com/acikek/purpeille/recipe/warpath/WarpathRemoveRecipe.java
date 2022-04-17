@@ -1,4 +1,4 @@
-package com.acikek.purpeille.recipe;
+package com.acikek.purpeille.recipe.warpath;
 
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.warpath.Type;
