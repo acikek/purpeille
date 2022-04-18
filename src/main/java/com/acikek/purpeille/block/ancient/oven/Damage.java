@@ -34,7 +34,7 @@ public enum Damage {
     }
 
     public Block getNext(boolean down) {
-        int newIndex = index + (down ? -1 : 1);
+        int newIndex = index + (down ? 1 : -1);
         if (newIndex < 0 || newIndex >= 3) {
             return Blocks.AIR;
         }

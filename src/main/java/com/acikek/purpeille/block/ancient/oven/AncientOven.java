@@ -7,6 +7,7 @@ import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import lib.BlockItemProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -52,7 +53,7 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
 
     public BlockState getNextState(BlockState state, boolean down) {
         BlockState newState = damage.getNext(down).getDefaultState();
-        return damage == Damage.VERY_DIM ? newState : newState
+        return newState.isOf(Blocks.AIR) ? newState : newState
                 .with(FACING, state.get(FACING))
                 .with(LIT, state.get(LIT));
     }
