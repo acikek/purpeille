@@ -51,7 +51,7 @@ public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
             }
             else if (handStack.isOf(ModItems.ENCASED_CORE)) {
                 event = SoundEvents.BLOCK_END_PORTAL_FRAME_FILL;
-                blockEntity.addItem(ModItems.ENCASED_CORE);
+                blockEntity.setItem(ModItems.ENCASED_CORE);
                 if (!player.isCreative()) {
                     handStack.setCount(handStack.getCount() - 1);
                 }

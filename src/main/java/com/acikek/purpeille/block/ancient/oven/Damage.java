@@ -15,11 +15,11 @@ public enum Damage {
     DIM(128, 64),
     VERY_DIM(64, 0);
 
-    public int value;
+    public int max;
     public int min;
 
     Damage(int value, int min) {
-        this.value = value;
+        this.max = value;
         this.min = min;
     }
 
@@ -27,11 +27,11 @@ public enum Damage {
         return new AncientOven(AncientOven.SETTINGS, this);
     }
 
-    public Block getNext() {
+    public Block getNext(boolean down) {
         return switch (this) {
-            case NONE -> ModBlocks.ANCIENT_OVEN_DIM;
-            case DIM -> ModBlocks.ANCIENT_OVEN_VERY_DIM;
-            case VERY_DIM -> Blocks.AIR;
+            case NONE -> down ? ModBlocks.ANCIENT_OVEN_DIM : Blocks.AIR;
+            case DIM -> down ? ModBlocks.ANCIENT_OVEN_VERY_DIM : ModBlocks.ANCIENT_OVEN;
+            case VERY_DIM -> down ? Blocks.AIR : ModBlocks.ANCIENT_OVEN_DIM;
         };
     }
 

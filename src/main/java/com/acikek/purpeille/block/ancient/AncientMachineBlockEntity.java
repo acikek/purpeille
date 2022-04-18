@@ -14,7 +14,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
-public abstract class AncientMachineBlockEntity extends BlockEntity {
+public class AncientMachineBlockEntity extends BlockEntity {
 
     public DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
@@ -30,12 +30,12 @@ public abstract class AncientMachineBlockEntity extends BlockEntity {
         return !getItem().isEmpty();
     }
 
-    public void addItem(ItemStack stack) {
+    public void setItem(ItemStack stack) {
         items.set(0, stack);
     }
 
-    public void addItem(Item item) {
-        addItem(new ItemStack(item));
+    public void setItem(Item item) {
+        setItem(new ItemStack(item));
     }
 
     public void removeItem() {

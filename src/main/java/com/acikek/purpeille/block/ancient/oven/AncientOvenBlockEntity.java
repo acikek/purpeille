@@ -29,7 +29,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
 
     public AncientOvenBlockEntity(BlockPos pos, BlockState state, Damage damage) {
         this(pos, state);
-        this.durability = damage.value;
+        this.durability = damage.max;
     }
 
     public void addRecipe(AncientOvenRecipe recipe) {
@@ -40,9 +40,17 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
 
     public boolean checkDamage(World world, BlockPos pos, BlockState state) {
         if (state.getBlock() instanceof AncientOven block) {
-            if (durability <= block.damage.min) {
-                world.setBlockState(pos, block.getNextState(state));
+            boolean below = durability <= block.damage.min;
+            boolean above = durability >= block.damage.max;
+            if (above && block.damage == Damage.NONE) {
+                durability = block.damage.max;
+            }
+            else if (below || above) {
+                world.setBlockState(pos, block.getNextState(state, below));
                 block.breakParticles(world, pos, state);
+                if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
+                    blockEntity.durability = durability;
+                }
                 return false;
             }
         }
@@ -65,7 +73,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
             blockEntity.cookTime--;
             if (blockEntity.cookTime == 0) {
                 world.setBlockState(pos, state.with(AncientOven.LIT, false));
-                blockEntity.addItem(blockEntity.result);
+                blockEntity.setItem(blockEntity.result);
             }
         }
     }

@@ -46,8 +46,8 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> {
         this.damage = damage;
     }
 
-    public BlockState getNextState(BlockState state) {
-        BlockState newState = damage.getNext().getDefaultState();
+    public BlockState getNextState(BlockState state, boolean down) {
+        BlockState newState = damage.getNext(down).getDefaultState();
         return damage == Damage.VERY_DIM ? newState : newState
                 .with(FACING, state.get(FACING))
                 .with(LIT, state.get(LIT));
@@ -65,11 +65,12 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> {
             boolean full = state.get(FULL);
             if (blockEntity.hasItem() && !lit && full) {
                 blockEntity.finishRecipe(world, player, pos, state);
+                world.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
             }
             else if (!handStack.isEmpty() && !full) {
                 SimpleInventory inventory = new SimpleInventory(handStack);
                 world.getRecipeManager().getFirstMatch(AncientOvenRecipe.Type.INSTANCE, inventory, world).ifPresent(match -> {
-                    blockEntity.addItem(handStack.getItem());
+                    blockEntity.setItem(handStack.getItem());
                     blockEntity.addRecipe(match);
                     if (!player.isCreative()) {
                         handStack.setCount(handStack.getCount() - 1);
@@ -98,7 +99,7 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> {
     @Override
     public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
         if (builder.get(LootContextParameters.BLOCK_ENTITY) instanceof AncientOvenBlockEntity blockEntity) {
-            if (blockEntity.durability == Damage.NONE.value) {
+            if (blockEntity.durability == Damage.NONE.max) {
                 return List.of(new ItemStack(ModBlocks.ANCIENT_OVEN));
             }
             return damage.getDroppedStacks();

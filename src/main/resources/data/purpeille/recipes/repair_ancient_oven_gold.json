@@ -1,0 +1,11 @@
+{
+  "type": "purpeille:ancient_oven",
+  "input": {
+    "item": "minecraft:gold_ingot"
+  },
+  "damage": -10,
+  "cook_time": 200,
+  "result": {
+    "item": "minecraft:bone_meal"
+  }
+}
