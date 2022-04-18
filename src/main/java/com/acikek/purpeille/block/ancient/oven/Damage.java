@@ -4,10 +4,6 @@ import com.acikek.purpeille.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-
-import java.util.List;
 
 public enum Damage {
 
@@ -41,10 +37,5 @@ public enum Damage {
             case DIM -> AncientOvenBlockEntity.DIM_BLOCK_ENTITY_TYPE;
             case VERY_DIM -> AncientOvenBlockEntity.VERY_DIM_BLOCK_ENTITY_TYPE;
         };
-    }
-
-    public List<ItemStack> getDroppedStacks() {
-        // TODO drop based on recipe
-        return List.of(new ItemStack(Items.APPLE));
     }
 }

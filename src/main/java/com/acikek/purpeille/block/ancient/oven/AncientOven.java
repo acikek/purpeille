@@ -4,6 +4,7 @@ import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
+import lib.BlockItemProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FurnaceBlock;
@@ -12,6 +13,8 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
@@ -29,8 +32,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.function.BiFunction;
 
-public class AncientOven extends AncientMachine<AncientOvenBlockEntity> {
+public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implements BlockItemProvider {
 
     public static BooleanProperty LIT = FurnaceBlock.LIT;
     public static BooleanProperty FULL = BooleanProperty.of("full");
@@ -102,7 +106,7 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> {
             if (blockEntity.durability == Damage.NONE.max) {
                 return List.of(new ItemStack(ModBlocks.ANCIENT_OVEN));
             }
-            return damage.getDroppedStacks();
+            return List.of(blockEntity.getOvenStack(state));
         }
         return Collections.emptyList();
     }
@@ -122,5 +126,10 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> {
     @Override
     public BlockEntityType<AncientOvenBlockEntity> getBlockEntityType() {
         return damage.getBlockEntityType();
+    }
+
+    @Override
+    public BiFunction<Block, Item.Settings, BlockItem> getBlockItem() {
+        return AncientOvenBlockItem::new;
     }
 }

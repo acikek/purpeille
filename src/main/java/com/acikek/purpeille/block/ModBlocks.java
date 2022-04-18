@@ -6,6 +6,7 @@ import com.acikek.purpeille.block.ancient.gateway.AncientGateway;
 import com.acikek.purpeille.block.ancient.oven.AncientOven;
 import com.acikek.purpeille.block.ancient.oven.Damage;
 import com.acikek.purpeille.item.ModItems;
+import lib.BlockItemProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.OreBlock;
 import net.minecraft.block.PillarBlock;
@@ -45,11 +46,17 @@ public class ModBlocks {
         BLOCKS.put("ancient_oven_very_dim", ANCIENT_OVEN_VERY_DIM);
     }
 
+    public static BlockItem getBlockItem(Block block) {
+        return block instanceof BlockItemProvider provider
+                ? provider.getBlockItem().apply(block, ModItems.defaultSettings())
+                : new BlockItem(block, ModItems.defaultSettings());
+    }
+
     public static void register() {
         for (Map.Entry<String, Block> pair : BLOCKS.entrySet()) {
             Identifier id = Purpeille.id(pair.getKey());
             Registry.register(Registry.BLOCK, id, pair.getValue());
-            Registry.register(Registry.ITEM, id, new BlockItem(pair.getValue(), ModItems.defaultSettings()));
+            Registry.register(Registry.ITEM, id, getBlockItem(pair.getValue()));
         }
     }
 }

@@ -68,6 +68,12 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         }
     }
 
+    public ItemStack getOvenStack(BlockState state) {
+        ItemStack stack = new ItemStack(state.getBlock());
+        stack.getOrCreateNbt().putInt("AncientOvenDurability", durability);
+        return stack;
+    }
+
     public static void tick(World world, BlockPos pos, BlockState state, AncientOvenBlockEntity blockEntity) {
         if (!world.isClient() && state.get(AncientOven.LIT)) {
             blockEntity.cookTime--;
