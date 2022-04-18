@@ -51,7 +51,7 @@ public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
             }
             else if (handStack.isOf(ModItems.ENCASED_CORE)) {
                 event = SoundEvents.BLOCK_END_PORTAL_FRAME_FILL;
-                blockEntity.setItem(ModItems.ENCASED_CORE);
+                blockEntity.setItem(handStack.copy());
                 if (!player.isCreative()) {
                     handStack.setCount(handStack.getCount() - 1);
                 }
@@ -74,8 +74,8 @@ public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
                 world.setBlockState(pos, state.with(CHARGING, true));
             }
             else if (charging && !powered && world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity) {
-                blockEntity.activate(world, pos, state);
-                world.setBlockState(pos, state.with(CHARGING, false));
+                BlockState newState = blockEntity.activate(world, pos, state);
+                world.setBlockState(pos, newState.with(CHARGING, false));
             }
         }
     }

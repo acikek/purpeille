@@ -6,6 +6,7 @@ import com.acikek.purpeille.sound.ModSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
@@ -47,16 +48,26 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
         return Vec3d.ofCenter(player.getBlockPos().offset(state.get(AncientGateway.FACING), blocks));
     }
 
-    public void activate(World world, BlockPos pos, BlockState state) {
+    public BlockState damageCore(World world, BlockState state, int blocks) {
+        getItem().damage(blocks / 10, world.random, null);
+        if (getItem().getDamage() == getItem().getMaxDamage()) {
+            setItem(Items.AIR);
+            return state.with(AncientGateway.READY, false);
+        }
+        return state;
+    }
+
+    public BlockState activate(World world, BlockPos pos, BlockState state) {
         PlayerEntity player = getPlayer(world, pos);
         int blocks = getBlocks();
         if (player == null || blocks == 0) {
-            return;
+            return state;
         }
         Vec3d destination = getDestination(player, state, blocks);
         player.teleport(destination.getX(), destination.getY(), destination.getZ());
         player.playSound(ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
         world.playSound(player, pos, ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        return damageCore(world, state, blocks);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, AncientGatewayBlockEntity blockEntity) {

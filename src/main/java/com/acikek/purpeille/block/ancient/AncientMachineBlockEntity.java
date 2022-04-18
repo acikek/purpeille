@@ -31,6 +31,9 @@ public class AncientMachineBlockEntity extends BlockEntity {
     }
 
     public void setItem(ItemStack stack) {
+        if (stack.getCount() > 1) {
+            stack.setCount(1);
+        }
         items.set(0, stack);
     }
 
