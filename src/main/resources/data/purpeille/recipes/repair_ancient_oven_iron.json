@@ -5,7 +5,18 @@
   },
   "damage": -3,
   "cook_time": 300,
-  "result": {
-    "item": "minecraft:bone_meal"
-  }
+  "result": [
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:gray_dye"
+    },
+    {
+      "item": "minecraft:light_gray_dye"
+    }
+  ]
 }

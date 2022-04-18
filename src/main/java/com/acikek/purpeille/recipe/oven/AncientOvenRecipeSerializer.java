@@ -1,8 +1,6 @@
 package com.acikek.purpeille.recipe.oven;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
@@ -16,7 +14,7 @@ public class AncientOvenRecipeSerializer implements RecipeSerializer<AncientOven
         JsonObject input;
         int damage;
         int cook_time;
-        JsonObject result;
+        JsonArray result;
     }
 
     public static final AncientOvenRecipeSerializer INSTANCE = new AncientOvenRecipeSerializer();
@@ -31,7 +29,14 @@ public class AncientOvenRecipeSerializer implements RecipeSerializer<AncientOven
             throw new JsonSyntaxException("Missing field 'result'");
         }
         Ingredient input = Ingredient.fromJson(recipe.input);
-        ItemStack result = ShapedRecipe.outputFromJson(recipe.result);
+        ItemStack[] result = new ItemStack[recipe.result.size()];
+        for (int i = 0; i < result.length; i++) {
+            JsonElement stack = recipe.result.get(i);
+            if (!stack.isJsonObject()) {
+                throw new JsonSyntaxException("'result' entry must be an object");
+            }
+            result[i] = ShapedRecipe.outputFromJson(stack.getAsJsonObject());
+        }
         return new AncientOvenRecipe(input, recipe.damage, recipe.cook_time, result, id);
     }
 
@@ -40,7 +45,11 @@ public class AncientOvenRecipeSerializer implements RecipeSerializer<AncientOven
         Ingredient input = Ingredient.fromPacket(buf);
         int damage = buf.readInt();
         int cookTime = buf.readInt();
-        ItemStack result = buf.readItemStack();
+        int size = buf.readInt();
+        ItemStack[] result = new ItemStack[size];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = buf.readItemStack();
+        }
         return new AncientOvenRecipe(input, damage, cookTime, result, id);
     }
 
@@ -49,6 +58,9 @@ public class AncientOvenRecipeSerializer implements RecipeSerializer<AncientOven
         recipe.input().write(buf);
         buf.writeInt(recipe.damage());
         buf.writeInt(recipe.cookTime());
-        buf.writeItemStack(recipe.result());
+        buf.writeInt(recipe.result().length);
+        for (ItemStack stack : recipe.result()) {
+            buf.writeItemStack(stack);
+        }
     }
 }

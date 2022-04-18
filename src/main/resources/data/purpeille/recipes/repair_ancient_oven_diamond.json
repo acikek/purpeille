@@ -3,9 +3,20 @@
   "input": {
     "item": "minecraft:diamond"
   },
-  "damage": -20,
+  "damage": -35,
   "cook_time": 420,
-  "result": {
-    "item": "minecraft:bone_meal"
-  }
+  "result": [
+    {
+      "item": "minecraft:glow_ink_sac"
+    },
+    {
+      "item": "minecraft:cyan_dye"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:sand"
+    }
+  ]
 }

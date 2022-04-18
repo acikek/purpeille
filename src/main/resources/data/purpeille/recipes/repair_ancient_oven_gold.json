@@ -5,7 +5,21 @@
   },
   "damage": -10,
   "cook_time": 200,
-  "result": {
-    "item": "minecraft:bone_meal"
-  }
+  "result": [
+    {
+      "item": "minecraft:dirt"
+    },
+    {
+      "item": "minecraft:coarse_dirt"
+    },
+    {
+      "item": "minecraft:sunflower"
+    },
+    {
+      "item": "minecraft:glowstone"
+    },
+    {
+      "item": "minecraft:yellow_dye"
+    }
+  ]
 }

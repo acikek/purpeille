@@ -35,7 +35,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     public void addRecipe(AncientOvenRecipe recipe) {
         cookTime = recipe.cookTime();
         damageToTake = recipe.damage();
-        result = recipe.result().copy();
+        result = recipe.getOutput().copy();
     }
 
     public boolean checkDamage(World world, BlockPos pos, BlockState state) {

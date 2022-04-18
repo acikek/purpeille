@@ -3,16 +3,15 @@ package com.acikek.purpeille.recipe.oven;
 import com.acikek.purpeille.Purpeille;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public record AncientOvenRecipe(Ingredient input, int damage, int cookTime,
-                                ItemStack result, Identifier id) implements Recipe<SimpleInventory> {
+                                ItemStack[] result, Identifier id) implements Recipe<SimpleInventory> {
 
     public static final Identifier ID = Purpeille.id("ancient_oven");
 
@@ -33,7 +32,7 @@ public record AncientOvenRecipe(Ingredient input, int damage, int cookTime,
 
     @Override
     public ItemStack getOutput() {
-        return result;
+        return result[new Random().nextInt(result.length)];
     }
 
     @Override

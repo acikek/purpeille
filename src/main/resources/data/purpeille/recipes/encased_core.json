@@ -5,7 +5,9 @@
   },
   "damage": 20,
   "cook_time": 1200,
-  "result": {
-    "item": "purpeille:encased_core"
-  }
+  "result": [
+    {
+      "item": "purpeille:encased_core"
+    }
+  ]
 }

@@ -1,0 +1,13 @@
+{
+  "type": "purpeille:ancient_oven",
+  "input": {
+    "item": "minecraft:stick"
+  },
+  "damage": 50,
+  "cook_time": 2,
+  "result": [
+    {
+      "item": "minecraft:oak_planks"
+    }
+  ]
+}
