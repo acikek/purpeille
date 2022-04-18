@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MCM",
+    "B B",
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "item": "purpeille:ancient_mechanical_bricks"
+    },
+    "C": {
+      "item": "minecraft:magma_cream"
+    },
+    "B": {
+      "item": "purpeille:remnant_brick"
+    }
+  },
+  "result": {
+    "item": "purpeille:ancient_oven",
+    "count": 1
+  }
+}

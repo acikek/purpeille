@@ -1,0 +1,60 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "purpeille:ancient_oven"
+    ]
+  },
+  "criteria": {
+    "has_ancient_mechanical_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:ancient_mechanical_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_magma_cream": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:magma_cream"
+            ]
+          }
+        ]
+      }
+    },
+    "has_remnant_brick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:remnant_brick"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "purpeille:ancient_oven"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ancient_mechanical_bricks",
+      "has_magma_cream",
+      "has_remnant_brick",
+      "has_the_recipe"
+    ]
+  ]
+}
