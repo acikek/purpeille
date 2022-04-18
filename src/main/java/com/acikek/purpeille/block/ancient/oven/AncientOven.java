@@ -103,8 +103,8 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
     @Override
     public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
         if (builder.get(LootContextParameters.BLOCK_ENTITY) instanceof AncientOvenBlockEntity blockEntity) {
-            if (blockEntity.durability == Damage.NONE.max) {
-                return List.of(new ItemStack(ModBlocks.ANCIENT_OVEN));
+            if (blockEntity.durability == damage.max) {
+                return List.of(new ItemStack(this));
             }
             return List.of(blockEntity.getOvenStack(state));
         }

@@ -7,28 +7,38 @@ import net.minecraft.block.entity.BlockEntityType;
 
 public enum Damage {
 
-    NONE(256, 128),
-    DIM(128, 64),
-    VERY_DIM(64, 0);
+    NONE(256, 128, 0),
+    DIM(128, 64, 1),
+    VERY_DIM(64, 0, 2);
 
     public int max;
     public int min;
+    public int index;
 
-    Damage(int value, int min) {
+    Damage(int value, int min, int index) {
         this.max = value;
         this.min = min;
+        this.index = index;
     }
 
-    public AncientOven getOven() {
+    public static AncientOven[] getOvens() {
+        return new AncientOven[] {
+                ModBlocks.ANCIENT_OVEN,
+                ModBlocks.ANCIENT_OVEN_DIM,
+                ModBlocks.ANCIENT_OVEN_VERY_DIM
+        };
+    }
+
+    public AncientOven createBlock() {
         return new AncientOven(AncientOven.SETTINGS, this);
     }
 
     public Block getNext(boolean down) {
-        return switch (this) {
-            case NONE -> down ? ModBlocks.ANCIENT_OVEN_DIM : Blocks.AIR;
-            case DIM -> down ? ModBlocks.ANCIENT_OVEN_VERY_DIM : ModBlocks.ANCIENT_OVEN;
-            case VERY_DIM -> down ? Blocks.AIR : ModBlocks.ANCIENT_OVEN_DIM;
-        };
+        int newIndex = index + (down ? -1 : 1);
+        if (newIndex < 0 || newIndex >= 3) {
+            return Blocks.AIR;
+        }
+        return getOvens()[newIndex];
     }
 
     public BlockEntityType<AncientOvenBlockEntity> getBlockEntityType() {

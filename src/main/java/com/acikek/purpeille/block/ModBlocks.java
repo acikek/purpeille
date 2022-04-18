@@ -28,9 +28,9 @@ public class ModBlocks {
 
     // Machines
     public static AncientGateway ANCIENT_GATEWAY = new AncientGateway(AncientGateway.SETTINGS);
-    public static AncientOven ANCIENT_OVEN = Damage.NONE.getOven();
-    public static AncientOven ANCIENT_OVEN_DIM = Damage.DIM.getOven();
-    public static AncientOven ANCIENT_OVEN_VERY_DIM = Damage.VERY_DIM.getOven();
+    public static AncientOven ANCIENT_OVEN = Damage.NONE.createBlock();
+    public static AncientOven ANCIENT_OVEN_DIM = Damage.DIM.createBlock();
+    public static AncientOven ANCIENT_OVEN_VERY_DIM = Damage.VERY_DIM.createBlock();
 
     public static Map<String, Block> BLOCKS = new LinkedHashMap<>();
 
