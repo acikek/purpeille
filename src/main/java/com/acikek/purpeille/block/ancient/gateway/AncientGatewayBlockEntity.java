@@ -60,7 +60,7 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, AncientGatewayBlockEntity blockEntity) {
-        if (state.get(AncientGateway.CHARGING)) {
+        if (!world.isClient() && state.get(AncientGateway.CHARGING)) {
             blockEntity.charge++;
             if (world.getTime() % 80L == 0) {
                 world.playSound(null, pos, SoundEvents.BLOCK_BEACON_AMBIENT, SoundCategory.BLOCKS, 1.0f, 0.5f);
