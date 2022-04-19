@@ -1,12 +1,12 @@
 package com.acikek.purpeille.item;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.item.material.PurpeilleArmorMaterial;
 import com.acikek.purpeille.item.material.PurpeilleToolMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
-import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
@@ -19,9 +19,17 @@ public class ModItems {
     public static final Item PRESERVED_DUST = new Item(defaultSettings());
     public static final Item REMNANT_CHUNK = new Item(defaultSettings());
     public static final Item REMNANT_BRICK = new Item(defaultSettings());
-    public static final Item PURPEILLE_INGOT = new Item(defaultSettings().rarity(Rarity.UNCOMMON));
-    public static final Item SMOLDERED_PURPEILLE_INGOT = new Item(defaultSettings().rarity(Rarity.UNCOMMON));
-    public static final Item ENCASED_CORE = new Item(defaultSettings().rarity(Rarity.RARE).maxDamage(1024));
+    public static final Item PURPEILLE_INGOT = new Item(defaultSettings());
+    public static final Item SMOLDERED_PURPEILLE_INGOT = new Item(defaultSettings());
+    public static final Item ULTRAVIOLET_PRISM = new Item(defaultSettings());
+    public static final Item METALLIC_LIGHTNING = new Item(defaultSettings());
+
+    // Encased Cores
+    public static final EncasedCore ENCASED_CORE = EncasedCore.Type.NORMAL.getCore();
+    public static final EncasedCore ENERGETIC_CORE = EncasedCore.Type.ENERGETIC.getCore();
+    public static final EncasedCore OVERCLOCKED_CORE = EncasedCore.Type.OVERCLOCKED.getCore();
+    public static final EncasedCore CREATIVE_CORE = EncasedCore.Type.CREATIVE.getCore();
+    public static final EncasedCore VACUOUS_CORE = EncasedCore.Type.VACUOUS.getCore();
 
     // Armor
     public static final ArmorItem PURPEILLE_HELMET = PurpeilleArmorMaterial.getItem(EquipmentSlot.HEAD);
@@ -49,7 +57,13 @@ public class ModItems {
         ITEMS.put("remnant_brick", REMNANT_BRICK);
         ITEMS.put("purpeille_ingot", PURPEILLE_INGOT);
         ITEMS.put("smoldered_purpeille_ingot", SMOLDERED_PURPEILLE_INGOT);
+        ITEMS.put("ultraviolet_prism", ULTRAVIOLET_PRISM);
+        ITEMS.put("metallic_lightning", METALLIC_LIGHTNING);
         ITEMS.put("encased_core", ENCASED_CORE);
+        ITEMS.put("energetic_core", ENERGETIC_CORE);
+        ITEMS.put("overclocked_core", OVERCLOCKED_CORE);
+        ITEMS.put("creative_core", CREATIVE_CORE);
+        ITEMS.put("vacuous_core", VACUOUS_CORE);
         ITEMS.put("purpeille_helmet", PURPEILLE_HELMET);
         ITEMS.put("purpeille_chestplate", PURPEILLE_CHESTPLATE);
         ITEMS.put("purpeille_leggings", PURPEILLE_LEGGINGS);

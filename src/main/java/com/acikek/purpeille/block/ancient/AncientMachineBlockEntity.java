@@ -1,6 +1,7 @@
 package com.acikek.purpeille.block.ancient;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.item.core.EncasedCore;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -43,6 +44,13 @@ public class AncientMachineBlockEntity extends BlockEntity {
 
     public void removeItem() {
         items.set(0, ItemStack.EMPTY);
+    }
+
+    public EncasedCore getCore() {
+        if (getItem().getItem() instanceof EncasedCore core) {
+            return core;
+        }
+        return null;
     }
 
     @Override

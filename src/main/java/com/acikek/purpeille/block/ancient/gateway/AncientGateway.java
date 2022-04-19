@@ -1,7 +1,7 @@
 package com.acikek.purpeille.block.ancient.gateway;
 
 import com.acikek.purpeille.block.ancient.AncientMachine;
-import com.acikek.purpeille.item.ModItems;
+import com.acikek.purpeille.item.core.EncasedCore;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -49,7 +49,7 @@ public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
                 }
                 world.setBlockState(pos, newState);
             }
-            else if (handStack.isOf(ModItems.ENCASED_CORE)) {
+            else if (handStack.getItem() instanceof EncasedCore) {
                 event = SoundEvents.BLOCK_END_PORTAL_FRAME_FILL;
                 blockEntity.setItem(handStack.copy());
                 if (!player.isCreative()) {

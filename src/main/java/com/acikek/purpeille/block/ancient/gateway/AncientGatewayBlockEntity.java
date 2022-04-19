@@ -2,6 +2,7 @@ package com.acikek.purpeille.block.ancient.gateway;
 
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
+import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.sound.ModSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -39,7 +40,8 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
     }
 
     public int getBlocks() {
-        int blocks = charge / 4;
+        EncasedCore core = getCore();
+        int blocks = (charge / 4) * (core != null ? core.type.modifier : 1);
         charge = 0;
         return blocks;
     }
@@ -49,7 +51,12 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
     }
 
     public BlockState damageCore(World world, BlockState state, int blocks) {
-        getItem().damage(blocks / 10, world.random, null);
+        EncasedCore core = getCore();
+        if (core != null && core.type == EncasedCore.Type.CREATIVE) {
+            return state;
+        }
+        int damage = Math.abs(blocks / 10);
+        getItem().damage(damage > 0 ? damage : 1, world.random, null);
         if (getItem().getDamage() == getItem().getMaxDamage()) {
             setItem(Items.AIR);
             return state.with(AncientGateway.READY, false);
