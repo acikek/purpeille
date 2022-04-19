@@ -7,10 +7,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -51,6 +55,18 @@ public class AncientMachineBlockEntity extends BlockEntity {
             return core;
         }
         return null;
+    }
+
+    public boolean checkCore(PlayerEntity player, Hand hand) {
+        if (player.isSneaking() && player.getStackInHand(hand).isEmpty()) {
+            EncasedCore core = getCore();
+            if (core != null) {
+                MutableText text = new TranslatableText(core.getTranslationKey()).formatted(core.type.rarity.formatting);
+                player.sendMessage(text, true);
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override
