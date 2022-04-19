@@ -2,6 +2,7 @@ package com.acikek.purpeille.item.core;
 
 import com.acikek.purpeille.item.ModItems;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Rarity;
 
 public class EncasedCore extends Item {
@@ -39,5 +40,16 @@ public class EncasedCore extends Item {
     public EncasedCore(Settings settings, Type type) {
         super(type.getSettings(settings));
         this.type = type;
+    }
+
+    public static int getModifier(ItemStack stack) {
+        Item item = stack.getItem();
+        if (item instanceof EncasedCore encasedCore) {
+            if (item instanceof CreativeCore) {
+                return CreativeCore.getNbtModifier(stack.getOrCreateNbt());
+            }
+            return encasedCore.type.modifier;
+        }
+        return 1;
     }
 }

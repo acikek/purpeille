@@ -40,8 +40,7 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
     }
 
     public int getBlocks() {
-        EncasedCore core = getCore();
-        int blocks = (charge / 4) * (core != null ? core.type.modifier : 1);
+        int blocks = (charge / 4) * EncasedCore.getModifier(getItem());
         charge = 0;
         return blocks;
     }

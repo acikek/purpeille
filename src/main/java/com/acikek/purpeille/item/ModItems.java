@@ -1,6 +1,7 @@
 package com.acikek.purpeille.item;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.item.core.CreativeCore;
 import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.item.material.PurpeilleArmorMaterial;
 import com.acikek.purpeille.item.material.PurpeilleToolMaterial;
@@ -28,8 +29,8 @@ public class ModItems {
     public static final EncasedCore ENCASED_CORE = EncasedCore.Type.NORMAL.getCore();
     public static final EncasedCore ENERGETIC_CORE = EncasedCore.Type.ENERGETIC.getCore();
     public static final EncasedCore OVERCLOCKED_CORE = EncasedCore.Type.OVERCLOCKED.getCore();
-    public static final EncasedCore CREATIVE_CORE = EncasedCore.Type.CREATIVE.getCore();
     public static final EncasedCore VACUOUS_CORE = EncasedCore.Type.VACUOUS.getCore();
+    public static final CreativeCore CREATIVE_CORE = new CreativeCore(defaultSettings());
 
     // Armor
     public static final ArmorItem PURPEILLE_HELMET = PurpeilleArmorMaterial.getItem(EquipmentSlot.HEAD);
@@ -62,8 +63,8 @@ public class ModItems {
         ITEMS.put("encased_core", ENCASED_CORE);
         ITEMS.put("energetic_core", ENERGETIC_CORE);
         ITEMS.put("overclocked_core", OVERCLOCKED_CORE);
-        ITEMS.put("creative_core", CREATIVE_CORE);
         ITEMS.put("vacuous_core", VACUOUS_CORE);
+        ITEMS.put("creative_core", CREATIVE_CORE);
         ITEMS.put("purpeille_helmet", PURPEILLE_HELMET);
         ITEMS.put("purpeille_chestplate", PURPEILLE_CHESTPLATE);
         ITEMS.put("purpeille_leggings", PURPEILLE_LEGGINGS);
