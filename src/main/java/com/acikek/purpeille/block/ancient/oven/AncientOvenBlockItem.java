@@ -1,19 +1,14 @@
 package com.acikek.purpeille.block.ancient.oven;
 
-import com.acikek.purpeille.block.ancient.AncientMachineBlockItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 
-public class AncientOvenBlockItem extends AncientMachineBlockItem {
+public class AncientOvenBlockItem extends BlockItem {
 
     public AncientOvenBlockItem(Block block, Settings settings) {
         super(block, settings);
-    }
-
-    @Override
-    public String getTooltipKey() {
-        return "tooltip.purpeille.ancient_oven";
     }
 
     @Override

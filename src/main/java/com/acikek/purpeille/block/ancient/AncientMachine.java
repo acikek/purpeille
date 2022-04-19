@@ -1,13 +1,10 @@
 package com.acikek.purpeille.block.ancient;
 
-import lib.BlockItemProvider;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
@@ -22,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiFunction;
 
-public abstract class AncientMachine<T extends AncientMachineBlockEntity> extends BlockWithEntity implements BlockItemProvider {
+public abstract class AncientMachine<T extends AncientMachineBlockEntity> extends BlockWithEntity {
 
     public static DirectionProperty FACING = HorizontalFacingBlock.FACING;
 
@@ -109,10 +106,5 @@ public abstract class AncientMachine<T extends AncientMachineBlockEntity> extend
     @Override
     public <E extends BlockEntity> BlockEntityTicker<E> getTicker(World world, BlockState state, BlockEntityType<E> type) {
         return checkType(type, getBlockEntityType(), ticker);
-    }
-
-    @Override
-    public BiFunction<Block, Item.Settings, BlockItem> getBlockItem() {
-        return AncientMachineBlockItem::new;
     }
 }

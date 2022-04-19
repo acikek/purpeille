@@ -77,18 +77,5 @@
   "advancements.purpeille.warpath_opposition.description": "Put a negative bonus on a helmet",
   "advancements.purpeille.warpath_pace.title": "The Full Potential",
   "advancements.purpeille.warpath_pace.description": "Create the fastest possible bonus",
-  "subtitle.purpeille.ancient_gateway.teleport": "Ancient Gateway Teleports",
-
-  "tooltip.purpeille.ancient_gateway_0": "Teleports a player using forgotten",
-  "tooltip.purpeille.ancient_gateway_1": "transmutation systems.",
-  "tooltip.purpeille.ancient_gateway_2": "",
-  "tooltip.purpeille.ancient_gateway_3": "Right-click with an §bEncased Core",
-  "tooltip.purpeille.ancient_gateway_4": "and charge with a redstone signal",
-  "tooltip.purpeille.ancient_gateway_5": "to build up §e5 blocks/s§7.",
-
-  "tooltip.purpeille.ancient_oven_0": "Harnesses the ancient capabilities",
-  "tooltip.purpeille.ancient_oven_1": "of an object.",
-  "tooltip.purpeille.ancient_oven_2": "",
-  "tooltip.purpeille.ancient_oven_3": "This will damage the machine; repair",
-  "tooltip.purpeille.ancient_oven_4": "with §fIron§7, §fGold§7, and §fDiamonds§7."
+  "subtitle.purpeille.ancient_gateway.teleport": "Ancient Gateway Teleports"
 }
