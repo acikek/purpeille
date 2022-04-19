@@ -6,6 +6,7 @@ import com.acikek.purpeille.item.material.PurpeilleToolMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
@@ -18,9 +19,9 @@ public class ModItems {
     public static final Item PRESERVED_DUST = new Item(defaultSettings());
     public static final Item REMNANT_CHUNK = new Item(defaultSettings());
     public static final Item REMNANT_BRICK = new Item(defaultSettings());
-    public static final Item PURPEILLE_INGOT = new Item(defaultSettings());
-    public static final Item SMOLDERED_PURPEILLE_INGOT = new Item(defaultSettings());
-    public static final Item ENCASED_CORE = new Item(defaultSettings());
+    public static final Item PURPEILLE_INGOT = new Item(defaultSettings().rarity(Rarity.UNCOMMON));
+    public static final Item SMOLDERED_PURPEILLE_INGOT = new Item(defaultSettings().rarity(Rarity.UNCOMMON));
+    public static final Item ENCASED_CORE = new Item(defaultSettings().rarity(Rarity.RARE).maxDamage(1024));
 
     // Armor
     public static final ArmorItem PURPEILLE_HELMET = PurpeilleArmorMaterial.getItem(EquipmentSlot.HEAD);
