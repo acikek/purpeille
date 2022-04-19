@@ -1,0 +1,10 @@
+{
+  "type": "voidcrafting:void_crafting",
+  "input": {
+    "item": "purpeille:encased_core"
+  },
+  "radius": 15,
+  "result": {
+    "item": "purpeille:vacuous_core"
+  }
+}

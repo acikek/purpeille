@@ -1,0 +1,13 @@
+{
+  "type": "purpeille:ancient_oven",
+  "input": {
+    "item": "minecraft:amethyst_shard"
+  },
+  "damage": 10,
+  "cook_time": 1200,
+  "result": [
+    {
+      "item": "purpeille:ultraviolet_prism"
+    }
+  ]
+}

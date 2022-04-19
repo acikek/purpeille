@@ -1,0 +1,13 @@
+{
+  "type": "purpeille:ancient_oven",
+  "input": {
+    "item": "minecraft:copper_ingot"
+  },
+  "damage": 15,
+  "cook_time": 1800,
+  "result": [
+    {
+      "item": "purpeille:metallic_lightning"
+    }
+  ]
+}

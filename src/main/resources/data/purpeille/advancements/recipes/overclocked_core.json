@@ -1,0 +1,73 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "purpeille:overclocked_core"
+    ]
+  },
+  "criteria": {
+    "has_metallic_lightning": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:metallic_lightning"
+            ]
+          }
+        ]
+      }
+    },
+    "has_preserved_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:preserved_dust"
+            ]
+          }
+        ]
+      }
+    },
+    "has_ender_pearl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:ender_pearl"
+            ]
+          }
+        ]
+      }
+    },
+    "has_energetic_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:energetic_core"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "purpeille:overclocked_core"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_metallic_lightning",
+      "has_preserved_dust",
+      "has_ender_pearl",
+      "has_energetic_core",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "PCP",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "purpeille:ultraviolet_prism"
+    },
+    "C": {
+      "item": "purpeille:encased_core"
+    }
+  },
+  "result": {
+    "item": "purpeille:energetic_core",
+    "count": 1
+  }
+}

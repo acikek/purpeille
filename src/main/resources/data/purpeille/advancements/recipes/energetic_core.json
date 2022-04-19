@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "purpeille:energetic_core"
+    ]
+  },
+  "criteria": {
+    "has_ultraviolet_prism": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:ultraviolet_prism"
+            ]
+          }
+        ]
+      }
+    },
+    "has_encased_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:encased_core"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "purpeille:energetic_core"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ultraviolet_prism",
+      "has_encased_core",
+      "has_the_recipe"
+    ]
+  ]
+}
