@@ -4,6 +4,7 @@ import com.acikek.purpeille.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.util.math.MathHelper;
 
 public enum Damage {
 
@@ -21,6 +22,14 @@ public enum Damage {
         this.index = index;
     }
 
+    public AncientOven createBlock() {
+        return new AncientOven(AncientOven.SETTINGS, this);
+    }
+
+    public boolean inRange(int durability) {
+        return durability > min && durability < max;
+    }
+
     public static AncientOven[] getOvens() {
         return new AncientOven[] {
                 ModBlocks.ANCIENT_OVEN,
@@ -29,16 +38,28 @@ public enum Damage {
         };
     }
 
-    public AncientOven createBlock() {
-        return new AncientOven(AncientOven.SETTINGS, this);
+    public static Damage getFromDurability(int durability) {
+        if (durability <= VERY_DIM.min) {
+            return null;
+        }
+        for (Damage damage : Damage.values()) {
+            if (damage.inRange(durability)) {
+                return damage;
+            }
+        }
+        return null;
     }
 
-    public Block getNext(boolean down) {
-        int newIndex = index + (down ? 1 : -1);
-        if (newIndex < 0 || newIndex >= 3) {
+    public static Block getNext(int durability) {
+        Damage damage = getFromDurability(durability);
+        if (damage == null) {
             return Blocks.AIR;
         }
-        return getOvens()[newIndex];
+        return getOvens()[damage.index];
+    }
+
+    public static int clamp(int durability) {
+        return MathHelper.clamp(durability, VERY_DIM.min, NONE.max);
     }
 
     public BlockEntityType<AncientOvenBlockEntity> getBlockEntityType() {

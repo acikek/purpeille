@@ -51,13 +51,6 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
         this.damage = damage;
     }
 
-    public BlockState getNextState(BlockState state, boolean down) {
-        BlockState newState = damage.getNext(down).getDefaultState();
-        return newState.isOf(Blocks.AIR) ? newState : newState
-                .with(FACING, state.get(FACING))
-                .with(LIT, state.get(LIT));
-    }
-
     public BlockEntityType<AncientOvenBlockEntity> getBlockEntityType(String id) {
         return AncientMachineBlockEntity.build(id, AncientOvenBlockEntity::new, this);
     }
@@ -85,6 +78,13 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
             }
         }
         return ActionResult.SUCCESS;
+    }
+
+    public static BlockState getNextState(BlockState state, int durability) {
+        BlockState newState = Damage.getNext(durability).getDefaultState();
+        return newState.isOf(Blocks.AIR) ? newState : newState
+                .with(FACING, state.get(FACING))
+                .with(LIT, state.get(LIT));
     }
 
     @Override

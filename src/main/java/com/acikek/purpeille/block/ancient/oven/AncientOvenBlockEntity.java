@@ -39,20 +39,15 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     }
 
     public boolean checkDamage(World world, BlockPos pos, BlockState state) {
-        if (state.getBlock() instanceof AncientOven block) {
-            boolean below = durability <= block.damage.min;
-            boolean above = durability >= block.damage.max;
-            if (above && block.damage == Damage.NONE) {
-                durability = block.damage.max;
+        if (state.getBlock() instanceof AncientOven block && !block.damage.inRange(durability)) {
+            world.setBlockState(pos, AncientOven.getNextState(state, durability));
+            block.breakParticles(world, pos, state);
+            durability = Damage.clamp(durability);
+            if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
+                blockEntity.durability = durability;
+                System.out.println("New block entity durability is " + blockEntity.durability);
             }
-            else if (below || above) {
-                world.setBlockState(pos, block.getNextState(state, below));
-                block.breakParticles(world, pos, state);
-                if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
-                    blockEntity.durability = durability;
-                }
-                return false;
-            }
+            return false;
         }
         return true;
     }
