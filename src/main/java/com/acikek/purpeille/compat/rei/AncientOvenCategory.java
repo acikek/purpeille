@@ -44,7 +44,7 @@ public class AncientOvenCategory implements DisplayCategory<AncientOvenDisplay> 
         Point textPoint = new Point(bounds.getCenterX(), bounds.getCenterY() + 16);
         List<Widget> widgets = new ArrayList<>();
         widgets.add(Widgets.createRecipeBase(bounds));
-        widgets.add(Widgets.createArrow(new Point(startPoint.x + 50, startPoint.y + 7)));
+        widgets.add(Widgets.createArrow(new Point(startPoint.x + 50, startPoint.y + 7)).animationDurationTicks(display.cookTime));
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 27, startPoint.y + 8)).entry(display.getInputEntries().get(0).get(0)).markInput());
         widgets.add(Widgets.createResultSlotBackground(outputPoint));
         widgets.add(Widgets.createSlot(outputPoint).entries(display.getOutputEntries().get(0)).disableBackground().markOutput());
