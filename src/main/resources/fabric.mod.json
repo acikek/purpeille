@@ -21,6 +21,9 @@
   "entrypoints": {
     "main": [
       "com.acikek.purpeille.Purpeille"
+    ],
+    "rei": [
+      "com.acikek.purpeille.compat.rei.PurpeilleREIPlugin"
     ]
   },
   "mixins": [

@@ -20,6 +20,8 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+
+    maven { url "https://maven.shedaniel.me" }
 }
 
 dependencies {
@@ -33,6 +35,9 @@ dependencies {
 
     modImplementation include("maven.modrinth:voidcrafting:${project.voidcrafting_version}")
     modImplementation include("maven.modrinth:cmods:${project.cmods_version}")
+
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 }
 
 processResources {

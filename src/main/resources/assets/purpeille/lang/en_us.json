@@ -103,5 +103,7 @@
   "advancements.purpeille.ancient_gateway_far.description": "Travel 10,000 blocks with an Ancient Gateway",
   "subtitle.purpeille.ancient_gateway.teleport": "Ancient Gateway Teleports",
   "use.purpeille.creative_core": "Set core modifier to %d",
-  "tooltip.purpeille.creative_core": "Core modifier: "
+  "tooltip.purpeille.creative_core": "Core modifier: ",
+  "rei.purpeille.ancient_oven": "Void Focusing",
+  "rei.purpeille.ancient_oven.damage": "%d Damage"
 }
