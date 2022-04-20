@@ -30,9 +30,13 @@ public record AncientOvenRecipe(Ingredient input, int damage, int cookTime,
         return false;
     }
 
+    public ItemStack getOutput(Random random) {
+        return result[random.nextInt(result.length)];
+    }
+
     @Override
     public ItemStack getOutput() {
-        return result[new Random().nextInt(result.length)];
+        return getOutput(new Random());
     }
 
     @Override

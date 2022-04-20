@@ -3,7 +3,6 @@ package com.acikek.purpeille.block.ancient.oven;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
-import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import lib.BlockItemProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,7 +12,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -61,20 +59,11 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
             ItemStack handStack = player.getStackInHand(hand);
             boolean lit = state.get(LIT);
             boolean full = state.get(FULL);
-            if (blockEntity.hasItem() && !lit && full) {
+            if (!blockEntity.isEmpty() && !lit && full) {
                 blockEntity.finishRecipe(world, player, pos, state);
-                world.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
             }
             else if (!handStack.isEmpty() && !full) {
-                SimpleInventory inventory = new SimpleInventory(handStack);
-                world.getRecipeManager().getFirstMatch(AncientOvenRecipe.Type.INSTANCE, inventory, world).ifPresent(match -> {
-                    blockEntity.setItem(handStack.getItem());
-                    blockEntity.addRecipe(match);
-                    if (!player.isCreative()) {
-                        handStack.setCount(handStack.getCount() - 1);
-                    }
-                    world.setBlockState(pos, state.with(LIT, true).with(FULL, true));
-                });
+                blockEntity.startRecipe(world, handStack, true, player, pos, state);
             }
         }
         return ActionResult.SUCCESS;

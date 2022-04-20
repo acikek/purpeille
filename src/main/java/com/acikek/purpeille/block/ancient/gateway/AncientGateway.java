@@ -36,7 +36,7 @@ public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
         if (!world.isClient() && world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity && blockEntity.checkCore(player, hand)) {
             SoundEvent event = null;
             ItemStack handStack = player.getStackInHand(hand);
-            if (blockEntity.hasItem()) {
+            if (!blockEntity.isEmpty()) {
                 event = SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM;
                 if (!player.isCreative()) {
                     player.getInventory().offerOrDrop(blockEntity.getItem());

@@ -2,6 +2,7 @@ package com.acikek.purpeille.block.ancient;
 
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.item.core.EncasedCore;
+import lib.ImplementedInventory;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,6 +10,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -17,9 +19,11 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+import org.jetbrains.annotations.Nullable;
 
-public class AncientMachineBlockEntity extends BlockEntity {
+public class AncientMachineBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory {
 
     public DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
@@ -28,26 +32,34 @@ public class AncientMachineBlockEntity extends BlockEntity {
     }
 
     public ItemStack getItem() {
-        return items.get(0);
+        return getStack(0);
     }
 
-    public boolean hasItem() {
-        return !getItem().isEmpty();
-    }
-
+    /**
+     * Sets the singular item within the machine.
+     * This modifies the inventory directly and should be used for player actions.
+     * To handle transfer interactions, override {@link net.minecraft.inventory.Inventory#setStack(int, ItemStack)}.
+     * @param stack The stack to add. Will not be modified.
+     */
     public void setItem(ItemStack stack) {
-        if (stack.getCount() > 1) {
-            stack.setCount(1);
+        ItemStack newStack = stack.copy();
+        if (newStack.getCount() > 1) {
+            newStack.setCount(1);
         }
-        items.set(0, stack);
+        items.set(0, newStack);
     }
 
     public void setItem(Item item) {
-        setItem(new ItemStack(item));
+        setItem(item.getDefaultStack());
     }
 
+    /**
+     * Removes the singular item within the machine.
+     * This modifies the inventory directly and should be used for player actions.
+     * To handle transfer interactions, override {@link net.minecraft.inventory.Inventory#removeStack(int, int)}.
+     */
     public void removeItem() {
-        items.set(0, ItemStack.EMPTY);
+        setItem(ItemStack.EMPTY);
     }
 
     public EncasedCore getCore() {
@@ -67,6 +79,26 @@ public class AncientMachineBlockEntity extends BlockEntity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public DefaultedList<ItemStack> getItems() {
+        return items;
+    }
+
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return new int[1];
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return false;
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return false;
     }
 
     @Override

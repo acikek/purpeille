@@ -7,11 +7,18 @@ import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
 
@@ -37,17 +44,18 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     public void addRecipe(AncientOvenRecipe recipe) {
         cookTime = recipe.cookTime();
         damageToTake = recipe.damage();
-        result = recipe.getOutput().copy();
+        result = (world != null ? recipe.getOutput(world.random) : recipe.getOutput()).copy();
     }
 
     public boolean checkDamage(World world, PlayerEntity player, BlockPos pos, BlockState state) {
         durability = Damage.clamp(durability);
-        System.out.println(durability);
         if (state.getBlock() instanceof AncientOven block && !block.damage.inRange(durability)) {
             Damage newDamage = Damage.getFromDurability(durability);
             world.setBlockState(pos, AncientOven.getNextState(state, newDamage));
             block.breakParticles(world, pos, state);
-            ModCriteria.ANCIENT_OVEN_DAMAGED.trigger((ServerPlayerEntity) player, newDamage);
+            if (player != null) {
+                ModCriteria.ANCIENT_OVEN_DAMAGED.trigger((ServerPlayerEntity) player, newDamage);
+            }
             if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
                 blockEntity.durability = durability;
             }
@@ -56,15 +64,37 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         return true;
     }
 
+    public Optional<AncientOvenRecipe> getRecipeMatch(World world, ItemStack stack) {
+        if (world == null) {
+            return Optional.empty();
+        }
+        return world.getRecipeManager().getFirstMatch(AncientOvenRecipe.Type.INSTANCE, new SimpleInventory(stack), world);
+    }
+
+    public void startRecipe(World world, ItemStack stack, boolean unset, PlayerEntity player, BlockPos pos, BlockState state) {
+        getRecipeMatch(world, stack).ifPresent(match -> {
+            if (unset) {
+                setItem(stack.getItem());
+            }
+            addRecipe(match);
+            if (player != null && !player.isCreative()) {
+                stack.setCount(stack.getCount() - 1);
+            }
+            world.setBlockState(pos, state.with(AncientOven.LIT, true).with(AncientOven.FULL, true));
+        });
+    }
+
     public void finishRecipe(World world, PlayerEntity player, BlockPos pos, BlockState state) {
-        player.getInventory().offerOrDrop(getItem());
-        removeItem();
+        if (player != null) {
+            player.getInventory().offerOrDrop(getItem());
+        }
         durability -= damageToTake;
         damageToTake = 0;
         result = ItemStack.EMPTY;
         if (checkDamage(world, player, pos, state)) {
             world.setBlockState(pos, state.with(AncientOven.FULL, false));
         }
+        world.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
     }
 
     public ItemStack getOvenStack(BlockState state) {
@@ -81,6 +111,33 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
                 blockEntity.setItem(blockEntity.result);
             }
         }
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        super.setStack(slot, stack);
+        startRecipe(world, stack, false, null, pos, getCachedState());
+    }
+
+    @Override
+    public ItemStack removeStack(int slot, int count) {
+        finishRecipe(world, null, pos, getCachedState());
+        return super.removeStack(slot, count);
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return dir != Direction.DOWN
+                && !getCachedState().get(AncientOven.FULL)
+                && getRecipeMatch(world, stack).isPresent();
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        BlockState state = getCachedState();
+        return dir == Direction.DOWN
+                && state.get(AncientOven.FULL)
+                && !state.get(AncientOven.LIT);
     }
 
     @Override
