@@ -1,0 +1,37 @@
+{
+  "parent": "purpeille:purpeille/impure_preserved_dust",
+  "display": {
+    "icon": {
+      "item": "purpeille:ancient_mechanical_bricks"
+    },
+    "title": {
+      "translate": "advancements.purpeille.ancient_mechanical_bricks.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.ancient_mechanical_bricks.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_ancient_mechanical_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:ancient_mechanical_bricks"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_ancient_mechanical_bricks"
+    ]
+  ]
+}

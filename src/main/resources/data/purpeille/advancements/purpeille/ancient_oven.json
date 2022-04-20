@@ -1,0 +1,37 @@
+{
+  "parent": "purpeille:purpeille/ancient_mechanical_bricks",
+  "display": {
+    "icon": {
+      "item": "purpeille:ancient_oven"
+    },
+    "title": {
+      "translate": "advancements.purpeille.ancient_oven.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.ancient_oven.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_ancient_oven": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:ancient_oven"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_ancient_oven"
+    ]
+  ]
+}

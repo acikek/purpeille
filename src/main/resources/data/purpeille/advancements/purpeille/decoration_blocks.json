@@ -1,0 +1,82 @@
+{
+  "parent": "purpeille:purpeille/impure_preserved_dust",
+  "display": {
+    "icon": {
+      "item": "purpeille:monolithic_purpur"
+    },
+    "title": {
+      "translate": "advancements.purpeille.decoration_blocks.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.decoration_blocks.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_monolithic_purpur": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:monolithic_purpur"
+            ]
+          }
+        ]
+      }
+    },
+    "obtain_remnant_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:remnant_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "obtain_purpeille_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:purpeille_block"
+            ]
+          }
+        ]
+      }
+    },
+    "obtain_ancient_mechanical_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:ancient_mechanical_bricks"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_monolithic_purpur"
+    ],
+    [
+      "obtain_remnant_bricks"
+    ],
+    [
+      "obtain_purpeille_block"
+    ],
+    [
+      "obtain_ancient_mechanical_bricks"
+    ]
+  ]
+}

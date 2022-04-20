@@ -1,0 +1,28 @@
+{
+  "parent": "purpeille:purpeille/encased_core",
+  "display": {
+    "icon": {
+      "item": "purpeille:ancient_gateway"
+    },
+    "title": {
+      "translate": "advancements.purpeille.ancient_gateway.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.ancient_gateway.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "use_ancient_gateway": {
+      "trigger": "purpeille:ancient_gateway_used"
+    }
+  },
+  "requirements": [
+    [
+      "use_ancient_gateway"
+    ]
+  ]
+}

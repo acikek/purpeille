@@ -1,0 +1,31 @@
+{
+  "parent": "purpeille:purpeille/encased_core",
+  "display": {
+    "icon": {
+      "item": "purpeille:vacuous_core"
+    },
+    "title": {
+      "translate": "advancements.purpeille.vacuous_core.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.vacuous_core.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_vacuous_core": {
+      "trigger": "voidcrafting:void_craft_success",
+      "conditions": {
+        "recipe": "purpeille:vacuous_core"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_vacuous_core"
+    ]
+  ]
+}

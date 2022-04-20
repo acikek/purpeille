@@ -27,7 +27,7 @@ public enum Damage {
     }
 
     public boolean inRange(int durability) {
-        return durability > min && durability < max;
+        return durability > min && durability <= max;
     }
 
     public static AncientOven[] getOvens() {
@@ -39,7 +39,7 @@ public enum Damage {
     }
 
     public static Damage getFromDurability(int durability) {
-        if (durability <= VERY_DIM.min) {
+        if (durability == VERY_DIM.min) {
             return null;
         }
         for (Damage damage : Damage.values()) {
@@ -50,8 +50,7 @@ public enum Damage {
         return null;
     }
 
-    public static Block getNext(int durability) {
-        Damage damage = getFromDurability(durability);
+    public static Block getNext(Damage damage) {
         if (damage == null) {
             return Blocks.AIR;
         }

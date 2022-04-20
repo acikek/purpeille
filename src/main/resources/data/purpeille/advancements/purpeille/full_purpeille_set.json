@@ -1,0 +1,52 @@
+{
+  "parent": "purpeille:purpeille/purpeille_ingot",
+  "display": {
+    "icon": {
+      "item": "purpeille:purpeille_chestplate"
+    },
+    "title": {
+      "translate": "advancements.purpeille.full_purpeille_set.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.full_purpeille_set.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "purpeille_armor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:purpeille_helmet"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:purpeille_chestplate"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:purpeille_leggings"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:purpeille_boots"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "purpeille_armor"
+    ]
+  ]
+}

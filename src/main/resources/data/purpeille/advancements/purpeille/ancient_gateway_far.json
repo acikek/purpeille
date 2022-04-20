@@ -1,0 +1,33 @@
+{
+  "parent": "purpeille:purpeille/ancient_gateway",
+  "display": {
+    "icon": {
+      "item": "purpeille:creative_core"
+    },
+    "title": {
+      "translate": "advancements.purpeille.ancient_gateway_far.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.ancient_gateway_far.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "use_ancient_gateway": {
+      "trigger": "purpeille:ancient_gateway_used",
+      "conditions": {
+        "blocks": {
+          "min": 10000
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "use_ancient_gateway"
+    ]
+  ]
+}

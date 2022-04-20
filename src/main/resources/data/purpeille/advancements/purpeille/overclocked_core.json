@@ -1,28 +1,28 @@
 {
-  "parent": "purpeille:purpeille/impure_preserved_dust",
+  "parent": "purpeille:purpeille/encased_core",
   "display": {
     "icon": {
-      "item": "purpeille:monolithic_purpur"
+      "item": "purpeille:overclocked_core"
     },
     "title": {
-      "translate": "advancements.purpeille.monolithic_purpur.title"
+      "translate": "advancements.purpeille.overclocked_core.title"
     },
     "description": {
-      "translate": "advancements.purpeille.monolithic_purpur.description"
+      "translate": "advancements.purpeille.overclocked_core.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "obtain_monolithic_purpur": {
+    "obtain_overclocked_core": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "purpeille:monolithic_purpur"
+              "purpeille:overclocked_core"
             ]
           }
         ]
@@ -31,7 +31,7 @@
   },
   "requirements": [
     [
-      "obtain_monolithic_purpur"
+      "obtain_overclocked_core"
     ]
   ]
 }

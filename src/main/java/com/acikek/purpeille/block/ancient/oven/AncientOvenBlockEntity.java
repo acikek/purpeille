@@ -1,5 +1,6 @@
 package com.acikek.purpeille.block.ancient.oven;
 
+import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
@@ -8,6 +9,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,14 +40,16 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         result = recipe.getOutput().copy();
     }
 
-    public boolean checkDamage(World world, BlockPos pos, BlockState state) {
+    public boolean checkDamage(World world, PlayerEntity player, BlockPos pos, BlockState state) {
+        durability = Damage.clamp(durability);
+        System.out.println(durability);
         if (state.getBlock() instanceof AncientOven block && !block.damage.inRange(durability)) {
-            world.setBlockState(pos, AncientOven.getNextState(state, durability));
+            Damage newDamage = Damage.getFromDurability(durability);
+            world.setBlockState(pos, AncientOven.getNextState(state, newDamage));
             block.breakParticles(world, pos, state);
-            durability = Damage.clamp(durability);
+            ModCriteria.ANCIENT_OVEN_DAMAGED.trigger((ServerPlayerEntity) player, newDamage);
             if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
                 blockEntity.durability = durability;
-                System.out.println("New block entity durability is " + blockEntity.durability);
             }
             return false;
         }
@@ -58,7 +62,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         durability -= damageToTake;
         damageToTake = 0;
         result = ItemStack.EMPTY;
-        if (checkDamage(world, pos, state)) {
+        if (checkDamage(world, player, pos, state)) {
             world.setBlockState(pos, state.with(AncientOven.FULL, false));
         }
     }

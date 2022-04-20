@@ -1,0 +1,31 @@
+{
+  "parent": "purpeille:purpeille/ancient_oven",
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_ingot"
+    },
+    "title": {
+      "translate": "advancements.purpeille.repair_ancient_oven.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.repair_ancient_oven.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "repair_ancient_oven": {
+      "trigger": "purpeille:ancient_oven_damaged",
+      "conditions": {
+        "damage": "none"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "repair_ancient_oven"
+    ]
+  ]
+}

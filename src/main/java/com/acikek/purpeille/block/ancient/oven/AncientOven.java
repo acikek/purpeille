@@ -80,8 +80,8 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
         return ActionResult.SUCCESS;
     }
 
-    public static BlockState getNextState(BlockState state, int durability) {
-        BlockState newState = Damage.getNext(durability).getDefaultState();
+    public static BlockState getNextState(BlockState state, Damage damage) {
+        BlockState newState = Damage.getNext(damage).getDefaultState();
         return newState.isOf(Blocks.AIR) ? newState : newState
                 .with(FACING, state.get(FACING))
                 .with(LIT, state.get(LIT));

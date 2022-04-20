@@ -1,5 +1,6 @@
 package com.acikek.purpeille.block.ancient.gateway;
 
+import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
 import com.acikek.purpeille.item.core.EncasedCore;
@@ -12,6 +13,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -73,6 +75,7 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
         player.teleport(destination.getX(), destination.getY(), destination.getZ());
         player.playSound(ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
         world.playSound(player, pos, ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        ModCriteria.ANCIENT_GATEWAY_USED.trigger((ServerPlayerEntity) player, blocks);
         return damageCore(world, state, blocks);
     }
 
