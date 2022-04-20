@@ -4,7 +4,7 @@
     "item": "minecraft:diamond"
   },
   "damage": -35,
-  "cook_time": 420,
+  "cook_time": 400,
   "result": [
     {
       "item": "minecraft:glow_ink_sac"

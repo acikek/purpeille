@@ -4,7 +4,7 @@
     "item": "minecraft:amethyst_shard"
   },
   "damage": 10,
-  "cook_time": 1200,
+  "cook_time": 400,
   "result": [
     {
       "item": "purpeille:ultraviolet_prism"

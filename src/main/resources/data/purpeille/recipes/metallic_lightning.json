@@ -4,7 +4,7 @@
     "item": "minecraft:copper_ingot"
   },
   "damage": 15,
-  "cook_time": 1800,
+  "cook_time": 600,
   "result": [
     {
       "item": "purpeille:metallic_lightning"

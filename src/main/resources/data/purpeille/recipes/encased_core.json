@@ -4,7 +4,7 @@
     "item": "minecraft:ender_eye"
   },
   "damage": 20,
-  "cook_time": 3600,
+  "cook_time": 1200,
   "result": [
     {
       "item": "purpeille:encased_core"
