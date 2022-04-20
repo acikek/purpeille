@@ -12,6 +12,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +40,7 @@ public class CreativeCore extends EncasedCore {
 
     public static int getNextModifier(NbtCompound nbt) {
         int current = getNbtModifier(nbt);
-        if (current == MODIFIER_MAX) {
+        if (current >= MODIFIER_MAX) {
             return 1;
         }
         return current + 1;
@@ -60,9 +61,10 @@ public class CreativeCore extends EncasedCore {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         int modifier = getNbtModifier(stack.getOrCreateNbt());
+        Formatting formatting = Rarity.values()[MathHelper.clamp(modifier, 1, 4) - 1].formatting;
         MutableText text = new TranslatableText("tooltip.purpeille.creative_core")
                 .formatted(Formatting.GRAY)
-                .append(new LiteralText(String.valueOf(modifier)).formatted(Rarity.values()[modifier - 1].formatting));
+                .append(new LiteralText(String.valueOf(modifier)).formatted(formatting));
         tooltip.add(text);
         super.appendTooltip(stack, world, tooltip, context);
     }

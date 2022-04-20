@@ -12,8 +12,8 @@ public class EncasedCore extends Item {
         NORMAL(1024, 1, Rarity.UNCOMMON),
         ENERGETIC(2048, 2, Rarity.RARE),
         OVERCLOCKED(4096, 4, Rarity.RARE),
-        CREATIVE(0, 4, Rarity.EPIC),
-        VACUOUS(512, -1, Rarity.RARE);
+        VACUOUS(512, -1, Rarity.RARE),
+        CREATIVE(0, 4, Rarity.EPIC);
 
         public int durability;
         public int modifier;
