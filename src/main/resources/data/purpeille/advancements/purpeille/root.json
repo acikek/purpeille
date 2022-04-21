@@ -23,6 +23,11 @@
       }
     }
   },
+  "rewards": {
+    "loot": [
+      "purpeille:grant_handbook"
+    ]
+  },
   "requirements": [
     [
       "travel_to_end"

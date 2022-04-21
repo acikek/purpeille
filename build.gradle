@@ -22,6 +22,8 @@ repositories {
     }
 
     maven { url "https://maven.shedaniel.me" }
+
+    maven { url 'https://maven.blamejared.com' }
 }
 
 dependencies {
@@ -38,6 +40,8 @@ dependencies {
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+
+    modRuntimeOnly "vazkii.patchouli:Patchouli:${project.patchouli_version}"
 }
 
 processResources {

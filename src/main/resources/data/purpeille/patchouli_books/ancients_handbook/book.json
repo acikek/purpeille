@@ -1,0 +1,9 @@
+{
+  "name": "patchouli.purpeille.ancients_handbook.name",
+  "landing_text": "patchouli.purpeille.ancients_handbook.landing_text",
+  "version": 1,
+  "book_texture": "patchouli:textures/gui/book_purple.png",
+  "model": "purpeille:ancients_handbook",
+  "creative_tab": "purpeille.main",
+  "i18n": true
+}
