@@ -102,6 +102,25 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
     }
 
     @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+        if (!state.get(FULL)) {
+            return 0;
+        }
+        if (!state.get(LIT)) {
+            return 1;
+        }
+        if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
+            return (int) ((blockEntity.cookTime / 1200.0) * 15);
+        }
+        return 0;
+    }
+
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(LIT).add(FULL);
