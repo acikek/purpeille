@@ -30,6 +30,7 @@
   "item.purpeille.purpeille_pickaxe": "Purpeille Pickaxe",
   "item.purpeille.purpeille_axe": "Purpeille Axe",
   "item.purpeille.purpeille_hoe": "Purpeille Hoe",
+  "item.purpeille.ancients_handbook": "Ancient's Handbook",
   "itemGroup.purpeille.main": "Purpeille",
   "aspect.purpeille.virtuous": "Virtuous",
   "aspect.purpeille.excess": "Excess",
@@ -106,6 +107,5 @@
   "tooltip.purpeille.creative_core": "Core modifier: ",
   "rei.purpeille.ancient_oven": "Void Focusing",
   "rei.purpeille.ancient_oven.damage": "%d Damage",
-  "patchouli.purpeille.ancients_handbook.name": "Ancient's Handbook",
   "patchouli.purpeille.ancients_handbook.landing_text": "some landing text think of this later"
 }
