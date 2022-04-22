@@ -1,0 +1,23 @@
+{
+  "name": "Void Tension",
+  "icon": "purpeille:remnant_chunk",
+  "category": "purpeille:basics",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Unlike every other civilization, the Ancients understood and even embraced the Void upon discovering its true power.$(br2)When exposed to the Void, most materials disintegrate under the tension, but some bind even closer together. Both resources obtained from Purpur Remnants exhibit the latter."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:remnant_chunk",
+      "text": "Although quite damaged, our observations show that the Ancients mass-produced this material and used it for construction. After experimentation, we've found that the Void can mostly repair this chunk into a usable state. It does not appear to be noteworthy otherwise."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:impure_preserved_dust",
+      "text": "An unmistakable grime cakes the outer layers of this dust. Just like $(item)Remnant Chunks$(), it can be restored through the Void. The dust seems to be a fine mixture of the Ancients' building material and aged End Stone, which has us questioning why it is so useful."
+    }
+  ],
+  "turnin": "purpeille:purpeille/preserved_dust",
+  "sortnum": 1
+}

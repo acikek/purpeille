@@ -1,0 +1,30 @@
+{
+  "name": "Finding Remnants",
+  "icon": "purpeille:purpur_remnants",
+  "category": "purpeille:basics",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Some time ago, one of our research teams stationed themselves at an abandoned End City and started excavating the area. They discovered an underground material, akin to Purpur, but archaic in a way.$(br2)This discovery became the basis for our research on the Ancients, and, by extent, this handbook."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When aiming to find these remnants, you do not have to clear out a hostile End City, but they contain valuable resources yet. You might not even need to come close: remnants are scattered around the cities in an at least 40-meter radius.$(br2)Our teams have found that explosives are a viable form of excavation, but it is a bit of a risk as the remnants are unstable."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "purpeille:textures/gui/entries/remnants.png"
+      ],
+      "title": "Uncovered Remnants",
+      "border": true,
+      "text": "An illustration of some exposed Purpur Remnants."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Purpur Remnants are encased in a thick layer of End Stone that has built up over many millenia. Their dark-purple figure has been well-preserved, however, so you can spot them with ease.$(br2)Mining remnants yields $(item)Remnant Chunks$() and $(item)Impure Preserved Dust$(); you can gather more of the former with good fortune.$(br2)This handbook hinges upon your obtaining a substantial quantity of both."
+    }
+  ],
+  "sortnum": 0,
+  "turnin": "purpeille:purpeille/impure_preserved_dust"
+}
