@@ -53,7 +53,7 @@ public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
                 event = SoundEvents.BLOCK_END_PORTAL_FRAME_FILL;
                 blockEntity.setItem(handStack.copy());
                 if (!player.isCreative()) {
-                    handStack.setCount(handStack.getCount() - 1);
+                    handStack.decrement(1);
                 }
                 world.setBlockState(pos, state.with(READY, true).with(CHARGING, world.isReceivingRedstonePower(pos)));
             }

@@ -22,7 +22,7 @@ public class ModBlocks {
     public static Block PURPUR_REMNANTS = new OreBlock(PurpurRemnants.SETTINGS, UniformIntProvider.create(2, 3));
     public static Block MONOLITHIC_PURPUR = new PillarBlock(BlockSettings.MONOLITHIC_PURPUR);
     public static Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
-    public static Block PURPEILLE_BLOCK = new Block(BlockSettings.PURPEILLE_BLOCK);
+    public static Block PURPEILLE_BLOCK = new PurpeilleBlock(PurpeilleBlock.SETTINGS);
     public static Block ANCIENT_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
 
     // Machines

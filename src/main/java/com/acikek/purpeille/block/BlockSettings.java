@@ -16,9 +16,4 @@ public class BlockSettings {
             .strength(5.0f)
             .sounds(BlockSoundGroup.DEEPSLATE_BRICKS)
             .requiresTool();
-
-    public static final AbstractBlock.Settings PURPEILLE_BLOCK = FabricBlockSettings.of(Material.METAL)
-            .strength(8.0f)
-            .sounds(BlockSoundGroup.METAL)
-            .requiresTool();
 }

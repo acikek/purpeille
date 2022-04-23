@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "purpeille:block/purpeille_block",
+    "side": "purpeille:block/purpeille_block_graffiti"
+  }
+}

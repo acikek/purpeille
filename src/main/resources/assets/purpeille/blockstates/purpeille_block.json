@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "graffiti=false": {
       "model": "purpeille:block/purpeille_block"
+    },
+    "graffiti=true": {
+      "model": "purpeille:block/purpeille_block_graffiti"
     }
   }
 }

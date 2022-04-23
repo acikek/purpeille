@@ -78,7 +78,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
             }
             addRecipe(match);
             if (player != null && !player.isCreative()) {
-                stack.setCount(stack.getCount() - 1);
+                stack.decrement(1);
             }
             world.setBlockState(pos, state.with(AncientOven.LIT, true).with(AncientOven.FULL, true));
         });
