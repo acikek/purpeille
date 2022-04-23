@@ -1,0 +1,8 @@
+{
+  "name": "item.purpeille.ancients_almanac",
+  "landing_text": "patchouli.purpeille.ancients_almanac.landing_text",
+  "version": 1,
+  "book_texture": "patchouli:textures/gui/book_purple.png",
+  "dont_generate_book": true,
+  "custom_book_item": "purpeille:ancients_almanac"
+}

@@ -47,7 +47,7 @@ public class ModItems {
     public static final ToolItem PURPEILLE_HOE = new PurpeilleToolMaterial.PurpeilleHoeItem(-4, -0.0f);
 
     // Handbook
-    public static final Item ANCIENTS_HANDBOOK = new AncientsHandbook(defaultSettings().rarity(Rarity.UNCOMMON));
+    public static final Item ANCIENTS_ALMANAC = new AncientsAlmanac(defaultSettings().rarity(Rarity.UNCOMMON));
 
     public static FabricItemSettings defaultSettings() {
         return new FabricItemSettings().group(Purpeille.ITEM_GROUP);
@@ -78,7 +78,7 @@ public class ModItems {
         ITEMS.put("purpeille_pickaxe", PURPEILLE_PICKAXE);
         ITEMS.put("purpeille_axe", PURPEILLE_AXE);
         ITEMS.put("purpeille_hoe", PURPEILLE_HOE);
-        ITEMS.put("ancients_handbook", ANCIENTS_HANDBOOK);
+        ITEMS.put("ancients_almanac", ANCIENTS_ALMANAC);
     }
 
     public static void register() {

@@ -1,0 +1,57 @@
+{
+  "name": "Resources",
+  "icon": "purpeille:purpeille_ingot",
+  "category": "purpeille:catalog",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:remnant_chunk",
+      "link_recipe": true,
+      "text": "Although quite damaged, our observations show that the Ancients mass-produced this material and used it for construction. After experimentation, we've found that the Void can mostly repair this chunk into a usable state. It does not appear to be noteworthy otherwise."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:impure_preserved_dust",
+      "link_recipe": true,
+      "text": "An unmistakable grime cakes the outer layers of this dust. Just like a $(item)Remnant Chunk$(), it can be restored through the Void. The dust seems to be a fine mixture of the Ancients' building material and aged End Stone, which has us questioning why it is so useful."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:remnant_brick",
+      "link_recipe": true,
+      "text": "These bricks are mostly repaired, but some cracks are still visible. Interestingly, this form cannot withstand Void Tension on its own; instead, it needs to be coalesced with other bricks first."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:preserved_dust",
+      "link_recipe": true,
+      "text": "A purified form of dust preserved by remnants. Whereas before purification the grains were dull and stained, now they are quite sharp and vibrant. This mixture has an incredibly high melting point, but a conventional furnace or blasting chamber should yield results in time."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:purpeille_ingot",
+      "link_recipe": true,
+      "text": "An extraordinarily durable and resistant material. Just like other metallic components, Purpeille can be used to create tools, armor, and weapons, but it also seems to be the backbone of some ancient technology. Our discoveries concerning this metal also kept our foundation afloat."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:smoldered_purpeille_ingot",
+      "title": "Smoldered Purpeille",
+      "link_recipe": true,
+      "text": "Although a concrete explanation is yet to be found, our research suggests that smoking Purpeille ingots is equivalent to Void Tension in harnessing true power. Assembled alongside normal Purpeille, while results are unclear, it seems to awaken the spirit of an Ancient."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:ultraviolet_prism",
+      "link_recipe": true,
+      "text": "The refraction capabilities of Amethyst are amplified when undergoing Void Focusing, which results in this material: a far more vibrant and prismatic compound that is suitable for enveloping a core in photonic power."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:metallic_lightning",
+      "link_recipe": true,
+      "text": "We can't guarantee your safety when handling this material. This is the last ingredient required in order to upgrade a core to its fullest state, playing the part of electrical energy. We were correct in assuming that a conductive material would expel energy when Void Focused."
+    }
+  ],
+  "sortnum": 0
+}

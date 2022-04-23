@@ -1,0 +1,21 @@
+{
+  "name": "Void Tension",
+  "icon": "purpeille:remnant_chunk",
+  "category": "purpeille:basics",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Unlike every other civilization, the Ancients understood and even embraced the Void upon discovering its true power.$(br2)When exposed to the Void, most materials disintegrate under the tension, but some bind even closer together. Both resources obtained from Purpur Remnants exhibit the latter."
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "purpeille:resources"
+      ],
+      "title": "Reference Pages",
+      "text": "At this point, the $(bold)Catalog$() is of use. Regardless of your progress, it provides a brief explanation of any topic, either to refresh your memory or as a reference for new concepts.$(br2)The first two pages of the above entry should allow your advance."
+    }
+  ],
+  "turnin": "purpeille:purpeille/preserved_dust",
+  "sortnum": 1
+}
