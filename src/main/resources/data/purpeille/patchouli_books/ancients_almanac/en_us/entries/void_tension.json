@@ -16,6 +16,7 @@
       "text": "At this point, the $(bold)Catalog$() is of use. Regardless of your progress, it provides a brief explanation of any topic, either to refresh your memory or as a reference for new concepts.$(br2)The first two pages of the above entry should allow your advance."
     }
   ],
+  "advancement": "purpeille:purpeille/impure_preserved_dust",
   "turnin": "purpeille:purpeille/preserved_dust",
   "sortnum": 1
 }

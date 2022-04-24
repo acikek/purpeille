@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "purpeille:preserved_dust"
+  },
+  "result": "purpeille:purpeille_ingot",
+  "cookingtime": 2400,
+  "experience": 20.0
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Purpeille",
+  "icon": "purpeille:purpeille_ingot",
+  "category": "purpeille:basics",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The prominent mystery that pervades this field of study is the question of Purpeille: why, if $(item)Preserved Dust$() is created through age, does Purpeille present itself as a purposeful invention?$(br2)Regardless, this metal unlocks a multitude of secrets within this world and it is foolish to preoccupy oneself with its existence."
+    },
+    {
+      "type": "patchouli:smelting",
+      "recipe": "purpeille:purpeille_ingot_smelting",
+      "text": "Given that dust of this calibre was probably not meant to undergo this process, expect smelting it to take quite awhile. Use a $(item)Blast Furnace$() for the quickest results."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Purpeille, like other metals, can be used to create an assortment of tools, armor, and weapons. Our experiments have demonstrated that it is slightly stronger and more resistant than Netherite.$(br2)A keen follower would recognize that obtaining Purpeille requires significant effort for little benefit over the alternative. We implore you to be patient, as this material has more to offer yet."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "purpeille:purpeille_boots",
+      "text": "Unlike most footwear, Purpeille provides the most durable sandals. Conventional boot designs were either too heavy or brittle. This shaves two ingots off the crafting recipe."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If you have acquired a sufficient quantity of Purpeille, not to mention $(item)Remnant Bricks$(), then you are ready to begin your journey into the beyond.$(br2)You must adjust to your newfound power as one of the few followers of the Ancients. From here, your story can only grow more encaptivating."
+    }
+  ],
+  "advancement": "purpeille:purpeille/preserved_dust",
+  "turnin": "purpeille:purpeille/purpeille_ingot",
+  "sortnum": 2
+}
