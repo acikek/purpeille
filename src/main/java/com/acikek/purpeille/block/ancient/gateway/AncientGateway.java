@@ -33,7 +33,7 @@ public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient() && world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity && blockEntity.checkCore(player, hand)) {
+        if (!world.isClient() && world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity && !blockEntity.playerCheckCore(player, hand)) {
             SoundEvent event = null;
             ItemStack handStack = player.getStackInHand(hand);
             if (!blockEntity.isEmpty()) {

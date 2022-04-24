@@ -23,6 +23,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
+
 public class AncientMachineBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory {
 
     public DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
@@ -62,6 +64,9 @@ public class AncientMachineBlockEntity extends BlockEntity implements Implemente
         setItem(ItemStack.EMPTY);
     }
 
+    /**
+     * @return The core item, or null if there is none.
+     */
     public EncasedCore getCore() {
         if (getItem().getItem() instanceof EncasedCore core) {
             return core;
@@ -69,16 +74,47 @@ public class AncientMachineBlockEntity extends BlockEntity implements Implemente
         return null;
     }
 
-    public boolean checkCore(PlayerEntity player, Hand hand) {
+    /**
+     * Damages the core item, if any, by a certain amount.
+     * If the core's durability is then  {@code 0}, removes the item.
+     * @param damage The amount of damage the core should take.
+     * @param random A random source used for damage calculation.
+     * @return Whether the core was removed.
+     */
+    public boolean damageCore(int damage, Random random) {
+        EncasedCore core = getCore();
+        if (core != null) {
+            if (core.type == EncasedCore.Type.CREATIVE) {
+                return false;
+            }
+            getItem().damage(damage, random, null);
+            if (getItem().getDamage() >= core.type.durability) {
+                removeItem();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Sends a core name and durability indicator to the player if they are sneaking with an empty hand.
+     * <p>The intended behavior is for the player to be able to check the core inside the machine by shift-right-clicking,
+     * in which case nothing else should follow.</p>
+     * @return Whether the player checked the core.
+     */
+    public boolean playerCheckCore(PlayerEntity player, Hand hand) {
         if (player.isSneaking() && player.getStackInHand(hand).isEmpty()) {
             EncasedCore core = getCore();
             if (core != null) {
                 MutableText text = new TranslatableText(core.getTranslationKey()).formatted(core.type.rarity.formatting);
+                if (core.type != EncasedCore.Type.CREATIVE) {
+                    text.append(" ").append(core.getDurabilityText(getItem()));
+                }
                 player.sendMessage(text, true);
             }
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

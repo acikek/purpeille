@@ -8,7 +8,6 @@ import com.acikek.purpeille.sound.ModSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
@@ -57,9 +56,7 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
             return state;
         }
         int damage = Math.abs(blocks / 10);
-        getItem().damage(damage > 0 ? damage : 1, world.random, null);
-        if (getItem().getDamage() == getItem().getMaxDamage()) {
-            setItem(Items.AIR);
+        if (damageCore(damage > 0 ? damage : 1, world.random)) {
             return state.with(AncientGateway.READY, false);
         }
         return state;
