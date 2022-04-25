@@ -1,0 +1,12 @@
+{
+  "name": "The Ancients",
+  "icon": "purpeille:monolithic_purpur",
+  "category": "purpeille:introduction",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "a"
+    }
+  ],
+  "sortnum": 1
+}

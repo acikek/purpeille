@@ -1,0 +1,16 @@
+{
+  "name": "The Almanac",
+  "icon": "purpeille:ancients_almanac",
+  "category": "purpeille:introduction",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Ancient's Almanac is the result of countless hours of research and experimentation dedicated to unraveling the mysteries of the past. The 'Ancients' are a mythical people that held valuable knowledge within our world; this reading will teach you how to wield it for yourself."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The explanations provided in this book assume that you have at least visited the End, but your journey begins in the far reaches of the dimension.$(br2)Familiarize yourself with navigating the End islands. Find an End City and its Elytra, then mark the location, as you should with every city you encounter."
+    }
+  ],
+  "sortnum": 0
+}
