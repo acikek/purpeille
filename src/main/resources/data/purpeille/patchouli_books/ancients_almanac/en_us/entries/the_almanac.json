@@ -10,6 +10,14 @@
     {
       "type": "patchouli:text",
       "text": "The explanations provided in this book assume that you have at least visited the End, but your journey begins in the far reaches of the dimension.$(br2)Familiarize yourself with navigating the End islands. Find an End City and its Elytra, then mark the location, as you should with every city you encounter."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Almanac is split up into distinct categories that are meant to be followed in chronological order. If you skip ahead of your current progression, it will be incomprehensible, save for this category, the Introduction; you can go directly to the Basics category after this entry. The other entries in this category are dedicated to background information and our foundation."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "We wish you the best on this endeavor. Become a follower of the Ancients, and you will wield powers untold.$(br2)$(italic)- A.R.T. Sector, Spades' University$()"
     }
   ],
   "sortnum": 0
