@@ -1,0 +1,30 @@
+{
+  "name": "Empowering Purpeille",
+  "icon": "purpeille:smoldered_purpeille_ingot",
+  "category": "purpeille:applications",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Void Tension is a vigorous force, but it has no effect on some ancient materials. The Purpeille Ingot, on its own, is one of these materials, although it exhibits behaviors even more unique than the Void.$(br2)Firstly, you $(italic)can$() use Void Tension on Purpeille, just not in the ingot form."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "All Purpeille tools, armor pieces, and weapons are $(bold)Void-Resistant$(): Void Tension does not vaporize nor enhance their qualities. They will appear at the End's center like most other Void-affinitive materials. If you meet an untimely fate while navigating the End islands, rest assured that all your Purpeille gear will be preserved."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Despite its characteristics, Purpeille can be enhanced, but not generally: this new form of Purpeille has a specific use that will be discussed further in this category.$(br2)This form is called $(item)Smoldered Purpeille$(). For the moment, create only one ingot. You will be able to evaluate the necessary quantity after the following chapters."
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "purpeille:resources"
+      ],
+      "title": "Reference Pages",
+      "text": "Use the Catalog to learn how to craft $(item)Smoldered Purpeille$()."
+    }
+  ],
+  "advancement": "purpeille:purpeille/purpeille_ingot",
+  "turnin": "purpeille:purpeille/smoldered_purpeille_ingot",
+  "sortnum": 0
+}

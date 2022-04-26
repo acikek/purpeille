@@ -5,7 +5,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Unlike every other civilization, the Ancients understood and even embraced the Void upon discovering its true power.$(br2)When exposed to the Void, most materials disintegrate under the tension, but some bind even closer together. Both resources obtained from Purpur Remnants exhibit the latter."
+      "text": "Unlike every other civilization, the Ancients understood and even embraced the Void upon discovering its true power. When exposed to the Void, most materials disintegrate under the tension, but some bind even closer together.$(br2)Both resources obtained from Purpur Remnants exhibit the latter."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This process usually has the results appear at the center of the End, with varying radii, signaling that the Ancients must have controlled this area in the past.$(br2)Some materials break from this convention and the products appear roughly where the ingredient had been exposed to the Void. The source of both of these fluctuations is not yet clear, but outliers will be noted where possible."
     },
     {
       "type": "patchouli:relations",
