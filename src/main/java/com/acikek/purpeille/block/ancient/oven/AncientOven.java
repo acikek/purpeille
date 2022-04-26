@@ -25,6 +25,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -115,7 +116,8 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
             return 1;
         }
         if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
-            return (int) ((blockEntity.cookTime / 1200.0) * 15);
+            int value = (int) ((blockEntity.cookTime / 1200.0) * 15);
+            return MathHelper.clamp(value, 1, 15);
         }
         return 0;
     }
