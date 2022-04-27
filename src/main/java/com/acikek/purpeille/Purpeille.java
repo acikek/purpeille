@@ -51,6 +51,6 @@ public class Purpeille implements ModInitializer {
         AncientOvenRecipe.register();
         EndCityProximityPlacementModifier.register();
         PurpurRemnants.build();
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> new WarpathCommand().register(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> WarpathCommand.register(dispatcher));
     }
 }

@@ -26,6 +26,10 @@ public class Warpath {
         }
     }
 
+    public static Text getWarpath(ItemStack stack) {
+        return getWarpath(Revelations.getFromNbt(stack), Aspects.getFromNbt(stack));
+    }
+
     public static EquipmentSlot getSlot(ItemStack stack) {
         if (stack.getItem() instanceof ToolItem) {
             return EquipmentSlot.MAINHAND;
