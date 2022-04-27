@@ -1,5 +1,6 @@
 package com.acikek.purpeille.warpath;
 
+import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -35,23 +36,31 @@ public class Warpath {
         return null;
     }
 
-    public static void addModifiers(ItemStack stack, int revelationIndex, int aspectIndex) {
-        Revelation revelation = Revelations.values()[revelationIndex].value;
-        if (revelation.attribute != null) {
-            EntityAttributeModifier modifier = revelation.getModifier(stack, aspectIndex != -1 ? Aspects.values()[8 - aspectIndex].value : null);
-            EquipmentSlot slot = getSlot(stack);
-            if (slot != null) {
-                stack.addAttributeModifier(revelation.attribute, modifier, slot);
-            }
+    public static void addModifiers(ItemStack stack, Revelation revelation, Aspect aspect) {
+        EntityAttributeModifier modifier = revelation.getModifier(stack, aspect);
+        EquipmentSlot slot = getSlot(stack);
+        if (slot != null) {
+            stack.addAttributeModifier(revelation.attribute, modifier, slot);
         }
     }
 
-    public static void apply(ItemStack stack, int revelationIndex, int aspectIndex) {
+    public static void addNbt(ItemStack stack, int revelationIndex, int aspectIndex) {
         Type.REVELATION.addNbt(stack, revelationIndex);
         if (aspectIndex != -1) {
-            Type.ASPECT.addNbt(stack, 8 - aspectIndex);
+            Type.ASPECT.addNbt(stack, aspectIndex);
         }
-        addModifiers(stack, revelationIndex, aspectIndex);
+    }
+
+    public static void add(ItemStack stack, int revelationIndex, int aspectIndex) {
+        addNbt(stack, revelationIndex, aspectIndex);
+        Revelation revelation = Revelations.values()[revelationIndex].value;
+        Aspect aspect = aspectIndex != -1 ? Aspects.values()[aspectIndex].value : null;
+        addModifiers(stack, revelation, aspect);
+    }
+
+    public static void add(ItemStack stack, Revelation revelation, Aspect aspect) {
+        addNbt(stack, Aspect.getRelativeIndex(revelation), Aspect.getRelativeIndex(aspect));
+        addModifiers(stack, revelation, aspect);
     }
 
     public static void remove(ItemStack stack) {

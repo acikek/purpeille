@@ -75,7 +75,8 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
             return null;
         }
         ItemStack stack = base.copy();
-        Warpath.apply(stack, indices.getLeft(), indices.getRight());
+        int aspectIndex = indices.getRight() != -1 ? (8 - indices.getRight()) : -1;
+        Warpath.add(stack, indices.getLeft(), aspectIndex);
         return stack;
     }
 
