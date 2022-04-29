@@ -18,8 +18,12 @@ public enum Tone {
         this.index = index;
     }
 
-    public MutableText getText(String key, String name, int componentIndex) {
-        return new TranslatableText(key + ".purpeille." + name).formatted(formatting[componentIndex]);
+    public Formatting getFormatting(int componentIndex) {
+        return formatting[componentIndex];
+    }
+
+    public MutableText getText(String key, String name) {
+        return new TranslatableText(key + ".purpeille." + name);
     }
 
     public Tone getOpposition() {

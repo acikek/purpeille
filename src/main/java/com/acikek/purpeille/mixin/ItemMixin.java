@@ -22,10 +22,10 @@ public class ItemMixin {
 
     @Inject(method = "appendTooltip", at = @At(value = "TAIL"))
     private void appendWarpath(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
-        if (Type.REVELATION.hasNbt(stack)) {
+        if (world != null && Type.REVELATION.hasNbt(stack)) {
             Revelations revelation = Revelations.getFromNbt(stack);
             Aspects aspect = Aspects.getFromNbt(stack);
-            tooltip.add(Warpath.getWarpath(revelation, aspect));
+            tooltip.add(Warpath.getWarpath(revelation, aspect, world));
             if (aspect != null && Synergy.getSynergy(revelation.value, aspect.value) == Synergy.IDENTICAL) {
                 tooltip.add(revelation.value.getRite());
             }

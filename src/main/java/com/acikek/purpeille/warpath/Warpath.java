@@ -8,22 +8,33 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.world.World;
 
 public class Warpath {
 
-    public static Text getWarpath(Revelations revelation, Aspects aspect) {
-        MutableText revelationText = revelation.value.getText();
-        if (aspect == null) {
+    public static final MutableText SEPARATOR = new TranslatableText("separator.purpeille.warpath")
+            .formatted(Formatting.GRAY);
+
+    public static Text getWarpath(Revelations revelation, Aspects aspect, World world) {
+        boolean hasAspect = aspect != null;
+        boolean animated = hasAspect && world != null;
+        Style style = animated && Synergy.getSynergy(revelation, aspect) == Synergy.IDENTICAL
+                ? revelation.value.getStyle(world)
+                : null;
+        MutableText revelationText = revelation.value.getText(world, style);
+        if (!hasAspect) {
             return revelationText;
         }
-        else {
-            Text separator = new TranslatableText("separator.purpeille.warpath").formatted(Formatting.GRAY);
-            MutableText aspectText = aspect.value.getText();
-            return aspectText.append(separator).append(revelationText);
-        }
+        MutableText aspectText = aspect.value.getText(world, style);
+        return aspectText.append(SEPARATOR).append(revelationText);
+    }
+
+    public static Text getWarpath(Revelations revelation, Aspects aspect) {
+        return getWarpath(revelation, aspect, null);
     }
 
     public static Text getWarpath(ItemStack stack) {
