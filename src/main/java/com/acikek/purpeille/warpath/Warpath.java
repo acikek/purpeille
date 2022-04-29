@@ -21,9 +21,8 @@ public class Warpath {
 
     public static Text getWarpath(Revelations revelation, Aspects aspect, World world) {
         boolean hasAspect = aspect != null;
-        boolean animated = hasAspect && world != null;
-        int wave = animated ? ClampedColor.getWave(world) : 0;
-        Style style = animated && Synergy.getSynergy(revelation, aspect) == Synergy.IDENTICAL
+        int wave = animated ? ClampedColor.getWave() : 0;
+        Style style = hasAspect && animated && Synergy.getSynergy(revelation, aspect) == Synergy.IDENTICAL
                 ? revelation.value.getStyle(wave)
                 : null;
         MutableText revelationText = revelation.value.getText(wave, style);
@@ -38,8 +37,8 @@ public class Warpath {
         return getWarpath(revelation, aspect, null);
     }
 
-    public static Text getWarpath(ItemStack stack) {
-        return getWarpath(Revelations.getFromNbt(stack), Aspects.getFromNbt(stack));
+    public static Text getWarpath(ItemStack stack, boolean animated) {
+        return getWarpath(Revelations.getFromNbt(stack), Aspects.getFromNbt(stack), animated);
     }
 
     public static EquipmentSlot getSlot(ItemStack stack) {

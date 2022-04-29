@@ -38,13 +38,13 @@ public class WarpathCommand {
         ItemStack stack = getStack(context);
         Warpath.remove(stack);
         Warpath.add(stack, revelation.value, hasAspect ? aspect.value : null);
-        context.getSource().sendFeedback(getMessage(ADD_SUCCESS, Warpath.getWarpath(revelation, aspect)), false);
+        context.getSource().sendFeedback(getMessage(ADD_SUCCESS, Warpath.getWarpath(revelation, aspect, false)), false);
         return 0;
     }
 
     public static int remove(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ItemStack stack = getStack(context);
-        Text warpath = Warpath.getWarpath(stack);
+        Text warpath = Warpath.getWarpath(stack, false);
         Warpath.remove(stack);
         context.getSource().sendFeedback(getMessage(REMOVE_SUCCESS, warpath), false);
         return 0;

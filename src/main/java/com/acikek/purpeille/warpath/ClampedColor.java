@@ -2,13 +2,12 @@ package com.acikek.purpeille.warpath;
 
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 
 public class ClampedColor {
 
     public static final int THRESHOLD = 50;
     public static final int COLOR_MAX = 255;
-    public static final long INTERVAL = 80L;
+    public static final long INTERVAL = 4000L;
     public static final float INTERVAL_F = (float) INTERVAL;
 
     public Formatting formatting;
@@ -34,8 +33,9 @@ public class ClampedColor {
         return MathHelper.packRgb(r.clamp(wave), g.clamp(wave), b.clamp(wave));
     }
 
-    public static int getWave(World world) {
-        return (int) (MathHelper.sin(((world.getTime() % INTERVAL) / INTERVAL_F) * MathHelper.TAU) * (float) THRESHOLD);
+    public static int getWave() {
+        float progress = (System.currentTimeMillis() % INTERVAL) / INTERVAL_F;
+        return (int) (MathHelper.sin(progress * MathHelper.TAU) * (float) THRESHOLD);
     }
 
     public static class Value {

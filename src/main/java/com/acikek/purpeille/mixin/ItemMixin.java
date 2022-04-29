@@ -25,7 +25,7 @@ public class ItemMixin {
         if (world != null && Type.REVELATION.hasNbt(stack)) {
             Revelations revelation = Revelations.getFromNbt(stack);
             Aspects aspect = Aspects.getFromNbt(stack);
-            tooltip.add(Warpath.getWarpath(revelation, aspect, world));
+            tooltip.add(Warpath.getWarpath(revelation, aspect, true));
             if (aspect != null && Synergy.getSynergy(revelation.value, aspect.value) == Synergy.IDENTICAL) {
                 tooltip.add(revelation.value.getRite());
             }
