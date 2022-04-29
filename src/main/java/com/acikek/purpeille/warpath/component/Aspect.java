@@ -5,7 +5,6 @@ import com.acikek.purpeille.warpath.Tone;
 import com.acikek.purpeille.warpath.Type;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
-import net.minecraft.world.World;
 
 public class Aspect {
 
@@ -33,8 +32,7 @@ public class Aspect {
         return Type.ASPECT;
     }
 
-    public Style getStyle(World world) {
-        int wave = ClampedColor.getWave(world);
+    public Style getStyle(int wave) {
         return Style.EMPTY.withColor(color.getModified(wave));
     }
 
@@ -42,16 +40,12 @@ public class Aspect {
         return baseText.copy().setStyle(style);
     }
 
-    public MutableText getText(World world) {
-        if (world == null) {
-            return defaultText;
-        }
-        return getText(getStyle(world));
-    }
-
-    public MutableText getText(World world, Style style) {
+    public MutableText getText(int wave, Style style) {
         if (style == null) {
-            return getText(world);
+            if (wave == 0) {
+                return defaultText;
+            }
+            return getText(getStyle(wave));
         }
         return getText(style);
     }

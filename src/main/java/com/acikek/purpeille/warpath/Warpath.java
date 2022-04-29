@@ -22,14 +22,15 @@ public class Warpath {
     public static Text getWarpath(Revelations revelation, Aspects aspect, World world) {
         boolean hasAspect = aspect != null;
         boolean animated = hasAspect && world != null;
+        int wave = animated ? ClampedColor.getWave(world) : 0;
         Style style = animated && Synergy.getSynergy(revelation, aspect) == Synergy.IDENTICAL
-                ? revelation.value.getStyle(world)
+                ? revelation.value.getStyle(wave)
                 : null;
-        MutableText revelationText = revelation.value.getText(world, style);
+        MutableText revelationText = revelation.value.getText(wave, style);
         if (!hasAspect) {
             return revelationText;
         }
-        MutableText aspectText = aspect.value.getText(world, style);
+        MutableText aspectText = aspect.value.getText(wave, style);
         return aspectText.append(SEPARATOR).append(revelationText);
     }
 
