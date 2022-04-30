@@ -42,7 +42,7 @@ public class Aspect {
 
     public MutableText getText(int wave, Style style) {
         if (style == null) {
-            if (wave == 0) {
+            if (wave == Integer.MIN_VALUE) {
                 return defaultText;
             }
             return getText(getStyle(wave));

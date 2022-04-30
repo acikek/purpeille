@@ -25,7 +25,7 @@ public class Warpath {
      */
     public static Text getWarpath(Revelations revelation, Aspects aspect, boolean animated) {
         boolean hasAspect = aspect != null;
-        int wave = animated ? ClampedColor.getWave() : 0;
+        int wave = animated ? ClampedColor.getWave() : Integer.MIN_VALUE;
         Style style = hasAspect && animated && Synergy.getSynergy(revelation, aspect) == Synergy.IDENTICAL
                 ? revelation.value.getStyle(wave)
                 : null;
