@@ -1,0 +1,24 @@
+{
+  "name": "Aspects",
+  "icon": "purpeille:preserved_dust",
+  "category": "purpeille:applications",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "An $(bold)Aspect$() is the second and optional component of a Warpath. An Aspect cannot be on its own; it must have a Revelation accompanying it, but that relationship does not reverse.$(br2)Aspects are created by placing $(item)Impure Preserved Dust$() into a Warpath recipe."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:purpeille_sword{WarpathRevelation: 2, WarpathAspect: 0, AttributeModifiers: [{Amount: 4.2d, Slot: 'mainhand', AttributeName: 'minecraft:generic.max_health', Operation: 0, UUID: [I; 744996952, 1566460729, -1729907733, -1721370645], Name: 'Warpath modifier'}]}",
+      "title": "Full Warpath",
+      "text": "This time, the 'Virtuous' Aspect is added onto the previous Warpath. Note the color difference, the orientation of components, and the bonus modifier. This Aspect is created by placing the dust in the ninth slot."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Try creating a Warpath of your own. Experiment with different combinations of tools, Revelations, and Aspects and find a bonus you like.$(br2)Be spare with your resources, but note that you can always remove a Warpath by placing an engraved item in a crafting table alone."
+    }
+  ],
+  "advancement": "purpeille:purpeille/smoldered_purpeille_ingot",
+  "turnin": "purpeille:purpeille/warpath",
+  "sortnum": 2
+}

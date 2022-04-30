@@ -1,0 +1,27 @@
+{
+  "name": "Engraving Items",
+  "icon": "purpeille:purpeille_sword",
+  "category": "purpeille:applications",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(item)Smoldered Purpeille$() is used to engrave items into formations named $(bold)Warpaths$().$(br2)In some End Cities, we have found chalk inscriptions on the Purpur walls. The compound used seems to have been an ashen-metallic blend; when we tested it against $(item)Smoldered Purpeille$(), it matched."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The inscriptions were few, so we could not assemble a rigorous script, but the message was clear.$(br2)Warpaths can be engraved on any piece of Purpeille equipment. The most basic of Warpaths is created by placing one of those items and a $(item)Smoldered Purpeille Ingot$() in a crafting table. You can create a Warpath with any orientation; the slot of the ingot matters, but the equipment's does not."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:purpeille_sword{WarpathRevelation: 2, AttributeModifiers: [{Amount: 2.0d, Slot: 'mainhand', AttributeName: 'minecraft:generic.max_health', Operation: 0, UUID: [I; 744996952, 1566460729, -1729907733, -1721370645], Name: 'Warpath modifier'}]}",
+      "title": "Engraved Sword",
+      "text": "Here is an engraved $(item)Purpeille Sword$(). Hover over it to view its Warpath. 'Totality' is a $(bold)Revelation$(): the base component of a Warpath. This particular Revelation is created upon placing the Smoldered Purpeille in the third crafting slot."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You might also notice that holding this item will give a health bonus. Indeed, each Revelation provides a unique and temporary bonus to your person when equipped.$(br2)You must hold tools and weapons in your main hand for this bonus to activate, while armor can be equipped on its corresponding slot.$(br2)Experiment with different Revelations, but do not craft the result yet; there is more to explore."
+    }
+  ],
+  "advancement": "purpeille:purpeille/smoldered_purpeille_ingot",
+  "sortnum": 1
+}

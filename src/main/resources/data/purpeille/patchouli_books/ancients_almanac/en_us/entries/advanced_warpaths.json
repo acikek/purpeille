@@ -1,0 +1,31 @@
+{
+  "name": "Advanced Warpaths",
+  "icon": "purpeille:purpeille_pickaxe",
+  "category": "purpeille:applications",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Warpaths have many intricacies that might not be discovered upon first inspection. The most important factor is the Tone system.$(br2)Each component, either Revelation or Aspect, has a $(bold)Tone$(). Each Tone takes up one row of the crafting grid, and there are three of each component per tone."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "However, Revelations and Aspects increase in different orders. Revelations begin at the top left and shift right, whereas Aspects begin at the bottom right and shift left. This means that the top tonal row for Revelations is the equivalent of the bottom row for Aspects.$(br2)Tones are important because they govern $(bold)Synergy$(), or how well one component interacts with another."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Tones with opposing Synergy actually provide a detriment to the item's user. When Synergy is neutral, the bonus modifier is not changed. When Tones have the same Synergy, however, mix to form a great bonus depending on the components used.$(br2)The most useful Synergy type is $(bold)Identical$(), which occurs when both components are equal but opposite in orientation."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:purpeille_shovel{WarpathRevelation: 6, WarpathAspect: 6, AttributeModifiers: [{Amount: 0.6825d, Slot: 'mainhand', AttributeName: 'purpeille:generic.jump_boost', Operation: 2, UUID: [I; 744996952, 1566460729, -1729907733, -1721370645], Name: 'Warpath modifier'}]}",
+      "title": "Identical Synergy",
+      "text": "This is a shovel with two components that have Identical Synergy. Notice the dramatic modifier increase as well as the writing below the Warpath. This is called the $(bold)Rite$(), and it is communicated to the user through unknown means."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The last modifier is named $(bold)Affinity$(). Every Revelation has a piece of equipment that it mixes more with than anything else. If that piece of equipment is used with the Revelation, a slight modifier bonus is applied.$(br2)Affinities are currently up to experimentation, but it should be relatively straightforward to find them on your own."
+    }
+  ],
+  "advancement": "purpeille:purpeille/smoldered_purpeille_ingot",
+  "sortnum": 3
+}
