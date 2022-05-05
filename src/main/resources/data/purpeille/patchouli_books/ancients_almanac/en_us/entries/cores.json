@@ -1,0 +1,14 @@
+{
+  "name": "Cores",
+  "icon": "purpeille:creative_core",
+  "category": "purpeille:catalog",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:encased_core",
+      "link_recipe": true,
+      "text": "e"
+    }
+  ],
+  "sortnum": 1
+}

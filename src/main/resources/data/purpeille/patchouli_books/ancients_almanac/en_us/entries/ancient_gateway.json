@@ -1,0 +1,27 @@
+{
+  "name": "Ancient Gateway",
+  "icon": "purpeille:ancient_gateway",
+  "category": "purpeille:machinery",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "purpeille:ancient_gateway",
+      "text": "The $(bold)Ancient Gateway$() is a time-dependent and configurable teleportation device that the Ancients used to travel across important outposts."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To prime the gateway, place an Encased Core inside it, which should immediately open and watch the front of the machine. The direction the eye faces is the direction that the user will travel.$(br2)After priming, power the machine with redstone continuously. With the base core, it charges at 5 blocks per second; this is modified with different core tiers."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To activate the gateway, unpower the machine. Any user standing directly on top of the device will teleport in a straight line in the designated direction, with the distance depending on the time charged.$(br2)A $(item)Vacuous Core$() has the opposite effect: it uses the base modifier, but it teleports the user backwards."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A major application of this machine is teleporting tens of thousands of blocks after having charged it up when workng on other tasks. There is no inherent limit to how far you can travel using the gateway, but the core inside does degrade at the same rate of 20 blocks per durability regardless of tier. Even if the teleportation distance is less than 20 blocks, a single point of durability will still be deducted."
+    }
+  ],
+  "advancement": "purpeille:purpeille/encased_core",
+  "turnin": "purpeille:purpeille/ancient_gateway",
+  "sortnum": 2
+}

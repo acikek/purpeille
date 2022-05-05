@@ -1,0 +1,26 @@
+{
+  "name": "Ancient Power",
+  "icon": "purpeille:encased_core",
+  "category": "purpeille:machinery",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The main power source for all Ancient Machines, except the Ancient Oven, is the $(bold)Encased Core$(). It comes in various tiers, each with their own efficiencies and durability.$(br2)Encased Cores are temporary, albeit long-lasting, and cannot be refilled. For now, you should only create one."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To create the base Encased Core, simply cook an Eye of Ender in an Ancient Oven. It takes a significantly long time, but it is not very draining on the machine, so you can make quite a few before having to repair it."
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "purpeille:cores"
+      ],
+      "title": "Reference Pages",
+      "text": "Visit the Catalog to learn more about the different Encased Cores and how to use them."
+    }
+  ],
+  "advancement": "purpeille:purpeille/ancient_oven",
+  "turnin": "purpeille:purpeille/encased_core",
+  "sortnum": 1
+}

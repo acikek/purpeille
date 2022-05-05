@@ -1,0 +1,27 @@
+{
+  "name": "Void Focusing",
+  "icon": "purpeille:ancient_oven",
+  "category": "purpeille:machinery",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "purpeille:ancient_oven",
+      "text": "In their journey towards mechanization, the Ancients' first step was isolating Void Tension and focusing it on a certain item. This process is called $(bold)Void Focusing$(), and our recreation of their invention is the $(item)Ancient Oven$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Void Focusing involves drawing energy from the Void and directing it towards a single object. Doing so causes massive load on whatever tries it, but the Ancient Oven's casing is durable enough to withstand it... somewhat.$(br2)Every time a Void Focusing process is finished, the Ancient Oven takes a small amount of damage depending on which item is created."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Ancient Oven has $(bold)Dimness$() levels that indicate the damage taken. In dimmed stages, the top ring emits less light and the bricks become noticeably cracked. Additionally, upon a transition between dimness levels, the machine audibly degrades.$(br2)You must observe your Ancient Ovens very carefully, but don't fret, as there are means of repairing them."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By feeding natural resources into the oven, it seems to give back some power to the Void, reversing the dimness process and repairing the machine.$(br2)These natural resources include $(item)Iron$(), $(item)Gold$(), and $(item)Diamonds$(), each with their own times to complete and repairing value.$(br2)All of these resources output irrelevant earthly items, so it's best to filter them out."
+    }
+  ],
+  "advancement": "purpeille:purpeille/ancient_mechanical_bricks",
+  "turnin": "purpeille:purpeille/ancient_oven",
+  "sortnum": 0
+}
