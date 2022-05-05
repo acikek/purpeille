@@ -1,13 +1,37 @@
 {
   "name": "Cores",
-  "icon": "purpeille:creative_core",
+  "icon": "purpeille:overclocked_core",
   "category": "purpeille:catalog",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "purpeille:encased_core",
       "link_recipe": true,
-      "text": "e"
+      "text": "The base power source for Ancient Machines. Instead of amplifying the Eye of Ender itself, Void Focusing creates a porous shell around it that allows the EYe to transmit its power to machines."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:energetic_core",
+      "link_recipe": true,
+      "text": "The $(item)Ultraviolet Prism$() attached to the core captures correct wavelengths that augment the core's performance positively. It also complements the casing nicely."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:overclocked_core",
+      "link_recipe": true,
+      "text": "Electrical energy is the ultimate stage of the core. Alone, it seems to perform inadequately, but combined with the right wavelengths, it is the perfect combination of strength and speed. We originally thought temperature would be a problem, but endothermic reactions only empower the core further."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:creative_core",
+      "link_recipe": true,
+      "text": "A theoretical stage of an Encased Core that has yet to be synthesized. It would be able to change its power at the user's will, and it would be impenetrable. It seems not even the Ancients were able to harness its power."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "purpeille:vacuous_core",
+      "link_recipe": true,
+      "text": "A core that has been exposed to the tension of the Void. Instead of providing energy, this core creates a direct connection to the Void. It powers the Ancients' Machines all the same, but with... side-effects. These cores are, comparatively, much shorter lived than their normal counterparts, being under such incredible strain."
     }
   ],
   "sortnum": 1
