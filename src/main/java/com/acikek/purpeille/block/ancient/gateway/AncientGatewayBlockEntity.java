@@ -97,17 +97,6 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
         super.writeNbt(nbt);
     }
 
-    @Nullable
-    @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
-    }
-
-    @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
-    }
-
     public static void register() {
         BLOCK_ENTITY_TYPE = build("ancient_gateway_block_entity", AncientGatewayBlockEntity::new, ModBlocks.ANCIENT_GATEWAY);
     }
