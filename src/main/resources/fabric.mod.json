@@ -3,11 +3,12 @@
   "id": "purpeille",
   "version": "${version}",
   "name": "Purpeille",
-  "description": "A journey of allegiance; endgame resource expansion",
+  "description": "Endgame resource expansion; ancient technology; a journey of allegiance",
   "authors": [
     "acikek",
     "VirtuaLilith",
-    "Trudle"
+    "Trudle",
+    "Jeb_Kerm"
   ],
   "contact": {
     "sources": "https://github.com/acikek/purpeille",
@@ -33,6 +34,7 @@
     "fabricloader": ">=0.13.3",
     "fabric": "*",
     "minecraft": "1.18.2",
-    "voidcrafting": ">=1.3.0"
+    "voidcrafting": ">=1.4.0",
+    "cmods": ">=1.1.0"
   }
 }
