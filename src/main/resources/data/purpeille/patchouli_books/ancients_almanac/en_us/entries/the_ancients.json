@@ -5,7 +5,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "a"
+      "text": "Throughout this almanac, we will refer to a people that we have named the $(bold)Ancients$(). We know very little about their appearance, their demeanor, or how they communicated, but through examination of their technologies, we have uncovered their customs.$(br2)These people were always striving for progress, truly more advanced than their contemporaries."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Even though we have discovered much about them, many findings remain unexplained, such as the metaphysical properties of Warpaths and $(item)Purpeille Armor$() as you will recognize in later chapters.$(br2)Following the path of the Ancients is a journey of allegiance: one that will test your might, but gift you with unsurpassed power."
     }
   ],
   "sortnum": 1
