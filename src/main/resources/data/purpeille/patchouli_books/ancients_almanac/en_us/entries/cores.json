@@ -7,7 +7,7 @@
       "type": "patchouli:spotlight",
       "item": "purpeille:encased_core",
       "link_recipe": true,
-      "text": "The base power source for Ancient Machines. Instead of amplifying the Eye of Ender itself, Void Focusing creates a porous shell around it that allows the EYe to transmit its power to machines."
+      "text": "The base power source for Ancient Machines. Instead of amplifying the Eye of Ender itself, Void Focusing creates a porous shell around it that allows the Eye to transmit its power to machines."
     },
     {
       "type": "patchouli:spotlight",
@@ -19,7 +19,7 @@
       "type": "patchouli:spotlight",
       "item": "purpeille:overclocked_core",
       "link_recipe": true,
-      "text": "Electrical energy is the ultimate stage of the core. Alone, it seems to perform inadequately, but combined with the right wavelengths, it is the perfect combination of strength and speed. We originally thought temperature would be a problem, but endothermic reactions only empower the core further."
+      "text": "Electrical energy is the ultimate stage of the core. Alone, it seems to perform poorly, but combined with the right wavelengths, it is the perfect combination of strength and speed. We originally thought temperature would be a problem, but endothermic reactions only empower the core further."
     },
     {
       "type": "patchouli:spotlight",

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Unlike every other civilization, the Ancients understood and even embraced the Void upon discovering its true power. When exposed to the Void, most materials disintegrate under the tension, but some bind even closer together.$(br2)Both resources obtained from Purpur Remnants exhibit the latter."
+      "text": "Unlike every other civilization, the Ancients discovered the true power of the void and embraced it. When exposed to the Void, most materials disintegrate under the tension, but some bind even closer together.$(br2)Both resources obtained from Purpur Remnants exhibit the latter property."
     },
     {
       "type": "patchouli:text",

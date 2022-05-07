@@ -5,11 +5,11 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Some time ago, one of our research teams stationed themselves at an abandoned End City and started excavating the area. They discovered an underground material, akin to Purpur, but archaic in a way.$(br2)This discovery became the basis for our research on the Ancients, and, by extent, this almanac."
+      "text": "Some time ago, one of our research teams stationed at an abandoned End City started excavating the area. They discovered an underground material, akin to Purpur, but archaic in a way.$(br2)This discovery became the basis for our research on the Ancients, and, by extent, this almanac."
     },
     {
       "type": "patchouli:text",
-      "text": "When aiming to find these remnants, you do not have to clear out a hostile End City, but they contain valuable resources yet. You might not even need to come close: remnants are scattered around the cities in an at least 40-meter radius.$(br2)Our teams have found that explosives are a viable form of excavation, but it is a bit of a risk as the remnants are unstable."
+      "text": "When aiming to find these remnants, you do not have to clear out a hostile End City, but they do contain valuable resources. You might not even need to come close: remnants are scattered around the cities in an at least 40-meter radius.$(br2)Our teams have found that explosives are a viable form of excavation, but they are a bit of a risk as the remnants are unstable."
     },
     {
       "type": "patchouli:image",

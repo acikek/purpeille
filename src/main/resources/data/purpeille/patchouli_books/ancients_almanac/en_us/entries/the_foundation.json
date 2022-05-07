@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(bold)Ancient Research Team$(), or A.R.T. for short, is funded by the Spades University after our initial findings that revealed a rich past that was lying under our fingertips.$(br2)We have been committed to this cause for many years and have uncovered many things, and do not plan on stopping prematurely."
+      "text": "The $(bold)Ancient Research Team$(), or A.R.T. for short, is funded by the Spades University after our initial findings revealed a rich past that was lying under our fingertips.$(br2)We have been committed to this cause for many years and have uncovered many things, and do not plan on stopping prematurely."
     },
     {
       "type": "patchouli:link",
