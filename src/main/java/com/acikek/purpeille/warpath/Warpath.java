@@ -15,8 +15,8 @@ import net.minecraft.util.Formatting;
 
 public class Warpath {
 
-    public static final MutableText SEPARATOR = new TranslatableText("separator.purpeille.warpath")
-            .formatted(Formatting.GRAY);
+    public static final MutableText SEPARATOR = new TranslatableText("separator.purpeille.warpath");
+    public static final ClampedColor SEPARATOR_COLOR = new ClampedColor(Formatting.GRAY);
 
     /**
      * Generates warpath text based on enumerated components.
@@ -34,7 +34,8 @@ public class Warpath {
             return revelationText;
         }
         MutableText aspectText = aspect.value.getText(wave, style);
-        return aspectText.append(SEPARATOR).append(revelationText);
+        MutableText separator = SEPARATOR.copy().styled(s -> s.withColor(SEPARATOR_COLOR.getModified(wave)));
+        return aspectText.append(separator).append(revelationText);
     }
 
     /**
