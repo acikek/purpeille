@@ -68,7 +68,7 @@
   "advancements.purpeille.impure_preserved_dust.title": "En tiempos pasados",
   "advancements.purpeille.impure_preserved_dust.description": "Mina los restos subterráneos de una Ciudad del End",
   "advancements.purpeille.decoration_blocks.title": "Si veo un otro bloque morado...",
-  "advancements.purpeille.decoration_blocks.description": "Recoge los todos bloques de decoración",
+  "advancements.purpeille.decoration_blocks.description": "Recoge todos los bloques de decoración",
   "advancements.purpeille.preserved_dust.title": "Perdido y olvidado",
   "advancements.purpeille.preserved_dust.description": "Pierde un poco polvo preservado impuro en el Vacío",
   "advancements.purpeille.purpeille_ingot.title": "Cuando forjado en llamas",
@@ -107,7 +107,7 @@
   "command.purpeille.warpath.success.add": "Agregado el ritual con éxito [%s]",
   "command.purpeille.warpath.success.remove": "Eliminado el ritual con éxito [%s]",
   "subtitle.purpeille.ancient_gateway.teleport": "Enlace antiguo teletransporta a alguien",
-  "use.purpeille.creative_core": "Cambiado el modificador del corazón corazón a %d",
+  "use.purpeille.creative_core": "Cambiado el modificador del corazón a %d",
   "tooltip.purpeille.creative_core": "Modificador del corazón: ",
   "rei.purpeille.ancient_oven": "Enfoque del Vacío",
   "rei.purpeille.ancient_oven.damage": "%d Daño"
