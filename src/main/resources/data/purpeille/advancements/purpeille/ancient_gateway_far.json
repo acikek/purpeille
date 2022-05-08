@@ -24,10 +24,5 @@
         }
       }
     }
-  },
-  "requirements": [
-    [
-      "use_ancient_gateway"
-    ]
-  ]
+  }
 }

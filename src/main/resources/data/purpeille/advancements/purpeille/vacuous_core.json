@@ -22,10 +22,5 @@
         "recipe": "purpeille:vacuous_core"
       }
     }
-  },
-  "requirements": [
-    [
-      "obtain_vacuous_core"
-    ]
-  ]
+  }
 }

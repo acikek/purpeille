@@ -28,10 +28,5 @@
         ]
       }
     }
-  },
-  "requirements": [
-    [
-      "obtain_encased_core"
-    ]
-  ]
+  }
 }

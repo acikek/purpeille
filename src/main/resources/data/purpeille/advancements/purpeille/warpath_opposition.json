@@ -27,10 +27,5 @@
         "synergy": "opposition"
       }
     }
-  },
-  "requirements": [
-    [
-      "create_warpath"
-    ]
-  ]
+  }
 }

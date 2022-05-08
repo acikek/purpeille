@@ -43,10 +43,5 @@
         ]
       }
     }
-  },
-  "requirements": [
-    [
-      "purpeille_armor"
-    ]
-  ]
+  }
 }

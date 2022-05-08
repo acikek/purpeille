@@ -22,10 +22,5 @@
         "to": "minecraft:the_end"
       }
     }
-  },
-  "requirements": [
-    [
-      "travel_to_end"
-    ]
-  ]
+  }
 }

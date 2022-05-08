@@ -29,10 +29,5 @@
         "synergy": "identical"
       }
     }
-  },
-  "requirements": [
-    [
-      "create_warpath"
-    ]
-  ]
+  }
 }

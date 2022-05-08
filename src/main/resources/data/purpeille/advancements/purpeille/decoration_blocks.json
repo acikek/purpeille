@@ -64,19 +64,5 @@
         ]
       }
     }
-  },
-  "requirements": [
-    [
-      "obtain_monolithic_purpur"
-    ],
-    [
-      "obtain_remnant_bricks"
-    ],
-    [
-      "obtain_purpeille_block"
-    ],
-    [
-      "obtain_ancient_mechanical_bricks"
-    ]
-  ]
+  }
 }

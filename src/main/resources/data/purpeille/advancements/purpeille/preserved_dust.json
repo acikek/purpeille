@@ -22,10 +22,5 @@
         "recipe": "purpeille:preserved_dust"
       }
     }
-  },
-  "requirements": [
-    [
-      "obtain_dust"
-    ]
-  ]
+  }
 }

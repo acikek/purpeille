@@ -19,10 +19,5 @@
     "create_warpath": {
       "trigger": "purpeille:warpath_created"
     }
-  },
-  "requirements": [
-    [
-      "create_warpath"
-    ]
-  ]
+  }
 }

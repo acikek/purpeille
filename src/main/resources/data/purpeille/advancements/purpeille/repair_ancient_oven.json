@@ -22,10 +22,5 @@
         "damage": "none"
       }
     }
-  },
-  "requirements": [
-    [
-      "repair_ancient_oven"
-    ]
-  ]
+  }
 }
