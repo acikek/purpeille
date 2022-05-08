@@ -5,8 +5,9 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonPrimitive;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
 
-public class EnumPredicate<T extends Enum<T>> {
+public class EnumPredicate<T extends Enum<T>> implements Predicate<T> {
 
     public T value;
 
