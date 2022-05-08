@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "purpeille:impure_preserved_dust",
     "purpeille:preserved_dust"

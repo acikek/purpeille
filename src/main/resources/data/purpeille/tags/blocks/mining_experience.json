@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "#minecraft:dirt",
     "#minecraft:base_stone_overworld",
