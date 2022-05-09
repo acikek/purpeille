@@ -38,7 +38,7 @@ public class Purpeille implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Embark on a journey of allegiance");
+        LOGGER.info("Purpeille: Harness the Void!");
         ModBlocks.register();
         ModItems.register();
         ModAttributes.register();
