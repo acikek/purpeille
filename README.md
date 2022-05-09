@@ -1,15 +1,46 @@
-# Purpeille <img src="https://user-images.githubusercontent.com/26909391/162001387-3210d6ed-650d-4812-a051-f191b42b03d1.png" width="30">
+![](https://media.discordapp.net/attachments/964715249271996446/972985427915079710/banner.png)
 
-A journey of allegiance; endgame resource expansion
+## Features
 
-## About
+- A definitive endgame resource beyond Netherite called **Purpeille**
+- Intricate dynamic upgrade system for Purpeille gear
+- Advanced and useful **ancient machines**
+- Plethora of decoration blocks
+- A thorough guidebook powered by **[Patchouli](https://modrinth.com/mod/patchouli)**
 
-This mod aims to provide a definitive endgame resource beyond Netherite for semi-vanilla experiences. Purpeille is by far the most difficult resource to gather, but it's worth the effort: it provides a base for a completely dynamic bonus system.
+...and much more!
 
-The mod's progression begins when you enter the End dimension and have Netherite gear at the least. The advancements should reveal the next steps, but for in-depth explanations, check out the [wiki](https://github.com/acikek/purpeille/wiki).
+## Getting Started
 
-#### Questions? Join the [Discord](https://discord.gg/QYymKz84tR)!
+Purpeille's progression begins when you enter the End dimension - make sure to have Netherite gear at the least. Craft the **Ancient's Almanac** to start your journey.
+
+## Images
+
+<details>
+  <summary>Ancient Machines</summary>
+  
+  ![](https://media.discordapp.net/attachments/964348156299083776/972977260606939216/machines.png)
+</details>
+
+<details>
+  <summary>Encased Cores</summary>
+  
+  ![](https://media.discordapp.net/attachments/964348156299083776/972977194395631616/cores.png)
+</details>
+
+<details>
+  <summary>Purpeille Armor</summary>
+  
+  ![](https://media.discordapp.net/attachments/964348156299083776/972976348421304350/gaze.png)
+</details>
+
+<details>
+  <summary>Purpeille Sword</summary>
+  
+  ![](https://media.discordapp.net/attachments/964348156299083776/972976349415374908/sword.png)
+</details>
+
 
 ## License
 
-MIT © 2022 Skye P.
+MIT © 2022 spadeteam
