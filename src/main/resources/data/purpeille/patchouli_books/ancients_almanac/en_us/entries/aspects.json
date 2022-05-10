@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "An $(bold)Aspect$() is the second and optional component of a Warpath. An Aspect cannot be on its own; it must have a Revelation accompanying it, but that relationship does not reverse.$(br2)Aspects are created by placing $(item)Impure Preserved Dust$() into a Warpath recipe."
+      "text": "An $(bold)Aspect$() is the second and optional component of a Warpath. An Aspect cannot be on its own; it must have a Revelation accompanying it, but that relationship does not reverse.$(br2)Aspects are created by placing $(item)Preserved Dust$() into a Warpath recipe."
     },
     {
       "type": "patchouli:spotlight",
