@@ -47,7 +47,7 @@ public class ModItems {
     public static final ToolItem PURPEILLE_HOE = new PurpeilleToolMaterial.PurpeilleHoeItem(-4, -0.0f);
 
     // Handbook
-    public static final Item ANCIENTS_ALMANAC = new AncientsAlmanac(defaultSettings().rarity(Rarity.UNCOMMON));
+    public static final Item ANCIENTS_ALMANAC = new AncientsAlmanac(defaultSettings().rarity(Rarity.UNCOMMON).maxCount(1));
 
     public static FabricItemSettings defaultSettings() {
         return new FabricItemSettings().group(Purpeille.ITEM_GROUP);
