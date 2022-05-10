@@ -73,28 +73,21 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
 
     public void startRecipe(World world, ItemStack stack, boolean unset, PlayerEntity player, BlockPos pos, BlockState state) {
         getRecipeMatch(world, stack).ifPresent(match -> {
-            if (unset) {
-                setItem(stack.getItem());
-            }
+            onAddItem(stack, unset, player);
             addRecipe(match);
-            if (player != null && !player.isCreative()) {
-                stack.decrement(1);
-            }
             world.setBlockState(pos, state.with(AncientOven.LIT, true).with(AncientOven.FULL, true));
         });
     }
 
     public void finishRecipe(World world, PlayerEntity player, BlockPos pos, BlockState state) {
-        if (player != null) {
-            player.getInventory().offerOrDrop(getItem());
-        }
+        onRemoveItem(player, false);
         durability -= damageToTake;
         damageToTake = 0;
         result = ItemStack.EMPTY;
         if (checkDamage(world, player, pos, state)) {
             world.setBlockState(pos, state.with(AncientOven.FULL, false));
         }
-        world.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT);
     }
 
     public ItemStack getOvenStack(BlockState state) {

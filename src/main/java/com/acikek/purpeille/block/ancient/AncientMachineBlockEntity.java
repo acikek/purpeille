@@ -17,6 +17,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
@@ -24,6 +27,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
@@ -118,6 +122,49 @@ public class AncientMachineBlockEntity extends BlockEntity implements Implemente
             return true;
         }
         return false;
+    }
+
+    /**
+     * Adds an item from an optional player source.
+     * @param unset Whether the item is still unset. For example, this should be {@code false} when calling after hopper transfer.
+     * @param player The player source. If non-null and {@link PlayerEntity#isCreative()} returns false, decrements {@code stack} by {@code 1}.
+     */
+    public void onAddItem(ItemStack stack, boolean unset, PlayerEntity player) {
+        if (unset) {
+            setItem(stack.copy());
+        }
+        if (player != null && !player.isCreative()) {
+            stack.decrement(1);
+        }
+    }
+
+    /**
+     * Removes an item from an optional player source.
+     * @param checkCreative Whether the player shouldn't receive the item if in creative mode.
+     */
+    public void onRemoveItem(PlayerEntity player, boolean checkCreative) {
+        if (player != null) {
+            if (checkCreative && player.isCreative()) {
+                return;
+            }
+            player.getInventory().offerOrDrop(getItem());
+        }
+    }
+
+    /**
+     * If {@link BlockEntity#world} is non-null, plays a sound at the block entity's location and with the specified pitch.
+     */
+    public void playSound(SoundEvent event, float pitch) {
+        if (world != null) {
+            world.playSound(null, pos, event, SoundCategory.BLOCKS, 1.0f, pitch);
+        }
+    }
+
+    /**
+     * Calls {@link AncientMachineBlockEntity#playSound(SoundEvent, float)} with a pitch of {@code 1.0f}.
+     */
+    public void playSound(SoundEvent event) {
+        playSound(event, 1.0f);
     }
 
     @Override

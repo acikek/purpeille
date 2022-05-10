@@ -8,14 +8,14 @@ import com.acikek.purpeille.sound.ModSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -28,6 +28,30 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
 
     public AncientGatewayBlockEntity(BlockPos pos, BlockState state) {
         super(BLOCK_ENTITY_TYPE, pos, state);
+    }
+
+    public void addCore(World world, ItemStack stack, boolean unset, PlayerEntity player, BlockPos pos, BlockState state) {
+        onAddItem(stack, unset, player);
+        if (world != null) {
+            world.setBlockState(pos, state
+                    .with(AncientGateway.READY, true)
+                    .with(AncientGateway.CHARGING, world.isReceivingRedstonePower(pos)));
+            playSound(SoundEvents.BLOCK_END_PORTAL_FRAME_FILL);
+        }
+    }
+
+    public void removeCore(World world, PlayerEntity player, boolean remove, BlockPos pos, BlockState state) {
+        onRemoveItem(player, true);
+        if (remove) {
+            removeItem();
+        }
+        BlockState newState = state.with(AncientGateway.READY, false);
+        if (state.get(AncientGateway.CHARGING)) {
+            newState = newState.with(AncientGateway.CHARGING, false);
+            charge = 0;
+        }
+        world.setBlockState(pos, newState);
+        playSound(SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM);
     }
 
     public PlayerEntity getPlayer(World world, BlockPos pos) {
@@ -80,9 +104,34 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
         if (!world.isClient() && state.get(AncientGateway.CHARGING)) {
             blockEntity.charge++;
             if (world.getTime() % 80L == 0) {
-                world.playSound(null, pos, SoundEvents.BLOCK_BEACON_AMBIENT, SoundCategory.BLOCKS, 1.0f, 0.5f);
+                blockEntity.playSound(SoundEvents.BLOCK_BEACON_AMBIENT, 0.5f);
             }
         }
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        super.setStack(slot, stack);
+        addCore(world, stack, false, null, pos, getCachedState());
+    }
+
+    @Override
+    public ItemStack removeStack(int slot, int count) {
+        removeCore(world, null, false, pos, getCachedState());
+        return super.removeStack(slot, count);
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return dir != Direction.DOWN
+                && !getCachedState().get(AncientGateway.READY)
+                && stack.getItem() instanceof EncasedCore;
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return dir == Direction.DOWN
+                && !getCachedState().get(AncientGateway.CHARGING);
     }
 
     @Override
