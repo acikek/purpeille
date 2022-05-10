@@ -23,6 +23,9 @@
     "main": [
       "com.acikek.purpeille.Purpeille"
     ],
+    "client": [
+      "com.acikek.purpeille.client.PurpeilleClient"
+    ],
     "rei": [
       "com.acikek.purpeille.compat.rei.PurpeilleREIPlugin"
     ]

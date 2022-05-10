@@ -1,0 +1,13 @@
+{
+  "pack": {
+    "pack_format": 8,
+    "description": "Adds Theinar as a language with Purpeille translations"
+  },
+  "language": {
+    "tn_da": {
+      "name": "Theinar",
+      "region": "Dathalar",
+      "bidirectional": false
+    }
+  }
+}
