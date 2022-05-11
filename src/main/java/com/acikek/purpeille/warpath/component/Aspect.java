@@ -5,6 +5,7 @@ import com.acikek.purpeille.warpath.Tone;
 import com.acikek.purpeille.warpath.Type;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
+import net.minecraft.text.TranslatableText;
 
 public class Aspect {
 
@@ -43,7 +44,7 @@ public class Aspect {
     public MutableText getText(int wave, Style style) {
         if (style == null) {
             if (wave == Integer.MIN_VALUE) {
-                return defaultText;
+                return defaultText.shallowCopy();
             }
             return getText(getStyle(wave));
         }
