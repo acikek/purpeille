@@ -107,15 +107,17 @@ publishing {
 
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
-    versionName = project.version
-    changelog = new String(Files.readAllBytes(Paths.get("./modrinth/CHANGELOG.md")))
     projectId = "yoEkK5RL"
+    versionName = project.version
+    versionNumber = "${project.version}-fabric"
+    changelog = new String(Files.readAllBytes(Paths.get("./modrinth/CHANGELOG.md")))
     uploadFile = remapJar
     gameVersions = [ "1.18.2" ]
     loaders = [ "fabric", "quilt" ]
-    dependencies = [
-            new ModDependency("P7dR8mSH", "required"), // Fabric API
-            new ModDependency("E9dV0G8I", "optional"), // Void Crafting
-            new ModDependency("X5JJNmDn", "optional")  // Combined Modifiers
-    ]
+    dependencies {
+        required.project "P7dR8mSH"
+        optional.project "E9dV0G8I"
+        optional.project "X5JJNmDn"
+        optional.project "nU0bVIaL"
+    }
 }
