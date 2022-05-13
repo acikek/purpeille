@@ -70,8 +70,9 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
         return blocks;
     }
 
-    public Vec3d getDestination(PlayerEntity player, BlockState state, int blocks) {
-        return Vec3d.ofCenter(player.getBlockPos().offset(state.get(AncientGateway.FACING), blocks));
+    public Vec3d getDestination(World world, PlayerEntity player, BlockState state, int blocks) {
+        BlockPos pos = player.getBlockPos().offset(state.get(AncientGateway.FACING), blocks);
+        return Vec3d.ofCenter(world.getWorldBorder().clamp(pos.getX(), pos.getY(), pos.getZ()));
     }
 
     public BlockState damageCore(World world, BlockState state, int blocks) {
@@ -92,7 +93,7 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
         if (player == null || blocks == 0) {
             return state;
         }
-        Vec3d destination = getDestination(player, state, blocks);
+        Vec3d destination = getDestination(world, player, state, blocks);
         player.teleport(destination.getX(), destination.getY(), destination.getZ());
         player.playSound(ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
         world.playSound(player, pos, ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
