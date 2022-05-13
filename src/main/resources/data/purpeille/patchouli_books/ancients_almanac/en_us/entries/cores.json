@@ -10,16 +10,27 @@
       "text": "The base power source for Ancient Machines. Instead of amplifying the Eye of Ender itself, Void Focusing creates a porous shell around it that allows the Eye to transmit its power to machines."
     },
     {
+      "type": "patchouli:empty"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "purpeille:energetic_core",
       "link_recipe": true,
       "text": "The $(item)Ultraviolet Prism$() attached to the core captures correct wavelengths that augment the core's performance positively. It also complements the casing nicely."
     },
     {
+      "type": "patchouli:crafting",
+      "recipe": "purpeille:energetic_core"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "purpeille:overclocked_core",
       "link_recipe": true,
       "text": "Electrical energy is the ultimate stage of the core. Alone, it seems to perform poorly, but combined with the right wavelengths, it is the perfect combination of strength and speed. We originally thought temperature would be a problem, but endothermic reactions only empower the core further."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "purpeille:overclocked_core"
     },
     {
       "type": "patchouli:spotlight",
