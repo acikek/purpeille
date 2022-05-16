@@ -12,11 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,8 +70,17 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
         return blocks;
     }
 
+    public BlockPos getDestinationPos(PlayerEntity player, BlockState state, int blocks) {
+        Direction facing = state.get(AncientGateway.FACING);
+        if (getCore() != null && getCore().type == EncasedCore.Type.VACUOUS) {
+            Vec3d rotation = player.getRotationVec(1f).multiply(blocks);
+            return player.getBlockPos().add(new Vec3i(rotation.x, 0, rotation.z));
+        }
+        return player.getBlockPos().offset(facing, blocks);
+    }
+
     public Vec3d getDestination(World world, PlayerEntity player, BlockState state, int blocks) {
-        BlockPos pos = player.getBlockPos().offset(state.get(AncientGateway.FACING), blocks);
+        BlockPos pos = getDestinationPos(player, state, blocks);
         return Vec3d.ofCenter(world.getWorldBorder().clamp(pos.getX(), pos.getY(), pos.getZ()));
     }
 

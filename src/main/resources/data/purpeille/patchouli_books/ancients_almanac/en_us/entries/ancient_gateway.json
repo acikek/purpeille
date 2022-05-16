@@ -14,7 +14,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "To activate the gateway, unpower the machine. Any user standing directly on top of the device will teleport in a straight line in the designated direction, with the distance depending on the time charged.$(br2)A $(item)Vacuous Core$() has the opposite effect: it uses the base modifier, but it teleports the user backwards."
+      "text": "To activate the gateway, cut off the power. Any user standing directly on top of the device will teleport in a straight line in the designated direction, with the distance depending on the time charged.$(br2)A $(item)Vacuous Core$() teleports the user in the direction they are looking regardless of the gateway's direction."
     },
     {
       "type": "patchouli:text",
