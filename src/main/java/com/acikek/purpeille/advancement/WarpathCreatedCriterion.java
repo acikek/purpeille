@@ -1,10 +1,11 @@
 package com.acikek.purpeille.advancement;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.warpath.Aspects;
-import com.acikek.purpeille.warpath.Revelations;
 import com.acikek.purpeille.warpath.Synergy;
+import com.acikek.purpeille.warpath.component.Aspect;
+import com.acikek.purpeille.warpath.component.Revelation;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import lib.EnumPredicate;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
@@ -23,8 +24,8 @@ public class WarpathCreatedCriterion extends AbstractCriterion<WarpathCreatedCri
     @Override
     protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         ItemPredicate item = ItemPredicate.fromJson(obj.get("item"));
-        EnumPredicate<Revelations> revelation = EnumPredicate.fromJson(obj.get("revelation"), Revelations::valueOf);
-        EnumPredicate<Aspects> aspect = EnumPredicate.fromJson(obj.get("aspect"), Aspects::valueOf);
+        Identifier revelation = Identifier.tryParse(obj.get("revelation").getAsString());
+        Identifier aspect = Identifier.tryParse(obj.get("aspect").getAsString());
         EnumPredicate<Synergy> synergy = EnumPredicate.fromJson(obj.get("synergy"), Synergy::valueOf);
         return new Conditions(playerPredicate, item, revelation, aspect, synergy);
     }
@@ -34,18 +35,18 @@ public class WarpathCreatedCriterion extends AbstractCriterion<WarpathCreatedCri
         return ID;
     }
 
-    public void trigger(ServerPlayerEntity player, ItemStack stack, Revelations revelation, Aspects aspect, Synergy synergy) {
+    public void trigger(ServerPlayerEntity player, ItemStack stack, Revelation revelation, Aspect aspect, Synergy synergy) {
         trigger(player, conditions -> conditions.matches(stack, revelation, aspect, synergy));
     }
 
     public static class Conditions extends AbstractCriterionConditions {
 
         public ItemPredicate item;
-        public EnumPredicate<Revelations> revelation;
-        public EnumPredicate<Aspects> aspect;
+        public Identifier revelation;
+        public Identifier aspect;
         public EnumPredicate<Synergy> synergy;
 
-        public Conditions(EntityPredicate.Extended playerPredicate, ItemPredicate item, EnumPredicate<Revelations> revelation, EnumPredicate<Aspects> aspect, EnumPredicate<Synergy> synergy) {
+        public Conditions(EntityPredicate.Extended playerPredicate, ItemPredicate item, Identifier revelation, Identifier aspect, EnumPredicate<Synergy> synergy) {
             super(ID, playerPredicate);
             this.item = item;
             this.revelation = revelation;
@@ -53,10 +54,10 @@ public class WarpathCreatedCriterion extends AbstractCriterion<WarpathCreatedCri
             this.synergy = synergy;
         }
 
-        public boolean matches(ItemStack stack, Revelations revelation, Aspects aspect, Synergy synergy) {
+        public boolean matches(ItemStack stack, Revelation revelation, Aspect aspect, Synergy synergy) {
             return this.item.test(stack)
-                    && this.revelation.test(revelation)
-                    && this.aspect.test(aspect)
+                    && (this.revelation == null || this.revelation.equals(revelation.id))
+                    && (this.aspect == null || this.aspect.equals(aspect.id))
                     && this.synergy.test(synergy);
         }
 
@@ -64,9 +65,9 @@ public class WarpathCreatedCriterion extends AbstractCriterion<WarpathCreatedCri
         public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
             JsonObject obj = super.toJson(predicateSerializer);
             obj.add("item", item.toJson());
-            obj.add("revelation", revelation.toJson());
-            obj.add("aspect", aspect.toJson());
-            obj.add("synergy", aspect.toJson());
+            obj.add("revelation", new JsonPrimitive(revelation.toString()));
+            obj.add("aspect", new JsonPrimitive(aspect.toString()));
+            obj.add("synergy", synergy.toJson());
             return obj;
         }
     }

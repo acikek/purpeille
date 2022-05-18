@@ -1,0 +1,10 @@
+{
+  "tone": "tension",
+  "color": "green",
+  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "index": 1,
+  "modifier": 12.0,
+  "attribute": "purpeille:generic.poison_resistance",
+  "affinity": "purpeille:purpeille_hoe",
+  "multiply": false
+}

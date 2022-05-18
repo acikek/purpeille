@@ -1,17 +1,19 @@
 package com.acikek.purpeille.command;
 
-import com.acikek.purpeille.warpath.Aspects;
-import com.acikek.purpeille.warpath.Revelations;
 import com.acikek.purpeille.warpath.Type;
 import com.acikek.purpeille.warpath.Warpath;
+import com.acikek.purpeille.warpath.component.Aspect;
+import com.acikek.purpeille.warpath.component.Component;
+import com.acikek.purpeille.warpath.component.Revelation;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
+import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
@@ -19,45 +21,49 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public class WarpathCommand {
 
     public static final String NAME = "warpath";
 
+    public static final MutableText INVALID_WARPATH = getMessage("invalid.warpath", null);
     public static final DynamicCommandExceptionType INVALID_STACK = getException("invalid.stack");
 
     public static final String ADD_SUCCESS = "success.add";
     public static final String REMOVE_SUCCESS = "success.remove";
 
     public static int add(CommandContext<ServerCommandSource> context, boolean hasAspect) throws CommandSyntaxException {
-        Revelations revelation = parseComponent(context, Type.REVELATION, Revelations::valueOf);
-        Aspects aspect = hasAspect ? parseComponent(context, Type.ASPECT, Aspects::valueOf) : null;
+        Revelation revelation = parseComponent(context, Type.REVELATION, Component.REVELATIONS);
+        Aspect aspect = hasAspect ? parseComponent(context, Type.ASPECT, Component.ASPECTS) : null;
         ItemStack stack = getStack(context);
         Warpath.remove(stack);
-        Warpath.add(stack, revelation.value, hasAspect ? aspect.value : null);
-        context.getSource().sendFeedback(getMessage(ADD_SUCCESS, Warpath.getWarpath(revelation, aspect, false)), false);
+        Warpath.add(stack, revelation, hasAspect ? aspect : null);
+        context.getSource().sendFeedback(getMessage(ADD_SUCCESS, Warpath.getWarpath(revelation, aspect, false, false).get(0)), false);
         return 0;
     }
 
     public static int remove(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ItemStack stack = getStack(context);
-        Text warpath = Warpath.getWarpath(stack, false);
+        List<Text> warpath = Warpath.getWarpath(stack, false, false);
+        if (warpath == null) {
+            throw new SimpleCommandExceptionType(INVALID_WARPATH).create();
+        }
         Warpath.remove(stack);
-        context.getSource().sendFeedback(getMessage(REMOVE_SUCCESS, warpath), false);
+        context.getSource().sendFeedback(getMessage(REMOVE_SUCCESS, warpath.get(0)), false);
         return 0;
     }
 
-    public static <T extends Enum<T>> T parseComponent(CommandContext<ServerCommandSource> context, Type type, Function<String, T> valueOf) throws CommandSyntaxException {
-        String input = StringArgumentType.getString(context, type.translationKey);
-        try {
-            return valueOf.apply(input.toUpperCase());
+    public static <T extends Component> T parseComponent(CommandContext<ServerCommandSource> context, Type type, Map<Identifier, T> registry) throws CommandSyntaxException {
+        Identifier id = IdentifierArgumentType.getIdentifier(context, type.translationKey);
+        if (!registry.containsKey(id)) {
+            throw type.exception.create(id.toString());
         }
-        catch (Exception e) {
-            throw type.exception.create(input.toLowerCase());
-        }
+        return registry.get(id);
     }
 
     public static ItemStack getStack(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
@@ -77,9 +83,9 @@ public class WarpathCommand {
         return new DynamicCommandExceptionType(value -> getMessage(key, value));
     }
 
-    public static <T extends Enum<?>> CompletableFuture<Suggestions> suggestEnum(T[] values, SuggestionsBuilder builder) {
-        for (T value : values) {
-            builder.suggest(value.name().toLowerCase());
+    public static <T extends Component> CompletableFuture<Suggestions> suggestRegistry(Map<Identifier, T> registry, SuggestionsBuilder builder) {
+        for (Identifier id : registry.keySet()) {
+            builder.suggest(id.toString());
         }
         return builder.buildFuture();
     }
@@ -88,10 +94,10 @@ public class WarpathCommand {
         dispatcher.register(CommandManager.literal(NAME)
                 .then(CommandManager.argument("targets", EntityArgumentType.entities())
                         .then(CommandManager.literal("add")
-                                .then(CommandManager.argument("revelation", StringArgumentType.string())
-                                        .suggests((context, builder) -> suggestEnum(Revelations.values(), builder))
-                                        .then(CommandManager.argument("aspect", StringArgumentType.string())
-                                                .suggests(((context, builder) -> suggestEnum(Aspects.values(), builder)))
+                                .then(CommandManager.argument("revelation", IdentifierArgumentType.identifier())
+                                        .suggests((context, builder) -> suggestRegistry(Component.REVELATIONS, builder))
+                                        .then(CommandManager.argument("aspect", IdentifierArgumentType.identifier())
+                                                .suggests(((context, builder) -> suggestRegistry(Component.ASPECTS, builder)))
                                                 .executes(context -> WarpathCommand.add(context, true)))
                                         .executes(context -> WarpathCommand.add(context, false))
                                 ))

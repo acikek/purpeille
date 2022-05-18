@@ -1,0 +1,10 @@
+{
+  "tone": "tension",
+  "color": "dark_green",
+  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "index": 2,
+  "modifier": 2.0,
+  "attribute": "minecraft:generic.attack_damage",
+  "affinity": "purpeille:purpeille_sword",
+  "multiply": false
+}

@@ -1,0 +1,10 @@
+{
+  "tone": "release",
+  "color": "dark_aqua",
+  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "index": 2,
+  "modifier": 0.4,
+  "attribute": "purpeille:generic.water_speed",
+  "affinity": "purpeille:purpeille_leggings",
+  "multiply": true
+}

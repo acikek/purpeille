@@ -1,8 +1,12 @@
 package com.acikek.purpeille.warpath;
 
 import com.acikek.purpeille.command.WarpathCommand;
+import com.acikek.purpeille.warpath.component.Component;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Identifier;
+
+import java.util.Map;
 
 public enum Type {
 
@@ -13,27 +17,22 @@ public enum Type {
     public String nbtKey;
     public DynamicCommandExceptionType exception;
 
-    Type(String translationKey, String nbtSuffix) {
+    Type(String translationKey, String nbtKey) {
         this.translationKey = translationKey;
-        nbtKey = "Warpath" + nbtSuffix;
+        this.nbtKey = nbtKey;
         exception = WarpathCommand.getException("invalid." + translationKey);
     }
 
-    public boolean hasNbt(ItemStack stack) {
-        return stack.hasNbt() && stack.getOrCreateNbt().contains(nbtKey);
+
+    public void addNbt(NbtCompound nbt, Identifier id) {
+        nbt.putString(nbtKey, id.toString());
     }
 
-    public <T extends Enum<T>> T getFromNbt(ItemStack stack, T[] values) {
-        return hasNbt(stack)
-                ? values[stack.getOrCreateNbt().getInt(nbtKey)]
-                : null;
-    }
-
-    public void addNbt(ItemStack stack, int index) {
-        stack.getOrCreateNbt().putInt(nbtKey, index);
-    }
-
-    public void removeNbt(ItemStack stack) {
-        stack.getOrCreateNbt().remove(nbtKey);
+    public <T extends Component> T getFromNbt(NbtCompound nbt, Map<Identifier, T> registry) {
+        String id = nbt.getString(nbtKey);
+        if (id == null) {
+            return null;
+        }
+        return registry.get(Identifier.tryParse(id));
     }
 }

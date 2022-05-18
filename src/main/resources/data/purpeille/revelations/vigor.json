@@ -1,0 +1,10 @@
+{
+  "tone": "strength",
+  "color": "red",
+  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "index": 1,
+  "modifier": 0.15,
+  "attribute": "minecraft:generic.attack_speed",
+  "affinity": "purpeille:purpeille_axe",
+  "multiply": true
+}

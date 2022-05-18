@@ -109,7 +109,7 @@ modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "yoEkK5RL"
     versionName = project.version
-    changelog = project.file("./modrinth/CHANGELOG.md")
+    changelog = project.file("./modrinth/CHANGELOG.md").text
     uploadFile = remapJar
     gameVersions = [ "1.18.2" ]
     loaders = [ "fabric", "quilt" ]

@@ -23,7 +23,7 @@ public class WarpathRemoveRecipe extends SpecialCraftingRecipe {
     @Override
     public boolean matches(CraftingInventory inventory, World world) {
         ItemStack base = WarpathCreateRecipe.getBase(inventory, true);
-        return base != null && Type.REVELATION.hasNbt(base);
+        return base != null && Warpath.getData(base) != null;
     }
 
     @Override

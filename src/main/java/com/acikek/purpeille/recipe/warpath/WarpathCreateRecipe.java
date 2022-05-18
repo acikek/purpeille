@@ -1,19 +1,21 @@
 package com.acikek.purpeille.recipe.warpath;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.tag.ModTags;
-import com.acikek.purpeille.warpath.Type;
 import com.acikek.purpeille.warpath.Warpath;
+import com.acikek.purpeille.warpath.component.Aspect;
+import com.acikek.purpeille.warpath.component.Component;
+import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+
+import java.util.Map;
 
 public class WarpathCreateRecipe extends SpecialCraftingRecipe {
 
@@ -21,6 +23,48 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
 
     public WarpathCreateRecipe(Identifier id) {
         super(id);
+    }
+
+    public record ComponentData<T extends Component>(ItemStack stack, int index) {
+
+        public boolean isEmpty() {
+            return stack == ItemStack.EMPTY || index == -1;
+        }
+
+        public T getComponent(Map<Identifier, T> registry) {
+            if (isEmpty()) {
+                return null;
+            }
+            for (T component : registry.values()) {
+                int compIndex = component.relativeIndex;
+                if (component instanceof Aspect) {
+                    compIndex = 8 - compIndex;
+                }
+                if ((component.ignoreSlot || compIndex == index) && stack.isOf(component.catalyst)) {
+                    return component;
+                }
+            }
+            return null;
+        }
+
+        public static <T extends Component> ComponentData<T> getEmpty() {
+            return new ComponentData<>(ItemStack.EMPTY, -1);
+        }
+    }
+
+    public static class ComponentPair {
+
+        public ComponentData<Revelation> revelation;
+        public ComponentData<Aspect> aspect;
+
+        public ComponentPair(ComponentData<Revelation> revelation, ComponentData<Aspect> aspect) {
+            this.revelation = revelation;
+            this.aspect = aspect;
+        }
+
+        public static ComponentPair getEmpty() {
+            return new ComponentPair(ComponentData.getEmpty(), ComponentData.getEmpty());
+        }
     }
 
     public static ItemStack getBase(CraftingInventory inventory, boolean strict) {
@@ -40,15 +84,15 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         return base;
     }
 
-    public static Pair<Integer, Integer> getIndices(CraftingInventory inventory) {
-        Pair<Integer, Integer> components = new Pair<>(-1, -1);
+    public static ComponentPair getRecipeData(CraftingInventory inventory) {
+        ComponentPair components = ComponentPair.getEmpty();
         for (int i = 0; i < inventory.size(); i++) {
             ItemStack stack = inventory.getStack(i);
-            if (components.getLeft() == -1 && stack.isOf(ModItems.SMOLDERED_PURPEILLE_INGOT)) {
-                components.setLeft(i);
+            if (components.revelation.isEmpty() && stack.isIn(ModTags.REVELATION_CATALYST)) {
+                components.revelation = new ComponentData<>(stack, i);
             }
-            else if (components.getRight() == -1 && stack.isIn(ModTags.WARPATH_DUST)) {
-                components.setRight(stack.isOf(ModItems.IMPURE_PRESERVED_DUST) ? 4 : i);
+            else if (components.aspect.isEmpty() && stack.isIn(ModTags.ASPECT_CATALYST)) {
+                components.aspect = new ComponentData<>(stack, i);
             }
             else if (!stack.isEmpty() && !stack.isIn(ModTags.WARPATH_BASE)) {
                 return null;
@@ -60,23 +104,30 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
     @Override
     public boolean matches(CraftingInventory inventory, World world) {
         ItemStack base = getBase(inventory, false);
-        if (base == null || Type.REVELATION.hasNbt(base)) {
+        if (base == null || Warpath.getData(base) != null) {
             return false;
         }
-        Pair<Integer, Integer> indices = getIndices(inventory);
-        return indices != null && indices.getLeft() != -1;
+        ComponentPair data = getRecipeData(inventory);
+        if (data == null || data.revelation.isEmpty()) {
+            return false;
+        }
+        return data.revelation.getComponent(Component.REVELATIONS) != null;
     }
 
     @Override
     public ItemStack craft(CraftingInventory inventory) {
         ItemStack base = getBase(inventory, false);
-        Pair<Integer, Integer> indices = getIndices(inventory);
-        if (base == null || indices == null) {
+        ComponentPair data = getRecipeData(inventory);
+        if (base == null || data == null) {
             return null;
         }
         ItemStack stack = base.copy();
-        int aspectIndex = indices.getRight() != -1 ? (8 - indices.getRight()) : -1;
-        Warpath.add(stack, indices.getLeft(), aspectIndex);
+        Revelation revelation = data.revelation.getComponent(Component.REVELATIONS);
+        if (revelation == null) {
+            return null;
+        }
+        Aspect aspect = data.aspect.getComponent(Component.ASPECTS);
+        Warpath.add(stack, revelation, aspect);
         return stack;
     }
 

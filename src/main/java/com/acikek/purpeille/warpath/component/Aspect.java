@@ -1,60 +1,48 @@
 package com.acikek.purpeille.warpath.component;
 
-import com.acikek.purpeille.warpath.ClampedColor;
 import com.acikek.purpeille.warpath.Tone;
 import com.acikek.purpeille.warpath.Type;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.TranslatableText;
+import com.acikek.purpeille.warpath.Util;
+import com.google.gson.JsonObject;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
-public class Aspect {
+public class Aspect extends Component {
 
-    public String name;
-    public Tone tone;
-    public int index;
-    public double modifier;
-    public int relativeIndex;
-    public ClampedColor color;
-    public MutableText baseText;
-    public MutableText defaultText;
-
-    public Aspect(String name, Tone tone, int index, double modifier) {
-        this.name = name;
-        this.tone = tone;
-        this.index = index;
-        this.modifier = modifier;
-        relativeIndex = tone.index * 3 + index;
-        color = new ClampedColor(tone.getFormatting(index));
-        baseText = tone.getText(getType().translationKey, name);
-        defaultText = baseText.formatted(tone.getFormatting(index));
+    public Aspect(Identifier id, Tone tone, Formatting color, Item catalyst, int index, double modifier, boolean ignoreSlot) {
+        super(id, tone, color, catalyst, index, modifier, ignoreSlot);
     }
 
     public Type getType() {
         return Type.ASPECT;
     }
 
-    public Style getStyle(int wave) {
-        return Style.EMPTY.withColor(color.getModified(wave));
+    public static Aspect fromNbt(NbtCompound nbt) {
+        return Type.ASPECT.getFromNbt(nbt, ASPECTS);
     }
 
-    public MutableText getText(Style style) {
-        return baseText.copy().setStyle(style);
+    public static Aspect fromJson(JsonObject obj, Identifier id) {
+        Tone tone = Util.enumFromJson(obj, "tone", Tone::valueOf);
+        Formatting color = Util.enumFromJson(obj, "color", Formatting::valueOf);
+        Item catalyst = Util.itemFromJson(obj, "catalyst");
+        int index = obj.get("index").getAsInt();
+        double modifier = obj.get("modifier").getAsDouble();
+        boolean ignoreSlot = obj.has("ignore_slot") && obj.get("ignore_slot").getAsBoolean();
+        return new Aspect(id, tone, color, catalyst, index, modifier, ignoreSlot);
     }
 
-    public MutableText getText(int wave, Style style) {
-        if (style == null) {
-            if (wave == Integer.MIN_VALUE) {
-                return defaultText.shallowCopy();
-            }
-            return getText(getStyle(wave));
-        }
-        return getText(style);
-    }
-
-    public static int getRelativeIndex(Aspect aspect) {
-        if (aspect == null) {
-            return -1;
-        }
-        return aspect.relativeIndex;
+    public static Aspect read(PacketByteBuf buf) {
+        Identifier id = buf.readIdentifier();
+        Tone tone = buf.readEnumConstant(Tone.class);
+        Formatting color = buf.readEnumConstant(Formatting.class);
+        Item catalyst = Registry.ITEM.get(buf.readIdentifier());
+        int index = buf.readInt();
+        double modifier = buf.readDouble();
+        boolean ignoreSlot = buf.readBoolean();
+        return new Aspect(id, tone, color, catalyst, index, modifier, ignoreSlot);
     }
 }
