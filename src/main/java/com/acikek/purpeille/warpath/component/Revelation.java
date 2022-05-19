@@ -31,8 +31,8 @@ public class Revelation extends Component {
     public EntityAttributeModifier.Operation operation;
     public MutableText rite;
 
-    public Revelation(Identifier id, Tone tone, int color, Item catalyst, int index, double modifier, EntityAttribute attribute, Item affinity, Map<Identifier, Synergy> synergy, boolean multiply) {
-        super(id, tone, color, catalyst, index, modifier, false);
+    public Revelation(Identifier id, Tone tone, int color, Item catalyst, int index, double modifier, boolean ignoreSlot, EntityAttribute attribute, Item affinity, Map<Identifier, Synergy> synergy, boolean multiply) {
+        super(id, tone, color, catalyst, index, modifier, ignoreSlot);
         this.attribute = attribute;
         this.affinity = affinity;
         this.synergy = synergy;
@@ -41,7 +41,7 @@ public class Revelation extends Component {
     }
 
     public Revelation(Aspect aspect, EntityAttribute attribute, Item affinity, Map<Identifier, Synergy> synergy, boolean multiply) {
-        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, attribute, affinity, synergy, multiply);
+        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, attribute, affinity, synergy, multiply);
     }
 
     @Override
@@ -67,10 +67,10 @@ public class Revelation extends Component {
 
     public static Revelation fromJson(JsonObject obj, Identifier id) {
         Aspect aspect = Aspect.fromJson(obj, id);
-        EntityAttribute attribute = Registry.ATTRIBUTE.get(Identifier.tryParse(obj.get("attribute").getAsString()));
-        Item affinity = ShapedRecipe.getItem(obj.getAsJsonObject("affinity"));
-        Map<Identifier, Synergy> synergy = Synergy.overridesFromJson(obj.getAsJsonObject("synergy"));
-        boolean multiply = obj.get("multiply").getAsBoolean();
+        EntityAttribute attribute = Registry.ATTRIBUTE.get(Identifier.tryParse(JsonHelper.getString(obj, "attribute")));
+        Item affinity = ShapedRecipe.getItem(JsonHelper.getObject(obj, "affinity"));
+        Map<Identifier, Synergy> synergy = Synergy.overridesFromJson(JsonHelper.getObject(obj, "synergy"));
+        boolean multiply = JsonHelper.getBoolean(obj, "multiply");
         return new Revelation(aspect, attribute, affinity, synergy, multiply);
     }
 
