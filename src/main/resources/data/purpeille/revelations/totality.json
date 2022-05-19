@@ -1,11 +1,15 @@
 {
   "tone": "strength",
   "color": "light_purple",
-  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "catalyst": {
+    "item": "purpeille:smoldered_purpeille_ingot"
+  },
   "index": 2,
   "modifier": 2.0,
   "attribute": "minecraft:generic.max_health",
-  "affinity": "purpeille:purpeille_chestplate",
+  "affinity": {
+    "item": "purpeille:purpeille_chestplate"
+  },
   "synergy": {
     "purpeille:heroic": "identical"
   },

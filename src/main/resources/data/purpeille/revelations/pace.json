@@ -1,11 +1,15 @@
 {
   "tone": "release",
   "color": "blue",
-  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "catalyst": {
+    "item": "purpeille:smoldered_purpeille_ingot"
+  },
   "index": 1,
   "modifier": 0.15,
   "attribute": "minecraft:generic.movement_speed",
-  "affinity": "purpeille:purpeille_boots",
+  "affinity": {
+    "item": "purpeille:purpeille_boots"
+  },
   "synergy": {
     "purpeille:tranquil": "identical"
   },

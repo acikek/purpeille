@@ -1,7 +1,9 @@
 {
   "tone": "release",
   "color": "aqua",
-  "catalyst": "purpeille:preserved_dust",
+  "catalyst": {
+    "item": "purpeille:preserved_dust"
+  },
   "index": 0,
   "modifier": 1.3
 }

@@ -1,11 +1,15 @@
 {
   "tone": "strength",
   "color": "gold",
-  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "catalyst": {
+    "item": "purpeille:smoldered_purpeille_ingot"
+  },
   "index": 0,
   "modifier": 0.2,
   "attribute": "minecraft:generic.knockback_resistance",
-  "affinity": "purpeille:purpeille_helmet",
+  "affinity": {
+    "item": "purpeille:purpeille_helmet"
+  },
   "synergy": {
     "purpeille:virtuous": "identical"
   },

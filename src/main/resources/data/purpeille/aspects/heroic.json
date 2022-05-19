@@ -1,7 +1,9 @@
 {
   "tone": "strength",
   "color": "light_purple",
-  "catalyst": "purpeille:preserved_dust",
+  "catalyst": {
+    "item": "purpeille:preserved_dust"
+  },
   "index": 2,
   "modifier": 1.5
 }

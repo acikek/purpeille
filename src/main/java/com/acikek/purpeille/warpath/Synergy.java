@@ -1,6 +1,7 @@
 package com.acikek.purpeille.warpath;
 
 import com.acikek.purpeille.warpath.component.Aspect;
+import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -55,7 +56,7 @@ public enum Synergy {
         Map<Identifier, Synergy> result = new HashMap<>();
         for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
             Identifier id = Identifier.tryParse(entry.getKey());
-            Synergy synergy = Util.enumFromJson(entry.getValue(), Synergy::valueOf, "synergy");
+            Synergy synergy = Component.enumFromJson(entry.getValue(), Synergy::valueOf, "synergy");
             result.put(id, synergy);
         }
         return result;

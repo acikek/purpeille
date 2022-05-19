@@ -1,11 +1,15 @@
 {
   "tone": "release",
   "color": "dark_aqua",
-  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "catalyst": {
+    "item": "purpeille:smoldered_purpeille_ingot"
+  },
   "index": 2,
   "modifier": 0.4,
   "attribute": "purpeille:generic.water_speed",
-  "affinity": "purpeille:purpeille_leggings",
+  "affinity": {
+    "item": "purpeille:purpeille_leggings"
+  },
   "synergy": {
     "purpeille:unrivaled": "identical"
   },

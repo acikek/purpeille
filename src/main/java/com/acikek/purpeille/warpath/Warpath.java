@@ -4,7 +4,9 @@ import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
@@ -76,12 +78,28 @@ public class Warpath {
     }
 
     /**
+     * Returns the slot in which the warpath should activate.
+     * For tools, returns {@link EquipmentSlot#MAINHAND}.
+     * For armor, returns its corresponding slot type.
+     * Otherwise, returns {@code null}.
+     */
+    public static EquipmentSlot getSlot(ItemStack stack) {
+        if (stack.getItem() instanceof ToolItem) {
+            return EquipmentSlot.MAINHAND;
+        }
+        if (stack.getItem() instanceof ArmorItem armorItem) {
+            return armorItem.getSlotType();
+        }
+        return null;
+    }
+
+    /**
      * Adds attribute modifiers based on component instances to a stack.
      * Use {@link Warpath#add(ItemStack, Revelation, Aspect)} to add a full warpath.
      */
     public static void addModifiers(ItemStack stack, Revelation revelation, Aspect aspect) {
         EntityAttributeModifier modifier = revelation.getModifier(stack, aspect);
-        EquipmentSlot slot = Util.getSlot(stack);
+        EquipmentSlot slot = getSlot(stack);
         if (slot != null) {
             stack.addAttributeModifier(revelation.attribute, modifier, slot);
         }

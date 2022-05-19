@@ -36,7 +36,6 @@ public class PurpeilleClient implements ClientModInitializer {
 
     public static <T extends Component> void handleReload(Map<Identifier, T> registry, Function<PacketByteBuf, T> read) {
         ClientPlayNetworking.registerGlobalReceiver(Purpeille.id("aspects"), (client, handler, buf, responseSender) -> {
-            System.out.println(buf);
             if (client.isInSingleplayer()) {
                 return;
             }

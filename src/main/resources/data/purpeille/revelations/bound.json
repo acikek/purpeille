@@ -1,11 +1,15 @@
 {
   "tone": "release",
   "color": "aqua",
-  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "catalyst": {
+    "item": "purpeille:smoldered_purpeille_ingot"
+  },
   "index": 0,
   "modifier": 0.25,
   "attribute": "purpeille:generic.jump_boost",
-  "affinity": "purpeille:purpeille_shovel",
+  "affinity": {
+    "item": "purpeille:purpeille_shovel"
+  },
   "synergy": {
     "purpeille:limitless": "identical"
   },

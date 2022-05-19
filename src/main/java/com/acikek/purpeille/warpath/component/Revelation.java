@@ -3,7 +3,6 @@ package com.acikek.purpeille.warpath.component;
 import com.acikek.purpeille.warpath.Synergy;
 import com.acikek.purpeille.warpath.Tone;
 import com.acikek.purpeille.warpath.Type;
-import com.acikek.purpeille.warpath.Util;
 import com.google.gson.JsonObject;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -11,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -68,7 +68,7 @@ public class Revelation extends Component {
     public static Revelation fromJson(JsonObject obj, Identifier id) {
         Aspect aspect = Aspect.fromJson(obj, id);
         EntityAttribute attribute = Registry.ATTRIBUTE.get(Identifier.tryParse(obj.get("attribute").getAsString()));
-        Item affinity = Util.itemFromJson(obj, "affinity");
+        Item affinity = ShapedRecipe.getItem(obj.getAsJsonObject("affinity"));
         Map<Identifier, Synergy> synergy = Synergy.overridesFromJson(obj.getAsJsonObject("synergy"));
         boolean multiply = obj.get("multiply").getAsBoolean();
         return new Revelation(aspect, attribute, affinity, synergy, multiply);

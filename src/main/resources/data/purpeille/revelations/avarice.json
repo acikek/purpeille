@@ -1,11 +1,15 @@
 {
   "tone": "tension",
   "color": "yellow",
-  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "catalyst": {
+    "item": "purpeille:smoldered_purpeille_ingot"
+  },
   "index": 0,
   "modifier": 1.0,
   "attribute": "purpeille:generic.mining_experience",
-  "affinity": "purpeille:purpeille_pickaxe",
+  "affinity": {
+    "item": "purpeille:purpeille_pickaxe"
+  },
   "synergy": {
     "purpeille:terran": "identical"
   },

@@ -1,11 +1,15 @@
 {
   "tone": "strength",
   "color": "red",
-  "catalyst": "purpeille:smoldered_purpeille_ingot",
+  "catalyst": {
+    "item": "purpeille:smoldered_purpeille_ingot"
+  },
   "index": 1,
   "modifier": 0.15,
   "attribute": "minecraft:generic.attack_speed",
-  "affinity": "purpeille:purpeille_axe",
+  "affinity": {
+    "item": "purpeille:purpeille_axe"
+  },
   "synergy": {
     "purpeille:excess": "identical"
   },

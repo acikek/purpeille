@@ -3,6 +3,7 @@ package com.acikek.purpeille.warpath.component;
 import com.acikek.purpeille.warpath.ClampedColor;
 import com.acikek.purpeille.warpath.Tone;
 import com.acikek.purpeille.warpath.Type;
+import com.google.gson.JsonElement;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.MutableText;
@@ -14,6 +15,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 public abstract class Component {
 
@@ -64,6 +66,16 @@ public abstract class Component {
             return getText(getStyle(wave));
         }
         return getText(style);
+    }
+
+    public static <T extends Enum<T>> T enumFromJson(JsonElement element, Function<String, T> valueOf, String name) {
+        String key = element.getAsString();
+        try {
+            return valueOf.apply(key.toUpperCase());
+        }
+        catch (Exception e) {
+            throw new IllegalStateException("'" + key + "' is not a valid " + name);
+        }
     }
 
     public void write(PacketByteBuf buf) {
