@@ -16,12 +16,15 @@ import java.util.function.BiFunction;
 
 public class ComponentReloader<T extends Component> extends JsonDataLoader implements IdentifiableResourceReloadListener {
 
+    public String type;
     public Identifier id;
     public Map<Identifier, T> registry;
     public BiFunction<JsonObject, Identifier, T> fromJson;
+    public String name;
 
     public ComponentReloader(String type, Map<Identifier, T> registry, BiFunction<JsonObject, Identifier, T> fromJson) {
-        super(new Gson(), type);
+        super(new Gson(), "warpath/" + type);
+        this.type = type;
         id = Purpeille.id(type);
         this.registry = registry;
         this.fromJson = fromJson;
@@ -35,15 +38,19 @@ public class ComponentReloader<T extends Component> extends JsonDataLoader imple
     @Override
     protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
         registry.clear();
+        int successful = 0;
         for (Map.Entry<Identifier, JsonElement> file : prepared.entrySet()) {
             JsonObject obj = file.getValue().getAsJsonObject();
             try {
                 T component = fromJson.apply(obj, file.getKey());
                 registry.put(file.getKey(), component);
+                successful++;
             }
             catch (Exception e) {
-                Purpeille.LOGGER.error(e);
+                String typeId = type.substring(0, type.length() - 1);
+                Purpeille.LOGGER.error("Error in " + typeId + " '" + file.getKey() + "': ", e);
             }
         }
+        Purpeille.LOGGER.info("Loaded " + successful + " " + type);
     }
 }
