@@ -111,7 +111,8 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         if (data == null || data.revelation.isEmpty()) {
             return false;
         }
-        return data.revelation.getComponent(Component.REVELATIONS) != null;
+        boolean validAspect = data.aspect.isEmpty() || data.aspect.getComponent(Component.ASPECTS) != null;
+        return data.revelation.getComponent(Component.REVELATIONS) != null && validAspect;
     }
 
     @Override
