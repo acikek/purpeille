@@ -1,6 +1,9 @@
 package com.acikek.purpeille.warpath;
 
+import com.acikek.purpeille.warpath.component.Aspect;
+import com.google.gson.JsonElement;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.math.MathHelper;
 
 public class ClampedColor {
@@ -9,22 +12,23 @@ public class ClampedColor {
     public static final int COLOR_MAX = 255;
     public static final long INTERVAL = 4000L;
     public static final float INTERVAL_F = (float) INTERVAL;
-
-    public Formatting formatting;
     public int colorValue;
     public Value r;
     public Value g;
     public Value b;
 
-    public ClampedColor(Formatting formatting) {
-        this.formatting = formatting;
-        colorValue = getColorValue();
+    public ClampedColor(int colorValue) {
+        this.colorValue = colorValue;
         r = new Value((colorValue & 0xFF0000) >> 16);
         g = new Value((colorValue & 0x00FF00) >> 8);
         b = new Value(colorValue & 0x0000FF);
     }
 
-    public int getColorValue() {
+    public ClampedColor(Formatting formatting) {
+        this(getColorValue(formatting));
+    }
+
+    public static int getColorValue(Formatting formatting) {
         Integer value = formatting.getColorValue();
         return value != null ? value : 0xFFFFFF;
     }
@@ -60,5 +64,16 @@ public class ClampedColor {
             }
             return result;
         }
+    }
+
+    public static int colorFromJson(JsonElement element) {
+        if (JsonHelper.isNumber(element)) {
+            return element.getAsInt();
+        }
+        Formatting formatting = Formatting.byName(element.getAsString());
+        if (formatting == null) {
+            throw new IllegalStateException("'" + element.getAsString() + "' is not a valid color");
+        }
+        return formatting.getColorValue() != null ? formatting.getColorValue() : -1;
     }
 }

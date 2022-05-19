@@ -24,7 +24,7 @@ public abstract class Component {
 
     public Identifier id;
     public Tone tone;
-    public Formatting color;
+    public int color;
     public Item catalyst;
     public int index;
     public double modifier;
@@ -34,7 +34,7 @@ public abstract class Component {
     public MutableText baseText;
     public MutableText defaultText;
 
-    public Component(Identifier id, Tone tone, Formatting color, Item catalyst, int index, double modifier, boolean ignoreSlot) {
+    public Component(Identifier id, Tone tone, int color, Item catalyst, int index, double modifier, boolean ignoreSlot) {
         this.id = id;
         this.tone = tone;
         this.color = color;
@@ -45,7 +45,7 @@ public abstract class Component {
         relativeIndex = tone.index * 3 + index;
         waveColor = new ClampedColor(color);
         baseText = new TranslatableText(getType().translationKey + ".purpeille." + id.getPath());
-        defaultText = baseText.formatted(color);
+        defaultText = baseText.styled(style -> style.withColor(color));
     }
 
     public abstract Type getType();
@@ -81,7 +81,7 @@ public abstract class Component {
     public void write(PacketByteBuf buf) {
         buf.writeIdentifier(id);
         buf.writeEnumConstant(tone);
-        buf.writeEnumConstant(color);
+        buf.writeInt(color);
         buf.writeIdentifier(Registry.ITEM.getId(catalyst));
         buf.writeInt(index);
         buf.writeDouble(modifier);

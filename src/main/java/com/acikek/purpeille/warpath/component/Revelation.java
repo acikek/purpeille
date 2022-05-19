@@ -13,8 +13,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Map;
@@ -31,7 +31,7 @@ public class Revelation extends Component {
     public EntityAttributeModifier.Operation operation;
     public MutableText rite;
 
-    public Revelation(Identifier id, Tone tone, Formatting color, Item catalyst, int index, double modifier, EntityAttribute attribute, Item affinity, Map<Identifier, Synergy> synergy, boolean multiply) {
+    public Revelation(Identifier id, Tone tone, int color, Item catalyst, int index, double modifier, EntityAttribute attribute, Item affinity, Map<Identifier, Synergy> synergy, boolean multiply) {
         super(id, tone, color, catalyst, index, modifier, false);
         this.attribute = attribute;
         this.affinity = affinity;

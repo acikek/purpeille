@@ -1,5 +1,6 @@
 package com.acikek.purpeille.warpath.component;
 
+import com.acikek.purpeille.warpath.ClampedColor;
 import com.acikek.purpeille.warpath.Tone;
 import com.acikek.purpeille.warpath.Type;
 import com.google.gson.JsonObject;
@@ -7,13 +8,12 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class Aspect extends Component {
 
-    public Aspect(Identifier id, Tone tone, Formatting color, Item catalyst, int index, double modifier, boolean ignoreSlot) {
+    public Aspect(Identifier id, Tone tone, int color, Item catalyst, int index, double modifier, boolean ignoreSlot) {
         super(id, tone, color, catalyst, index, modifier, ignoreSlot);
     }
 
@@ -27,7 +27,7 @@ public class Aspect extends Component {
 
     public static Aspect fromJson(JsonObject obj, Identifier id) {
         Tone tone = enumFromJson(obj.get("tone"), Tone::valueOf, "tone");
-        Formatting color = enumFromJson(obj.get("color"), Formatting::valueOf, "color");
+        int color = ClampedColor.colorFromJson(obj.get("color"));
         Item catalyst = ShapedRecipe.getItem(obj.getAsJsonObject("catalyst"));
         int index = obj.get("index").getAsInt();
         double modifier = obj.get("modifier").getAsDouble();
@@ -38,7 +38,7 @@ public class Aspect extends Component {
     public static Aspect read(PacketByteBuf buf) {
         Identifier id = buf.readIdentifier();
         Tone tone = buf.readEnumConstant(Tone.class);
-        Formatting color = buf.readEnumConstant(Formatting.class);
+        int color = buf.readInt();
         Item catalyst = Registry.ITEM.get(buf.readIdentifier());
         int index = buf.readInt();
         double modifier = buf.readDouble();
