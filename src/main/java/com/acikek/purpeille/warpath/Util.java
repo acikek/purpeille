@@ -14,13 +14,13 @@ import java.util.function.Function;
 
 public class Util {
 
-    public static <T extends Enum<T>> T enumFromJson(JsonObject obj, String key, Function<String, T> valueOf) {
-        JsonElement element = obj.get(key);
+    public static <T extends Enum<T>> T enumFromJson(JsonElement element, Function<String, T> valueOf, String name) {
+        String key = element.getAsString();
         try {
-            return valueOf.apply(element.getAsString().toUpperCase());
+            return valueOf.apply(key.toUpperCase());
         }
         catch (Exception e) {
-            throw new IllegalStateException(key + " is not a valid enum");
+            throw new IllegalStateException("'" + key + "' is not a valid " + name);
         }
     }
 

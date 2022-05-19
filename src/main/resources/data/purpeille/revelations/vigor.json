@@ -6,5 +6,8 @@
   "modifier": 0.15,
   "attribute": "minecraft:generic.attack_speed",
   "affinity": "purpeille:purpeille_axe",
+  "synergy": {
+    "purpeille:excess": "identical"
+  },
   "multiply": true
 }

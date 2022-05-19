@@ -26,8 +26,8 @@ public class Aspect extends Component {
     }
 
     public static Aspect fromJson(JsonObject obj, Identifier id) {
-        Tone tone = Util.enumFromJson(obj, "tone", Tone::valueOf);
-        Formatting color = Util.enumFromJson(obj, "color", Formatting::valueOf);
+        Tone tone = Util.enumFromJson(obj.get("tone"), Tone::valueOf, "tone");
+        Formatting color = Util.enumFromJson(obj.get("color"), Formatting::valueOf, "color");
         Item catalyst = Util.itemFromJson(obj, "catalyst");
         int index = obj.get("index").getAsInt();
         double modifier = obj.get("modifier").getAsDouble();

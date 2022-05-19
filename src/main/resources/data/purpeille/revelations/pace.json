@@ -6,5 +6,8 @@
   "modifier": 0.15,
   "attribute": "minecraft:generic.movement_speed",
   "affinity": "purpeille:purpeille_boots",
+  "synergy": {
+    "purpeille:tranquil": "identical"
+  },
   "multiply": true
 }

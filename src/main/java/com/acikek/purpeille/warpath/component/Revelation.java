@@ -17,6 +17,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class Revelation extends Component {
@@ -26,19 +27,21 @@ public class Revelation extends Component {
 
     public EntityAttribute attribute;
     public Item affinity;
+    public Map<Identifier, Synergy> synergy;
     public EntityAttributeModifier.Operation operation;
     public MutableText rite;
 
-    public Revelation(Identifier id, Tone tone, Formatting color, Item catalyst, int index, double modifier, EntityAttribute attribute, Item affinity, boolean multiply) {
+    public Revelation(Identifier id, Tone tone, Formatting color, Item catalyst, int index, double modifier, EntityAttribute attribute, Item affinity, Map<Identifier, Synergy> synergy, boolean multiply) {
         super(id, tone, color, catalyst, index, modifier, false);
         this.attribute = attribute;
         this.affinity = affinity;
+        this.synergy = synergy;
         operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
         rite = new TranslatableText("rite.purpeille." + id.getPath()).styled(style -> style.withColor(RITE_RGB));
     }
 
-    public Revelation(Aspect aspect, EntityAttribute attribute, Item affinity, boolean multiply) {
-        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, attribute, affinity, multiply);
+    public Revelation(Aspect aspect, EntityAttribute attribute, Item affinity, Map<Identifier, Synergy> synergy, boolean multiply) {
+        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, attribute, affinity, synergy, multiply);
     }
 
     @Override
@@ -66,16 +69,18 @@ public class Revelation extends Component {
         Aspect aspect = Aspect.fromJson(obj, id);
         EntityAttribute attribute = Registry.ATTRIBUTE.get(Identifier.tryParse(obj.get("attribute").getAsString()));
         Item affinity = Util.itemFromJson(obj, "affinity");
+        Map<Identifier, Synergy> synergy = Synergy.overridesFromJson(obj.getAsJsonObject("synergy"));
         boolean multiply = obj.get("multiply").getAsBoolean();
-        return new Revelation(aspect, attribute, affinity, multiply);
+        return new Revelation(aspect, attribute, affinity, synergy, multiply);
     }
 
     public static Revelation read(PacketByteBuf buf) {
         Aspect aspect = Aspect.read(buf);
         EntityAttribute attribute = Registry.ATTRIBUTE.get(buf.readIdentifier());
         Item affinity = Registry.ITEM.get(buf.readIdentifier());
+        Map<Identifier, Synergy> synergy = Synergy.readOverrides(buf);
         boolean multiply = buf.readBoolean();
-        return new Revelation(aspect, attribute, affinity, multiply);
+        return new Revelation(aspect, attribute, affinity, synergy, multiply);
     }
 
     @Override
@@ -83,6 +88,7 @@ public class Revelation extends Component {
         super.write(buf);
         buf.writeIdentifier(Registry.ATTRIBUTE.getId(attribute));
         buf.writeIdentifier(Registry.ITEM.getId(affinity));
-        buf.writeEnumConstant(operation);
+        Synergy.writeOverrides(synergy, buf);
+        buf.writeBoolean(operation == EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 }

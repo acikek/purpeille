@@ -6,5 +6,8 @@
   "modifier": 0.4,
   "attribute": "purpeille:generic.water_speed",
   "affinity": "purpeille:purpeille_leggings",
+  "synergy": {
+    "purpeille:unrivaled": "identical"
+  },
   "multiply": true
 }

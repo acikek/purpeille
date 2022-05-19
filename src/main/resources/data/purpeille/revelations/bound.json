@@ -6,5 +6,8 @@
   "modifier": 0.25,
   "attribute": "purpeille:generic.jump_boost",
   "affinity": "purpeille:purpeille_shovel",
+  "synergy": {
+    "purpeille:limitless": "identical"
+  },
   "multiply": true
 }

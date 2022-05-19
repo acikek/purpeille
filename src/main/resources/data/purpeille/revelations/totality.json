@@ -6,5 +6,8 @@
   "modifier": 2.0,
   "attribute": "minecraft:generic.max_health",
   "affinity": "purpeille:purpeille_chestplate",
+  "synergy": {
+    "purpeille:heroic": "identical"
+  },
   "multiply": false
 }

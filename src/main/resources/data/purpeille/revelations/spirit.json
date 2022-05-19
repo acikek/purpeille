@@ -6,5 +6,8 @@
   "modifier": 0.2,
   "attribute": "minecraft:generic.knockback_resistance",
   "affinity": "purpeille:purpeille_helmet",
+  "synergy": {
+    "purpeille:virtuous": "identical"
+  },
   "multiply": true
 }

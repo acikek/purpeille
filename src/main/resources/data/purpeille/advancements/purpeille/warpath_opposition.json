@@ -20,7 +20,7 @@
       "trigger": "purpeille:warpath_created",
       "conditions": {
         "item": {
-          "item": [
+          "items": [
             "purpeille:purpeille_helmet"
           ]
         },

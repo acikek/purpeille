@@ -36,10 +36,13 @@ public class ItemMixin {
 
     @Inject(method = "onCraft", at = @At(value = "TAIL"))
     private void triggerCriterion(ItemStack stack, World world, PlayerEntity player, CallbackInfo ci) {
-        if (!world.isClient()) {
+        if (world.isClient()) {
             return;
         }
         NbtCompound data = Warpath.getData(stack);
+        if (data == null) {
+            return;
+        }
         Revelation revelation = Revelation.fromNbt(data);
         Aspect aspect = Aspect.fromNbt(data);
         ModCriteria.WARPATH_CREATED.trigger((ServerPlayerEntity) player, stack, revelation, aspect, Synergy.getSynergy(revelation, aspect));

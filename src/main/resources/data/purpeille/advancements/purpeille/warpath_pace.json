@@ -24,8 +24,8 @@
             "purpeille:purpeille_boots"
           ]
         },
-        "revelation": "pace",
-        "aspect": "tranquil",
+        "revelation": "purpeille:pace",
+        "aspect": "purpeille:tranquil",
         "synergy": "identical"
       }
     }
