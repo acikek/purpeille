@@ -26,16 +26,16 @@ public class PurpeilleClient implements ClientModInitializer {
                     registerPack(mod, "old", ResourcePackActivationType.NORMAL);
                     registerPack(mod, "theinar", ResourcePackActivationType.ALWAYS_ENABLED);
                 });
-        handleReload(Component.REVELATIONS, Revelation::read);
-        handleReload(Component.ASPECTS, Aspect::read);
+        handleReload("revelations", Component.REVELATIONS, Revelation::read);
+        handleReload("aspects", Component.ASPECTS, Aspect::read);
     }
 
     public static void registerPack(ModContainer mod, String key, ResourcePackActivationType type) {
         ResourceManagerHelper.registerBuiltinResourcePack(Purpeille.id(key), mod, type);
     }
 
-    public static <T extends Component> void handleReload(Map<Identifier, T> registry, Function<PacketByteBuf, T> read) {
-        ClientPlayNetworking.registerGlobalReceiver(Purpeille.id("aspects"), (client, handler, buf, responseSender) -> {
+    public static <T extends Component> void handleReload(String key, Map<Identifier, T> registry, Function<PacketByteBuf, T> read) {
+        ClientPlayNetworking.registerGlobalReceiver(Purpeille.id(key), (client, handler, buf, responseSender) -> {
             if (client.isInSingleplayer()) {
                 return;
             }

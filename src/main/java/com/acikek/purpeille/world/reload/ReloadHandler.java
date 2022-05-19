@@ -42,11 +42,11 @@ public class ReloadHandler {
     public static <T extends Component> void handleComponentReload(String key, Map<Identifier, T> registry, BiFunction<JsonObject, Identifier, T> fromJson) {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ComponentReloader<>(key, registry, fromJson));
         Identifier componentId = Purpeille.id(key);
-        List<PacketByteBuf> bufs = getReloadBufs(registry);
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resourceManager, success) -> {
             if (server == null) {
                 return;
             }
+            List<PacketByteBuf> bufs = getReloadBufs(registry);
             for (PacketByteBuf buf : bufs) {
                 for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                     ServerPlayNetworking.send(player, componentId, buf);
@@ -54,6 +54,7 @@ public class ReloadHandler {
             }
         });
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            List<PacketByteBuf> bufs = getReloadBufs(registry);
             for (PacketByteBuf buf : bufs) {
                 ServerPlayNetworking.send(handler.player, componentId, buf);
             }
