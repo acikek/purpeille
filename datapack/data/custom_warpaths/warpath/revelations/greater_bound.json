@@ -1,0 +1,18 @@
+{
+  "tone": "release",
+  "color": "aqua",
+  "catalyst": {
+    "item": "minecraft:diamond"
+  },
+  "index": 0,
+  "modifier": 0.5,
+  "attribute": "purpeille:generic.jump_boost",
+  "affinity": {
+    "item": "minecraft:iron_shovel"
+  },
+  "synergy": {
+    "custom_warpaths:essential": "tone",
+    "purpeille:limitless": "opposition"
+  },
+  "multiply": true
+}

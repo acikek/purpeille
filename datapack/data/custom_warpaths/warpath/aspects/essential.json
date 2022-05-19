@@ -1,0 +1,9 @@
+{
+  "tone": "tension",
+  "color": "gray",
+  "catalyst": {
+    "item": "minecraft:gunpowder"
+  },
+  "index": 2,
+  "modifier": 1.5
+}
