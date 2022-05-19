@@ -9,6 +9,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 
 public class Aspect extends Component {
@@ -29,9 +30,9 @@ public class Aspect extends Component {
         Tone tone = enumFromJson(obj.get("tone"), Tone::valueOf, "tone");
         int color = ClampedColor.colorFromJson(obj.get("color"));
         Item catalyst = ShapedRecipe.getItem(obj.getAsJsonObject("catalyst"));
-        int index = obj.get("index").getAsInt();
-        double modifier = obj.get("modifier").getAsDouble();
-        boolean ignoreSlot = obj.has("ignore_slot") && obj.get("ignore_slot").getAsBoolean();
+        int index = JsonHelper.getInt(obj, "index", -1);
+        double modifier = JsonHelper.getDouble(obj, "modifier", 1.0);
+        boolean ignoreSlot = JsonHelper.getBoolean(obj, "ignore_slot", false);
         return new Aspect(id, tone, color, catalyst, index, modifier, ignoreSlot);
     }
 

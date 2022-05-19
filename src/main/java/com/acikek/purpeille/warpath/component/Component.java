@@ -9,7 +9,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -44,7 +43,7 @@ public abstract class Component {
         this.ignoreSlot = ignoreSlot;
         relativeIndex = tone.index * 3 + index;
         waveColor = new ClampedColor(color);
-        baseText = new TranslatableText(getType().translationKey + ".purpeille." + id.getPath());
+        baseText = new TranslatableText(getType().translationKey + "." + id.getNamespace() + "." + id.getPath());
         defaultText = baseText.styled(style -> style.withColor(color));
     }
 

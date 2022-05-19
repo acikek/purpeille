@@ -55,7 +55,6 @@ public class WarpathCreatedCriterion extends AbstractCriterion<WarpathCreatedCri
         }
 
         public boolean matches(ItemStack stack, Revelation revelation, Aspect aspect, Synergy synergy) {
-            System.out.println(this.item);
             return this.item.test(stack)
                     && (this.revelation == null || this.revelation.equals(revelation.id))
                     && (this.aspect == null || this.aspect.equals(aspect.id))
