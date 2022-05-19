@@ -28,6 +28,9 @@ public class ItemMixin {
         if (world == null) {
             return;
         }
+        if (DataFixer.hasOldData(stack)) {
+            DataFixer.fixData(stack.getOrCreateNbt());
+        }
         List<Text> warpath = Warpath.getWarpath(stack, true, true);
         if (warpath != null) {
             tooltip.addAll(warpath);

@@ -13,6 +13,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -106,16 +107,31 @@ public class Warpath {
     }
 
     /**
-     * Adds a warpath to a stack based on component instances.<br>
-     * Encodes Warpath data under the {@link Warpath#NBT_KEY} key.
+     * Adds warpath data to an NBT compound based on component instances.
      * @param aspect If {@code null}, does not append Aspect data.
+     */
+    public static void addData(NbtCompound nbt, Revelation revelation, Aspect aspect) {
+        Type.REVELATION.addNbt(nbt, revelation.id);
+        if (aspect != null) {
+            Type.ASPECT.addNbt(nbt, aspect.id);
+        }
+    }
+
+    /**
+     * Adds warpath data to an NBT compound based on component identifiers.<br>
+     * The identifiers should be included in their respective registries.
+     */
+    public static void addData(NbtCompound nbt, Identifier revelationId, Identifier aspectId) {
+        addData(nbt, Revelation.REVELATIONS.get(revelationId), Aspect.ASPECTS.get(aspectId));
+    }
+
+    /**
+     * Adds a warpath to a stack.<br>
+     * Encodes Warpath data using {@link Warpath#addData(NbtCompound, Revelation, Aspect)} under the {@link Warpath#NBT_KEY} key.
      */
     public static void add(ItemStack stack, Revelation revelation, Aspect aspect) {
         NbtCompound data = new NbtCompound();
-        Type.REVELATION.addNbt(data, revelation.id);
-        if (aspect != null) {
-            Type.ASPECT.addNbt(data, aspect.id);
-        }
+        addData(data, revelation, aspect);
         stack.getOrCreateNbt().put(NBT_KEY, data);
         addModifiers(stack, revelation, aspect);
     }

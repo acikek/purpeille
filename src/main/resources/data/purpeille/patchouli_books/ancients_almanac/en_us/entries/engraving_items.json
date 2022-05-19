@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "purpeille:purpeille_sword{WarpathRevelation: 2, AttributeModifiers: [{Amount: 2.0d, Slot: 'mainhand', AttributeName: 'minecraft:generic.max_health', Operation: 0, UUID: [I; 744996952, 1566460729, -1729907733, -1721370645], Name: 'Warpath modifier'}]}",
+      "item": "purpeille:purpeille_sword{WarpathData: {Revelation: 'purpeille:totality'}, AttributeModifiers: [{Amount: 2.0d, Slot: 'mainhand', AttributeName: 'minecraft:generic.max_health', Operation: 0, UUID: [I; 744996952, 1566460729, -1729907733, -1721370645], Name: 'Warpath modifier'}]}",
       "title": "Engraved Sword",
       "text": "Here is an engraved $(item)Purpeille Sword$(). Hold your finger over the illustration to view its Warpath. 'Totality' is a $(bold)Revelation$(): the base component of a Warpath. This particular Revelation is created upon placing the Smoldered Purpeille in the third crafting slot."
     },

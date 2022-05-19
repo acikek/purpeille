@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "purpeille:purpeille_sword{WarpathRevelation: 2, WarpathAspect: 0, AttributeModifiers: [{Amount: 4.2d, Slot: 'mainhand', AttributeName: 'minecraft:generic.max_health', Operation: 0, UUID: [I; 744996952, 1566460729, -1729907733, -1721370645], Name: 'Warpath modifier'}]}",
+      "item": "purpeille:purpeille_sword{WarpathData: {Revelation: 'purpeille:totality', Aspect: 'purpeille:heroic'}, AttributeModifiers: [{Amount: 4.2d, Slot: 'mainhand', AttributeName: 'minecraft:generic.max_health', Operation: 0, UUID: [I; 744996952, 1566460729, -1729907733, -1721370645], Name: 'Warpath modifier'}]}",
       "title": "Full Warpath",
       "text": "This time, the 'Virtuous' Aspect is added onto the previous Warpath. Note the color difference, the orientation of components, and the bonus modifier. This Aspect is created by placing the dust in the ninth slot."
     },

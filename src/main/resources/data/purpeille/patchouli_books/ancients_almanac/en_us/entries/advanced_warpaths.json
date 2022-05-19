@@ -17,7 +17,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "purpeille:purpeille_shovel{WarpathRevelation: 6, WarpathAspect: 6, AttributeModifiers: [{Amount: 0.6825d, Slot: 'mainhand', AttributeName: 'purpeille:generic.jump_boost', Operation: 2, UUID: [I; 744996952, 1566460729, -1729907733, -1721370645], Name: 'Warpath modifier'}]}",
+      "item": "purpeille:purpeille_shovel{WarpathData: {Revelation: 'purpeille:bound', Aspect: 'purpeille:limitless'}, AttributeModifiers: [{Amount: 0.6825d, Slot: 'mainhand', AttributeName: 'purpeille:generic.jump_boost', Operation: 2, UUID: [I; 744996952, 1566460729, -1729907733, -1721370645], Name: 'Warpath modifier'}]}",
       "title": "Identical Synergy",
       "text": "This is a shovel with two components that have Identical Synergy. Notice the dramatic modifier increase as well as the writing below the Warpath. This is called the $(bold)Rite$(), and it is communicated to the user through unknown means."
     },
