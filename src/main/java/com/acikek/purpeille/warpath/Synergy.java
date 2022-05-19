@@ -32,6 +32,9 @@ public enum Synergy {
      * Otherwise, returns {@link Synergy#NEUTRAL}.
      */
     public static Synergy getSynergy(Revelation revelation, Aspect aspect) {
+        if (aspect == null) {
+            return NEUTRAL;
+        }
         if (revelation.synergy.containsKey(aspect.id)) {
             return revelation.synergy.get(aspect.id);
         }
