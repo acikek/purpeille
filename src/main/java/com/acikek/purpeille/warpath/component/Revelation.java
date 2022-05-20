@@ -56,12 +56,13 @@ public class Revelation extends Component {
         if (aspect == null) {
             return value;
         }
-        double result = value * aspect.modifier * Synergy.getSynergy(this, aspect).modifier;
-        return forceInt ? (int) result : result;
+        return value * aspect.modifier * Synergy.getSynergy(this, aspect).modifier;
     }
 
     public EntityAttributeModifier getModifier(ItemStack stack, Aspect aspect) {
-        return new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", getModifierValue(stack, aspect), operation);
+        double value = getModifierValue(stack, aspect);
+        double adjusted = forceInt ? (int) value : value;
+        return new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", adjusted, operation);
     }
 
     public static Revelation fromNbt(NbtCompound nbt) {
