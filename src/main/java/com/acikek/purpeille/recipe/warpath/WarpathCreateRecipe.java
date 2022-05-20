@@ -40,7 +40,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
                 if (component instanceof Aspect) {
                     compIndex = 8 - compIndex;
                 }
-                if ((component.ignoreSlot || compIndex == index) && stack.isOf(component.catalyst)) {
+                if ((component.ignoreSlot || compIndex == index) && component.catalyst.test(stack)) {
                     return component;
                 }
             }
@@ -60,6 +60,18 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         public ComponentPair(ComponentData<Revelation> revelation, ComponentData<Aspect> aspect) {
             this.revelation = revelation;
             this.aspect = aspect;
+        }
+
+        public boolean isValid() {
+            Revelation revelationComponent = revelation.getComponent(Component.REVELATIONS);
+            if (revelationComponent == null) {
+                return false;
+            }
+            Aspect aspectComponent = aspect.getComponent(Component.ASPECTS);
+            if (!aspect.isEmpty() && aspectComponent == null) {
+                return false;
+            }
+            return Component.areCompatible(revelationComponent, aspectComponent);
         }
 
         public static ComponentPair getEmpty() {
@@ -111,8 +123,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         if (data == null || data.revelation.isEmpty()) {
             return false;
         }
-        boolean validAspect = data.aspect.isEmpty() || data.aspect.getComponent(Component.ASPECTS) != null;
-        return data.revelation.getComponent(Component.REVELATIONS) != null && validAspect;
+        return data.isValid();
     }
 
     @Override
