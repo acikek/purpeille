@@ -49,7 +49,7 @@ public abstract class Component {
         this.whitelist = whitelist;
         relativeIndex = tone.index * 3 + index;
         waveColor = new ClampedColor(color);
-        baseText = new TranslatableText(getType().translationKey + "." + id.getNamespace() + "." + id.getPath());
+        baseText = new TranslatableText(getIdKey(getType().translationKey, id));
         defaultText = baseText.styled(style -> style.withColor(color));
     }
 
@@ -79,6 +79,10 @@ public abstract class Component {
 
     public static boolean areCompatible(Component first, Component second) {
         return first.isCompatible(second) && (second == null || second.isCompatible(first));
+    }
+
+    public static String getIdKey(String value, Identifier id) {
+        return value + "." + id.getNamespace() + "." + id.getPath();
     }
 
     public static <T extends Enum<T>> T enumFromJson(JsonElement element, Function<String, T> valueOf, String name) {
