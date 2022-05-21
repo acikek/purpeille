@@ -122,7 +122,11 @@ public class Warpath {
      * The identifiers should be included in their respective registries.
      */
     public static void addData(NbtCompound nbt, Identifier revelationId, Identifier aspectId) {
-        addData(nbt, Revelation.REVELATIONS.get(revelationId), Aspect.ASPECTS.get(aspectId));
+        Revelation revelation = Revelation.REVELATIONS.get(revelationId);
+        if (revelation == null) {
+            return;
+        }
+        addData(nbt, revelation, Aspect.ASPECTS.get(aspectId));
     }
 
     /**
