@@ -3,7 +3,6 @@ package com.acikek.purpeille.block.ancient.oven;
 import com.acikek.purpeille.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.MathHelper;
 
 public enum Damage {
@@ -59,13 +58,5 @@ public enum Damage {
 
     public static int clamp(int durability) {
         return MathHelper.clamp(durability, VERY_DIM.min, NONE.max);
-    }
-
-    public BlockEntityType<AncientOvenBlockEntity> getBlockEntityType() {
-        return switch (this) {
-            case NONE -> AncientOvenBlockEntity.BLOCK_ENTITY_TYPE;
-            case DIM -> AncientOvenBlockEntity.DIM_BLOCK_ENTITY_TYPE;
-            case VERY_DIM -> AncientOvenBlockEntity.VERY_DIM_BLOCK_ENTITY_TYPE;
-        };
     }
 }

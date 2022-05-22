@@ -11,7 +11,6 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -23,8 +22,6 @@ import java.util.Optional;
 public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
 
     public static BlockEntityType<AncientOvenBlockEntity> BLOCK_ENTITY_TYPE;
-    public static BlockEntityType<AncientOvenBlockEntity> DIM_BLOCK_ENTITY_TYPE;
-    public static BlockEntityType<AncientOvenBlockEntity> VERY_DIM_BLOCK_ENTITY_TYPE;
 
     public int durability;
     public int cookTime;
@@ -32,7 +29,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     public ItemStack result;
 
     public AncientOvenBlockEntity(BlockPos pos, BlockState state) {
-        super(state.getBlock() instanceof AncientOven block ? block.getBlockEntityType() : BLOCK_ENTITY_TYPE, pos, state);
+        super(BLOCK_ENTITY_TYPE, pos, state);
         result = ItemStack.EMPTY;
     }
 
@@ -152,8 +149,12 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     }
 
     public static void register() {
-        BLOCK_ENTITY_TYPE = ModBlocks.ANCIENT_OVEN.getBlockEntityType("ancient_oven_block_entity");
-        DIM_BLOCK_ENTITY_TYPE = ModBlocks.ANCIENT_OVEN_DIM.getBlockEntityType("ancient_oven_dim_block_entity");
-        VERY_DIM_BLOCK_ENTITY_TYPE = ModBlocks.ANCIENT_OVEN_VERY_DIM.getBlockEntityType("ancient_oven_very_dim_block_entity");
+        BLOCK_ENTITY_TYPE = build(
+                "ancient_oven_block_entity",
+                AncientOvenBlockEntity::new,
+                ModBlocks.ANCIENT_OVEN,
+                ModBlocks.ANCIENT_OVEN_DIM,
+                ModBlocks.ANCIENT_OVEN_VERY_DIM
+        );
     }
 }

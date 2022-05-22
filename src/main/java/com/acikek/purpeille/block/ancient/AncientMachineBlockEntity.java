@@ -210,11 +210,11 @@ public class AncientMachineBlockEntity extends BlockEntity implements Implemente
         return createNbt();
     }
 
-    public static <T extends BlockEntity> BlockEntityType<T> build(String id, FabricBlockEntityTypeBuilder.Factory<T> factory, Block block) {
+    public static <T extends BlockEntity> BlockEntityType<T> build(String id, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {
         return Registry.register(
                 Registry.BLOCK_ENTITY_TYPE,
                 Purpeille.id(id),
-                FabricBlockEntityTypeBuilder.create(factory, block)
+                FabricBlockEntityTypeBuilder.create(factory, blocks)
                         .build(null)
         );
     }
