@@ -8,6 +8,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -22,6 +23,7 @@ import java.util.function.BiFunction;
 public abstract class AncientMachine<T extends AncientMachineBlockEntity> extends BlockWithEntity {
 
     public static DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static BooleanProperty FULL = BooleanProperty.of("full");
 
     public static final Settings SETTINGS = FabricBlockSettings.of(Material.STONE)
             .strength(6.0f)

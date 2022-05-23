@@ -4,8 +4,8 @@ import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.PurpurRemnants;
-import com.acikek.purpeille.block.ancient.gateway.AncientGatewayBlockEntity;
-import com.acikek.purpeille.block.ancient.oven.AncientOvenBlockEntity;
+import com.acikek.purpeille.block.ancient.ModBlockEntities;
+import com.acikek.purpeille.block.ancient.guardian.AncientGuardianBlockEntity;
 import com.acikek.purpeille.command.WarpathCommand;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
@@ -17,6 +17,7 @@ import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -41,12 +42,11 @@ public class Purpeille implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Purpeille: Harness the Void!");
         ModBlocks.register();
+        ModBlockEntities.register();
         ModItems.register();
         ModAttributes.register();
         ModCriteria.register();
         ModSoundEvents.register();
-        AncientGatewayBlockEntity.register();
-        AncientOvenBlockEntity.register();
         WarpathCreateRecipe.register();
         WarpathRemoveRecipe.register();
         AncientOvenRecipe.register();
@@ -54,5 +54,11 @@ public class Purpeille implements ModInitializer {
         PurpurRemnants.build();
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> WarpathCommand.register(dispatcher));
         ReloadHandler.register();
+        ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+            System.out.println("bruh");
+            if (newPlayer.getSpawnPointPosition() != null && newPlayer.world.getBlockEntity(newPlayer.getSpawnPointPosition()) instanceof AncientGuardianBlockEntity blockEntity) {
+                System.out.println(blockEntity.linkedPlayer);
+            }
+        });
     }
 }

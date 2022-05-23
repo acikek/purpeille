@@ -36,7 +36,6 @@ import java.util.function.BiFunction;
 public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implements BlockItemProvider {
 
     public static BooleanProperty LIT = FurnaceBlock.LIT;
-    public static BooleanProperty FULL = BooleanProperty.of("full");
 
     public static final Settings SETTINGS = AncientMachine.SETTINGS
             .luminance(state -> state.get(LIT) ? 8 : state.get(FULL) ? 3 : 0);

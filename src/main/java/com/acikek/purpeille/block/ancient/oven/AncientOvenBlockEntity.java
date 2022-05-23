@@ -2,6 +2,7 @@ package com.acikek.purpeille.block.ancient.oven;
 
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
+import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import net.minecraft.block.BlockState;
@@ -85,7 +86,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         damageToTake = 0;
         result = ItemStack.EMPTY;
         if (checkDamage(world, player, pos, state)) {
-            world.setBlockState(pos, state.with(AncientOven.FULL, false));
+            world.setBlockState(pos, state.with(AncientMachine.FULL, false));
         }
         playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT);
     }
@@ -121,7 +122,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
         return dir != Direction.DOWN
-                && !getCachedState().get(AncientOven.FULL)
+                && !getCachedState().get(AncientMachine.FULL)
                 && getRecipeMatch(world, stack).isPresent();
     }
 
@@ -129,7 +130,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
         BlockState state = getCachedState();
         return dir == Direction.DOWN
-                && state.get(AncientOven.FULL)
+                && state.get(AncientMachine.FULL)
                 && !state.get(AncientOven.LIT);
     }
 

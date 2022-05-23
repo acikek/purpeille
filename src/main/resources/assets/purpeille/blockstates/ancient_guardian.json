@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,full=false": {
+      "model": "purpeille:block/ancient_guardian",
+      "y": 90
+    },
+    "facing=east,full=true": {
+      "model": "purpeille:block/ancient_guardian_full",
+      "y": 90
+    },
+    "facing=north,full=false": {
+      "model": "purpeille:block/ancient_guardian"
+    },
+    "facing=north,full=true": {
+      "model": "purpeille:block/ancient_guardian_full"
+    },
+    "facing=south,full=false": {
+      "model": "purpeille:block/ancient_guardian",
+      "y": 180
+    },
+    "facing=south,full=true": {
+      "model": "purpeille:block/ancient_guardian_full",
+      "y": 180
+    },
+    "facing=west,full=false": {
+      "model": "purpeille:block/ancient_guardian",
+      "y": 270
+    },
+    "facing=west,full=true": {
+      "model": "purpeille:block/ancient_guardian_full",
+      "y": 270
+    }
+  }
+}

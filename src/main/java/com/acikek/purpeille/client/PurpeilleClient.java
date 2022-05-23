@@ -1,6 +1,7 @@
 package com.acikek.purpeille.client;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.client.render.AncientGuardianRenderer;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
@@ -26,6 +27,7 @@ public class PurpeilleClient implements ClientModInitializer {
                     registerPack(mod, "old", ResourcePackActivationType.NORMAL);
                     registerPack(mod, "theinar", ResourcePackActivationType.ALWAYS_ENABLED);
                 });
+        AncientGuardianRenderer.register();
         handleReload("revelations", Component.REVELATIONS, Revelation::read);
         handleReload("aspects", Component.ASPECTS, Aspect::read);
     }

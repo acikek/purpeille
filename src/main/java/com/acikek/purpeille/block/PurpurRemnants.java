@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -30,6 +31,7 @@ public class PurpurRemnants {
 
     public static final AbstractBlock.Settings SETTINGS = FabricBlockSettings.of(Material.STONE)
             .requiresTool()
+            .sounds(BlockSoundGroup.NETHER_ORE)
             .strength(7.0f, 50.0f);
 
     public static void build(int size, int count, int distance, String name) {

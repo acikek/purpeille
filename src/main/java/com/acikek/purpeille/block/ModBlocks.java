@@ -3,6 +3,7 @@ package com.acikek.purpeille.block;
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.gateway.AncientGateway;
+import com.acikek.purpeille.block.ancient.guardian.AncientGuardian;
 import com.acikek.purpeille.block.ancient.oven.AncientOven;
 import com.acikek.purpeille.block.ancient.oven.Damage;
 import com.acikek.purpeille.item.ModItems;
@@ -27,6 +28,7 @@ public class ModBlocks {
 
     // Machines
     public static AncientGateway ANCIENT_GATEWAY = new AncientGateway(AncientGateway.SETTINGS);
+    public static AncientGuardian ANCIENT_GUARDIAN = new AncientGuardian(AncientGuardian.SETTINGS);
     public static AncientOven ANCIENT_OVEN = Damage.NONE.createBlock();
     public static AncientOven ANCIENT_OVEN_DIM = Damage.DIM.createBlock();
     public static AncientOven ANCIENT_OVEN_VERY_DIM = Damage.VERY_DIM.createBlock();
@@ -43,6 +45,7 @@ public class ModBlocks {
         BLOCKS.put("ancient_oven", ANCIENT_OVEN);
         BLOCKS.put("ancient_oven_dim", ANCIENT_OVEN_DIM);
         BLOCKS.put("ancient_oven_very_dim", ANCIENT_OVEN_VERY_DIM);
+        BLOCKS.put("ancient_guardian", ANCIENT_GUARDIAN);
     }
 
     public static void register() {
