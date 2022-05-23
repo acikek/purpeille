@@ -34,7 +34,7 @@ public class PurpeilleBlock extends Block {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient()) {
+        if (hand == Hand.MAIN_HAND) {
             ItemStack handStack = player.getStackInHand(hand);
             if (handStack.isOf(Items.WHITE_DYE) && !state.get(GRAFFITI)) {
                 if (!player.isCreative()) {

@@ -68,12 +68,15 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         return world.getRecipeManager().getFirstMatch(AncientOvenRecipe.Type.INSTANCE, new SimpleInventory(stack), world);
     }
 
-    public void startRecipe(World world, ItemStack stack, boolean unset, PlayerEntity player, BlockPos pos, BlockState state) {
-        getRecipeMatch(world, stack).ifPresent(match -> {
-            onAddItem(stack, unset, player);
-            addRecipe(match);
-            world.setBlockState(pos, state.with(AncientOven.LIT, true).with(AncientOven.FULL, true));
-        });
+    public boolean startRecipe(World world, ItemStack stack, boolean unset, PlayerEntity player, BlockPos pos, BlockState state) {
+        Optional<AncientOvenRecipe> optional = getRecipeMatch(world, stack);
+        if (optional.isEmpty()) {
+            return false;
+        }
+        onAddItem(stack, unset, player);
+        addRecipe(optional.get());
+        world.setBlockState(pos, state.with(AncientOven.LIT, true).with(AncientMachine.FULL, true));
+        return true;
     }
 
     public void finishRecipe(World world, PlayerEntity player, BlockPos pos, BlockState state) {

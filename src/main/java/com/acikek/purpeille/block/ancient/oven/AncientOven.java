@@ -2,7 +2,6 @@ package com.acikek.purpeille.block.ancient.oven;
 
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
-import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
 import lib.BlockItemProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -50,24 +49,23 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
         this.damage = damage;
     }
 
-    public BlockEntityType<AncientOvenBlockEntity> getBlockEntityType(String id) {
-        return AncientMachineBlockEntity.build(id, AncientOvenBlockEntity::new, this);
-    }
-
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient() && world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
+        if (hand == Hand.MAIN_HAND && world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
             ItemStack handStack = player.getStackInHand(hand);
             boolean lit = state.get(LIT);
             boolean full = state.get(FULL);
             if (!blockEntity.isEmpty() && !lit && full) {
                 blockEntity.finishRecipe(world, player, pos, state);
+                return ActionResult.SUCCESS;
             }
             else if (!handStack.isEmpty() && !full) {
-                blockEntity.startRecipe(world, handStack, true, player, pos, state);
+                return blockEntity.startRecipe(world, handStack, true, player, pos, state)
+                        ? ActionResult.SUCCESS
+                        : ActionResult.PASS;
             }
         }
-        return ActionResult.SUCCESS;
+        return ActionResult.PASS;
     }
 
     public static BlockState getNextState(BlockState state, Damage damage) {
@@ -136,7 +134,7 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
 
     @Override
     public BlockEntityType<AncientOvenBlockEntity> getBlockEntityType() {
-        return damage.getBlockEntityType();
+        return AncientOvenBlockEntity.BLOCK_ENTITY_TYPE;
     }
 
     @Override

@@ -7,9 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
@@ -33,16 +30,18 @@ public class AncientGateway extends AncientMachine<AncientGatewayBlockEntity> {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient() && world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity && !blockEntity.playerCheckCore(player, hand)) {
+        if (hand == Hand.MAIN_HAND && world.getBlockEntity(pos) instanceof AncientGatewayBlockEntity blockEntity && !blockEntity.playerCheckCore(player, hand)) {
             ItemStack handStack = player.getStackInHand(hand);
             if (!blockEntity.isEmpty()) {
                 blockEntity.removeCore(world, player, true, pos, state);
+                return ActionResult.SUCCESS;
             }
             else if (handStack.getItem() instanceof EncasedCore) {
                 blockEntity.addCore(world, handStack, true, player, pos, state);
+                return ActionResult.SUCCESS;
             }
         }
-        return ActionResult.SUCCESS;
+        return ActionResult.PASS;
     }
 
     @Override
