@@ -5,13 +5,13 @@ import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.PurpurRemnants;
 import com.acikek.purpeille.block.ancient.ModBlockEntities;
-import com.acikek.purpeille.block.ancient.guardian.AncientGuardianBlockEntity;
 import com.acikek.purpeille.command.WarpathCommand;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathCreateRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathRemoveRecipe;
 import com.acikek.purpeille.sound.ModSoundEvents;
+import com.acikek.purpeille.world.event.RespawnListener;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
@@ -54,11 +54,6 @@ public class Purpeille implements ModInitializer {
         PurpurRemnants.build();
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> WarpathCommand.register(dispatcher));
         ReloadHandler.register();
-        ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
-            System.out.println("bruh");
-            if (newPlayer.getSpawnPointPosition() != null && newPlayer.world.getBlockEntity(newPlayer.getSpawnPointPosition()) instanceof AncientGuardianBlockEntity blockEntity) {
-                System.out.println(blockEntity.linkedPlayer);
-            }
-        });
+        ServerPlayerEvents.AFTER_RESPAWN.register(new RespawnListener());
     }
 }

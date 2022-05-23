@@ -1,21 +1,16 @@
 package com.acikek.purpeille.block.ancient.guardian;
 
 import com.acikek.purpeille.block.ancient.AncientMachine;
-import com.acikek.purpeille.item.core.EncasedCore;
+import com.acikek.purpeille.block.ancient.CorePoweredAncientMachine;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -23,7 +18,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class AncientGuardian extends AncientMachine<AncientGuardianBlockEntity> {
+public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBlockEntity> {
 
     public static Settings SETTINGS = AncientMachine.SETTINGS
             .luminance(state -> state.get(FULL) ? 2 : 0);
@@ -55,7 +50,7 @@ public class AncientGuardian extends AncientMachine<AncientGuardianBlockEntity> 
     }
 
     public AncientGuardian(Settings settings) {
-        super(settings, AncientGuardianBlockEntity::tick, AncientGuardianBlockEntity::new);
+        super(settings, AncientGuardianBlockEntity::tick, AncientGuardianBlockEntity::new, AncientGuardianBlockEntity.class, false);
         setDefaultState(getDefaultFacing().with(FULL, false));
     }
 
@@ -65,34 +60,12 @@ public class AncientGuardian extends AncientMachine<AncientGuardianBlockEntity> 
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (hand == Hand.MAIN_HAND && world.getBlockEntity(pos) instanceof AncientGuardianBlockEntity blockEntity) {
-            ItemStack handStack = player.getStackInHand(hand);
-            if (!blockEntity.isEmpty()) {
-                if (blockEntity.isPlayerLinked(player)) {
-                    blockEntity.onRemoveItem(player, true);
-                    blockEntity.removeItem();
-                    blockEntity.linkedPlayer = null;
-                    blockEntity.playSound(SoundEvents.BLOCK_DEEPSLATE_STEP);
-                    world.setBlockState(pos, state.with(FULL, false));
-                    return ActionResult.SUCCESS;
-                }
-                else {
-                    player.sendMessage(HAS_LINKED_PLAYER, true);
-                }
-            }
-            else if (handStack.getItem() instanceof EncasedCore) {
-                blockEntity.onAddItem(handStack.copy(), true, player);
-                blockEntity.linkedPlayer = player.getUuid();
-                world.setBlockState(pos, state.with(FULL, true));
-                if (player instanceof ServerPlayerEntity serverPlayerEntity) {
-                    serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), pos, 0.0f, false, false);
-                    blockEntity.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 0.5f);
-                    return ActionResult.SUCCESS;
-                }
-            }
+    public boolean canPlayerUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, AncientGuardianBlockEntity blockEntity) {
+        if (blockEntity.isPlayerLinked(player)) {
+            return true;
         }
-        return ActionResult.PASS;
+        player.sendMessage(HAS_LINKED_PLAYER, true);
+        return false;
     }
 
     @Override
@@ -103,6 +76,6 @@ public class AncientGuardian extends AncientMachine<AncientGuardianBlockEntity> 
 
     @Override
     public BlockEntityType<AncientGuardianBlockEntity> getBlockEntityType() {
-        return null;
+        return AncientGuardianBlockEntity.BLOCK_ENTITY_TYPE;
     }
 }

@@ -2,7 +2,7 @@ package com.acikek.purpeille.block.ancient.gateway;
 
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
-import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
+import com.acikek.purpeille.block.ancient.CorePoweredAncientMachineBlockEntity;
 import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.sound.ModSoundEvents;
 import net.minecraft.block.BlockState;
@@ -20,7 +20,7 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
+public class AncientGatewayBlockEntity extends CorePoweredAncientMachineBlockEntity {
 
     public static BlockEntityType<AncientGatewayBlockEntity> BLOCK_ENTITY_TYPE;
 
@@ -30,8 +30,9 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
         super(BLOCK_ENTITY_TYPE, pos, state);
     }
 
+    @Override
     public void addCore(World world, ItemStack stack, boolean unset, PlayerEntity player, BlockPos pos, BlockState state) {
-        onAddItem(stack, unset, player);
+        super.addCore(world, stack, unset, player, pos, state);
         if (world != null) {
             world.setBlockState(pos, state
                     .with(AncientGateway.READY, true)
@@ -40,11 +41,9 @@ public class AncientGatewayBlockEntity extends AncientMachineBlockEntity {
         }
     }
 
+    @Override
     public void removeCore(World world, PlayerEntity player, boolean remove, BlockPos pos, BlockState state) {
-        onRemoveItem(player, true);
-        if (remove) {
-            removeItem();
-        }
+        super.removeCore(world, player, remove, pos, state);
         BlockState newState = state.with(AncientGateway.READY, false);
         if (state.get(AncientGateway.CHARGING)) {
             newState = newState.with(AncientGateway.CHARGING, false);
