@@ -1,6 +1,7 @@
 package com.acikek.purpeille.client;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.block.ancient.guardian.AncientGuardian;
 import com.acikek.purpeille.client.render.AncientGuardianRenderer;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;
@@ -28,6 +29,9 @@ public class PurpeilleClient implements ClientModInitializer {
                     registerPack(mod, "theinar", ResourcePackActivationType.ALWAYS_ENABLED);
                 });
         AncientGuardianRenderer.register();
+        ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, (client, handler, buf, responseSender) ->
+                client.gameRenderer.showFloatingItem(buf.readItemStack())
+        );
         handleReload("revelations", Component.REVELATIONS, Revelation::read);
         handleReload("aspects", Component.ASPECTS, Aspect::read);
     }

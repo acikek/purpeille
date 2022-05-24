@@ -3,11 +3,14 @@ package com.acikek.purpeille.block.ancient.guardian;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.CorePoweredAncientMachineBlockEntity;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
@@ -45,9 +48,13 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         return null;
     }
 
-    public void activate(PlayerEntity player) {
+    public void activate(ServerPlayerEntity player) {
         cooldown = 6000;
         player.setHealth(player.getMaxHealth());
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeItemStack(getItem());
+        ServerPlayNetworking.send(player, AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, buf);
+        playSound(SoundEvents.ITEM_TOTEM_USE, 0.75f);
     }
 
     @Override
