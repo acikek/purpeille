@@ -11,13 +11,11 @@ import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathCreateRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathRemoveRecipe;
 import com.acikek.purpeille.sound.ModSoundEvents;
-import com.acikek.purpeille.world.event.RespawnListener;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -54,6 +52,5 @@ public class Purpeille implements ModInitializer {
         PurpurRemnants.build();
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> WarpathCommand.register(dispatcher));
         ReloadHandler.register();
-        ServerPlayerEvents.AFTER_RESPAWN.register(new RespawnListener());
     }
 }

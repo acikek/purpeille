@@ -20,7 +20,7 @@ import java.util.Optional;
 public class PlayerEntityMixin {
 
     @Inject(method = "findRespawnPosition", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true,
-            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"))
+            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;", ordinal = 0))
     private static void allowGuardianRespawn(
             ServerWorld world,
             BlockPos pos,
@@ -30,7 +30,7 @@ public class PlayerEntityMixin {
             CallbackInfoReturnable<Optional<Vec3d>> cir,
             BlockState blockState
     ) {
-        if (world.getBlockEntity(pos) instanceof AncientGuardianBlockEntity blockEntity && blockEntity.linkedPlayer != null) {
+        if (world.getBlockEntity(pos) instanceof AncientGuardianBlockEntity blockEntity && blockEntity.tetheredPlayer != null) {
             cir.setReturnValue(RespawnAnchorBlock.findRespawnPosition(EntityType.PLAYER, world, pos));
         }
     }

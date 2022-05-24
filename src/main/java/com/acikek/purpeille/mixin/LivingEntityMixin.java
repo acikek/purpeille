@@ -1,13 +1,19 @@
 package com.acikek.purpeille.mixin;
 
 import com.acikek.purpeille.attribute.ModAttributes;
+import com.acikek.purpeille.block.ancient.guardian.AncientGuardianBlockEntity;
+import com.acikek.purpeille.tag.ModTags;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,6 +27,8 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class LivingEntityMixin {
 
     @Shadow @Nullable public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
+
+    @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @Inject(method = "createLivingAttributes", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
     private static void addCustomAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
@@ -60,5 +68,27 @@ public abstract class LivingEntityMixin {
     private float applyWaterSpeed(float g) {
         EntityAttributeInstance instance = getAttributeInstance(ModAttributes.GENERIC_WATER_SPEED);
         return instance != null ? g * (float) instance.getValue() : g;
+    }
+
+    public boolean hasPurpeilleEquipped() {
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (slot.getType() == EquipmentSlot.Type.ARMOR && getEquippedStack(slot).isIn(ModTags.WARPATH_BASE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Inject(method = "tryUseTotem", cancellable = true,
+            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/util/Hand;values()[Lnet/minecraft/util/Hand;"))
+    private void useVoidTether(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if (hasPurpeilleEquipped() && entity instanceof ServerPlayerEntity playerEntity) {
+            AncientGuardianBlockEntity blockEntity = AncientGuardianBlockEntity.getTether(playerEntity);
+            if (blockEntity != null && blockEntity.cooldown == 0) {
+                blockEntity.activate(playerEntity);
+                cir.setReturnValue(true);
+            }
+        }
     }
 }
