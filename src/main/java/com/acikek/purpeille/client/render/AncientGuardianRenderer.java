@@ -3,7 +3,7 @@ package com.acikek.purpeille.client.render;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.guardian.AncientGuardian;
 import com.acikek.purpeille.block.ancient.guardian.AncientGuardianBlockEntity;
-import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
