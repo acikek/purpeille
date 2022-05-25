@@ -96,5 +96,6 @@ public class Revelation extends Component {
         affinity.write(buf);
         Synergy.writeOverrides(synergy, buf);
         buf.writeBoolean(operation == EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+        buf.writeBoolean(forceInt);
     }
 }
