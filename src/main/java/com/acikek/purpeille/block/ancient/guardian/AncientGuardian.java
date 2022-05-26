@@ -9,6 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.Waterloggable;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -47,6 +48,7 @@ import java.util.Random;
 public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBlockEntity> implements Waterloggable {
 
     public static final Identifier ANCIENT_GUARDIAN_ACTIVATED = Purpeille.id("ancient_guardian_activated");
+    public static final ModelIdentifier MODEL = new ModelIdentifier("purpeille:ancient_guardian_in_hand#inventory");
 
     public static Settings SETTINGS = AncientMachine.SETTINGS
             .luminance(state -> state.get(FULL) ? 2 : 0);

@@ -12,6 +12,7 @@ import com.acikek.purpeille.warpath.component.Revelation;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
@@ -28,23 +29,27 @@ public class PurpeilleClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        FabricLoader.getInstance()
-                .getModContainer(Purpeille.ID)
-                .ifPresent(mod -> {
-                    registerPack(mod, "old", ResourcePackActivationType.NORMAL);
-                    registerPack(mod, "theinar", ResourcePackActivationType.ALWAYS_ENABLED);
-                });
+        ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(AncientGuardian.MODEL));
         AncientGuardianRenderer.register();
         ModParticleTypes.register();
         AncientGuardianParticle.register();
-        //ClientPlayNetworking.registerGlobalReceiver(Purpeille.id("ancient_guardian_core_removed"))
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
+        registerPacks();
         handleReload("revelations", Component.REVELATIONS, Revelation::read);
         handleReload("aspects", Component.ASPECTS, Aspect::read);
     }
 
     public static void registerPack(ModContainer mod, String key, ResourcePackActivationType type) {
         ResourceManagerHelper.registerBuiltinResourcePack(Purpeille.id(key), mod, type);
+    }
+
+    public static void registerPacks() {
+        FabricLoader.getInstance()
+                .getModContainer(Purpeille.ID)
+                .ifPresent(mod -> {
+                    registerPack(mod, "old", ResourcePackActivationType.NORMAL);
+                    registerPack(mod, "theinar", ResourcePackActivationType.ALWAYS_ENABLED);
+                });
     }
 
     public static <T extends Component> void handleReload(String key, Map<Identifier, T> registry, Function<PacketByteBuf, T> read) {
