@@ -1,0 +1,31 @@
+{
+  "parent": "purpeille:purpeille/ancient_guardian",
+  "display": {
+    "icon": {
+      "item": "minecraft:tipped_arrow",
+      "nbt": "{Potion:\"minecraft:harming\"}"
+    },
+    "title": {
+      "translate": "advancements.purpeille.ancient_guardian_deadly.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.ancient_guardian_deadly.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "use_ancient_guardian": {
+      "trigger": "purpeille:ancient_guardian_used",
+      "conditions": {
+        "type": "vacuous",
+        "killed": {
+          "min": 5
+        },
+        "interdimensional": true
+      }
+    }
+  }
+}

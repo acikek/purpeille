@@ -1,0 +1,23 @@
+{
+  "parent": "purpeille:purpeille/encased_core",
+  "display": {
+    "icon": {
+      "item": "purpeille:ancient_guardian"
+    },
+    "title": {
+      "translate": "advancements.purpeille.ancient_guardian.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.ancient_guardian.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "use_ancient_guardian": {
+      "trigger": "purpeille:ancient_guardian_used"
+    }
+  }
+}

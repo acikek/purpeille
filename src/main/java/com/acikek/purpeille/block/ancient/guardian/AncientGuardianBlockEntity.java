@@ -1,5 +1,6 @@
 package com.acikek.purpeille.block.ancient.guardian;
 
+import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.CorePoweredAncientMachineBlockEntity;
@@ -12,6 +13,7 @@ import net.minecraft.block.RespawnAnchorBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -87,35 +89,48 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         return new EntityDamageSource("guardianWrath", player).setUsesMagic();
     }
 
-    public static void damageAOE(World world, PlayerEntity player) {
+    public static int damageAOE(ServerPlayerEntity player) {
         Box area = Box.of(player.getPos(), 10, 10, 10);
-        for (Entity entity : world.getOtherEntities(player, area)) {
+        int killed = 0;
+        for (Entity entity : player.world.getOtherEntities(player, area)) {
             if (entity instanceof PlayerEntity playerEntity) {
                 playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 1200, 2), player);
             }
             entity.damage(getDamageSource(player), 45.0f);
+            if (entity instanceof LivingEntity livingEntity && livingEntity.isDead()) {
+                killed++;
+            }
         }
+        return killed;
     }
 
-    public void teleportPlayer(ServerPlayerEntity player) {
+    public boolean teleportPlayer(ServerPlayerEntity player) {
+        boolean interdimensional = false;
         ServerWorld world = getSpawnWorld(player);
+        if (player.getWorld() != world) {
+            interdimensional = true;
+        }
         RespawnAnchorBlock.findRespawnPosition(EntityType.PLAYER, world, pos).ifPresent(pos ->
                 player.teleport(world, pos.x, pos.y, pos.z, player.getYaw(), player.getPitch())
         );
+        return interdimensional;
     }
 
     public void activate(ServerPlayerEntity player, int armorPieces) {
         cooldown = 6000 / getCore().type.modifier;
-        player.setHealth((player.getMaxHealth() / 4.0f) * armorPieces);
+        player.setHealth(armorPieces * 0.25f * player.getMaxHealth());
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, 5));
         PacketByteBuf buf = getActivationPacket(player);
         sendActivationNearby(player, buf);
         player.playSound(SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 0.75f);
         if (world != null) {
             world.playSound(player, player.getBlockPos(), SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 0.75f);
-            if (getCore().type == EncasedCore.Type.VACUOUS) {
-                damageAOE(world, player);
-                teleportPlayer(player);
+            EncasedCore.Type coreType = getCore().type;
+            int killed = 0;
+            boolean interdimensional = false;
+            if (coreType == EncasedCore.Type.VACUOUS) {
+                killed = damageAOE(player);
+                interdimensional = teleportPlayer(player);
             }
             ServerPlayNetworking.send(player, AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, buf);
             BlockState newState = getCachedState().with(AncientGuardian.ON_COOLDOWN, true);
@@ -127,6 +142,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
                 }
             }
             world.setBlockState(pos, newState);
+            ModCriteria.ANCIENT_GUARDIAN_USED.trigger(player, coreType, killed, interdimensional);
         }
     }
 
@@ -149,15 +165,19 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         world.setBlockState(pos, state.with(AncientMachine.FULL, false));
     }
 
+    public ServerPlayerEntity getTetheredPlayer(World world) {
+        MinecraftServer server = world.getServer();
+        if (server == null) {
+            return null;
+        }
+        return server.getPlayerManager().getPlayer(tetheredPlayer);
+    }
+
     public static void tick(World world, BlockPos blockPos, BlockState state, AncientGuardianBlockEntity blockEntity) {
         if (blockEntity.cooldown > 0) {
             blockEntity.cooldown--;
             if (!world.isClient() && blockEntity.cooldown == 0) {
-                MinecraftServer server = world.getServer();
-                if (server == null) {
-                    return;
-                }
-                PlayerEntity player = server.getPlayerManager().getPlayer(blockEntity.tetheredPlayer);
+                ServerPlayerEntity player = blockEntity.getTetheredPlayer(world);
                 if (player != null) {
                     player.sendMessage(VOID_TETHER_RESTORED, false);
                 }
