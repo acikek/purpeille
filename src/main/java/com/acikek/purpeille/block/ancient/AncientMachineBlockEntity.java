@@ -200,7 +200,6 @@ public class AncientMachineBlockEntity extends BlockEntity implements Implemente
     @Nullable
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        System.out.println("toUpdatePacket called");
         return BlockEntityUpdateS2CPacket.create(this);
     }
 

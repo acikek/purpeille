@@ -43,6 +43,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
 
     public UUID tetheredPlayer;
     public int cooldown;
+    public boolean pendingRemoval;
 
     public AncientGuardianBlockEntity(BlockPos pos, BlockState state) {
         super(BLOCK_ENTITY_TYPE, pos, state);
@@ -120,8 +121,8 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
             BlockState newState = getCachedState().with(AncientGuardian.ON_COOLDOWN, true);
             if (damageCore(256, world.random)) {
                 newState = newState.with(AncientMachine.FULL, false);
+                pendingRemoval = true;
                 if (world instanceof ServerWorld serverWorld) {
-                    System.out.println(toInitialChunkDataNbt());
                     serverWorld.getChunkManager().markForUpdate(pos);
                 }
             }
@@ -163,6 +164,10 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
                 world.setBlockState(blockPos, state.with(AncientGuardian.ON_COOLDOWN, false));
             }
         }
+        if (blockEntity.pendingRemoval) {
+            blockEntity.removeItem();
+            blockEntity.pendingRemoval = false;
+        }
     }
 
     @Override
@@ -170,6 +175,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         super.readNbt(nbt);
         tetheredPlayer = nbt.containsUuid("TetheredPlayer") ? nbt.getUuid("TetheredPlayer") : null;
         cooldown = nbt.getInt("Cooldown");
+        pendingRemoval = nbt.getBoolean("PendingRemoval");
     }
 
     @Override
@@ -178,6 +184,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
             nbt.putUuid("TetheredPlayer", tetheredPlayer);
         }
         nbt.putInt("Cooldown", cooldown);
+        nbt.putBoolean("PendingRemoval", pendingRemoval);
         super.writeNbt(nbt);
     }
 

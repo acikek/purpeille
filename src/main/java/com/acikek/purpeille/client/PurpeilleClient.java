@@ -37,6 +37,7 @@ public class PurpeilleClient implements ClientModInitializer {
         AncientGuardianRenderer.register();
         ModParticleTypes.register();
         AncientGuardianParticle.register();
+        //ClientPlayNetworking.registerGlobalReceiver(Purpeille.id("ancient_guardian_core_removed"))
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
         handleReload("revelations", Component.REVELATIONS, Revelation::read);
         handleReload("aspects", Component.ASPECTS, Aspect::read);
