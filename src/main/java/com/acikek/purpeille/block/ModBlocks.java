@@ -42,10 +42,10 @@ public class ModBlocks {
         BLOCKS.put("purpeille_block", PURPEILLE_BLOCK);
         BLOCKS.put("ancient_mechanical_bricks", ANCIENT_MECHANICAL_BRICKS);
         BLOCKS.put("ancient_gateway", ANCIENT_GATEWAY);
+        BLOCKS.put("ancient_guardian", ANCIENT_GUARDIAN);
         BLOCKS.put("ancient_oven", ANCIENT_OVEN);
         BLOCKS.put("ancient_oven_dim", ANCIENT_OVEN_DIM);
         BLOCKS.put("ancient_oven_very_dim", ANCIENT_OVEN_VERY_DIM);
-        BLOCKS.put("ancient_guardian", ANCIENT_GUARDIAN);
     }
 
     public static void register() {
