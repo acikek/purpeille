@@ -1,9 +1,9 @@
 {
   "textures": {
-    "0": "purpeille:block/ancient_guardian_base",
+    "0": "purpeille:block/ancient_guardian_head",
     "1": "purpeille:block/ancient_guardian_torso",
     "2": "purpeille:block/ancient_guardian_legs",
-    "particle": "purpeille:block/ancient_guardian_base"
+    "particle": "purpeille:block/ancient_guardian_torso"
   },
   "elements": [
     {

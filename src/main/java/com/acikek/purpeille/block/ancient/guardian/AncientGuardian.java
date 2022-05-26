@@ -1,6 +1,7 @@
 package com.acikek.purpeille.block.ancient.guardian;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.CorePoweredAncientMachine;
 import net.minecraft.block.Block;
@@ -13,6 +14,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
@@ -22,6 +30,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -30,6 +40,10 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBlockEntity> implements Waterloggable {
 
     public static final Identifier ANCIENT_GUARDIAN_ACTIVATED = Purpeille.id("ancient_guardian_activated");
@@ -37,6 +51,7 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     public static Settings SETTINGS = AncientMachine.SETTINGS
             .luminance(state -> state.get(FULL) ? 2 : 0);
 
+    public static BooleanProperty ON_COOLDOWN = BooleanProperty.of("on_cooldown");
     public static BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public static final MutableText HAS_TETHERED_PLAYER = new TranslatableText("use.purpeille.ancient_guardian.has_tethered_player");
@@ -67,7 +82,7 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
 
     public AncientGuardian(Settings settings) {
         super(settings, AncientGuardianBlockEntity::tick, AncientGuardianBlockEntity::new, AncientGuardianBlockEntity.class, false);
-        setDefaultState(getDefaultFacing().with(FULL, false).with(WATERLOGGED, false));
+        setDefaultState(getDefaultFacing().with(FULL, false).with(ON_COOLDOWN, false).with(WATERLOGGED, false));
     }
 
     @Override
@@ -97,6 +112,25 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
         return super.getPlacementState(ctx).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);
     }
 
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        boolean full = state.get(FULL);
+        boolean cooldown = state.get(ON_COOLDOWN);
+        if (full || cooldown) {
+            Vec3f center = new Vec3f(Vec3d.ofCenter(pos));
+            boolean isZ = isZ(state.get(FACING));
+            float x = center.getX() + random.nextFloat(-1, 1) * (isZ ? 0.3f : 0.1f);
+            float y = center.getY() + random.nextFloat(-1, 1) * 0.15f;
+            float z = center.getZ() + random.nextFloat(-1, 1) * (isZ ? 0.1f : 0.3f);
+            DefaultParticleType particle = cooldown ? ParticleTypes.REVERSE_PORTAL : ParticleTypes.SMALL_FLAME;
+            world.addParticle(particle, x, y, z, 0.0, 0.01, 0.0);
+            if (!cooldown || random.nextFloat() > 0.9f) {
+                SoundEvent event = cooldown ? SoundEvents.ENTITY_ENDERMAN_AMBIENT : SoundEvents.BLOCK_CANDLE_AMBIENT;
+                world.playSound(center.getX(), center.getY(), center.getZ(), event, SoundCategory.BLOCKS, 0.5f, random.nextFloat() * 0.5f + 0.1f, false);
+            }
+        }
+    }
+
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
@@ -110,9 +144,16 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     }
 
     @Override
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+        return state.get(ON_COOLDOWN)
+                ? Collections.emptyList()
+                : Collections.singletonList(new ItemStack(ModBlocks.ANCIENT_GUARDIAN));
+    }
+
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(FULL).add(WATERLOGGED);
+        builder.add(FULL).add(ON_COOLDOWN).add(WATERLOGGED);
     }
 
     @Override

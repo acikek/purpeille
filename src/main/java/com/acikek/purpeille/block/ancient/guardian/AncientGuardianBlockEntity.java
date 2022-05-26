@@ -3,21 +3,33 @@ package com.acikek.purpeille.block.ancient.guardian;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.CorePoweredAncientMachineBlockEntity;
+import com.acikek.purpeille.item.core.EncasedCore;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.RespawnAnchorBlock;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.EntityDamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import java.util.UUID;
@@ -40,21 +52,81 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         return tetheredPlayer != null && tetheredPlayer.equals(player.getUuid());
     }
 
+    public static ServerWorld getSpawnWorld(ServerPlayerEntity player) {
+        if (player.getSpawnPointPosition() == null) {
+            return null;
+        }
+        return player.server.getWorld(player.getSpawnPointDimension());
+    }
+
     public static AncientGuardianBlockEntity getTether(ServerPlayerEntity player) {
-        if (player.getSpawnPointPosition() != null
-                && player.world.getBlockEntity(player.getSpawnPointPosition()) instanceof AncientGuardianBlockEntity blockEntity) {
+        World world = getSpawnWorld(player);
+        if (world != null && world.getBlockEntity(player.getSpawnPointPosition()) instanceof AncientGuardianBlockEntity blockEntity) {
             return blockEntity;
         }
         return null;
     }
 
-    public void activate(ServerPlayerEntity player) {
-        cooldown = 6000;
-        player.setHealth(player.getMaxHealth());
+    public PacketByteBuf getActivationPacket(ServerPlayerEntity player) {
         PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeInt(player.getId());
         buf.writeItemStack(getItem());
-        ServerPlayNetworking.send(player, AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, buf);
-        playSound(SoundEvents.ITEM_TOTEM_USE, 0.75f);
+        return buf;
+    }
+
+    public void sendActivationNearby(ServerPlayerEntity player, PacketByteBuf buf) {
+        for (ServerPlayerEntity p : PlayerLookup.tracking(player)) {
+            if (p != player) {
+                ServerPlayNetworking.send(p, AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, buf);
+            }
+        }
+    }
+
+    public static DamageSource getDamageSource(PlayerEntity player) {
+        return new EntityDamageSource("guardianWrath", player).setUsesMagic();
+    }
+
+    public static void damageAOE(World world, PlayerEntity player) {
+        Box area = Box.of(player.getPos(), 10, 10, 10);
+        for (Entity entity : world.getOtherEntities(player, area)) {
+            if (entity instanceof PlayerEntity playerEntity) {
+                playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 1200, 2), player);
+            }
+            entity.damage(getDamageSource(player), 45.0f);
+        }
+    }
+
+    public void teleportPlayer(ServerPlayerEntity player) {
+        ServerWorld world = getSpawnWorld(player);
+        RespawnAnchorBlock.findRespawnPosition(EntityType.PLAYER, world, pos).ifPresent(pos ->
+                player.teleport(world, pos.x, pos.y, pos.z, player.getYaw(), player.getPitch())
+        );
+    }
+
+    public void activate(ServerPlayerEntity player, int armorPieces) {
+        cooldown = 6000 / getCore().type.modifier;
+        player.setHealth((player.getMaxHealth() / 4.0f) * armorPieces);
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, 5));
+        PacketByteBuf buf = getActivationPacket(player);
+        sendActivationNearby(player, buf);
+        player.playSound(SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 0.75f);
+        if (world != null) {
+            world.playSound(player, player.getBlockPos(), SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 0.75f);
+            if (getCore().type == EncasedCore.Type.VACUOUS) {
+                damageAOE(world, player);
+                teleportPlayer(player);
+            }
+            ServerPlayNetworking.send(player, AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, buf);
+            BlockState newState = getCachedState().with(AncientGuardian.ON_COOLDOWN, true);
+            if (damageCore(256, world.random)) {
+                newState = newState.with(AncientMachine.FULL, false);
+                if (world instanceof ServerWorld serverWorld) {
+                    System.out.println(toInitialChunkDataNbt());
+                    serverWorld.getChunkManager().markForUpdate(pos);
+                }
+            }
+            world.setBlockState(pos, newState);
+        }
     }
 
     @Override
@@ -88,6 +160,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
                 if (player != null) {
                     player.sendMessage(VOID_TETHER_RESTORED, false);
                 }
+                world.setBlockState(blockPos, state.with(AncientGuardian.ON_COOLDOWN, false));
             }
         }
     }

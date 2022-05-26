@@ -33,6 +33,15 @@ public class AncientGuardianRenderer implements BlockEntityRenderer<AncientGuard
         };
     }
 
+    public float lastAngle = 0.0f;
+
+    public float getAngle() {
+        if (!MinecraftClient.getInstance().isPaused()) {
+            lastAngle = MathHelper.sin((System.currentTimeMillis() % 6000L) / 6000.0f * MathHelper.TAU) * 145.0f;
+        }
+        return lastAngle;
+    }
+
     @Override
     public void render(AncientGuardianBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         matrices.push();
@@ -41,8 +50,7 @@ public class AncientGuardianRenderer implements BlockEntityRenderer<AncientGuard
             int lightAbove = entity.getWorld() != null ? WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up()) : light;
             Direction direction = entity.getCachedState().get(AncientMachine.FACING);
             translate(matrices, AncientGuardian.isZ(direction), isOffset(direction));
-            float angle = MathHelper.sin((System.currentTimeMillis() % 6000L) / 6000.0f * MathHelper.TAU) * 145.0f;
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(angle + direction.asRotation()));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(getAngle() + direction.asRotation()));
             matrices.scale(0.45f, 0.45f, 0.45f);
             MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, lightAbove, overlay, matrices, vertexConsumers, 0);
         }

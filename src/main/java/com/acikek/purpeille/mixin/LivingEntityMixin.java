@@ -70,23 +70,25 @@ public abstract class LivingEntityMixin {
         return instance != null ? g * (float) instance.getValue() : g;
     }
 
-    public boolean hasPurpeilleEquipped() {
+    public int getArmorPieces() {
+        int result = 0;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.ARMOR && getEquippedStack(slot).isIn(ModTags.WARPATH_BASE)) {
-                return true;
+                result++;
             }
         }
-        return false;
+        return result;
     }
 
     @Inject(method = "tryUseTotem", cancellable = true,
             at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/util/Hand;values()[Lnet/minecraft/util/Hand;"))
     private void useVoidTether(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        if (hasPurpeilleEquipped() && entity instanceof ServerPlayerEntity playerEntity) {
+        int armorPieces = getArmorPieces();
+        if (armorPieces > 0 && entity instanceof ServerPlayerEntity playerEntity) {
             AncientGuardianBlockEntity blockEntity = AncientGuardianBlockEntity.getTether(playerEntity);
-            if (blockEntity != null && blockEntity.cooldown == 0) {
-                blockEntity.activate(playerEntity);
+            if (blockEntity != null && blockEntity.cooldown == 0 && blockEntity.isPlayerTethered(playerEntity)) {
+                blockEntity.activate(playerEntity, armorPieces);
                 cir.setReturnValue(true);
             }
         }

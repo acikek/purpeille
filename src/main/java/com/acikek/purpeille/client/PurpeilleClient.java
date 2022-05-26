@@ -2,11 +2,16 @@ package com.acikek.purpeille.client;
 
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.block.ancient.guardian.AncientGuardian;
+import com.acikek.purpeille.client.networking.AncientGuardianActivationListener;
+import com.acikek.purpeille.client.particle.AncientGuardianParticle;
+import com.acikek.purpeille.client.particle.ModParticleTypes;
 import com.acikek.purpeille.client.render.AncientGuardianRenderer;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
@@ -18,6 +23,7 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 import java.util.function.Function;
 
+@Environment(EnvType.CLIENT)
 public class PurpeilleClient implements ClientModInitializer {
 
     @Override
@@ -29,9 +35,9 @@ public class PurpeilleClient implements ClientModInitializer {
                     registerPack(mod, "theinar", ResourcePackActivationType.ALWAYS_ENABLED);
                 });
         AncientGuardianRenderer.register();
-        ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, (client, handler, buf, responseSender) ->
-                client.gameRenderer.showFloatingItem(buf.readItemStack())
-        );
+        ModParticleTypes.register();
+        AncientGuardianParticle.register();
+        ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
         handleReload("revelations", Component.REVELATIONS, Revelation::read);
         handleReload("aspects", Component.ASPECTS, Aspect::read);
     }

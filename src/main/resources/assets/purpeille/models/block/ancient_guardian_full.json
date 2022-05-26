@@ -1,10 +1,9 @@
 {
-  "credit": "Made with Blockbench",
   "textures": {
-    "0": "purpeille:block/ancient_guardian_base",
-    "1": "purpeille:block/ancient_guardian_torso",
+    "0": "purpeille:block/ancient_guardian_head_on",
+    "1": "purpeille:block/ancient_guardian_torso_on",
     "2": "purpeille:block/ancient_guardian_legs",
-    "particle": "purpeille:block/ancient_guardian_base"
+    "particle": "purpeille:block/ancient_guardian_torso_on"
   },
   "elements": [
     {
@@ -36,12 +35,12 @@
       "from": [4, 6, 7],
       "to": [6, 12, 9],
       "faces": {
-        "north": {"uv": [8, 4, 10, 10], "texture": "#1"},
+        "north": {"uv": [14, 4, 16, 10], "texture": "#1"},
         "east": {"uv": [0, 8, 2, 14], "texture": "#1"},
-        "south": {"uv": [8, 10, 10, 16], "texture": "#1"},
+        "south": {"uv": [14, 10, 16, 16], "texture": "#1"},
         "west": {"uv": [0, 8, 2, 14], "texture": "#1"},
-        "up": {"uv": [0, 0, 2, 2], "texture": "#1"},
-        "down": {"uv": [0, 0, 2, 2], "texture": "#1"}
+        "up": {"uv": [6, 0, 8, 2], "texture": "#1"},
+        "down": {"uv": [6, 0, 8, 2], "texture": "#1"}
       }
     },
     {
@@ -81,7 +80,7 @@
       }
     },
     {
-      "from": [9, 7, 8],
+      "from": [9, 7, 7],
       "to": [10, 8, 8.99],
       "faces": {
         "north": {"uv": [10, 8, 11, 9], "texture": "#1"},
