@@ -92,9 +92,10 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
     public static int damageAOE(ServerPlayerEntity player) {
         Box area = Box.of(player.getPos(), 10, 10, 10);
         int killed = 0;
+        DamageSource damageSource = getDamageSource(player);
         for (Entity entity : player.world.getOtherEntities(player, area)) {
             if (entity instanceof LivingEntity livingEntity) {
-                entity.damage(getDamageSource(player), 45.0f);
+                entity.damage(damageSource, 45.0f);
                 if (livingEntity.isDead()) {
                     killed++;
                 }
