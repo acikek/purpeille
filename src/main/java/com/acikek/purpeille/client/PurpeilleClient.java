@@ -12,6 +12,7 @@ import com.acikek.purpeille.warpath.component.Revelation;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -36,6 +37,7 @@ public class PurpeilleClient implements ClientModInitializer {
         AncientGuardianRenderer.register();
         ModParticleTypes.register();
         AncientGuardianParticle.register();
+        ClientTickEvents.START_WORLD_TICK.register(world -> AncientGuardianRenderer.tick());
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
         registerPacks();
         handleReload("revelations", Component.REVELATIONS, Revelation::read);
