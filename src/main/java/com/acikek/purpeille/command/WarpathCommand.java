@@ -102,6 +102,7 @@ public class WarpathCommand {
                                         .executes(context -> WarpathCommand.add(context, false))
                                 ))
                         .then(CommandManager.literal("remove")
-                                .executes(WarpathCommand::remove))));
+                                .executes(WarpathCommand::remove)))
+                .requires(source -> source.hasPermissionLevel(4)));
     }
 }

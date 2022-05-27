@@ -28,6 +28,7 @@ public class VacuousBlastCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal(NAME)
                 .then(CommandManager.argument("target", EntityArgumentType.entity())
-                        .executes(VacuousBlastCommand::execute)));
+                        .executes(VacuousBlastCommand::execute))
+                .requires(source -> source.hasPermissionLevel(4)));
     }
 }
