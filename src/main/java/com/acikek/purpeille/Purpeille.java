@@ -5,6 +5,7 @@ import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.PurpurRemnants;
 import com.acikek.purpeille.block.ancient.ModBlockEntities;
+import com.acikek.purpeille.command.VacuousBlastCommand;
 import com.acikek.purpeille.command.WarpathCommand;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
@@ -50,7 +51,10 @@ public class Purpeille implements ModInitializer {
         AncientOvenRecipe.register();
         EndCityProximityPlacementModifier.register();
         PurpurRemnants.build();
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> WarpathCommand.register(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+            VacuousBlastCommand.register(dispatcher);
+            WarpathCommand.register(dispatcher);
+        });
         ReloadHandler.register();
     }
 }

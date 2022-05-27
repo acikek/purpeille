@@ -70,18 +70,31 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         return null;
     }
 
-    public PacketByteBuf getActivationPacket(ServerPlayerEntity player, boolean vacuous) {
+    public static PacketByteBuf getBasePacket(Entity entity) {
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeInt(player.getId());
-        buf.writeItemStack(getItem());
-        buf.writeBoolean(vacuous);
+        buf.writeInt(entity.getId());
         return buf;
     }
 
-    public void sendActivationNearby(ServerPlayerEntity player, PacketByteBuf buf) {
-        for (ServerPlayerEntity p : PlayerLookup.tracking(player)) {
-            if (p != player) {
-                ServerPlayNetworking.send(p, AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, buf);
+    public PacketByteBuf getActivationPacket(ServerPlayerEntity player) {
+        PacketByteBuf buf = getBasePacket(player);
+        buf.writeItemStack(getItem());
+        return buf;
+    }
+
+    public static void sendActivation(ServerPlayerEntity player, PacketByteBuf base, PacketByteBuf activation, boolean item, boolean vacuous) {
+        if (vacuous) {
+            ServerPlayNetworking.send(player, AncientGuardian.VACUOUS_BLAST, base);
+        }
+        if (item) {
+            ServerPlayNetworking.send(player, AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, activation);
+        }
+    }
+
+    public static void sendActivationNearby(Entity entity, PacketByteBuf base, PacketByteBuf activation, boolean item, boolean vacuous) {
+        for (ServerPlayerEntity p : PlayerLookup.tracking(entity)) {
+            if (p != entity) {
+                sendActivation(p, base, activation, item, vacuous);
             }
         }
     }
@@ -125,8 +138,10 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         player.setHealth(armorPieces * 0.25f * player.getMaxHealth());
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, 5));
         EncasedCore.Type coreType = getCore().type;
-        PacketByteBuf buf = getActivationPacket(player, coreType == EncasedCore.Type.VACUOUS);
-        sendActivationNearby(player, buf);
+        boolean vacuous = coreType == EncasedCore.Type.VACUOUS;
+        PacketByteBuf base = getBasePacket(player);
+        PacketByteBuf activation = getActivationPacket(player);
+        sendActivationNearby(player, base, activation, true, vacuous);
         player.playSound(SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 0.75f);
         if (world != null) {
             world.playSound(player, player.getBlockPos(), SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 0.75f);
@@ -136,7 +151,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
                 killed = damageAOE(player);
                 interdimensional = teleportPlayer(player);
             }
-            ServerPlayNetworking.send(player, AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, buf);
+            sendActivation(player, base, activation, true, vacuous);
             BlockState newState = getCachedState().with(AncientGuardian.ON_COOLDOWN, true);
             if (damageCore(256, world.random)) {
                 newState = newState.with(AncientMachine.FULL, false);

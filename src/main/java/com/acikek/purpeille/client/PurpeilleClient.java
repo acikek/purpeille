@@ -3,6 +3,7 @@ package com.acikek.purpeille.client;
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.block.ancient.guardian.AncientGuardian;
 import com.acikek.purpeille.client.networking.AncientGuardianActivationListener;
+import com.acikek.purpeille.client.networking.VacuousBlastListener;
 import com.acikek.purpeille.client.particle.AncientGuardianParticle;
 import com.acikek.purpeille.client.particle.ModParticleTypes;
 import com.acikek.purpeille.client.render.AncientGuardianRenderer;
@@ -39,6 +40,7 @@ public class PurpeilleClient implements ClientModInitializer {
         AncientGuardianParticle.register();
         ClientTickEvents.START_WORLD_TICK.register(world -> AncientGuardianRenderer.tick());
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
+        ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.VACUOUS_BLAST, new VacuousBlastListener());
         registerPacks();
         handleReload("revelations", Component.REVELATIONS, Revelation::read);
         handleReload("aspects", Component.ASPECTS, Aspect::read);

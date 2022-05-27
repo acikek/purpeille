@@ -47,6 +47,7 @@ import java.util.Random;
 public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBlockEntity> implements Waterloggable {
 
     public static final Identifier ANCIENT_GUARDIAN_ACTIVATED = Purpeille.id("ancient_guardian_activated");
+    public static final Identifier VACUOUS_BLAST = Purpeille.id("vacuous_blast");
 
     public static Settings SETTINGS = AncientMachine.SETTINGS
             .luminance(state -> state.get(FULL) ? 2 : 0);
