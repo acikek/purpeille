@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
@@ -27,9 +28,11 @@ import java.util.function.Function;
 @Environment(EnvType.CLIENT)
 public class PurpeilleClient implements ClientModInitializer {
 
+    public static final ModelIdentifier MODEL = new ModelIdentifier("purpeille:ancient_guardian_in_hand#inventory");
+
     @Override
     public void onInitializeClient() {
-        ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(AncientGuardian.MODEL));
+        ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(MODEL));
         AncientGuardianRenderer.register();
         ModParticleTypes.register();
         AncientGuardianParticle.register();

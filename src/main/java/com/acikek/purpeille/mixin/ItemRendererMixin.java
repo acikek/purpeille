@@ -1,7 +1,7 @@
 package com.acikek.purpeille.mixin;
 
 import com.acikek.purpeille.block.ModBlocks;
-import com.acikek.purpeille.block.ancient.guardian.AncientGuardian;
+import com.acikek.purpeille.client.PurpeilleClient;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
@@ -24,7 +24,7 @@ public class ItemRendererMixin {
         if (renderMode != ModelTransformation.Mode.GUI && renderMode != ModelTransformation.Mode.GROUND
                 && stack.getItem() instanceof BlockItem blockItem
                 && blockItem.getBlock() == ModBlocks.ANCIENT_GUARDIAN) {
-            return models.getModelManager().getModel(AncientGuardian.MODEL);
+            return models.getModelManager().getModel(PurpeilleClient.MODEL);
         }
         return defaultModel;
     }
