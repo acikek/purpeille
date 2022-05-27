@@ -21,7 +21,7 @@ public class ItemRendererMixin {
 
     @ModifyVariable(method = "renderItem", at = @At("HEAD"), argsOnly = true)
     private BakedModel modifyModel(BakedModel defaultModel, ItemStack stack, ModelTransformation.Mode renderMode) {
-        if (renderMode != ModelTransformation.Mode.GUI
+        if (renderMode != ModelTransformation.Mode.GUI && renderMode != ModelTransformation.Mode.GROUND
                 && stack.getItem() instanceof BlockItem blockItem
                 && blockItem.getBlock() == ModBlocks.ANCIENT_GUARDIAN) {
             return models.getModelManager().getModel(AncientGuardian.MODEL);

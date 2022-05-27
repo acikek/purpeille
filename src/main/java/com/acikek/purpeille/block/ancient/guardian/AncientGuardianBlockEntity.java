@@ -70,10 +70,11 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         return null;
     }
 
-    public PacketByteBuf getActivationPacket(ServerPlayerEntity player) {
+    public PacketByteBuf getActivationPacket(ServerPlayerEntity player, boolean vacuous) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeInt(player.getId());
         buf.writeItemStack(getItem());
+        buf.writeBoolean(vacuous);
         return buf;
     }
 
@@ -123,12 +124,12 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         cooldown = 6000 / getCore().type.modifier;
         player.setHealth(armorPieces * 0.25f * player.getMaxHealth());
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, 5));
-        PacketByteBuf buf = getActivationPacket(player);
+        EncasedCore.Type coreType = getCore().type;
+        PacketByteBuf buf = getActivationPacket(player, coreType == EncasedCore.Type.VACUOUS);
         sendActivationNearby(player, buf);
         player.playSound(SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 0.75f);
         if (world != null) {
             world.playSound(player, player.getBlockPos(), SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 0.75f);
-            EncasedCore.Type coreType = getCore().type;
             int killed = 0;
             boolean interdimensional = false;
             if (coreType == EncasedCore.Type.VACUOUS) {
