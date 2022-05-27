@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "MIM",
+    " I "
+  ],
+  "key": {
+    "T": {
+      "item": "minecraft:totem_of_undying"
+    },
+    "M": {
+      "item": "purpeille:ancient_mechanical_bricks"
+    },
+    "I": {
+      "item": "purpeille:purpeille_ingot"
+    }
+  },
+  "result": {
+    "item": "purpeille:ancient_guardian",
+    "count": 1
+  }
+}
