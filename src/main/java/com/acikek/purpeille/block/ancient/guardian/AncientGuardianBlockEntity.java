@@ -140,7 +140,6 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
             BlockState newState = getCachedState().with(AncientGuardian.ON_COOLDOWN, true);
             if (damageCore(256, world.random)) {
                 newState = newState.with(AncientMachine.FULL, false);
-                pendingRemoval = true;
                 if (world instanceof ServerWorld serverWorld) {
                     serverWorld.getChunkManager().markForUpdate(pos);
                 }
@@ -159,6 +158,12 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
             serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), pos, 0.0f, false, false);
             playSound(SoundEvents.ITEM_FIRECHARGE_USE, 0.5f);
         }
+    }
+
+    @Override
+    public void removeItem() {
+        super.removeItem();
+        pendingRemoval = true;
     }
 
     @Override

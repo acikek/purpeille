@@ -92,6 +92,9 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
 
     @Override
     public boolean canPlayerUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, AncientGuardianBlockEntity blockEntity) {
+        if (blockEntity.pendingRemoval) {
+            return false;
+        }
         if (blockEntity.isPlayerTethered(player)) {
             return true;
         }
