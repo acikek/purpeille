@@ -67,7 +67,7 @@ public class WarpathCommand {
     }
 
     public static ItemStack getStack(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        LivingEntity entity = (LivingEntity) EntityArgumentType.getEntity(context, "targets");
+        LivingEntity entity = (LivingEntity) EntityArgumentType.getEntity(context, "target");
         ItemStack stack = entity.getMainHandStack();
         if (stack.isEmpty()) {
             throw INVALID_STACK.create(entity.getName().getString());
@@ -92,7 +92,7 @@ public class WarpathCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal(NAME)
-                .then(CommandManager.argument("targets", EntityArgumentType.entities())
+                .then(CommandManager.argument("target", EntityArgumentType.entity())
                         .then(CommandManager.literal("add")
                                 .then(CommandManager.argument("revelation", IdentifierArgumentType.identifier())
                                         .suggests((context, builder) -> suggestRegistry(Component.REVELATIONS, builder))
