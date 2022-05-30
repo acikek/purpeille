@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:crafting",
-      "recipe": "purpeille:ancient_oven",
+      "recipe": "purpeille:blocks/ancient_oven",
       "text": "In their journey towards mechanization, the Ancients' first step was isolating Void Tension and focusing it on a certain item. This process is called $(bold)Void Focusing$(), and our recreation of their invention is the $(item)Ancient Oven$()."
     },
     {

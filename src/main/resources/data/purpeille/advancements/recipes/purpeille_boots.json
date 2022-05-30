@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:purpeille_boots"
+      "purpeille:gear/purpeille_boots"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:purpeille_boots"
+        "recipe": "purpeille:gear/purpeille_boots"
       }
     }
   },

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:ancient_gateway"
+      "purpeille:blocks/ancient_gateway"
     ]
   },
   "criteria": {
@@ -69,7 +69,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:ancient_gateway"
+        "recipe": "purpeille:blocks/ancient_gateway"
       }
     }
   },

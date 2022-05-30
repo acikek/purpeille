@@ -20,7 +20,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "purpeille:energetic_core"
+      "recipe": "purpeille:items/energetic_core"
     },
     {
       "type": "patchouli:spotlight",
@@ -30,7 +30,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "purpeille:overclocked_core"
+      "recipe": "purpeille:items/overclocked_core"
     },
     {
       "type": "patchouli:spotlight",

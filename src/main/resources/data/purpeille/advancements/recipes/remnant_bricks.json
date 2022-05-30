@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:remnant_bricks"
+      "purpeille:blocks/remnant_bricks"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:remnant_bricks"
+        "recipe": "purpeille:blocks/remnant_bricks"
       }
     }
   },

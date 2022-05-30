@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:purpeille_pickaxe"
+      "purpeille:gear/purpeille_pickaxe"
     ]
   },
   "criteria": {
@@ -33,7 +33,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:purpeille_pickaxe"
+        "recipe": "purpeille:gear/purpeille_pickaxe"
       }
     }
   },

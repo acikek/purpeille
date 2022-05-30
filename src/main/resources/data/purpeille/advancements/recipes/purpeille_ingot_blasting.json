@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:purpeille_ingot_blasting"
+      "purpeille:items/purpeille_ingot_blasting"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:purpeille_ingot_blasting"
+        "recipe": "purpeille:items/purpeille_ingot_blasting"
       }
     }
   },

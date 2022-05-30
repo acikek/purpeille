@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:monolithic_purpur"
+      "purpeille:blocks/monolithic_purpur"
     ]
   },
   "criteria": {
@@ -33,7 +33,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:monolithic_purpur"
+        "recipe": "purpeille:blocks/monolithic_purpur"
       }
     }
   },

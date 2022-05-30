@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:purpeille_chestplate"
+      "purpeille:gear/purpeille_chestplate"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:purpeille_chestplate"
+        "recipe": "purpeille:gear/purpeille_chestplate"
       }
     }
   },

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:ancient_oven"
+      "purpeille:blocks/ancient_oven"
     ]
   },
   "criteria": {
@@ -45,7 +45,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:ancient_oven"
+        "recipe": "purpeille:blocks/ancient_oven"
       }
     }
   },

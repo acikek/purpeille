@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:purpeille_shovel"
+      "purpeille:gear/purpeille_shovel"
     ]
   },
   "criteria": {
@@ -33,7 +33,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:purpeille_shovel"
+        "recipe": "purpeille:gear/purpeille_shovel"
       }
     }
   },

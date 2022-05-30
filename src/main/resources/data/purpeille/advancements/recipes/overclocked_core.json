@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:overclocked_core"
+      "purpeille:items/overclocked_core"
     ]
   },
   "criteria": {
@@ -57,7 +57,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:overclocked_core"
+        "recipe": "purpeille:items/overclocked_core"
       }
     }
   },

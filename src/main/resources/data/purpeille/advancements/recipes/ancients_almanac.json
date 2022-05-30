@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:ancients_almanac"
+      "purpeille:items/ancients_almanac"
     ]
   },
   "criteria": {
@@ -33,7 +33,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:ancients_almanac"
+        "recipe": "purpeille:items/ancients_almanac"
       }
     }
   },

@@ -2,8 +2,8 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "purpeille:purpeille_ingot",
-      "purpeille:purpeille_block"
+      "purpeille:items/purpeille_ingot",
+      "purpeille:blocks/purpeille_block"
     ]
   },
   "criteria": {
@@ -22,7 +22,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "purpeille:purpeille_ingot"
+        "recipe": "purpeille:items/purpeille_ingot"
       }
     }
   },

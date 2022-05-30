@@ -1,0 +1,19 @@
+{
+  "name": "Ancient Guardian",
+  "icon": "purpeille:ancient_guardian",
+  "category": "purpeille:machinery",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "purpeille:blocks/ancient_guardian",
+      "text": "The $(bold)Ancient Guardian$() is a machine soul-bound to its user that saves them from death. Doing so requires a great amount of energy and so it must recharge afterwards."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "While technically a block, the Guardian takes on a shape of half the size of a normal person. It can face in all four cardinal directions; notice that its eye dictates where it faces.$(br2)"
+    }
+  ],
+  "advancement": "purpeille:purpeille/encased_core",
+  "turnin": "purpeille:purpeille/ancient_guardian",
+  "sortnum": 3
+}

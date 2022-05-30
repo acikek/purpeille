@@ -5,8 +5,8 @@
   "pages": [
     {
       "type": "patchouli:crafting",
-      "recipe": "purpeille:ancient_gateway",
-      "text": "The $(bold)Ancient Gateway$() is a time-dependent and configurable teleportation device that the Ancients used to travel across important outposts."
+      "recipe": "purpeille:blocks/ancient_gateway",
+      "text": "The $(bold)Ancient Gateway$() is a time-dependent and configurable teleportation device that the Ancients used to travel between important outposts."
     },
     {
       "type": "patchouli:text",

@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:smelting",
-      "recipe": "purpeille:purpeille_ingot_smelting",
+      "recipe": "purpeille:items/purpeille_ingot_smelting",
       "text": "Given that dust of this calibre was probably not meant to undergo this process, expect smelting it to take quite awhile. Use a $(item)Blast Furnace$() for the quickest results."
     },
     {
@@ -18,7 +18,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "purpeille:purpeille_boots",
+      "recipe": "purpeille:gear/purpeille_boots",
       "text": "Unlike most footwear, Purpeille provides the most durable sandals. Conventional boot designs were either too heavy or brittle. This shaves two ingots off the crafting recipe."
     },
     {
