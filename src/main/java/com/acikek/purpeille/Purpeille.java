@@ -7,6 +7,7 @@ import com.acikek.purpeille.block.PurpurRemnants;
 import com.acikek.purpeille.block.ancient.ModBlockEntities;
 import com.acikek.purpeille.command.VacuousBlastCommand;
 import com.acikek.purpeille.command.WarpathCommand;
+import com.acikek.purpeille.effect.ModStatusEffects;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathCreateRecipe;
@@ -44,6 +45,7 @@ public class Purpeille implements ModInitializer {
         ModBlockEntities.register();
         ModItems.register();
         ModAttributes.register();
+        ModStatusEffects.register();
         ModCriteria.register();
         ModSoundEvents.register();
         WarpathCreateRecipe.register();

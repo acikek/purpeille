@@ -108,6 +108,7 @@
   "advancements.purpeille.ancient_gateway_far.title": "Void Leaper",
   "advancements.purpeille.ancient_gateway_far.description": "Travel 10,000 blocks with an Ancient Gateway",
   "death.attack.guardianWrath": "%s felt the wrath of %s's Ancient Guardian",
+  "effect.purpeille.void_immunity": "Void Immunity",
   "command.purpeille.warpath.invalid.revelation": "Invalid Revelation: '%s'",
   "command.purpeille.warpath.invalid.aspect": "Invalid Aspect: '%s'",
   "command.purpeille.warpath.invalid.stack": "%s is not holding an item",
@@ -121,5 +122,6 @@
   "tooltip.purpeille.creative_core": "Core modifier: ",
   "rei.purpeille.ancient_oven": "Void Focusing",
   "rei.purpeille.ancient_oven.damage": "%d Damage",
-  "patchouli.purpeille.ancients_almanac.landing_text": "Welcome to the $(italic)Ancient's Almanac$(), the ultimate compendium of the secrets of the past!"
+  "patchouli.purpeille.ancients_almanac.landing_text": "Welcome to the $(italic)Ancient's Almanac$(), the ultimate compendium of the secrets of the past!",
+  "purpeille.necklace.augment.void": "Void Necklace"
 }

@@ -2,6 +2,7 @@ package com.acikek.purpeille.mixin;
 
 import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.block.ancient.guardian.AncientGuardianBlockEntity;
+import com.acikek.purpeille.effect.ModStatusEffects;
 import com.acikek.purpeille.tag.ModTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -10,6 +11,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
@@ -29,6 +31,8 @@ public abstract class LivingEntityMixin {
     @Shadow @Nullable public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
 
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
+    @Shadow public abstract @Nullable StatusEffectInstance getStatusEffect(StatusEffect effect);
 
     @Inject(method = "createLivingAttributes", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
     private static void addCustomAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
@@ -91,6 +95,13 @@ public abstract class LivingEntityMixin {
                 blockEntity.activate(playerEntity, armorPieces);
                 cir.setReturnValue(true);
             }
+        }
+    }
+
+    @Inject(method = "damage", cancellable = true, at = @At("HEAD"))
+    private void applyVoidImmunity(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (source == DamageSource.OUT_OF_WORLD && getStatusEffect(ModStatusEffects.VOID_IMMUNITY) != null) {
+            cir.setReturnValue(false);
         }
     }
 }

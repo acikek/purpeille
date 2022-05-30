@@ -1,0 +1,29 @@
+{
+  "type": "refmagic:altar",
+  "inputs": [
+    {
+      "item": "refmagic:necklace"
+    },
+    {
+      "item": "purpeille:smoldered_purpeille_ingot"
+    },
+    {
+      "item": "purpeille:preserved_dust"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    }
+  ],
+  "result": {
+    "item": "refmagic:necklace"
+  },
+  "augment": "purpeille:void",
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "refmagic"
+      ]
+    }
+  ]
+}
