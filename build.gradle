@@ -41,7 +41,8 @@ dependencies {
 
     // Patchouli
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}", {
-        exclude(group: "net.fabricmc.fabric-api")
+		exclude(group: "net.fabricmc")
+		exclude(group: "net.fabricmc.fabric-api")
     }
 }
 
