@@ -10,7 +10,36 @@
     },
     {
       "type": "patchouli:text",
-      "text": "While technically a block, the Guardian takes on a shape of half the size of a normal person. It can face in all four cardinal directions; notice that its eye dictates where it faces.$(br2)"
+      "text": "While technically a block, the Guardian takes on a shape of half the size of a normal person. It can face in all four cardinal directions; notice that its eye dictates where it faces.$(br2)To activate the guardian, place an Encased Core inside of it. Primarily, this sets your spawn-point to the Guardian's location; even if you de-activate it, you will be reanimated around here."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If you keep the Guardian activated, a mechanism will trigger upon your death. The Guardian establishes a connection to your soul when you place a core inside, and it can successfully detect when your vitality drains fully... upon which it sends the core to revive you. This is the extent of our knowledge, as it is still unclear how the signal is sent, although we know it uses the Void to bridge the connection interdimensionally."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "However, for this 'signal' to be captured, you need to have some amount of Purpeille armor equipped. The material acts as a conductive base for the signal to reach and transfer to your body.$(br2)Any amount of armor will suffice, but the health regained after death is determined by the number of pieces equipped, each piece counting towards maximum health equally; in other words, each piece is a fourth of your maximum health."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This process damages a base Core by a fourth of its total, but this amount is split in half for every increasing tier. If a core breaks after use, the machine will deactivate, in which case you will need to refill it, but your spawn-point remains.$(br2)Additionally, upon use, the Guardian enters a $(italic)charging state$(). The machine takes five minutes to regain its strength, and during this time, you are left vulnerable to death."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "purpeille:textures/gui/entries/guardian.png"
+      ],
+      "title": "Charging State",
+      "border": true,
+      "text": "You can determine the charging state from its distinct purple emissions."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If any attempt is made to break the Guardian in its charging state, the machine will explode violently and destroy most blocks within a short distance. Despite the destructive force, the Core within remains intact."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If a $(item)Vacuous Core$() is used within the machine, two unique effects occur upon death. First, the core ejects a $(bold)Vacuous Blast$() from your location, dealing a massive amount of damage and afflicting blindness upon all creatures in a 10-block radius. Afterwards, you are immediately recalled to the Guardian, regardless of previous location or dimension.$(br2)Be aware that the Vacuous Core can only withstand two uses in this machine."
     }
   ],
   "advancement": "purpeille:purpeille/encased_core",
