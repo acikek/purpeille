@@ -1,6 +1,5 @@
 package com.acikek.purpeille.warpath;
 
-import com.acikek.purpeille.warpath.component.Aspect;
 import com.google.gson.JsonElement;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.JsonHelper;

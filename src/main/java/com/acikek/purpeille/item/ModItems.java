@@ -5,11 +5,11 @@ import com.acikek.purpeille.item.core.CreativeCore;
 import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.item.material.PurpeilleArmorMaterial;
 import com.acikek.purpeille.item.material.PurpeilleToolMaterial;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
+import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -49,8 +49,8 @@ public class ModItems {
     // Handbook
     public static final Item ANCIENTS_ALMANAC = new AncientsAlmanac(defaultSettings().rarity(Rarity.UNCOMMON).maxCount(1));
 
-    public static FabricItemSettings defaultSettings() {
-        return new FabricItemSettings().group(Purpeille.ITEM_GROUP);
+    public static QuiltItemSettings defaultSettings() {
+        return new QuiltItemSettings().group(Purpeille.ITEM_GROUP);
     }
 
     public static Map<String, Item> ITEMS = new LinkedHashMap<>();

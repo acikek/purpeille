@@ -1,0 +1,52 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "com.acikek",
+		"id": "purpeille",
+		"version": "${version}",
+		"metadata": {
+			"name": "Purpeille",
+			"description": "Endgame resource expansion; ancient technology; a journey of allegiance",
+			"contributors": {
+				"acikek": "Owner",
+				"VirtuaLilith": "Artist",
+				"Trudle": "Artist",
+				"Jeb_Kerm": "Modeler, Theorycrafter"
+			},
+			"contact": {
+				"homepage": "https://modrinth.com/mod/purpeille",
+				"issues": "https://github.com/acikek/purpeille/issues",
+				"sources": "https://github.com/acikek/purpeille"
+			},
+			"icon": "assets/purpeille/icon.png"
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"init": "com.acikek.purpeille.Purpeille",
+			"client_init": "com.acikek.purpeille.client.PurpeilleClient"
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.16.0-"
+			},
+			{
+				"id": "quilted_fabric_api",
+				"versions": ">=1.0.0-"
+			},
+			{
+				"id": "minecraft",
+				"versions": ">=1.18.2"
+			},
+			{
+				"id": "voidcrafting",
+				"versions": ">=1.4.0"
+			},
+			{
+				"id": "cmods",
+				"versions": ">=1.1.0"
+			}
+		]
+	},
+	"mixin": "purpeille.mixins.json"
+}

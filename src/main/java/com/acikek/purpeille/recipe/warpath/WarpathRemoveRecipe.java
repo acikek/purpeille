@@ -1,7 +1,6 @@
 package com.acikek.purpeille.recipe.warpath;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.warpath.Type;
 import com.acikek.purpeille.warpath.Warpath;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;

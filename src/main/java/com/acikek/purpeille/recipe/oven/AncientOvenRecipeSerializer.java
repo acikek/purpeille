@@ -4,13 +4,13 @@ import com.google.gson.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
+import org.quiltmc.qsl.recipe.api.serializer.QuiltRecipeSerializer;
 
-public class AncientOvenRecipeSerializer implements RecipeSerializer<AncientOvenRecipe> {
+public class AncientOvenRecipeSerializer implements QuiltRecipeSerializer<AncientOvenRecipe> {
 
-    public static class JsonFormat {
+	public static class JsonFormat {
         JsonObject input;
         int damage;
         int cook_time;
@@ -39,6 +39,11 @@ public class AncientOvenRecipeSerializer implements RecipeSerializer<AncientOven
         }
         return new AncientOvenRecipe(input, recipe.damage, recipe.cook_time, result, id);
     }
+
+	@Override
+	public JsonObject toJson(AncientOvenRecipe recipe) {
+		return null;
+	}
 
     @Override
     public AncientOvenRecipe read(Identifier id, PacketByteBuf buf) {

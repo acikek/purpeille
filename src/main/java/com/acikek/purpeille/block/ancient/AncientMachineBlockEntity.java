@@ -200,12 +200,12 @@ public class AncientMachineBlockEntity extends BlockEntity implements Implemente
     @Nullable
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+        return BlockEntityUpdateS2CPacket.of(this);
     }
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+        return toNbt();
     }
 
     public static <T extends BlockEntity> BlockEntityType<T> build(String id, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {

@@ -1,12 +1,5 @@
 package com.acikek.purpeille.warpath;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-
 public enum Tone {
 
     STRENGTH(0),

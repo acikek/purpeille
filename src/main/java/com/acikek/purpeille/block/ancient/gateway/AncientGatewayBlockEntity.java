@@ -80,7 +80,7 @@ public class AncientGatewayBlockEntity extends CorePoweredAncientMachineBlockEnt
 
     public Vec3d getDestination(World world, PlayerEntity player, BlockState state, int blocks) {
         BlockPos pos = getDestinationPos(player, state, blocks);
-        return Vec3d.ofCenter(world.getWorldBorder().clamp(pos.getX(), pos.getY(), pos.getZ()));
+        return Vec3d.ofCenter(world.getWorldBorder().method_39538(pos.getX(), pos.getY(), pos.getZ()));
     }
 
     public BlockState damageCore(World world, BlockState state, int blocks) {

@@ -10,19 +10,20 @@ import com.acikek.purpeille.client.render.AncientGuardianRenderer;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
+import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.loader.api.QuiltLoader;
+import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import org.quiltmc.qsl.lifecycle.api.client.event.ClientWorldTickEvents;
+import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
+import org.quiltmc.qsl.resource.loader.api.ResourceLoader;
+import org.quiltmc.qsl.resource.loader.api.ResourcePackActivationType;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -33,12 +34,12 @@ public class PurpeilleClient implements ClientModInitializer {
     public static final ModelIdentifier MODEL = new ModelIdentifier("purpeille:ancient_guardian_in_hand#inventory");
 
     @Override
-    public void onInitializeClient() {
+    public void onInitializeClient(ModContainer mod) {
         ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(MODEL));
         AncientGuardianRenderer.register();
         ModParticleTypes.register();
         AncientGuardianParticle.register();
-        ClientTickEvents.START_WORLD_TICK.register(world -> AncientGuardianRenderer.tick());
+        ClientWorldTickEvents.START.register((client, world) -> AncientGuardianRenderer.tick());
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.VACUOUS_BLAST, new VacuousBlastListener());
         registerPacks();
@@ -46,16 +47,15 @@ public class PurpeilleClient implements ClientModInitializer {
         handleReload("aspects", Component.ASPECTS, Aspect::read);
     }
 
-    public static void registerPack(ModContainer mod, String key, String name, ResourcePackActivationType type) {
-        ResourceManagerHelper.registerBuiltinResourcePack(Purpeille.id(key), mod, name, type);
+    public static void registerPack(ModContainer mod, String key, ResourcePackActivationType type) {
+        ResourceLoader.registerBuiltinResourcePack(Purpeille.id(key), mod, type, new TranslatableText("pack.purpeille." + key));
     }
 
     public static void registerPacks() {
-        FabricLoader.getInstance()
-                .getModContainer(Purpeille.ID)
+        QuiltLoader.getModContainer(Purpeille.ID)
                 .ifPresent(mod -> {
-                    registerPack(mod, "old", "Purpeille Legacy", ResourcePackActivationType.NORMAL);
-                    registerPack(mod, "theinar", "Theinar Language", ResourcePackActivationType.ALWAYS_ENABLED);
+                    registerPack(mod, "old", ResourcePackActivationType.NORMAL);
+                    registerPack(mod, "theinar", ResourcePackActivationType.ALWAYS_ENABLED);
                 });
     }
 

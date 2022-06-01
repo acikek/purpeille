@@ -15,20 +15,21 @@ import com.acikek.purpeille.recipe.warpath.WarpathRemoveRecipe;
 import com.acikek.purpeille.sound.ModSoundEvents;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import com.acikek.purpeille.world.reload.ReloadHandler;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
+import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
 
 public class Purpeille implements ModInitializer {
 
     public static final String ID = "purpeille";
 
-    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(id("main"))
+    public static final ItemGroup ITEM_GROUP = QuiltItemGroup.builder(id("main"))
             .icon(() -> new ItemStack(ModItems.PURPEILLE_INGOT))
             .build();
 
@@ -39,7 +40,7 @@ public class Purpeille implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger(ID);
 
     @Override
-    public void onInitialize() {
+    public void onInitialize(ModContainer mod) {
         LOGGER.info("Purpeille: Harness the Void!");
         ModBlocks.register();
         ModBlockEntities.register();
