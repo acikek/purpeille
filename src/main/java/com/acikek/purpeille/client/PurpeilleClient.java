@@ -46,16 +46,16 @@ public class PurpeilleClient implements ClientModInitializer {
         handleReload("aspects", Component.ASPECTS, Aspect::read);
     }
 
-    public static void registerPack(ModContainer mod, String key, ResourcePackActivationType type) {
-        ResourceManagerHelper.registerBuiltinResourcePack(Purpeille.id(key), mod, type);
+    public static void registerPack(ModContainer mod, String key, String name, ResourcePackActivationType type) {
+        ResourceManagerHelper.registerBuiltinResourcePack(Purpeille.id(key), mod, name, type);
     }
 
     public static void registerPacks() {
         FabricLoader.getInstance()
                 .getModContainer(Purpeille.ID)
                 .ifPresent(mod -> {
-                    registerPack(mod, "old", ResourcePackActivationType.NORMAL);
-                    registerPack(mod, "theinar", ResourcePackActivationType.ALWAYS_ENABLED);
+                    registerPack(mod, "old", "Purpeille Legacy", ResourcePackActivationType.NORMAL);
+                    registerPack(mod, "theinar", "Theinar Language", ResourcePackActivationType.ALWAYS_ENABLED);
                 });
     }
 
