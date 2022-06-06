@@ -4,10 +4,8 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Rarity;
@@ -53,7 +51,7 @@ public class CreativeCore extends EncasedCore {
             NbtCompound nbt = handStack.getOrCreateNbt();
             int modifier = getNextModifier(nbt);
             nbt.putInt(MODIFIER_KEY, modifier);
-            user.sendMessage(new TranslatableText("use.purpeille.creative_core", modifier), false);
+            user.sendMessage(Text.translatable("use.purpeille.creative_core", modifier), false);
         }
         return TypedActionResult.pass(handStack);
     }
@@ -62,9 +60,9 @@ public class CreativeCore extends EncasedCore {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         int modifier = getNbtModifier(stack.getOrCreateNbt());
         Formatting formatting = Rarity.values()[MathHelper.clamp(modifier, 1, 4) - 1].formatting;
-        MutableText text = new TranslatableText("tooltip.purpeille.creative_core")
+        MutableText text = Text.translatable("tooltip.purpeille.creative_core")
                 .formatted(Formatting.GRAY)
-                .append(new LiteralText(String.valueOf(modifier)).formatted(formatting));
+                .append(Text.literal(String.valueOf(modifier)).formatted(formatting));
         tooltip.add(text);
         super.appendTooltip(stack, world, tooltip, context);
     }

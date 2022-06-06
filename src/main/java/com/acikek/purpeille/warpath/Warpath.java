@@ -11,7 +11,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
@@ -22,7 +21,7 @@ import java.util.List;
 public class Warpath {
 
     public static final String NBT_KEY = "WarpathData";
-    public static final MutableText SEPARATOR = new TranslatableText("separator.purpeille.warpath");
+    public static final MutableText SEPARATOR = Text.translatable("separator.purpeille.warpath");
     public static final ClampedColor SEPARATOR_COLOR = new ClampedColor(Formatting.GRAY);
 
     /**

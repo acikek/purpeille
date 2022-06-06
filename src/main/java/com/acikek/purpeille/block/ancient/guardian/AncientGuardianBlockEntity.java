@@ -28,7 +28,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -40,7 +40,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
 
     public static BlockEntityType<AncientGuardianBlockEntity> BLOCK_ENTITY_TYPE;
 
-    public static MutableText VOID_TETHER_RESTORED = new TranslatableText("message.purpeille.ancient_guardian.void_tether_restored")
+    public static MutableText VOID_TETHER_RESTORED = Text.translatable("message.purpeille.ancient_guardian.void_tether_restored")
             .formatted(Formatting.GRAY, Formatting.ITALIC);
 
     public UUID tetheredPlayer;

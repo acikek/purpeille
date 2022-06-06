@@ -17,7 +17,7 @@ import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -53,7 +53,7 @@ public class Purpeille implements ModInitializer {
         AncientOvenRecipe.register();
         EndCityProximityPlacementModifier.register();
         PurpurRemnants.build();
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             VacuousBlastCommand.register(dispatcher);
             WarpathCommand.register(dispatcher);
         });

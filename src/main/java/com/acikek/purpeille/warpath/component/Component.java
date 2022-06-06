@@ -10,7 +10,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 
@@ -49,7 +49,7 @@ public abstract class Component {
         this.whitelist = whitelist;
         relativeIndex = tone.index * 3 + index;
         waveColor = new ClampedColor(color);
-        baseText = new TranslatableText(getIdKey(getType().translationKey, id));
+        baseText = Text.translatable(getIdKey(getType().translationKey, id));
         defaultText = baseText.styled(style -> style.withColor(color));
     }
 
@@ -66,7 +66,7 @@ public abstract class Component {
     public MutableText getText(int wave, Style style) {
         if (style == null) {
             if (wave == Integer.MIN_VALUE) {
-                return defaultText.shallowCopy();
+                return defaultText.copy();
             }
             return getText(getStyle(wave));
         }

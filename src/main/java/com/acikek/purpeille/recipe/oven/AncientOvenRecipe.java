@@ -5,10 +5,9 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public record AncientOvenRecipe(Ingredient input, int damage, int cookTime,
                                 ItemStack[] result, Identifier id) implements Recipe<SimpleInventory> {
@@ -36,7 +35,7 @@ public record AncientOvenRecipe(Ingredient input, int damage, int cookTime,
 
     @Override
     public ItemStack getOutput() {
-        return getOutput(new Random());
+        return getOutput(Random.create());
     }
 
     @Override

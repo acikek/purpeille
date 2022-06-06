@@ -20,15 +20,14 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class AncientMachineBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory {
 
@@ -111,7 +110,7 @@ public class AncientMachineBlockEntity extends BlockEntity implements Implemente
         if (player.isSneaking() && player.getStackInHand(hand).isEmpty()) {
             EncasedCore core = getCore();
             if (core != null) {
-                MutableText text = new TranslatableText(core.getTranslationKey()).formatted(core.type.rarity.formatting);
+                MutableText text = Text.translatable(core.getTranslationKey()).formatted(core.type.rarity.formatting);
                 if (core.type != EncasedCore.Type.CREATIVE) {
                     text.append(" ").append(core.getDurabilityText(getItem()));
                 }

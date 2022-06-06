@@ -11,7 +11,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
@@ -39,7 +39,7 @@ public class Revelation extends Component {
         this.synergy = synergy;
         operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
         this.forceInt = forceInt;
-        rite = new TranslatableText(getIdKey("rite", id)).styled(style -> style.withColor(RITE_RGB));
+        rite = Text.translatable(getIdKey("rite", id)).styled(style -> style.withColor(RITE_RGB));
     }
 
     public Revelation(Aspect aspect, EntityAttribute attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, boolean multiply, boolean forceInt) {

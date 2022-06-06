@@ -25,13 +25,14 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -42,7 +43,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBlockEntity> implements Waterloggable {
 
@@ -55,7 +55,7 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     public static BooleanProperty ON_COOLDOWN = BooleanProperty.of("on_cooldown");
     public static BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    public static final MutableText HAS_TETHERED_PLAYER = new TranslatableText("use.purpeille.ancient_guardian.has_tethered_player");
+    public static final MutableText HAS_TETHERED_PLAYER = Text.translatable("use.purpeille.ancient_guardian.has_tethered_player");
 
     public static final VoxelShape HEAD_SHAPE = VoxelShapes.cuboid(0.375f, 0.75f, 0.375f, 0.625f, 1.0f, 0.625f);
 
@@ -123,9 +123,9 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
         if (full || cooldown) {
             Vec3f center = new Vec3f(Vec3d.ofCenter(pos));
             boolean isZ = isZ(state.get(FACING));
-            float x = center.getX() + random.nextFloat(-1, 1) * (isZ ? 0.3f : 0.1f);
-            float y = center.getY() + random.nextFloat(-1, 1) * 0.15f;
-            float z = center.getZ() + random.nextFloat(-1, 1) * (isZ ? 0.1f : 0.3f);
+            float x = center.getX() + ((random.nextFloat() * 2) - 1) * (isZ ? 0.3f : 0.1f);
+            float y = center.getY() + ((random.nextFloat() * 2) - 1) * 0.15f;
+            float z = center.getZ() + ((random.nextFloat() * 2) - 1) * (isZ ? 0.1f : 0.3f);
             DefaultParticleType particle = cooldown ? ParticleTypes.REVERSE_PORTAL : ParticleTypes.SMALL_FLAME;
             world.addParticle(particle, x, y, z, 0.0, 0.01, 0.0);
             if (!cooldown || random.nextFloat() > 0.9f) {

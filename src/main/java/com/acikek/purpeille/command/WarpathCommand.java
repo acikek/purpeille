@@ -20,7 +20,6 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -76,7 +75,7 @@ public class WarpathCommand {
     }
 
     public static MutableText getMessage(String key, Object value) {
-        return new TranslatableText("command.purpeille.warpath." + key, value);
+        return Text.translatable("command.purpeille.warpath." + key, value);
     }
 
     public static DynamicCommandExceptionType getException(String key) {

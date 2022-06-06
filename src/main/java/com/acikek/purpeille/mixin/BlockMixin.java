@@ -24,7 +24,7 @@ public abstract class BlockMixin {
     @Shadow protected abstract void dropExperience(ServerWorld world, BlockPos pos, int size);
 
     @Inject(method = "onBreak", locals = LocalCapture.CAPTURE_FAILHARD,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;emitGameEvent(Lnet/minecraft/entity/Entity;Lnet/minecraft/world/event/GameEvent;Lnet/minecraft/util/math/BlockPos;)V"))
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;emitGameEvent(Lnet/minecraft/world/event/GameEvent;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/event/GameEvent$Emitter;)V"))
     private void applyMiningExperience(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
         if (!world.isClient()
                 && state.isIn(ModTags.MINING_EXPERIENCE)
