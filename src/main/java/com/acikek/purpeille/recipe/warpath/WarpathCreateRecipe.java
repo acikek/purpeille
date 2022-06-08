@@ -36,11 +36,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
                 return null;
             }
             for (T component : registry.values()) {
-                int compIndex = component.relativeIndex;
-                if (component instanceof Aspect) {
-                    compIndex = 8 - compIndex;
-                }
-                if ((component.ignoreSlot || compIndex == index) && component.catalyst.test(stack)) {
+                if ((component.ignoreSlot || component.getFixedIndex() == index) && component.catalyst.test(stack)) {
                     return component;
                 }
             }

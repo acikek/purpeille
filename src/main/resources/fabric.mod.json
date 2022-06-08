@@ -26,8 +26,8 @@
     "client": [
       "com.acikek.purpeille.client.PurpeilleClient"
     ],
-    "rei": [
-      "com.acikek.purpeille.compat.rei.PurpeilleREIPlugin"
+    "emi": [
+      "com.acikek.purpeille.compat.emi.PurpeillePlugin"
     ]
   },
   "mixins": [
