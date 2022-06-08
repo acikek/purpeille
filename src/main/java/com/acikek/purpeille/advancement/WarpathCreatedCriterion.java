@@ -65,8 +65,12 @@ public class WarpathCreatedCriterion extends AbstractCriterion<WarpathCreatedCri
         public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
             JsonObject obj = super.toJson(predicateSerializer);
             obj.add("item", item.toJson());
-            obj.add("revelation", new JsonPrimitive(revelation.toString()));
-            obj.add("aspect", new JsonPrimitive(aspect.toString()));
+			if (revelation != null) {
+				obj.add("revelation", new JsonPrimitive(revelation.toString()));
+			}
+            if (aspect != null) {
+				obj.add("aspect", new JsonPrimitive(aspect.toString()));
+			}
             obj.add("synergy", synergy.toJson());
             return obj;
         }
