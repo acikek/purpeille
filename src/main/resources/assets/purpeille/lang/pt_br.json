@@ -111,9 +111,15 @@
   "command.purpeille.warpath.invalid.stack": "%s não está segurando um item",
   "command.purpeille.warpath.success.add": "Ritual adicionado com sucesso [%s]",
   "command.purpeille.warpath.success.remove": "Ritual removido com sucesso [%s]",
+  "tag.purpeille.mining_experience": "Blocos de experiência de mineração",
+  "tag.purpeille.aspect_catalyst": "Catalisadores de aspecto",
+  "tag.purpeille.revelation_catalyst": "Catalisadores de revelação",
+  "tag.purpeille.warpath_base": "Objetos básicos do ritual",
   "subtitle.purpeille.ancient_gateway.teleport": "Portão ancião teletransportando alguém",
   "use.purpeille.creative_core": "Mudado o modificador do núcleo às %d",
   "tooltip.purpeille.creative_core": "Modificador do núcleo: ",
-  "rei.purpeille.ancient_oven": "Concentrando Vazio",
-  "rei.purpeille.ancient_oven.damage": "%d Dano"
+  "emi.category.purpeille.ancient_oven": "Concentrando Vazio",
+  "emi.purpeille.ancient_oven.damage": "%d Dano",
+  "emi.purpeille.ancient_oven.chance": "%d%% de probilidade"
+}
 }

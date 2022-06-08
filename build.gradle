@@ -19,6 +19,11 @@ repositories {
     }
 
 	maven { url 'https://maven.blamejared.com' }
+
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
 }
 
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
@@ -44,6 +49,12 @@ dependencies {
 		exclude(group: "net.fabricmc")
 		exclude(group: "net.fabricmc.fabric-api")
     }
+
+	// EMI
+	modImplementation "dev.emi:emi:${project.emi_version}", {
+		exclude(group: "net.fabricmc")
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 }
 
 processResources {

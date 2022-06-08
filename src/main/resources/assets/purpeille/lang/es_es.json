@@ -111,9 +111,14 @@
   "command.purpeille.warpath.invalid.stack": "%s no está cogiendo un item",
   "command.purpeille.warpath.success.add": "Agregado el ritual con éxito [%s]",
   "command.purpeille.warpath.success.remove": "Eliminado el ritual con éxito [%s]",
+  "tag.purpeille.mining_experience": "Bloques de experiencia de extracción",
+  "tag.purpeille.aspect_catalyst": "Catalizadores de aspecto",
+  "tag.purpeille.revelation_catalyst": "Catalizadores de revelación",
+  "tag.purpeille.warpath_base": "Objetos básicos del ritual",
   "subtitle.purpeille.ancient_gateway.teleport": "Enlace antiguo teletransporta a alguien",
   "use.purpeille.creative_core": "Cambiado el modificador del corazón a %d",
   "tooltip.purpeille.creative_core": "Modificador del corazón: ",
-  "rei.purpeille.ancient_oven": "Enfoque del Vacío",
-  "rei.purpeille.ancient_oven.damage": "%d Daño"
+  "emi.category.purpeille.ancient_oven": "Enfoque del Vacío",
+  "emi.purpeille.ancient_oven.damage": "%d Daño",
+  "emi.purpeille.ancient_oven.chance": "%d%% de probilidad"
 }

@@ -114,6 +114,10 @@
   "command.purpeille.warpath.invalid.stack": "%s is not holding an item",
   "command.purpeille.warpath.success.add": "Successfully added warpath [%s]",
   "command.purpeille.warpath.success.remove": "Successfully removed warpath [%s]",
+  "tag.purpeille.mining_experience": "Mining Experience Blocks",
+  "tag.purpeille.aspect_catalyst": "Aspect Catalysts",
+  "tag.purpeille.revelation_catalyst": "Revelation Catalysts",
+  "tag.purpeille.warpath_base": "Warpath Base Items",
   "subtitle.purpeille.ancient_gateway.teleport": "Ancient Gateway Teleports",
   "use.purpeille.creative_core": "Set core modifier to %d",
   "use.purpeille.ancient_guardian.has_tethered_player": "Guardian already has a tethered player",
@@ -122,8 +126,9 @@
   "tooltip.purpeille.creative_core": "Core modifier: ",
   "pack.purpeille.old": "Purpeille Legacy",
   "pack.purpeille.theinar": "Theinar Language",
-  "rei.purpeille.ancient_oven": "Void Focusing",
-  "rei.purpeille.ancient_oven.damage": "%d Damage",
+  "emi.category.purpeille.ancient_oven": "Void Focusing",
+  "emi.purpeille.ancient_oven.damage": "%d Damage",
+  "emi.purpeille.ancient_oven.chance": "%d%% Chance",
   "patchouli.purpeille.ancients_almanac.landing_text": "Welcome to the $(italic)Ancient's Almanac$(), the ultimate compendium of the secrets of the past!",
   "purpeille.necklace.augment.void": "Void Necklace"
 }

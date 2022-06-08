@@ -23,7 +23,8 @@
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
 			"init": "com.acikek.purpeille.Purpeille",
-			"client_init": "com.acikek.purpeille.client.PurpeilleClient"
+			"client_init": "com.acikek.purpeille.client.PurpeilleClient",
+			"emi": "com.acikek.purpeille.compat.emi.PurpeillePlugin"
 		},
 		"depends": [
 			{
