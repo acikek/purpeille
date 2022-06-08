@@ -32,15 +32,15 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         }
 
         public T getComponent(Map<Identifier, T> registry) {
-			if (isEmpty()) {
-				return null;
-			}
-			for (T component : registry.values()) {
-				if ((component.ignoreSlot || component.getFixedIndex() == index) && component.catalyst.test(stack)) {
-					return component;
-				}
-			}
-			return null;
+            if (isEmpty()) {
+                return null;
+            }
+            for (T component : registry.values()) {
+                if ((component.ignoreSlot || component.getFixedIndex() == index) && component.catalyst.test(stack)) {
+                    return component;
+                }
+            }
+            return null;
         }
 
         public static <T extends Component> ComponentData<T> getEmpty() {

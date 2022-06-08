@@ -12,27 +12,27 @@ public class DataFixer {
     public static final String ASPECT_KEY = "WarpathAspect";
 
     public static final String[] REVELATIONS = {
-            "spirit",
-            "vigor",
-            "totality",
-            "avarice",
-            "malaise",
-            "terror",
-            "bound",
-            "pace",
-            "immersion"
+        "spirit",
+        "vigor",
+        "totality",
+        "avarice",
+        "malaise",
+        "terror",
+        "bound",
+        "pace",
+        "immersion"
     };
 
     public static final String[] ASPECTS = {
-            "heroic",
-            "excess",
-            "virtuous",
-            "terran",
-            "shocking",
-            "deathly",
-            "limitless",
-            "tranquil",
-            "unrivaled"
+        "heroic",
+        "excess",
+        "virtuous",
+        "terran",
+        "shocking",
+        "deathly",
+        "limitless",
+        "tranquil",
+        "unrivaled"
     };
 
     public static Identifier getId(String[] values, int index) {
