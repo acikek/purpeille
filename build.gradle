@@ -108,6 +108,6 @@ modrinth {
         required.project "P7dR8mSH"
         optional.project "E9dV0G8I"
         optional.project "X5JJNmDn"
-        optional.project "nU0bVIaL"
+        //optional.project "nU0bVIaL"
     }
 }
