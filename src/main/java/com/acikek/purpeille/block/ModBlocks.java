@@ -19,56 +19,56 @@ import java.util.Map;
 public class ModBlocks {
 
     // Blocks
-    public static Block PURPUR_REMNANTS = new OreBlock(PurpurRemnants.SETTINGS, UniformIntProvider.create(2, 3));
-    public static Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
-    public static Block ANCIENT_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
+    public static final Block PURPUR_REMNANTS = new OreBlock(PurpurRemnants.SETTINGS, UniformIntProvider.create(2, 3));
+    public static final Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
+    public static final Block ANCIENT_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
 
     // Machines
-    public static AncientGateway ANCIENT_GATEWAY = new AncientGateway(AncientGateway.SETTINGS);
-    public static AncientGuardian ANCIENT_GUARDIAN = new AncientGuardian(AncientGuardian.SETTINGS);
-    public static AncientOven ANCIENT_OVEN = Damage.NONE.createBlock();
-    public static AncientOven ANCIENT_OVEN_DIM = Damage.DIM.createBlock();
-    public static AncientOven ANCIENT_OVEN_VERY_DIM = Damage.VERY_DIM.createBlock();
+    public static final AncientGateway ANCIENT_GATEWAY = new AncientGateway(AncientGateway.SETTINGS);
+    public static final AncientGuardian ANCIENT_GUARDIAN = new AncientGuardian(AncientGuardian.SETTINGS);
+    public static final AncientOven ANCIENT_OVEN = Damage.NONE.createBlock();
+    public static final AncientOven ANCIENT_OVEN_DIM = Damage.DIM.createBlock();
+    public static final AncientOven ANCIENT_OVEN_VERY_DIM = Damage.VERY_DIM.createBlock();
 
     // Decorations
-    public static Block MONOLITHIC_PURPUR = new PillarBlock(BlockSettings.MONOLITHIC_PURPUR);
-    public static SlabBlock REMNANT_BRICK_SLAB = new SlabBlock(BlockSettings.REMNANT_BRICKS);
-    public static StairsBlock REMNANT_BRICK_STAIRS = new StairsBlock(REMNANT_BRICKS.getDefaultState(), BlockSettings.REMNANT_BRICKS);
-    public static WallBlock REMNANT_BRICK_WALL = new WallBlock(BlockSettings.REMNANT_BRICKS);
-    public static SlabBlock ANCIENT_MECHANICAL_BRICK_SLAB = new SlabBlock(BlockSettings.REMNANT_BRICKS);
-    public static StairsBlock ANCIENT_MECHANICAL_BRICK_STAIRS = new StairsBlock(REMNANT_BRICKS.getDefaultState(), BlockSettings.REMNANT_BRICKS);
-    public static WallBlock ANCIENT_MECHANICAL_BRICK_WALL = new WallBlock(BlockSettings.REMNANT_BRICKS);
-    public static Block RUINED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
-    public static SlabBlock RUINED_MECHANICAL_BRICK_SLAB = new SlabBlock(AncientMachine.SETTINGS);
-    public static StairsBlock RUINED_MECHANICAL_BRICK_STAIRS = new StairsBlock(RUINED_MECHANICAL_BRICKS.getDefaultState(), AncientMachine.SETTINGS);
-    public static WallBlock RUINED_MECHANICAL_BRICK_WALL = new WallBlock(AncientMachine.SETTINGS);
-    public static Block DEMOLISHED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
-    public static SlabBlock DEMOLISHED_MECHANICAL_BRICK_SLAB = new SlabBlock(AncientMachine.SETTINGS);
-    public static StairsBlock DEMOLISHED_MECHANICAL_BRICK_STAIRS = new StairsBlock(DEMOLISHED_MECHANICAL_BRICKS.getDefaultState(), AncientMachine.SETTINGS);
-    public static WallBlock DEMOLISHED_MECHANICAL_BRICK_WALL = new WallBlock(AncientMachine.SETTINGS);
-    public static Block CHISELED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
-    public static Block CHORUS_INFESTED_MECHANICAL_BRICKS = new ChorusInfestedBlocks.InfestedBlock();
-    public static SlabBlock CHORUS_INFESTED_MECHANICAL_BRICK_SLAB = new ChorusInfestedBlocks.Slab();
-    public static StairsBlock CHORUS_INFESTED_MECHANICAL_BRICK_STAIRS = new ChorusInfestedBlocks.Stairs(CHORUS_INFESTED_MECHANICAL_BRICKS.getDefaultState());
-    public static WallBlock CHORUS_INFESTED_MECHANICAL_BRICK_WALL = new ChorusInfestedBlocks.Wall();
-    public static Block CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
-    public static SlabBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_SLAB = new SlabBlock(AncientMachine.SETTINGS);
-    public static StairsBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_STAIRS = new StairsBlock(CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS.getDefaultState(), AncientMachine.SETTINGS);
-    public static WallBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_WALL = new WallBlock(AncientMachine.SETTINGS);
-    public static PurpeilleBlock PURPEILLE_BLOCK = new PurpeilleBlock(PurpeilleBlock.SETTINGS);
-    public static SlabBlock PURPEILLE_SLAB = new SlabBlock(PurpeilleBlock.SETTINGS);
-    public static StairsBlock PURPEILLE_STAIRS = new StairsBlock(PURPEILLE_BLOCK.getDefaultState(), PurpeilleBlock.SETTINGS);
-    public static Block SMOLDERED_PURPEILLE_BLOCK = new Block(PurpeilleBlock.SETTINGS);
-    public static SlabBlock SMOLDERED_PURPEILLE_SLAB = new SlabBlock(PurpeilleBlock.SETTINGS);
-    public static StairsBlock SMOLDERED_PURPEILLE_STAIRS = new StairsBlock(SMOLDERED_PURPEILLE_BLOCK.getDefaultState(), PurpeilleBlock.SETTINGS);
-    public static Block ULTRAVIOLET_COMPLEX = new Block(BlockSettings.ULTRAVIOLET_COMPLEX);
-    public static Block POLISHED_ULTRAVIOLET_COMPLEX = new Block(BlockSettings.POLISHED_ULTRAVIOLET_COMPLEX);
-    public static Block LIGHTNING_BLOCK = new Block(BlockSettings.LIGHTNING_BLOCK);
-    public static SlabBlock LIGHTNING_SLAB = new SlabBlock(BlockSettings.LIGHTNING_BLOCK);
-    public static StairsBlock LIGHTNING_STAIRS = new StairsBlock(LIGHTNING_BLOCK.getDefaultState(), BlockSettings.LIGHTNING_BLOCK);
-    public static Block CUT_LIGHTNING_BLOCK = new Block(BlockSettings.LIGHTNING_BLOCK);
-    public static SlabBlock CUT_LIGHTNING_SLAB = new SlabBlock(BlockSettings.LIGHTNING_BLOCK);
-    public static StairsBlock CUT_LIGHTNING_STAIRS = new StairsBlock(CUT_LIGHTNING_BLOCK.getDefaultState(), BlockSettings.LIGHTNING_BLOCK);
+    public static final Block MONOLITHIC_PURPUR = new PillarBlock(BlockSettings.MONOLITHIC_PURPUR);
+    public static final SlabBlock REMNANT_BRICK_SLAB = new SlabBlock(BlockSettings.REMNANT_BRICKS);
+    public static final StairsBlock REMNANT_BRICK_STAIRS = new StairsBlock(REMNANT_BRICKS.getDefaultState(), BlockSettings.REMNANT_BRICKS);
+    public static final WallBlock REMNANT_BRICK_WALL = new WallBlock(BlockSettings.REMNANT_BRICKS);
+    public static final SlabBlock ANCIENT_MECHANICAL_BRICK_SLAB = new SlabBlock(BlockSettings.REMNANT_BRICKS);
+    public static final StairsBlock ANCIENT_MECHANICAL_BRICK_STAIRS = new StairsBlock(REMNANT_BRICKS.getDefaultState(), BlockSettings.REMNANT_BRICKS);
+    public static final WallBlock ANCIENT_MECHANICAL_BRICK_WALL = new WallBlock(BlockSettings.REMNANT_BRICKS);
+    public static final Block RUINED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
+    public static final SlabBlock RUINED_MECHANICAL_BRICK_SLAB = new SlabBlock(AncientMachine.SETTINGS);
+    public static final StairsBlock RUINED_MECHANICAL_BRICK_STAIRS = new StairsBlock(RUINED_MECHANICAL_BRICKS.getDefaultState(), AncientMachine.SETTINGS);
+    public static final WallBlock RUINED_MECHANICAL_BRICK_WALL = new WallBlock(AncientMachine.SETTINGS);
+    public static final Block DEMOLISHED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
+    public static final SlabBlock DEMOLISHED_MECHANICAL_BRICK_SLAB = new SlabBlock(AncientMachine.SETTINGS);
+    public static final StairsBlock DEMOLISHED_MECHANICAL_BRICK_STAIRS = new StairsBlock(DEMOLISHED_MECHANICAL_BRICKS.getDefaultState(), AncientMachine.SETTINGS);
+    public static final WallBlock DEMOLISHED_MECHANICAL_BRICK_WALL = new WallBlock(AncientMachine.SETTINGS);
+    public static final Block CHISELED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
+    public static final Block CHORUS_INFESTED_MECHANICAL_BRICKS = new ChorusInfestedBlocks.InfestedBlock();
+    public static final SlabBlock CHORUS_INFESTED_MECHANICAL_BRICK_SLAB = new ChorusInfestedBlocks.Slab();
+    public static final StairsBlock CHORUS_INFESTED_MECHANICAL_BRICK_STAIRS = new ChorusInfestedBlocks.Stairs(CHORUS_INFESTED_MECHANICAL_BRICKS.getDefaultState());
+    public static final WallBlock CHORUS_INFESTED_MECHANICAL_BRICK_WALL = new ChorusInfestedBlocks.Wall();
+    public static final Block CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
+    public static final SlabBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_SLAB = new SlabBlock(AncientMachine.SETTINGS);
+    public static final StairsBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_STAIRS = new StairsBlock(CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS.getDefaultState(), AncientMachine.SETTINGS);
+    public static final WallBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_WALL = new WallBlock(AncientMachine.SETTINGS);
+    public static final PurpeilleBlock PURPEILLE_BLOCK = new PurpeilleBlock(PurpeilleBlock.SETTINGS);
+    public static final SlabBlock PURPEILLE_SLAB = new SlabBlock(PurpeilleBlock.SETTINGS);
+    public static final StairsBlock PURPEILLE_STAIRS = new StairsBlock(PURPEILLE_BLOCK.getDefaultState(), PurpeilleBlock.SETTINGS);
+    public static final Block SMOLDERED_PURPEILLE_BLOCK = new Block(PurpeilleBlock.SETTINGS);
+    public static final SlabBlock SMOLDERED_PURPEILLE_SLAB = new SlabBlock(PurpeilleBlock.SETTINGS);
+    public static final StairsBlock SMOLDERED_PURPEILLE_STAIRS = new StairsBlock(SMOLDERED_PURPEILLE_BLOCK.getDefaultState(), PurpeilleBlock.SETTINGS);
+    public static final Block ULTRAVIOLET_COMPLEX = new Block(BlockSettings.ULTRAVIOLET_COMPLEX);
+    public static final Block POLISHED_ULTRAVIOLET_COMPLEX = new Block(BlockSettings.POLISHED_ULTRAVIOLET_COMPLEX);
+    public static final Block LIGHTNING_BLOCK = new Block(BlockSettings.LIGHTNING_BLOCK);
+    public static final SlabBlock LIGHTNING_SLAB = new SlabBlock(BlockSettings.LIGHTNING_BLOCK);
+    public static final StairsBlock LIGHTNING_STAIRS = new StairsBlock(LIGHTNING_BLOCK.getDefaultState(), BlockSettings.LIGHTNING_BLOCK);
+    public static final Block CUT_LIGHTNING_BLOCK = new Block(BlockSettings.LIGHTNING_BLOCK);
+    public static final SlabBlock CUT_LIGHTNING_SLAB = new SlabBlock(BlockSettings.LIGHTNING_BLOCK);
+    public static final StairsBlock CUT_LIGHTNING_STAIRS = new StairsBlock(CUT_LIGHTNING_BLOCK.getDefaultState(), BlockSettings.LIGHTNING_BLOCK);
 
     public static Map<String, Block> BLOCKS = new LinkedHashMap<>();
     public static Map<String, Block> DECORATIONS = new LinkedHashMap<>();
@@ -125,7 +125,6 @@ public class ModBlocks {
     public static void register(Map<String, Block> blocks) {
         for (Map.Entry<String, Block> pair : blocks.entrySet()) {
             Identifier id = Purpeille.id(pair.getKey());
-            System.out.println(id);
             Registry.register(Registry.BLOCK, id, pair.getValue());
             Registry.register(Registry.ITEM, id, BlockItemProvider.getBlockItem(pair.getValue(), ModItems.defaultSettings()));
         }

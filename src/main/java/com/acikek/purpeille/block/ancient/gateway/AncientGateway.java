@@ -2,6 +2,7 @@ package com.acikek.purpeille.block.ancient.gateway;
 
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.CorePoweredAncientMachine;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -15,7 +16,7 @@ public class AncientGateway extends CorePoweredAncientMachine<AncientGatewayBloc
     public static BooleanProperty READY = BooleanProperty.of("ready");
     public static BooleanProperty CHARGING = BooleanProperty.of("charging");
 
-    public static Settings SETTINGS = AncientMachine.SETTINGS
+    public static Settings SETTINGS = FabricBlockSettings.copyOf(AncientMachine.SETTINGS)
             .luminance(state -> state.get(READY) ? 2 : 0);
 
     public AncientGateway(Settings settings) {

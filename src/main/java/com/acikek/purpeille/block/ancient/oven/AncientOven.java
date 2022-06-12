@@ -3,6 +3,7 @@ package com.acikek.purpeille.block.ancient.oven;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import lib.BlockItemProvider;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -37,11 +38,8 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
 
     public static BooleanProperty LIT = FurnaceBlock.LIT;
 
-    public static final Settings SETTINGS = AncientMachine.SETTINGS
-            .luminance(state -> {
-                System.out.println(state);
-                return state.get(LIT) ? 8 : state.get(FULL) ? 3 : 0;
-            });
+    public static final Settings SETTINGS = FabricBlockSettings.copyOf(AncientMachine.SETTINGS)
+            .luminance(state -> state.get(LIT) ? 8 : state.get(FULL) ? 3 : 0);
 
     public Damage damage;
 

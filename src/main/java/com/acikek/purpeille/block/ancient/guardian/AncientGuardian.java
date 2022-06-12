@@ -4,6 +4,7 @@ import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.ancient.AncientMachine;
 import com.acikek.purpeille.block.ancient.CorePoweredAncientMachine;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -49,7 +50,7 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     public static final Identifier ANCIENT_GUARDIAN_ACTIVATED = Purpeille.id("ancient_guardian_activated");
     public static final Identifier VACUOUS_BLAST = Purpeille.id("vacuous_blast");
 
-    public static Settings SETTINGS = AncientMachine.SETTINGS
+    public static Settings SETTINGS = FabricBlockSettings.copyOf(AncientMachine.SETTINGS)
             .luminance(state -> state.get(FULL) ? 2 : 0);
 
     public static BooleanProperty ON_COOLDOWN = BooleanProperty.of("on_cooldown");

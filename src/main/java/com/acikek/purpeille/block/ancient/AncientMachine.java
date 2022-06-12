@@ -1,5 +1,6 @@
 package com.acikek.purpeille.block.ancient;
 
+import com.acikek.purpeille.block.BlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -25,9 +26,8 @@ public abstract class AncientMachine<T extends AncientMachineBlockEntity> extend
     public static DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static BooleanProperty FULL = BooleanProperty.of("full");
 
-    public static final Settings SETTINGS = FabricBlockSettings.of(Material.STONE)
+    public static final Settings SETTINGS = BlockSettings.baseSettings(Material.STONE)
             .strength(6.0f)
-            .requiresTool()
             .sounds(BlockSoundGroup.NETHER_BRICKS);
 
     public BlockEntityTicker<T> ticker;
