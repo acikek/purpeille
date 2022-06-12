@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "purpeille:block/choral_bloom_infested_mechanical_bricks"
+  }
+}

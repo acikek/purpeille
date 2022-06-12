@@ -1,3 +1,13 @@
 {
-
+  "variants": {
+    "type=bottom": {
+      "model": "purpeille:block/ancient_mechanical_brick_slab"
+    },
+    "type=double": {
+      "model": "purpeille:block/ancient_mechanical_bricks"
+    },
+    "type=top": {
+      "model": "purpeille:block/ancient_mechanical_brick_slab_top"
+    }
+  }
 }

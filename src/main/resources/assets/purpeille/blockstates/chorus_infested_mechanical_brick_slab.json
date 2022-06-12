@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "purpeille:block/chorus_infested_mechanical_brick_slab"
+    },
+    "type=double": {
+      "model": "purpeille:block/chorus_infested_mechanical_bricks"
+    },
+    "type=top": {
+      "model": "purpeille:block/chorus_infested_mechanical_brick_slab_top"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "block/wall_inventory",
+  "textures": {
+    "wall": "purpeille:block/ancient_mechanical_bricks_cracked"
+  }
+}

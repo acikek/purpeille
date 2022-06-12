@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "purpeille:block/chorus_infested_mechanical_bricks",
+    "top": "purpeille:block/chorus_infested_mechanical_bricks",
+    "side": "purpeille:block/chorus_infested_mechanical_bricks"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "purpeille:block/choral_bloom_infested_mechanical_bricks",
+    "top": "purpeille:block/choral_bloom_infested_mechanical_bricks",
+    "side": "purpeille:block/choral_bloom_infested_mechanical_bricks"
+  }
+}

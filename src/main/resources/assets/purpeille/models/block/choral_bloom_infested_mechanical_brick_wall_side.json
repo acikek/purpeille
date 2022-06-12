@@ -1,0 +1,6 @@
+{
+  "parent": "block/template_wall_side",
+  "textures": {
+    "wall": "purpeille:block/choral_bloom_infested_mechanical_bricks"
+  }
+}

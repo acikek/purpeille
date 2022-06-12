@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "purpeille:block/cut_lightning_slab"
+    },
+    "type=double": {
+      "model": "purpeille:block/cut_lightning_block"
+    },
+    "type=top": {
+      "model": "purpeille:block/cut_lightning_slab_top"
+    }
+  }
+}

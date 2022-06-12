@@ -1,0 +1,8 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "purpeille:block/ancient_mechanical_bricks_cracked",
+    "top": "purpeille:block/ancient_mechanical_bricks_cracked",
+    "side": "purpeille:block/ancient_mechanical_bricks_cracked"
+  }
+}

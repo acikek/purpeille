@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "purpeille:block/cut_lightning_block"
+  }
+}

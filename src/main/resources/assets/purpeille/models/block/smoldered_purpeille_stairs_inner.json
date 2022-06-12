@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "purpeille:block/smoldered_purpeille_block",
+    "top": "purpeille:block/smoldered_purpeille_block",
+    "side": "purpeille:block/smoldered_purpeille_block"
+  }
+}

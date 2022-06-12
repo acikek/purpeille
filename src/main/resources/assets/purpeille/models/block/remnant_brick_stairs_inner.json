@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "purpeille:block/remnant_bricks",
+    "top": "purpeille:block/remnant_bricks",
+    "side": "purpeille:block/remnant_bricks"
+  }
+}

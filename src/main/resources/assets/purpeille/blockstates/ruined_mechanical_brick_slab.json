@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "purpeille:block/ruined_mechanical_brick_slab"
+    },
+    "type=double": {
+      "model": "purpeille:block/ruined_mechanical_bricks"
+    },
+    "type=top": {
+      "model": "purpeille:block/ruined_mechanical_brick_slab_top"
+    }
+  }
+}

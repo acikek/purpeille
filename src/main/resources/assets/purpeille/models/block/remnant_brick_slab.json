@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "purpeille:block/remnant_bricks",
+    "top": "purpeille:block/remnant_bricks",
+    "side": "purpeille:block/remnant_bricks"
+  }
+}
