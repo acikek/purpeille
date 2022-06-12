@@ -3,7 +3,6 @@ package com.acikek.purpeille.block;
 import com.acikek.purpeille.sound.ModSoundGroups;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 

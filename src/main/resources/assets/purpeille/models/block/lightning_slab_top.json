@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab_top",
+  "textures": {
+    "bottom": "purpeille:block/lightning_block",
+    "top": "purpeille:block/lightning_block",
+    "side": "purpeille:block/lightning_block"
+  }
+}

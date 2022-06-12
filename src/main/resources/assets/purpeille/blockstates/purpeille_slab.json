@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "purpeille:block/purpeille_slab"
+    },
+    "type=double": {
+      "model": "purpeille:block/purpeille_block"
+    },
+    "type=top": {
+      "model": "purpeille:block/purpeille_slab_top"
+    }
+  }
+}

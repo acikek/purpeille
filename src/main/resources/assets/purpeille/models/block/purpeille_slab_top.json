@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab_top",
+  "textures": {
+    "bottom": "purpeille:block/purpeille_block",
+    "top": "purpeille:block/purpeille_block",
+    "side": "purpeille:block/purpeille_block"
+  }
+}

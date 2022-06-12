@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "purpeille:remnant_brick_wall",
+    "purpeille:ancient_mechanical_brick_wall",
+    "purpeille:ruined_mechanical_brick_wall",
+    "purpeille:demolished_mechanical_brick_wall",
+    "purpeille:chorus_infested_mechanical_brick_wall",
+    "purpeille:choral_bloom_infested_mechanical_brick_wall"
+  ]
+}
