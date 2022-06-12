@@ -38,7 +38,10 @@ public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implemen
     public static BooleanProperty LIT = FurnaceBlock.LIT;
 
     public static final Settings SETTINGS = AncientMachine.SETTINGS
-            .luminance(state -> state.get(LIT) ? 8 : state.get(FULL) ? 3 : 0);
+            .luminance(state -> {
+                System.out.println(state);
+                return state.get(LIT) ? 8 : state.get(FULL) ? 3 : 0;
+            });
 
     public Damage damage;
 

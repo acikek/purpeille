@@ -4,5 +4,23 @@
     "sounds": [
       "purpeille:ancient_gateway_teleport"
     ]
+  },
+  "block.lightning_block.place": {
+    "subtitle": "subtitle.purpeille.lightning_block.place",
+    "sounds": [
+      "purpeille:electric1",
+      "purpeille:electric2",
+      "purpeille:electric3",
+      "purpeille:electric4"
+    ]
+  },
+  "block.lightning_block.break": {
+    "subtitle": "subtitle.purpeille.lightning_block.break",
+    "sounds": [
+      "purpeille:electric1",
+      "purpeille:electric2",
+      "purpeille:electric3",
+      "purpeille:electric4"
+    ]
   }
 }
