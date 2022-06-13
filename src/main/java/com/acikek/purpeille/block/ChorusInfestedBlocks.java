@@ -1,6 +1,5 @@
 package com.acikek.purpeille.block;
 
-import com.acikek.purpeille.block.ancient.AncientMachine;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -43,28 +42,28 @@ public class ChorusInfestedBlocks {
     public static class InfestedBlock extends Block implements ChorusInfested {
 
         public InfestedBlock() {
-            super(AncientMachine.SETTINGS);
+            super(BlockSettings.INFESTED_BLOCK);
         }
     }
 
     public static class Slab extends SlabBlock implements ChorusInfested {
 
         public Slab() {
-            super(AncientMachine.SETTINGS);
+            super(BlockSettings.INFESTED_BLOCK);
         }
     }
 
     public static class Stairs extends StairsBlock implements ChorusInfested {
 
         public Stairs(BlockState baseState) {
-            super(baseState, AncientMachine.SETTINGS);
+            super(baseState, BlockSettings.INFESTED_BLOCK);
         }
     }
 
     public static class Wall extends WallBlock implements ChorusInfested {
 
         public Wall() {
-            super(AncientMachine.SETTINGS);
+            super(BlockSettings.INFESTED_BLOCK);
         }
     }
 }

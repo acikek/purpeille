@@ -8,19 +8,41 @@
   "block.lightning_block.place": {
     "subtitle": "subtitle.purpeille.lightning_block.place",
     "sounds": [
-      "purpeille:electric1",
-      "purpeille:electric2",
-      "purpeille:electric3",
-      "purpeille:electric4"
+      "purpeille:lightning/lightning1",
+      "purpeille:lightning/lightning2",
+      "purpeille:lightning/lightning3",
+      "purpeille:lightning/lightning4"
     ]
   },
   "block.lightning_block.break": {
     "subtitle": "subtitle.purpeille.lightning_block.break",
     "sounds": [
-      "purpeille:electric1",
-      "purpeille:electric2",
-      "purpeille:electric3",
-      "purpeille:electric4"
+      "purpeille:lightning/lightning1",
+      "purpeille:lightning/lightning2",
+      "purpeille:lightning/lightning3",
+      "purpeille:lightning/lightning4"
+    ]
+  },
+  "block.infested_block.place": {
+    "subtitle": "subtitle.purpeille.infested_block.place",
+    "sounds": [
+      "purpeille:infested/infested1",
+      "purpeille:infested/infested2",
+      "purpeille:infested/infested3",
+      "purpeille:infested/infested4",
+      "purpeille:infested/infested5",
+      "purpeille:infested/infested6"
+    ]
+  },
+  "block.infested_block.break": {
+    "subtitle": "subtitle.purpeille.infested_block.break",
+    "sounds": [
+      "purpeille:infested/infested1",
+      "purpeille:infested/infested2",
+      "purpeille:infested/infested3",
+      "purpeille:infested/infested4",
+      "purpeille:infested/infested5",
+      "purpeille:infested/infested6"
     ]
   }
 }

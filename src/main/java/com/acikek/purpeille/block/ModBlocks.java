@@ -51,10 +51,10 @@ public class ModBlocks {
     public static final SlabBlock CHORUS_INFESTED_MECHANICAL_BRICK_SLAB = new ChorusInfestedBlocks.Slab();
     public static final StairsBlock CHORUS_INFESTED_MECHANICAL_BRICK_STAIRS = new ChorusInfestedBlocks.Stairs(CHORUS_INFESTED_MECHANICAL_BRICKS.getDefaultState());
     public static final WallBlock CHORUS_INFESTED_MECHANICAL_BRICK_WALL = new ChorusInfestedBlocks.Wall();
-    public static final Block CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
-    public static final SlabBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_SLAB = new SlabBlock(AncientMachine.SETTINGS);
-    public static final StairsBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_STAIRS = new StairsBlock(CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS.getDefaultState(), AncientMachine.SETTINGS);
-    public static final WallBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_WALL = new WallBlock(AncientMachine.SETTINGS);
+    public static final Block CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS = new Block(BlockSettings.INFESTED_BLOCK);
+    public static final SlabBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_SLAB = new SlabBlock(BlockSettings.INFESTED_BLOCK);
+    public static final StairsBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_STAIRS = new StairsBlock(CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS.getDefaultState(), BlockSettings.INFESTED_BLOCK);
+    public static final WallBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_WALL = new WallBlock(BlockSettings.INFESTED_BLOCK);
     public static final PurpeilleBlock PURPEILLE_BLOCK = new PurpeilleBlock(PurpeilleBlock.SETTINGS);
     public static final SlabBlock PURPEILLE_SLAB = new SlabBlock(PurpeilleBlock.SETTINGS);
     public static final StairsBlock PURPEILLE_STAIRS = new StairsBlock(PURPEILLE_BLOCK.getDefaultState(), PurpeilleBlock.SETTINGS);

@@ -10,6 +10,8 @@ public class ModSoundEvents {
     public static final SoundEvent ANCIENT_GATEWAY_TELEPORT = create("block.ancient_gateway.teleport");
     public static final SoundEvent LIGHTNING_BLOCK_PLACE = create("block.lightning_block.place");
     public static final SoundEvent LIGHTNING_BLOCK_BREAK = create("block.lightning_block.break");
+    public static final SoundEvent INFESTED_BLOCK_PLACE = create("block.infested_block.place");
+    public static final SoundEvent INFESTED_BLOCK_BREAK = create("block.infested_block.break");
 
     public static SoundEvent create(String id) {
         return new SoundEvent(Purpeille.id(id));
@@ -18,7 +20,9 @@ public class ModSoundEvents {
     public static SoundEvent[] SOUNDS = {
             ANCIENT_GATEWAY_TELEPORT,
             LIGHTNING_BLOCK_PLACE,
-            LIGHTNING_BLOCK_BREAK
+            LIGHTNING_BLOCK_BREAK,
+            INFESTED_BLOCK_PLACE,
+            INFESTED_BLOCK_BREAK
     };
 
     public static void register() {
