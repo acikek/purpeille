@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "purpeille:remnant_brick_slabs",
+    "purpeille:ancient_mechanical_brick_slabs",
+    "purpeille:ruined_mechanical_brick_slabs",
+    "purpeille:demolished_mechanical_brick_slabs",
+    "purpeille:chorus_infested_mechanical_brick_slabs",
+    "purpeille:choral_bloom_infested_mechanical_brick_slabs",
+    "purpeille:purpeille_slabs",
+    "purpeille:smoldered_purpeille_slabs",
+    "purpeille:lightning_slabs",
+    "purpeille:cut_lightning_slabs"
+  ]
+}

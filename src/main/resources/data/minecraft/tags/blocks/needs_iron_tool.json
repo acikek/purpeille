@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "purpeille:ultraviolet_complex",
+    "purpeille:polished_ultraviolet_complex",
+    "purpeille:lightning_block",
+    "purpeille:lightning_slab",
+    "purpeille:lightning_stairs",
+    "purpeille:cut_lightning_block",
+    "purpeille:cut_lightning_slab",
+    "purpeille:cut_lightning_stairs"
+  ]
+}

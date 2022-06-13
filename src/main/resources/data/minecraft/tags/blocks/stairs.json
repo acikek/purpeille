@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "purpeille:remnant_brick_stairs",
+    "purpeille:ancient_mechanical_brick_stairs",
+    "purpeille:ruined_mechanical_brick_stairs",
+    "purpeille:demolished_mechanical_brick_stairs",
+    "purpeille:chorus_infested_mechanical_brick_stairs",
+    "purpeille:choral_bloom_infested_mechanical_brick_stairs",
+    "purpeille:purpeille_stairs",
+    "purpeille:smoldered_purpeille_stairs",
+    "purpeille:lightning_stairs",
+    "purpeille:cut_lightning_stairs"
+  ]
+}
