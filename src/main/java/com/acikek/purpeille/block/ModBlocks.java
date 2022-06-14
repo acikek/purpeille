@@ -61,8 +61,8 @@ public class ModBlocks {
     public static final Block SMOLDERED_PURPEILLE_BLOCK = new Block(PurpeilleBlock.SETTINGS);
     public static final SlabBlock SMOLDERED_PURPEILLE_SLAB = new SlabBlock(PurpeilleBlock.SETTINGS);
     public static final StairsBlock SMOLDERED_PURPEILLE_STAIRS = new StairsBlock(SMOLDERED_PURPEILLE_BLOCK.getDefaultState(), PurpeilleBlock.SETTINGS);
-    public static final Block ULTRAVIOLET_COMPLEX = new Block(BlockSettings.ULTRAVIOLET_COMPLEX);
-    public static final Block POLISHED_ULTRAVIOLET_COMPLEX = new Block(BlockSettings.POLISHED_ULTRAVIOLET_COMPLEX);
+    public static final Block ULTRAVIOLET_COMPLEX = new UltravioletComplex(UltravioletComplex.SETTINGS, 9);
+    public static final Block POLISHED_ULTRAVIOLET_COMPLEX = new UltravioletComplex(UltravioletComplex.POLISHED_SETTINGS, 7);
     public static final Block LIGHTNING_BLOCK = new Block(BlockSettings.LIGHTNING_BLOCK);
     public static final SlabBlock LIGHTNING_SLAB = new SlabBlock(BlockSettings.LIGHTNING_BLOCK);
     public static final StairsBlock LIGHTNING_STAIRS = new StairsBlock(LIGHTNING_BLOCK.getDefaultState(), BlockSettings.LIGHTNING_BLOCK);

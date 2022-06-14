@@ -30,6 +30,7 @@
   "mixins": [
     "purpeille.mixins.json"
   ],
+  "accessWidener": "purpeille.accesswidener",
   "depends": {
     "fabricloader": ">=0.13.3",
     "fabric": "*",
