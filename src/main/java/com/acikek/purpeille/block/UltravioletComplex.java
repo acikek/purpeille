@@ -16,11 +16,13 @@ public class UltravioletComplex extends Block {
 
     public static final AbstractBlock.Settings SETTINGS = BlockSettings.baseSettings(Material.STONE)
             .strength(1.5f)
-            .sounds(BlockSoundGroup.CALCITE);
+            .sounds(BlockSoundGroup.CALCITE)
+            .luminance(2);
 
     public static final AbstractBlock.Settings POLISHED_SETTINGS = BlockSettings.baseSettings(Material.AMETHYST)
             .strength(2.0f)
-            .sounds(BlockSoundGroup.AMETHYST_BLOCK);
+            .sounds(BlockSoundGroup.AMETHYST_BLOCK)
+            .luminance(4);
 
     public static final DamageSource DAMAGE_SOURCE = new DamageSource("ultravioletComplex").setFire();
 
