@@ -2,6 +2,7 @@ package com.acikek.purpeille;
 
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.attribute.ModAttributes;
+import com.acikek.purpeille.block.ChorusInfestedBlocks;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.PurpurRemnants;
 import com.acikek.purpeille.block.ancient.ModBlockEntities;
@@ -18,6 +19,7 @@ import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -58,6 +60,7 @@ public class Purpeille implements ModInitializer {
             VacuousBlastCommand.register(dispatcher);
             WarpathCommand.register(dispatcher);
         });
+        UseBlockCallback.EVENT.register(new ChorusInfestedBlocks());
         ReloadHandler.register();
     }
 }

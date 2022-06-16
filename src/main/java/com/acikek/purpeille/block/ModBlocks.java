@@ -21,7 +21,7 @@ public class ModBlocks {
     // Blocks
     public static final Block PURPUR_REMNANTS = new OreBlock(PurpurRemnants.SETTINGS, UniformIntProvider.create(2, 3));
     public static final Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
-    public static final Block ANCIENT_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
+    public static final Block ANCIENT_MECHANICAL_BRICKS = new ChorusInfestedBlocks.InfestedBlock();
 
     // Machines
     public static final AncientGateway ANCIENT_GATEWAY = new AncientGateway(AncientGateway.SETTINGS);
@@ -35,9 +35,9 @@ public class ModBlocks {
     public static final SlabBlock REMNANT_BRICK_SLAB = new SlabBlock(BlockSettings.REMNANT_BRICKS);
     public static final StairsBlock REMNANT_BRICK_STAIRS = new StairsBlock(REMNANT_BRICKS.getDefaultState(), BlockSettings.REMNANT_BRICKS);
     public static final WallBlock REMNANT_BRICK_WALL = new WallBlock(BlockSettings.REMNANT_BRICKS);
-    public static final SlabBlock ANCIENT_MECHANICAL_BRICK_SLAB = new SlabBlock(BlockSettings.REMNANT_BRICKS);
-    public static final StairsBlock ANCIENT_MECHANICAL_BRICK_STAIRS = new StairsBlock(REMNANT_BRICKS.getDefaultState(), BlockSettings.REMNANT_BRICKS);
-    public static final WallBlock ANCIENT_MECHANICAL_BRICK_WALL = new WallBlock(BlockSettings.REMNANT_BRICKS);
+    public static final SlabBlock ANCIENT_MECHANICAL_BRICK_SLAB = new ChorusInfestedBlocks.Slab();
+    public static final StairsBlock ANCIENT_MECHANICAL_BRICK_STAIRS = new ChorusInfestedBlocks.Stairs(ANCIENT_MECHANICAL_BRICKS.getDefaultState());
+    public static final WallBlock ANCIENT_MECHANICAL_BRICK_WALL = new ChorusInfestedBlocks.Wall();
     public static final Block RUINED_MECHANICAL_BRICKS = new Block(AncientMachine.SETTINGS);
     public static final SlabBlock RUINED_MECHANICAL_BRICK_SLAB = new SlabBlock(AncientMachine.SETTINGS);
     public static final StairsBlock RUINED_MECHANICAL_BRICK_STAIRS = new StairsBlock(RUINED_MECHANICAL_BRICKS.getDefaultState(), AncientMachine.SETTINGS);
