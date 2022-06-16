@@ -1,11 +1,12 @@
-package com.acikek.purpeille.block.ancient;
+package com.acikek.purpeille.block.entity;
 
 import com.acikek.purpeille.block.BlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import com.acikek.purpeille.block.entity.ancient.AncientMachineBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiFunction;
 
-public abstract class AncientMachine<T extends AncientMachineBlockEntity> extends BlockWithEntity {
+public abstract class CommonBlockWithEntity<T extends BlockEntity> extends BlockWithEntity {
 
     public static DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static BooleanProperty FULL = BooleanProperty.of("full");
@@ -33,13 +34,13 @@ public abstract class AncientMachine<T extends AncientMachineBlockEntity> extend
     public BlockEntityTicker<T> ticker;
     public BiFunction<BlockPos, BlockState, T> supplier;
 
-    public AncientMachine(Settings settings, BlockEntityTicker<T> ticker, BiFunction<BlockPos, BlockState, T> supplier) {
+    public CommonBlockWithEntity(Settings settings, BlockEntityTicker<T> ticker, BiFunction<BlockPos, BlockState, T> supplier) {
         super(settings);
         this.ticker = ticker;
         this.supplier = supplier;
     }
 
-    public AncientMachine(Settings settings, BlockEntityTicker<T> ticker) {
+    public CommonBlockWithEntity(Settings settings, BlockEntityTicker<T> ticker) {
         this(settings, ticker, null);
     }
 
@@ -64,9 +65,9 @@ public abstract class AncientMachine<T extends AncientMachineBlockEntity> extend
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (world.getBlockEntity(pos) instanceof AncientMachineBlockEntity blockEntity) {
+        if (world.getBlockEntity(pos) instanceof Inventory inventory) {
             if (!isStateAllowed(state, newState)) {
-                ItemScatterer.spawn(world, pos, blockEntity.items);
+                ItemScatterer.spawn(world, pos, inventory);
             }
             if (state.getBlock() != newState.getBlock()) {
                 world.removeBlockEntity(pos);

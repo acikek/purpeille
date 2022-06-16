@@ -1,8 +1,9 @@
-package com.acikek.purpeille.block.ancient.gateway;
+package com.acikek.purpeille.block.entity.ancient.gateway;
 
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
-import com.acikek.purpeille.block.ancient.CorePoweredAncientMachineBlockEntity;
+import com.acikek.purpeille.block.entity.ancient.CorePoweredAncientMachineBlockEntity;
+import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.sound.ModSoundEvents;
 import net.minecraft.block.BlockState;
@@ -156,6 +157,6 @@ public class AncientGatewayBlockEntity extends CorePoweredAncientMachineBlockEnt
     }
 
     public static void register() {
-        BLOCK_ENTITY_TYPE = build("ancient_gateway_block_entity", AncientGatewayBlockEntity::new, ModBlocks.ANCIENT_GATEWAY);
+        BLOCK_ENTITY_TYPE = ModBlockEntities.build("ancient_gateway_block_entity", AncientGatewayBlockEntity::new, ModBlocks.ANCIENT_GATEWAY);
     }
 }

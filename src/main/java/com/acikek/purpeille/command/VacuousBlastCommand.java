@@ -1,6 +1,6 @@
 package com.acikek.purpeille.command;
 
-import com.acikek.purpeille.block.ancient.guardian.AncientGuardianBlockEntity;
+import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardianBlockEntity;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

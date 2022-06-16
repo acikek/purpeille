@@ -1,7 +1,7 @@
-package com.acikek.purpeille.block.ancient.oven;
+package com.acikek.purpeille.block.entity.ancient.oven;
 
 import com.acikek.purpeille.block.ModBlocks;
-import com.acikek.purpeille.block.ancient.AncientMachine;
+import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import lib.BlockItemProvider;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -34,11 +34,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class AncientOven extends AncientMachine<AncientOvenBlockEntity> implements BlockItemProvider {
+public class AncientOven extends CommonBlockWithEntity<AncientOvenBlockEntity> implements BlockItemProvider {
 
     public static BooleanProperty LIT = FurnaceBlock.LIT;
 
-    public static final Settings SETTINGS = FabricBlockSettings.copyOf(AncientMachine.SETTINGS)
+    public static final Settings SETTINGS = FabricBlockSettings.copyOf(CommonBlockWithEntity.SETTINGS)
             .luminance(state -> state.get(LIT) ? 8 : state.get(FULL) ? 3 : 0);
 
     public Damage damage;

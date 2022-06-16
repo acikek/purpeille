@@ -1,4 +1,4 @@
-package com.acikek.purpeille.block.ancient.oven;
+package com.acikek.purpeille.block.entity.ancient.oven;
 
 import com.acikek.purpeille.block.ModBlocks;
 import net.minecraft.block.Block;

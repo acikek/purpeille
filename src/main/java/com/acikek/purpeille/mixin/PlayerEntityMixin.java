@@ -1,6 +1,6 @@
 package com.acikek.purpeille.mixin;
 
-import com.acikek.purpeille.block.ancient.guardian.AncientGuardianBlockEntity;
+import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardianBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RespawnAnchorBlock;
 import net.minecraft.entity.EntityType;

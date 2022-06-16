@@ -1,7 +1,7 @@
 package com.acikek.purpeille.advancement;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.block.ancient.oven.Damage;
+import com.acikek.purpeille.block.entity.ancient.oven.Damage;
 import com.google.gson.JsonObject;
 import lib.EnumPredicate;
 import net.minecraft.advancement.criterion.AbstractCriterion;

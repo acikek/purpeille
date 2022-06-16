@@ -1,10 +1,7 @@
-package com.acikek.purpeille.block.ancient;
+package com.acikek.purpeille.block.entity.ancient;
 
-import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.item.core.EncasedCore;
 import lib.ImplementedInventory;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -26,7 +23,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
 public class AncientMachineBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory {
@@ -205,14 +201,5 @@ public class AncientMachineBlockEntity extends BlockEntity implements Implemente
     @Override
     public NbtCompound toInitialChunkDataNbt() {
         return createNbt();
-    }
-
-    public static <T extends BlockEntity> BlockEntityType<T> build(String id, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {
-        return Registry.register(
-                Registry.BLOCK_ENTITY_TYPE,
-                Purpeille.id(id),
-                FabricBlockEntityTypeBuilder.create(factory, blocks)
-                        .build(null)
-        );
     }
 }

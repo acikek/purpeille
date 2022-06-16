@@ -1,9 +1,10 @@
-package com.acikek.purpeille.block.ancient.oven;
+package com.acikek.purpeille.block.entity.ancient.oven;
 
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
-import com.acikek.purpeille.block.ancient.AncientMachine;
-import com.acikek.purpeille.block.ancient.AncientMachineBlockEntity;
+import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
+import com.acikek.purpeille.block.entity.ancient.AncientMachineBlockEntity;
+import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -76,7 +77,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         }
         onAddItem(stack, unset, player);
         addRecipe(optional.get());
-        world.setBlockState(pos, state.with(AncientOven.LIT, true).with(AncientMachine.FULL, true));
+        world.setBlockState(pos, state.with(AncientOven.LIT, true).with(CommonBlockWithEntity.FULL, true));
         return true;
     }
 
@@ -86,7 +87,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
         damageToTake = 0;
         result = ItemStack.EMPTY;
         if (checkDamage(world, player, pos, state)) {
-            world.setBlockState(pos, state.with(AncientMachine.FULL, false));
+            world.setBlockState(pos, state.with(CommonBlockWithEntity.FULL, false));
         }
         playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT);
     }
@@ -122,7 +123,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
         return dir != Direction.DOWN
-                && !getCachedState().get(AncientMachine.FULL)
+                && !getCachedState().get(CommonBlockWithEntity.FULL)
                 && getRecipeMatch(world, stack).isPresent();
     }
 
@@ -130,7 +131,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
         BlockState state = getCachedState();
         return dir == Direction.DOWN
-                && state.get(AncientMachine.FULL)
+                && state.get(CommonBlockWithEntity.FULL)
                 && !state.get(AncientOven.LIT);
     }
 
@@ -153,7 +154,7 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
     }
 
     public static void register() {
-        BLOCK_ENTITY_TYPE = build(
+        BLOCK_ENTITY_TYPE = ModBlockEntities.build(
                 "ancient_oven_block_entity",
                 AncientOvenBlockEntity::new,
                 ModBlocks.ANCIENT_OVEN,

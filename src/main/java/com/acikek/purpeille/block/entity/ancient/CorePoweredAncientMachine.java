@@ -1,5 +1,6 @@
-package com.acikek.purpeille.block.ancient;
+package com.acikek.purpeille.block.entity.ancient;
 
+import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.item.core.EncasedCore;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -13,7 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.function.BiFunction;
 
-public abstract class CorePoweredAncientMachine<T extends CorePoweredAncientMachineBlockEntity> extends AncientMachine<T> {
+public abstract class CorePoweredAncientMachine<T extends CorePoweredAncientMachineBlockEntity> extends CommonBlockWithEntity<T> {
 
     public Class<T> blockEntityClass;
     public boolean playerCheckCore;

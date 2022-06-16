@@ -1,8 +1,8 @@
 package com.acikek.purpeille.client.render;
 
-import com.acikek.purpeille.block.ancient.AncientMachine;
-import com.acikek.purpeille.block.ancient.guardian.AncientGuardian;
-import com.acikek.purpeille.block.ancient.guardian.AncientGuardianBlockEntity;
+import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
+import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardian;
+import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardianBlockEntity;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -48,7 +48,7 @@ public class AncientGuardianRenderer implements BlockEntityRenderer<AncientGuard
         ItemStack stack = entity.getItem();
         if (!stack.isEmpty()) {
             int lightAbove = entity.getWorld() != null ? WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up()) : light;
-            Direction direction = entity.getCachedState().get(AncientMachine.FACING);
+            Direction direction = entity.getCachedState().get(CommonBlockWithEntity.FACING);
             translate(matrices, AncientGuardian.isZ(direction), isOffset(direction));
             float angle = MathHelper.sin((ticks + tickDelta) / 120.0f * MathHelper.TAU) * 145.0f;
             matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(angle + direction.asRotation()));

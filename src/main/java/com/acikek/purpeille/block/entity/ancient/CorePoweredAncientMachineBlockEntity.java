@@ -1,4 +1,4 @@
-package com.acikek.purpeille.block.ancient;
+package com.acikek.purpeille.block.entity.ancient;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;

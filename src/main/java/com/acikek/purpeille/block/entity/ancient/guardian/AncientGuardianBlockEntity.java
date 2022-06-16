@@ -1,9 +1,10 @@
-package com.acikek.purpeille.block.ancient.guardian;
+package com.acikek.purpeille.block.entity.ancient.guardian;
 
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
-import com.acikek.purpeille.block.ancient.AncientMachine;
-import com.acikek.purpeille.block.ancient.CorePoweredAncientMachineBlockEntity;
+import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
+import com.acikek.purpeille.block.entity.ancient.CorePoweredAncientMachineBlockEntity;
+import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.item.core.EncasedCore;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
@@ -154,7 +155,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
             sendActivation(player, base, activation, true, vacuous);
             BlockState newState = getCachedState().with(AncientGuardian.ON_COOLDOWN, true);
             if (damageCore(256, world.random)) {
-                newState = newState.with(AncientMachine.FULL, false);
+                newState = newState.with(CommonBlockWithEntity.FULL, false);
                 if (world instanceof ServerWorld serverWorld) {
                     serverWorld.getChunkManager().markForUpdate(pos);
                 }
@@ -168,7 +169,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
     public void addCore(World world, ItemStack stack, boolean unset, PlayerEntity player, BlockPos pos, BlockState state) {
         super.addCore(world, stack, unset, player, pos, state);
         tetheredPlayer = player.getUuid();
-        world.setBlockState(pos, state.with(AncientMachine.FULL, true));
+        world.setBlockState(pos, state.with(CommonBlockWithEntity.FULL, true));
         if (player instanceof ServerPlayerEntity serverPlayerEntity) {
             serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), pos, 0.0f, false, false);
             playSound(SoundEvents.ITEM_FIRECHARGE_USE, 0.5f);
@@ -186,7 +187,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         super.removeCore(world, player, remove, pos, state);
         tetheredPlayer = null;
         playSound(SoundEvents.BLOCK_DEEPSLATE_STEP);
-        world.setBlockState(pos, state.with(AncientMachine.FULL, false));
+        world.setBlockState(pos, state.with(CommonBlockWithEntity.FULL, false));
     }
 
     public ServerPlayerEntity getTetheredPlayer(World world) {
@@ -233,6 +234,6 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
     }
 
     public static void register() {
-        BLOCK_ENTITY_TYPE = build("ancient_guardian_block_entity", AncientGuardianBlockEntity::new, ModBlocks.ANCIENT_GUARDIAN);
+        BLOCK_ENTITY_TYPE = ModBlockEntities.build("ancient_guardian_block_entity", AncientGuardianBlockEntity::new, ModBlocks.ANCIENT_GUARDIAN);
     }
 }

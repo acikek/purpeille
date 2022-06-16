@@ -1,7 +1,7 @@
 package com.acikek.purpeille.mixin;
 
 import com.acikek.purpeille.attribute.ModAttributes;
-import com.acikek.purpeille.block.ancient.guardian.AncientGuardianBlockEntity;
+import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardianBlockEntity;
 import com.acikek.purpeille.effect.ModStatusEffects;
 import com.acikek.purpeille.tag.ModTags;
 import net.minecraft.entity.Entity;
