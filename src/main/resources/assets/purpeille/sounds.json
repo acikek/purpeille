@@ -44,5 +44,17 @@
       "purpeille:infested/infested5",
       "purpeille:infested/infested6"
     ]
+  },
+  "block.rubble.open": {
+    "subtitle": "subtitle.purpeille.rubble.open",
+    "sounds": [
+      "purpeille:rubble/open"
+    ]
+  },
+  "block.rubble.close": {
+    "subtitle": "subtitle.purpeille.rubble.close",
+    "sounds": [
+      "purpeille:rubble/close"
+    ]
   }
 }

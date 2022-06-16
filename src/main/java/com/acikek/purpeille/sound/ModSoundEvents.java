@@ -12,6 +12,8 @@ public class ModSoundEvents {
     public static final SoundEvent LIGHTNING_BLOCK_BREAK = create("block.lightning_block.break");
     public static final SoundEvent INFESTED_BLOCK_PLACE = create("block.infested_block.place");
     public static final SoundEvent INFESTED_BLOCK_BREAK = create("block.infested_block.break");
+    public static final SoundEvent RUBBLE_OPEN = create("block.rubble.open");
+    public static final SoundEvent RUBBLE_CLOSE = create("block.rubble.close");
 
     public static SoundEvent create(String id) {
         return new SoundEvent(Purpeille.id(id));
@@ -22,7 +24,9 @@ public class ModSoundEvents {
             LIGHTNING_BLOCK_PLACE,
             LIGHTNING_BLOCK_BREAK,
             INFESTED_BLOCK_PLACE,
-            INFESTED_BLOCK_BREAK
+            INFESTED_BLOCK_BREAK,
+            RUBBLE_OPEN,
+            RUBBLE_CLOSE
     };
 
     public static void register() {
