@@ -41,6 +41,7 @@ public class PurpeilleClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.END_RUBBLE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.END_RUBBLE, RenderLayer.getTranslucent());
         ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(MODEL));
         AncientGuardianRenderer.register();
         ModParticleTypes.register();

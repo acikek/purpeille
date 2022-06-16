@@ -1,12 +1,12 @@
 {
   "block.ancient_gateway.teleport": {
-    "subtitle": "subtitle.purpeille.ancient_gateway.teleport",
+    "subtitle": "subtitles.purpeille.ancient_gateway.teleport",
     "sounds": [
       "purpeille:ancient_gateway_teleport"
     ]
   },
   "block.lightning_block.place": {
-    "subtitle": "subtitle.purpeille.lightning_block.place",
+    "subtitle": "subtitles.block.generic.place",
     "sounds": [
       "purpeille:lightning/lightning1",
       "purpeille:lightning/lightning2",
@@ -15,7 +15,7 @@
     ]
   },
   "block.lightning_block.break": {
-    "subtitle": "subtitle.purpeille.lightning_block.break",
+    "subtitle": "subtitles.block.generic.break",
     "sounds": [
       "purpeille:lightning/lightning1",
       "purpeille:lightning/lightning2",
@@ -24,7 +24,7 @@
     ]
   },
   "block.infested_block.place": {
-    "subtitle": "subtitle.purpeille.infested_block.place",
+    "subtitle": "subtitles.block.generic.place",
     "sounds": [
       "purpeille:infested/infested1",
       "purpeille:infested/infested2",
@@ -35,7 +35,7 @@
     ]
   },
   "block.infested_block.break": {
-    "subtitle": "subtitle.purpeille.infested_block.break",
+    "subtitle": "subtitles.block.generic.break",
     "sounds": [
       "purpeille:infested/infested1",
       "purpeille:infested/infested2",
@@ -46,13 +46,13 @@
     ]
   },
   "block.rubble.open": {
-    "subtitle": "subtitle.purpeille.rubble.open",
+    "subtitle": "subtitles.purpeille.rubble.open",
     "sounds": [
       "purpeille:rubble/open"
     ]
   },
   "block.rubble.close": {
-    "subtitle": "subtitle.purpeille.rubble.close",
+    "subtitle": "subtitles.purpeille.rubble.close",
     "sounds": [
       "purpeille:rubble/close"
     ]

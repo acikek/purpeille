@@ -111,7 +111,7 @@
   "command.purpeille.warpath.invalid.stack": "%s no está cogiendo un item",
   "command.purpeille.warpath.success.add": "Agregado el ritual con éxito [%s]",
   "command.purpeille.warpath.success.remove": "Eliminado el ritual con éxito [%s]",
-  "subtitle.purpeille.ancient_gateway.teleport": "Enlace antiguo teletransporta a alguien",
+  "subtitles.purpeille.ancient_gateway.teleport": "Enlace antiguo teletransporta a alguien",
   "use.purpeille.creative_core": "Cambiado el modificador del corazón a %d",
   "tooltip.purpeille.creative_core": "Modificador del corazón: ",
   "rei.purpeille.ancient_oven": "Enfoque del Vacío",

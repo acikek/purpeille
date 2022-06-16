@@ -111,7 +111,7 @@
   "command.purpeille.warpath.invalid.stack": "%s não está segurando um item",
   "command.purpeille.warpath.success.add": "Ritual adicionado com sucesso [%s]",
   "command.purpeille.warpath.success.remove": "Ritual removido com sucesso [%s]",
-  "subtitle.purpeille.ancient_gateway.teleport": "Portão ancião teletransportando alguém",
+  "subtitles.purpeille.ancient_gateway.teleport": "Portão ancião teletransportando alguém",
   "use.purpeille.creative_core": "Mudado o modificador do núcleo às %d",
   "tooltip.purpeille.creative_core": "Modificador do núcleo: ",
   "rei.purpeille.ancient_oven": "Concentrando Vazio",

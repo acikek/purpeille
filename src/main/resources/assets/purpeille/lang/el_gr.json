@@ -107,7 +107,7 @@
   "command.purpeille.warpath.invalid.stack": "Ο %s δεν κρατάει κάποιο αντικείμενο",
   "command.purpeille.warpath.success.add": "Το μονοπάτι προστέθηκε με επιτυχία [%s]",
   "command.purpeille.warpath.success.remove": "Το μονοπάτι αφαιρέθηκε με επιτυχία [%s]",
-  "subtitle.purpeille.ancient_gateway.teleport": "Τηλεμεταφορά Αρχαίας Πύλης",
+  "subtitles.purpeille.ancient_gateway.teleport": "Τηλεμεταφορά Αρχαίας Πύλης",
   "use.purpeille.creative_core": "Η δύναμη πυρήνα ορίστηκε σε %d",
   "tooltip.purpeille.creative_core": "Δύναμη πυρήνα: ",
   "rei.purpeille.ancient_oven": "Εστίαση Κενού",

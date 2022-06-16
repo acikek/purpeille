@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "purpeille:purpeille_block"
+    "purpeille:purpeille_block",
+    "purpeille:smoldered_purpeille_block"
   ]
 }
