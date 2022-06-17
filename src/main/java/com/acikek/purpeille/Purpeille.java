@@ -18,6 +18,7 @@ import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -41,6 +42,9 @@ public class Purpeille implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Purpeille: Harness the Void!");
+        if (FabricLoader.getInstance().isModLoaded("roughlyenoughitems")) {
+            LOGGER.warn("Purpeille support for REI is limited; use EMI for better integration! https://modrinth.com/mod/emi");
+        }
         ModBlocks.register();
         ModBlockEntities.register();
         ModItems.register();

@@ -28,6 +28,9 @@
     ],
     "emi": [
       "com.acikek.purpeille.compat.emi.PurpeillePlugin"
+    ],
+    "rei": [
+      "com.acikek.purpeille.compat.rei.PurpeilleREIPlugin"
     ]
   },
   "mixins": [

@@ -23,6 +23,8 @@ repositories {
     }
 
     maven { url 'https://maven.blamejared.com' }
+
+    maven { url "https://maven.shedaniel.me" }
 }
 
 dependencies {
@@ -39,6 +41,9 @@ dependencies {
 
     // EMI
     modImplementation "dev.emi:emi:${project.emi_version}"
+
+    // REI
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
 
     // Patchouli
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}", {
