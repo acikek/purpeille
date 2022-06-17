@@ -52,10 +52,6 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
         return state.getBlock() == newState.getBlock();
     }
 
-    public void breakParticles(World world, BlockPos pos, BlockState state) {
-        spawnBreakParticles(world, null, pos, state);
-    }
-
     public abstract BlockEntityType<T> getBlockEntityType();
 
     @Override
