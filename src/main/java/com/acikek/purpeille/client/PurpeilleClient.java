@@ -1,6 +1,7 @@
 package com.acikek.purpeille.client;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.block.ChorusInfestedBlocks;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardian;
 import com.acikek.purpeille.client.networking.AncientGuardianActivationListener;
@@ -22,6 +23,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.client.MinecraftClient;
@@ -47,8 +49,7 @@ public class PurpeilleClient implements ClientModInitializer {
         ModParticleTypes.register();
         AncientGuardianParticle.register();
         ClientTickEvents.START_WORLD_TICK.register(world -> AncientGuardianRenderer.tick());
-        ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
-        ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.VACUOUS_BLAST, new VacuousBlastListener());
+        registerReceivers();
         registerPacks();
         handleReload("revelations", Component.REVELATIONS, Revelation::read);
         handleReload("aspects", Component.ASPECTS, Aspect::read);
@@ -65,6 +66,16 @@ public class PurpeilleClient implements ClientModInitializer {
                     registerPack(mod, "old", "Purpeille Legacy", ResourcePackActivationType.NORMAL);
                     registerPack(mod, "theinar", "Theinar Language", ResourcePackActivationType.ALWAYS_ENABLED);
                 });
+    }
+
+    public static void registerReceivers() {
+        ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
+        ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.VACUOUS_BLAST, new VacuousBlastListener());
+        ClientPlayNetworking.registerGlobalReceiver(ChorusInfestedBlocks.INFESTATION_TRIM, (client, handler, buf, responseSender) -> {
+            if (client.world != null) {
+                client.world.addBlockBreakParticles(buf.readBlockPos(), Block.getStateFromRawId(buf.readInt()));
+            }
+        });
     }
 
     public static <T extends Component> void handleReload(String key, Map<Identifier, T> registry, Function<PacketByteBuf, T> read) {
