@@ -116,7 +116,7 @@ public class EndRubbleBlockEntity extends LootableContainerBlockEntity {
     }
 
     public void playSound(World world, BlockPos pos, SoundEvent event) {
-        world.playSound(null, pos, event, SoundCategory.BLOCKS, 1.0f, world.random.nextFloat() * 0.2f + 0.90f);
+        world.playSound(null, pos, event, SoundCategory.BLOCKS, 0.3f, world.random.nextFloat() * 0.2f + 0.90f);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, EndRubbleBlockEntity blockEntity) {
