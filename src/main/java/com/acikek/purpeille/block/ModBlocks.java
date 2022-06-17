@@ -1,7 +1,6 @@
 package com.acikek.purpeille.block;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.ancient.gateway.AncientGateway;
 import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardian;
 import com.acikek.purpeille.block.entity.ancient.oven.AncientOven;
@@ -22,7 +21,7 @@ public class ModBlocks {
     // Blocks
     public static final Block PURPUR_REMNANTS = new OreBlock(PurpurRemnants.SETTINGS, UniformIntProvider.create(2, 3));
     public static final Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
-    public static final Block ANCIENT_MECHANICAL_BRICKS = new ChorusInfestedBlocks.InfestedBlock();
+    public static final Block ANCIENT_MECHANICAL_BRICKS = new ChorusInfestedBlocks.InfestedBlock(BlockSettings.ANCIENT_MACHINE);
     public static final EndRubble END_RUBBLE = new EndRubble(EndRubble.SETTINGS);
 
     // Machines
@@ -37,22 +36,22 @@ public class ModBlocks {
     public static final SlabBlock REMNANT_BRICK_SLAB = new SlabBlock(BlockSettings.REMNANT_BRICKS);
     public static final StairsBlock REMNANT_BRICK_STAIRS = new StairsBlock(REMNANT_BRICKS.getDefaultState(), BlockSettings.REMNANT_BRICKS);
     public static final WallBlock REMNANT_BRICK_WALL = new WallBlock(BlockSettings.REMNANT_BRICKS);
-    public static final SlabBlock ANCIENT_MECHANICAL_BRICK_SLAB = new ChorusInfestedBlocks.Slab();
-    public static final StairsBlock ANCIENT_MECHANICAL_BRICK_STAIRS = new ChorusInfestedBlocks.Stairs(ANCIENT_MECHANICAL_BRICKS.getDefaultState());
-    public static final WallBlock ANCIENT_MECHANICAL_BRICK_WALL = new ChorusInfestedBlocks.Wall();
-    public static final Block RUINED_MECHANICAL_BRICKS = new Block(CommonBlockWithEntity.SETTINGS);
-    public static final SlabBlock RUINED_MECHANICAL_BRICK_SLAB = new SlabBlock(CommonBlockWithEntity.SETTINGS);
-    public static final StairsBlock RUINED_MECHANICAL_BRICK_STAIRS = new StairsBlock(RUINED_MECHANICAL_BRICKS.getDefaultState(), CommonBlockWithEntity.SETTINGS);
-    public static final WallBlock RUINED_MECHANICAL_BRICK_WALL = new WallBlock(CommonBlockWithEntity.SETTINGS);
-    public static final Block DEMOLISHED_MECHANICAL_BRICKS = new Block(CommonBlockWithEntity.SETTINGS);
-    public static final SlabBlock DEMOLISHED_MECHANICAL_BRICK_SLAB = new SlabBlock(CommonBlockWithEntity.SETTINGS);
-    public static final StairsBlock DEMOLISHED_MECHANICAL_BRICK_STAIRS = new StairsBlock(DEMOLISHED_MECHANICAL_BRICKS.getDefaultState(), CommonBlockWithEntity.SETTINGS);
-    public static final WallBlock DEMOLISHED_MECHANICAL_BRICK_WALL = new WallBlock(CommonBlockWithEntity.SETTINGS);
-    public static final Block CHISELED_MECHANICAL_BRICKS = new Block(CommonBlockWithEntity.SETTINGS);
-    public static final Block CHORUS_INFESTED_MECHANICAL_BRICKS = new ChorusInfestedBlocks.InfestedBlock();
-    public static final SlabBlock CHORUS_INFESTED_MECHANICAL_BRICK_SLAB = new ChorusInfestedBlocks.Slab();
-    public static final StairsBlock CHORUS_INFESTED_MECHANICAL_BRICK_STAIRS = new ChorusInfestedBlocks.Stairs(CHORUS_INFESTED_MECHANICAL_BRICKS.getDefaultState());
-    public static final WallBlock CHORUS_INFESTED_MECHANICAL_BRICK_WALL = new ChorusInfestedBlocks.Wall();
+    public static final SlabBlock ANCIENT_MECHANICAL_BRICK_SLAB = new ChorusInfestedBlocks.Slab(BlockSettings.ANCIENT_MACHINE);
+    public static final StairsBlock ANCIENT_MECHANICAL_BRICK_STAIRS = new ChorusInfestedBlocks.Stairs(ANCIENT_MECHANICAL_BRICKS.getDefaultState(), BlockSettings.ANCIENT_MACHINE);
+    public static final WallBlock ANCIENT_MECHANICAL_BRICK_WALL = new ChorusInfestedBlocks.Wall(BlockSettings.ANCIENT_MACHINE);
+    public static final Block RUINED_MECHANICAL_BRICKS = new Block(BlockSettings.ANCIENT_MACHINE);
+    public static final SlabBlock RUINED_MECHANICAL_BRICK_SLAB = new SlabBlock(BlockSettings.ANCIENT_MACHINE);
+    public static final StairsBlock RUINED_MECHANICAL_BRICK_STAIRS = new StairsBlock(RUINED_MECHANICAL_BRICKS.getDefaultState(), BlockSettings.ANCIENT_MACHINE);
+    public static final WallBlock RUINED_MECHANICAL_BRICK_WALL = new WallBlock(BlockSettings.ANCIENT_MACHINE);
+    public static final Block DEMOLISHED_MECHANICAL_BRICKS = new Block(BlockSettings.ANCIENT_MACHINE);
+    public static final SlabBlock DEMOLISHED_MECHANICAL_BRICK_SLAB = new SlabBlock(BlockSettings.ANCIENT_MACHINE);
+    public static final StairsBlock DEMOLISHED_MECHANICAL_BRICK_STAIRS = new StairsBlock(DEMOLISHED_MECHANICAL_BRICKS.getDefaultState(), BlockSettings.ANCIENT_MACHINE);
+    public static final WallBlock DEMOLISHED_MECHANICAL_BRICK_WALL = new WallBlock(BlockSettings.ANCIENT_MACHINE);
+    public static final Block CHISELED_MECHANICAL_BRICKS = new Block(BlockSettings.ANCIENT_MACHINE);
+    public static final Block CHORUS_INFESTED_MECHANICAL_BRICKS = new ChorusInfestedBlocks.InfestedBlock(BlockSettings.INFESTED_BLOCK);
+    public static final SlabBlock CHORUS_INFESTED_MECHANICAL_BRICK_SLAB = new ChorusInfestedBlocks.Slab(BlockSettings.INFESTED_BLOCK);
+    public static final StairsBlock CHORUS_INFESTED_MECHANICAL_BRICK_STAIRS = new ChorusInfestedBlocks.Stairs(CHORUS_INFESTED_MECHANICAL_BRICKS.getDefaultState(), BlockSettings.INFESTED_BLOCK);
+    public static final WallBlock CHORUS_INFESTED_MECHANICAL_BRICK_WALL = new ChorusInfestedBlocks.Wall(BlockSettings.INFESTED_BLOCK);
     public static final Block CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS = new Block(BlockSettings.INFESTED_BLOCK);
     public static final SlabBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_SLAB = new SlabBlock(BlockSettings.INFESTED_BLOCK);
     public static final StairsBlock CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_STAIRS = new StairsBlock(CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS.getDefaultState(), BlockSettings.INFESTED_BLOCK);

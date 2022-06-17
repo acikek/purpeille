@@ -76,29 +76,29 @@ public class ChorusInfestedBlocks implements UseBlockCallback {
 
     public static class InfestedBlock extends Block implements ChorusInfested {
 
-        public InfestedBlock() {
-            super(BlockSettings.INFESTED_BLOCK);
+        public InfestedBlock(Settings settings) {
+            super(settings);
         }
     }
 
     public static class Slab extends SlabBlock implements ChorusInfested {
 
-        public Slab() {
-            super(BlockSettings.INFESTED_BLOCK);
+        public Slab(Settings settings) {
+            super(settings);
         }
     }
 
     public static class Stairs extends StairsBlock implements ChorusInfested {
 
-        public Stairs(BlockState baseState) {
-            super(baseState, BlockSettings.INFESTED_BLOCK);
+        public Stairs(BlockState baseState, Settings settings) {
+            super(baseState, settings);
         }
     }
 
     public static class Wall extends WallBlock implements ChorusInfested {
 
-        public Wall() {
-            super(BlockSettings.INFESTED_BLOCK);
+        public Wall(Settings settings) {
+            super(settings);
         }
     }
 }

@@ -1,14 +1,11 @@
 package com.acikek.purpeille.block.entity;
 
-import com.acikek.purpeille.block.BlockSettings;
-import com.acikek.purpeille.block.entity.ancient.AncientMachineBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -26,10 +23,6 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
 
     public static DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static BooleanProperty FULL = BooleanProperty.of("full");
-
-    public static final Settings SETTINGS = BlockSettings.baseSettings(Material.STONE)
-            .strength(6.0f)
-            .sounds(BlockSoundGroup.NETHER_BRICKS);
 
     public BlockEntityTicker<T> ticker;
     public BiFunction<BlockPos, BlockState, T> supplier;

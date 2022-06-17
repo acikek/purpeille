@@ -1,5 +1,6 @@
 package com.acikek.purpeille.block.entity.ancient.oven;
 
+import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import lib.BlockItemProvider;
@@ -38,7 +39,7 @@ public class AncientOven extends CommonBlockWithEntity<AncientOvenBlockEntity> i
 
     public static BooleanProperty LIT = FurnaceBlock.LIT;
 
-    public static final Settings SETTINGS = FabricBlockSettings.copyOf(CommonBlockWithEntity.SETTINGS)
+    public static final Settings SETTINGS = FabricBlockSettings.copyOf(BlockSettings.ANCIENT_MACHINE)
             .luminance(state -> state.get(LIT) ? 8 : state.get(FULL) ? 3 : 0);
 
     public Damage damage;
