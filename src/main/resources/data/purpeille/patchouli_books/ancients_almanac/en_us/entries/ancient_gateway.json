@@ -18,7 +18,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "A major application of this machine is teleporting tens of thousands of blocks after having charged it up when workng on other tasks. There is no inherent limit to how far you can travel using the gateway, but the core inside does degrade at the same rate of 20 blocks per durability regardless of tier. Even if the teleportation distance is less than 20 blocks, a single point of durability will still be deducted."
+      "text": "A major application of this machine is teleporting tens of thousands of blocks after having charged it up when working on other tasks. There is no inherent limit to how far you can travel using the gateway, but the core inside does degrade at the same rate of 20 blocks per durability regardless of tier. Even if the teleportation distance is less than 20 blocks, a single point of durability will still be deducted."
     }
   ],
   "advancement": "purpeille:purpeille/encased_core",
