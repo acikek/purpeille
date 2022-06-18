@@ -115,7 +115,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
                     killed++;
                 }
                 else {
-                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 1200, 2), player);
+                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 1200, 2), player);
                 }
             }
         }
