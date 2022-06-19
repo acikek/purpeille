@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 4,
+  "ingredient": {
+    "item": "purpeille:lightning_block"
+  },
+  "result": "purpeille:cut_lightning_stairs"
+}
