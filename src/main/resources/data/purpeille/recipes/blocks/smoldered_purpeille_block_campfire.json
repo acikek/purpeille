@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "purpeille:purpeille_block"
+  },
+  "result": "purpeille:smoldered_purpeille_block",
+  "cookingtime": 108000,
+  "experience": 150.0
+}

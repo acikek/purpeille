@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "purpeille:metallic_lightning"
+    }
+  },
+  "result": {
+    "item": "purpeille:lightning_block",
+    "count": 1
+  }
+}

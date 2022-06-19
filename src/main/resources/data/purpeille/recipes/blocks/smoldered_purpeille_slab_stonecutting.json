@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "purpeille:smoldered_purpeille_block"
+  },
+  "result": "purpeille:smoldered_purpeille_slab"
+}

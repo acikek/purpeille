@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PP",
+    "PP"
+  ],
+  "key": {
+    "P": {
+      "item": "purpeille:ultraviolet_prism"
+    }
+  },
+  "result": {
+    "item": "purpeille:ultraviolet_complex",
+    "count": 1
+  }
+}

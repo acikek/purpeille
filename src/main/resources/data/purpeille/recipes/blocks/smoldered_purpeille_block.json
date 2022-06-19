@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "purpeille:smoldered_purpeille_ingot"
+    }
+  },
+  "result": {
+    "item": "purpeille:smoldered_purpeille_block",
+    "count": 1
+  }
+}

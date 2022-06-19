@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "purpeille:chorus_infested_mechanical_bricks"
+  },
+  "result": "purpeille:chorus_infested_mechanical_brick_slab"
+}

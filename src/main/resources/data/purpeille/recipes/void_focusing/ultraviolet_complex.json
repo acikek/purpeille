@@ -1,0 +1,13 @@
+{
+  "type": "purpeille:ancient_oven",
+  "input": {
+    "item": "minecraft:amethyst_block"
+  },
+  "damage": 32,
+  "cook_time": 1280,
+  "result": [
+    {
+      "item": "purpeille:ultraviolet_complex"
+    }
+  ]
+}

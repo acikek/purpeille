@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "purpeille:purpeille_block"
+  },
+  "result": "purpeille:purpeille_stairs"
+}

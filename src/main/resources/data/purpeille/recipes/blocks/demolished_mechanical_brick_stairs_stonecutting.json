@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "purpeille:demolished_mechanical_bricks"
+  },
+  "result": "purpeille:demolished_mechanical_brick_stairs"
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "purpeille:lightning_block"
+    }
+  },
+  "result": {
+    "item": "purpeille:cut_lightning_block",
+    "count": 4
+  }
+}

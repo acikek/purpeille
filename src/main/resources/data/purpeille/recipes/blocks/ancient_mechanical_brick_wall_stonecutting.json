@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "purpeille:ancient_mechanical_bricks"
+  },
+  "result": "purpeille:ancient_mechanical_brick_wall"
+}

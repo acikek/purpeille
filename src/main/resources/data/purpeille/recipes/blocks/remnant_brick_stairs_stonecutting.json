@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "purpeille:remnant_bricks"
+  },
+  "result": "purpeille:remnant_brick_stairs"
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "purpeille:choral_bloom_infested_mechanical_bricks"
+    }
+  },
+  "pattern": [
+    "  #",
+    " ##",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "item": "purpeille:choral_bloom_infested_mechanical_brick_stairs"
+  }
+}

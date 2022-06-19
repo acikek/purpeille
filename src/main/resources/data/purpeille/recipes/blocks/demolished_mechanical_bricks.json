@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.2,
+  "ingredient": {
+    "item": "purpeille:ruined_mechanical_bricks"
+  },
+  "result": "purpeille:demolished_mechanical_bricks"
+}

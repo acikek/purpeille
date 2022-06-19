@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "purpeille:choral_bloom_infested_mechanical_bricks"
+  },
+  "result": "purpeille:choral_bloom_infested_mechanical_brick_stairs"
+}

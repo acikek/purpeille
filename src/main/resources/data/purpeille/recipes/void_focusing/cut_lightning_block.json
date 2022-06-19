@@ -1,0 +1,13 @@
+{
+  "type": "purpeille:ancient_oven",
+  "input": {
+    "item": "minecraft:cut_copper"
+  },
+  "damage": 108,
+  "cook_time": 4320,
+  "result": [
+    {
+      "item": "purpeille:cut_lightning_block"
+    }
+  ]
+}

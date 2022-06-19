@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "purpeille:ruined_mechanical_bricks"
+  },
+  "result": "purpeille:ruined_mechanical_brick_stairs"
+}
