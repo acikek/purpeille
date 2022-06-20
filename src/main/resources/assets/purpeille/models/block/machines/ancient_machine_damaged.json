@@ -1,5 +1,5 @@
 {
-  "parent": "purpeille:block/ancient_machine_template",
+  "parent": "purpeille:block/machines/ancient_machine_template",
   "textures": {
     "side": "purpeille:block/ancient_mechanical_bricks_cracked"
   }

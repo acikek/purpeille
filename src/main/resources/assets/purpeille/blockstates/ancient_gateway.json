@@ -1,48 +1,48 @@
 {
   "variants": {
     "facing=east,ready=false,charging=false": {
-      "model": "purpeille:block/ancient_gateway",
+      "model": "purpeille:block/machines/ancient_gateway",
       "y": 90
     },
     "facing=east,ready=true,charging=false": {
-      "model": "purpeille:block/ancient_gateway_ready",
+      "model": "purpeille:block/machines/ancient_gateway_ready",
       "y": 90
     },
     "facing=east,charging=true": {
-      "model": "purpeille:block/ancient_gateway_charging",
+      "model": "purpeille:block/machines/ancient_gateway_charging",
       "y": 90
     },
     "facing=north,ready=false,charging=false": {
-      "model": "purpeille:block/ancient_gateway"
+      "model": "purpeille:block/machines/ancient_gateway"
     },
     "facing=north,ready=true,charging=false": {
-      "model": "purpeille:block/ancient_gateway_ready"
+      "model": "purpeille:block/machines/ancient_gateway_ready"
     },
     "facing=north,charging=true": {
-      "model": "purpeille:block/ancient_gateway_charging"
+      "model": "purpeille:block/machines/ancient_gateway_charging"
     },
     "facing=south,ready=false,charging=false": {
-      "model": "purpeille:block/ancient_gateway",
+      "model": "purpeille:block/machines/ancient_gateway",
       "y": 180
     },
     "facing=south,ready=true,charging=false": {
-      "model": "purpeille:block/ancient_gateway_ready",
+      "model": "purpeille:block/machines/ancient_gateway_ready",
       "y": 180
     },
     "facing=south,charging=true": {
-      "model": "purpeille:block/ancient_gateway_charging",
+      "model": "purpeille:block/machines/ancient_gateway_charging",
       "y": 180
     },
     "facing=west,ready=false,charging=false": {
-      "model": "purpeille:block/ancient_gateway",
+      "model": "purpeille:block/machines/ancient_gateway",
       "y": 270
     },
     "facing=west,ready=true,charging=false": {
-      "model": "purpeille:block/ancient_gateway_ready",
+      "model": "purpeille:block/machines/ancient_gateway_ready",
       "y": 270
     },
     "facing=west,charging=true": {
-      "model": "purpeille:block/ancient_gateway_charging",
+      "model": "purpeille:block/machines/ancient_gateway_charging",
       "y": 270
     }
   }

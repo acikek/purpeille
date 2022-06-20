@@ -1,5 +1,5 @@
 {
-  "parent": "purpeille:block/ancient_machine_damaged",
+  "parent": "purpeille:block/machines/ancient_machine_damaged",
   "textures": {
     "top": "purpeille:block/ancient_oven_top_dim_full",
     "front": "purpeille:block/ancient_oven_front_on"

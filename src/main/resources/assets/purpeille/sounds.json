@@ -2,7 +2,7 @@
   "block.ancient_gateway.teleport": {
     "subtitle": "subtitles.purpeille.ancient_gateway.teleport",
     "sounds": [
-      "purpeille:ancient_gateway_teleport"
+      "purpeille:gateway/teleport"
     ]
   },
   "block.lightning_block.place": {

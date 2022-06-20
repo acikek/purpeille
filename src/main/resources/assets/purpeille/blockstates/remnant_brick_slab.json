@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "purpeille:block/remnant_brick_slab"
+      "model": "purpeille:block/slabs/remnant_brick_slab"
     },
     "type=double": {
       "model": "purpeille:block/remnant_bricks"
     },
     "type=top": {
-      "model": "purpeille:block/remnant_brick_slab_top"
+      "model": "purpeille:block/slabs/remnant_brick_slab_top"
     }
   }
 }

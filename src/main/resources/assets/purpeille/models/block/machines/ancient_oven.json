@@ -1,5 +1,5 @@
 {
-  "parent": "purpeille:block/ancient_machine",
+  "parent": "purpeille:block/machines/ancient_machine",
   "textures": {
     "top": "purpeille:block/ancient_oven_top",
     "front": "purpeille:block/ancient_oven_front"

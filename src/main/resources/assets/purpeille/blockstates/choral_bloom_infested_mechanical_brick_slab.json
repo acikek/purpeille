@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "purpeille:block/choral_bloom_infested_mechanical_brick_slab"
+      "model": "purpeille:block/slabs/choral_bloom_infested_mechanical_brick_slab"
     },
     "type=double": {
       "model": "purpeille:block/choral_bloom_infested_mechanical_bricks"
     },
     "type=top": {
-      "model": "purpeille:block/choral_bloom_infested_mechanical_brick_slab_top"
+      "model": "purpeille:block/slabs/choral_bloom_infested_mechanical_brick_slab_top"
     }
   }
 }
