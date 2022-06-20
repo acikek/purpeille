@@ -19,16 +19,24 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class ChorusInfestedBlocks implements UseBlockCallback {
 
     public static final Identifier INFESTATION_TRIM = Purpeille.id("infestation_trim");
+
+    public static final List<Block> CHORAL_BLOOM = List.of(
+            ModBlocks.CHORAL_BLOOM_INFESTED_MECHANICAL_BRICKS,
+            ModBlocks.CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_SLAB,
+            ModBlocks.CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_STAIRS,
+            ModBlocks.CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_WALL
+    );
 
     public static final BiMap<Block, Block> STAGES = HashBiMap.create();
 
@@ -62,7 +70,7 @@ public class ChorusInfestedBlocks implements UseBlockCallback {
                 if (!player.isCreative() && player instanceof ServerPlayerEntity playerEntity) {
                     playerEntity.getStackInHand(hand).damage(1, world.random, playerEntity);
                 }
-                if (world.random.nextFloat() > 0.7f) {
+                if (CHORAL_BLOOM.contains(state.getBlock()) && world.random.nextFloat() > 0.5f) {
                     ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), Items.CHORUS_FRUIT.getDefaultStack());
                 }
                 return ActionResult.SUCCESS;

@@ -115,5 +115,8 @@
   "use.purpeille.creative_core": "Mudado o modificador do núcleo às %d",
   "tooltip.purpeille.creative_core": "Modificador do núcleo: ",
   "rei.purpeille.ancient_oven": "Concentrando Vazio",
-  "rei.purpeille.ancient_oven.damage": "%d Dano"
+  "rei.purpeille.ancient_oven.damage": "%d Dano",
+  "emi.category.purpeille.ancient_oven": "Concentrando Vazio",
+  "emi.purpeille.ancient_oven.damage": "%d Dano",
+  "emi.purpeille.chance": "%d%% de probilidade"
 }

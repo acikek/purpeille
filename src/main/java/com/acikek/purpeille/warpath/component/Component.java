@@ -73,6 +73,12 @@ public abstract class Component {
         return getText(style);
     }
 
+    public int getFixedIndex() {
+        return this instanceof Aspect
+                ? 8 - relativeIndex
+                : relativeIndex;
+    }
+
     public boolean isCompatible(Component other) {
         return other == null || whitelist == null || whitelist.contains(other.id);
     }

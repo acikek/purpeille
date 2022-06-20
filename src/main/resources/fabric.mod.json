@@ -26,6 +26,9 @@
     "client": [
       "com.acikek.purpeille.client.PurpeilleClient"
     ],
+    "emi": [
+      "com.acikek.purpeille.compat.emi.PurpeillePlugin"
+    ],
     "rei_client": [
       "com.acikek.purpeille.compat.rei.PurpeilleREIPlugin"
     ]
@@ -35,10 +38,10 @@
   ],
   "accessWidener": "purpeille.accesswidener",
   "depends": {
-    "fabricloader": ">=0.13.3",
+    "fabricloader": ">=0.14.8",
     "fabric": "*",
     "minecraft": "1.19",
-    "voidcrafting": ">=1.4.0",
-    "cmods": ">=1.1.0"
+    "voidcrafting": ">=1.7.0",
+    "cmods": ">=1.3.0"
   }
 }
