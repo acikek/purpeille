@@ -1,0 +1,31 @@
+{
+  "recipes": [
+    "emi:purpeille/growing/chorus_infested_mechanical_bricks",
+    "purpeille:blocks/ancient_gateway",
+    "purpeille:blocks/ancient_guardian",
+    "purpeille:blocks/ancient_oven",
+    "purpeille:blocks/chiseled_mechanical_bricks",
+    "purpeille:blocks/demolished_mechanical_bricks",
+    "purpeille:blocks/purpeille_block",
+    "purpeille:blocks/remnant_bricks",
+    "purpeille:blocks/ruined_mechanical_bricks",
+    "purpeille:blocks/smoldered_purpeille_block",
+    "purpeille:gear/purpeille_axe",
+    "purpeille:gear/purpeille_boots",
+    "purpeille:gear/purpeille_chestplate",
+    "purpeille:gear/purpeille_helmet",
+    "purpeille:gear/purpeille_hoe",
+    "purpeille:gear/purpeille_leggings",
+    "purpeille:gear/purpeille_pickaxe",
+    "purpeille:gear/purpeille_shovel",
+    "purpeille:gear/purpeille_sword",
+    "purpeille:items/ancients_almanac",
+    "purpeille:items/energetic_core",
+    "purpeille:items/overclocked_core",
+    "purpeille:items/smoldered_purpeille_ingot",
+    "purpeille:void_crafting/ancient_mechanical_bricks",
+    "purpeille:void_crafting/preserved_dust",
+    "purpeille:void_crafting/vacuous_core",
+    "purpeille:void_focusing/encased_core"
+  ]
+}
