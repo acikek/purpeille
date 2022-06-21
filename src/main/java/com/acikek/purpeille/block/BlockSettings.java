@@ -20,10 +20,6 @@ public class BlockSettings {
             .strength(6.0f)
             .sounds(BlockSoundGroup.NETHER_BRICKS);
 
-    public static final AbstractBlock.Settings MONOLITHIC_PURPUR = baseSettings(Material.STONE)
-            .strength(5.0f)
-            .sounds(BlockSoundGroup.BONE);
-
     public static final AbstractBlock.Settings LIGHTNING_BLOCK = baseSettings(Material.METAL)
             .strength(4.0f, 6.0f)
             .sounds(ModSoundGroups.LIGHTNING_BLOCK);

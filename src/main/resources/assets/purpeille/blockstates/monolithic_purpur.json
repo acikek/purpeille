@@ -1,16 +1,30 @@
 {
   "variants": {
-    "axis=x": {
-      "model": "purpeille:block/monolithic_purpur_horizontal",
+    "facing=up": {
+      "model": "purpeille:block/monolithic_purpur"
+    },
+    "facing=down": {
+      "model": "purpeille:block/monolithic_purpur",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "purpeille:block/monolithic_purpur",
       "x": 90,
       "y": 90
     },
-    "axis=y": {
-      "model": "purpeille:block/monolithic_purpur"
-    },
-    "axis=z": {
-      "model": "purpeille:block/monolithic_purpur_horizontal",
+    "facing=north": {
+      "model": "purpeille:block/monolithic_purpur",
       "x": 90
+    },
+    "facing=south": {
+      "model": "purpeille:block/monolithic_purpur",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "purpeille:block/monolithic_purpur",
+      "x": 90,
+      "y": 270
     }
   }
 }

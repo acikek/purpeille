@@ -32,7 +32,7 @@ public class ModBlocks {
     public static final AncientOven ANCIENT_OVEN_VERY_DIM = Damage.VERY_DIM.createBlock();
 
     // Decorations
-    public static final Block MONOLITHIC_PURPUR = new PillarBlock(BlockSettings.MONOLITHIC_PURPUR);
+    public static final MonolithicPurpur MONOLITHIC_PURPUR = new MonolithicPurpur(MonolithicPurpur.SETTINGS);
     public static final SlabBlock REMNANT_BRICK_SLAB = new SlabBlock(BlockSettings.REMNANT_BRICKS);
     public static final StairsBlock REMNANT_BRICK_STAIRS = new StairsBlock(REMNANT_BRICKS.getDefaultState(), BlockSettings.REMNANT_BRICKS);
     public static final WallBlock REMNANT_BRICK_WALL = new WallBlock(BlockSettings.REMNANT_BRICKS);
