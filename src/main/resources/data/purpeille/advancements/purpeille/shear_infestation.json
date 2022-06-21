@@ -1,0 +1,26 @@
+{
+  "parent": "purpeille:purpeille/ancient_mechanical_bricks",
+  "display": {
+    "icon": {
+      "item": "purpeille:choral_bloom_infested_mechanical_bricks"
+    },
+    "title": {
+      "translate": "advancements.purpeille.shear_infestation.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.shear_infestation.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "open_end_rubble": {
+      "trigger": "purpeille:chorus_infestation_sheared",
+      "conditions": {
+        "drop_chorus": true
+      }
+    }
+  }
+}

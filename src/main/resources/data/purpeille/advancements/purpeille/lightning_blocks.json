@@ -1,0 +1,44 @@
+{
+  "parent": "purpeille:purpeille/ancient_oven",
+  "display": {
+    "icon": {
+      "item": "purpeille:lightning_block"
+    },
+    "title": {
+      "translate": "advancements.purpeille.lightning_blocks.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.lightning_blocks.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_lightning_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:lightning_block"
+            ]
+          }
+        ]
+      }
+    },
+    "obtain_cut_lightning_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:cut_lightning_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

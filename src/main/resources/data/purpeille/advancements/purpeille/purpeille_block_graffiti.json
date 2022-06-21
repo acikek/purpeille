@@ -1,0 +1,37 @@
+{
+  "parent": "purpeille:purpeille/purpeille_ingot",
+  "display": {
+    "icon": {
+      "item": "minecraft:white_dye"
+    },
+    "title": {
+      "translate": "advancements.purpeille.purpeille_block_graffiti.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.purpeille_block_graffiti.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "graffiti": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": {
+          "block": {
+            "blocks": [
+              "purpeille:purpeille_block"
+            ]
+          }
+        },
+        "item": {
+          "items": [
+            "minecraft:white_dye"
+          ]
+        }
+      }
+    }
+  }
+}

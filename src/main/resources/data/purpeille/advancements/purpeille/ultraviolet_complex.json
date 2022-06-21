@@ -1,0 +1,32 @@
+{
+  "parent": "purpeille:purpeille/ancient_oven",
+  "display": {
+    "icon": {
+      "item": "purpeille:ultraviolet_complex"
+    },
+    "title": {
+      "translate": "advancements.purpeille.ultraviolet_complex.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.ultraviolet_complex.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_ultraviolet_complex": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:ultraviolet_complex"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

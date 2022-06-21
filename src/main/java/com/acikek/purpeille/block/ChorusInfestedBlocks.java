@@ -1,6 +1,7 @@
 package com.acikek.purpeille.block;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.advancement.ModCriteria;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -67,11 +68,16 @@ public class ChorusInfestedBlocks implements UseBlockCallback {
                         ServerPlayNetworking.send(playerEntity, INFESTATION_TRIM, buf);
                     }
                 }
-                if (!player.isCreative() && player instanceof ServerPlayerEntity playerEntity) {
-                    playerEntity.getStackInHand(hand).damage(1, world.random, playerEntity);
-                }
+                boolean dropped = false;
                 if (CHORAL_BLOOM.contains(state.getBlock()) && world.random.nextFloat() > 0.5f) {
                     ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), Items.CHORUS_FRUIT.getDefaultStack());
+                    dropped = true;
+                }
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    if (!player.isCreative()) {
+                        serverPlayer.getStackInHand(hand).damage(1, world.random, serverPlayer);
+                    }
+                    ModCriteria.CHORUS_INFESTATION_SHEARED.trigger(serverPlayer, dropped);
                 }
                 return ActionResult.SUCCESS;
             }

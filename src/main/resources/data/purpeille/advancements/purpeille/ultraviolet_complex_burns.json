@@ -1,0 +1,27 @@
+{
+  "parent": "purpeille:purpeille/ultraviolet_complex",
+  "display": {
+    "icon": {
+      "item": "purpeille:polished_ultraviolet_complex"
+    },
+    "title": {
+      "translate": "advancements.purpeille.ultraviolet_complex_burns.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.ultraviolet_complex_burns.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_burned": {
+      "trigger": "purpeille:ultraviolet_complex_burns",
+      "conditions": {
+        "complex_type": "polished",
+        "light": 15
+      }
+    }
+  }
+}

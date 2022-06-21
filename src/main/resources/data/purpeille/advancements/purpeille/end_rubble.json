@@ -1,0 +1,32 @@
+{
+  "parent": "purpeille:purpeille/root",
+  "display": {
+    "icon": {
+      "item": "purpeille:end_rubble"
+    },
+    "title": {
+      "translate": "advancements.purpeille.end_rubble.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.end_rubble.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "open_end_rubble": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": {
+          "block": {
+            "blocks": [
+              "purpeille:end_rubble"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

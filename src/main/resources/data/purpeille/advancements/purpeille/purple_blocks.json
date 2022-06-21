@@ -5,10 +5,10 @@
       "item": "purpeille:monolithic_purpur"
     },
     "title": {
-      "translate": "advancements.purpeille.decoration_blocks.title"
+      "translate": "advancements.purpeille.purple_blocks.title"
     },
     "description": {
-      "translate": "advancements.purpeille.decoration_blocks.description"
+      "translate": "advancements.purpeille.purple_blocks.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -35,18 +35,6 @@
           {
             "items": [
               "purpeille:remnant_bricks"
-            ]
-          }
-        ]
-      }
-    },
-    "obtain_purpeille_block": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "purpeille:purpeille_block"
             ]
           }
         ]
