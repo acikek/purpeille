@@ -1,20 +1,20 @@
 {
-  "name": "purpeille:platform_1_pool",
+  "name": "purpeille:platform_2_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 4,
+      "weight": 3,
       "element": {
-        "location": "purpeille:gateway_station/platform_1",
+        "location": "purpeille:gateway_station/platform_2",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
     {
-      "weight": 5,
+      "weight": 7,
       "element": {
-        "location": "purpeille:gateway_station/platform_1_ruined",
+        "location": "purpeille:gateway_station/platform_2_ruined",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
