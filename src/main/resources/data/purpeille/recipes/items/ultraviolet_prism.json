@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "purpeille:ultraviolet_complex"
+    }
+  ],
+  "result": {
+    "item": "purpeille:ultraviolet_prism",
+    "count": 4
+  }
+}

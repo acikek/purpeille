@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "purpeille:ultraviolet_prism"
+              "purpeille:metallic_lightning"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "purpeille:blocks/ultraviolet_complex"
+        "recipe": "purpeille:blocks/lightning_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,8 @@
   ],
   "rewards": {
     "recipes": [
-      "purpeille:blocks/ultraviolet_complex"
+      "purpeille:items/metallic_lightning",
+      "purpeille:blocks/lightning_block"
     ]
   }
 }

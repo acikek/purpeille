@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "purpeille:purpeille_ingot"
+  },
+  "result": "purpeille:smoldered_purpeille_ingot",
+  "cookingtime": 12000,
+  "experience": 50.0
+}

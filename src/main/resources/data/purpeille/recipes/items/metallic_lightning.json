@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "purpeille:smoldered_purpeille_block"
+      "item": "purpeille:lightning_block"
     }
   ],
   "result": {
-    "item": "purpeille:smoldered_purpeille_ingot",
+    "item": "purpeille:metallic_lightning",
     "count": 9
   }
 }

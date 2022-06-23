@@ -28,6 +28,7 @@
   ],
   "rewards": {
     "recipes": [
+      "purpeille:items/smoldered_purpeille_ingot",
       "purpeille:blocks/smoldered_purpeille_block"
     ]
   }

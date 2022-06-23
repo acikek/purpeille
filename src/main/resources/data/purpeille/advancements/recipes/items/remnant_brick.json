@@ -2,6 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
+      "purpeille:items/remnant_brick",
       "purpeille:blocks/remnant_bricks"
     ]
   },

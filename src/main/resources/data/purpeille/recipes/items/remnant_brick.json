@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "purpeille:remnant_bricks"
+    }
+  ],
+  "result": {
+    "item": "purpeille:remnant_brick",
+    "count": 2
+  }
+}
