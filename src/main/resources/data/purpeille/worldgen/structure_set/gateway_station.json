@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "purpeille:gateway_station",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 606512344,
+    "spacing": 256,
+    "separation": 128
+  }
+}

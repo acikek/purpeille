@@ -1,5 +1,5 @@
 {
-  "name": "purpeille:platform_2_pool",
+  "name": "purpeille:gateway_station/platform_2_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {
