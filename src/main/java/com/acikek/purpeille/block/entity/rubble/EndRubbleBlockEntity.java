@@ -3,6 +3,7 @@ package com.acikek.purpeille.block.entity.rubble;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.sound.ModSoundEvents;
+import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
@@ -21,6 +22,8 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public class EndRubbleBlockEntity extends LootableContainerBlockEntity {
@@ -34,12 +37,12 @@ public class EndRubbleBlockEntity extends LootableContainerBlockEntity {
 
         @Override
         protected void onContainerOpen(World world, BlockPos pos, BlockState state) {
-            playSound(world, pos, ModSoundEvents.RUBBLE_OPEN);
+            playSound(world, pos, ModSoundEvents.RUBBLE_OPEN, state);
         }
 
         @Override
         protected void onContainerClose(World world, BlockPos pos, BlockState state) {
-            playSound(world, pos, ModSoundEvents.RUBBLE_CLOSE);
+            playSound(world, pos, ModSoundEvents.RUBBLE_CLOSE, state);
         }
 
         @Override
@@ -115,8 +118,12 @@ public class EndRubbleBlockEntity extends LootableContainerBlockEntity {
         }
     }
 
-    public void playSound(World world, BlockPos pos, SoundEvent event) {
-        world.playSound(null, pos, event, SoundCategory.BLOCKS, 0.3f, world.random.nextFloat() * 0.2f + 0.90f);
+    public void playSound(World world, BlockPos pos, SoundEvent event, BlockState state) {
+        Vec3i vec3i = state.get(BarrelBlock.FACING).getVector();
+        double x = (double) pos.getX() + 0.5 + (double) vec3i.getX() / 2.0;
+        double y = (double) pos.getY() + 0.5 + (double) vec3i.getY() / 2.0;
+        double z = (double) pos.getZ() + 0.5 + (double) vec3i.getZ() / 2.0;
+        world.playSound(null, x, y, z, event, SoundCategory.BLOCKS, 0.5F, world.random.nextFloat() * 0.2f + 0.9f);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, EndRubbleBlockEntity blockEntity) {
