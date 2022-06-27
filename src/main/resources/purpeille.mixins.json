@@ -8,6 +8,7 @@
     "ItemMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
+    "ShearsDispenserBehaviorMixin",
     "StatusEffectInstanceAccessor",
     "StatusEffectMixin"
   ],
