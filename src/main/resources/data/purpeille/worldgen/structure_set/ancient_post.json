@@ -1,14 +1,14 @@
 {
   "structures": [
     {
-      "structure": "purpeille:gateway_station",
+      "structure": "purpeille:ancient_post",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 606512344,
-    "spacing": 128,
-    "separation": 96
+    "salt": 81497501,
+    "spacing": 64,
+    "separation": 48
   }
 }

@@ -1,14 +1,14 @@
 {
   "structures": [
     {
-      "structure": "purpeille:gateway_station",
+      "structure": "purpeille:destroyed_pillar",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 606512344,
-    "spacing": 128,
-    "separation": 96
+    "salt": 49110603,
+    "spacing": 96,
+    "separation": 64
   }
 }

@@ -1,14 +1,14 @@
 {
   "structures": [
     {
-      "structure": "purpeille:gateway_station",
+      "structure": "purpeille:ruined_end_ship",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 606512344,
-    "spacing": 128,
-    "separation": 96
+    "salt": 21811827,
+    "spacing": 256,
+    "separation": 128
   }
 }
