@@ -10,6 +10,7 @@ import com.acikek.purpeille.command.VacuousBlastCommand;
 import com.acikek.purpeille.command.WarpathCommand;
 import com.acikek.purpeille.effect.ModStatusEffects;
 import com.acikek.purpeille.item.ModItems;
+import com.acikek.purpeille.loot.RandomRevelationLootFunction;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathCreateRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathRemoveRecipe;
@@ -65,6 +66,7 @@ public class Purpeille implements ModInitializer {
             WarpathCommand.register(dispatcher);
         });
         UseBlockCallback.EVENT.register(new ChorusInfestedBlocks());
+        RandomRevelationLootFunction.register();
         ReloadHandler.register();
     }
 }

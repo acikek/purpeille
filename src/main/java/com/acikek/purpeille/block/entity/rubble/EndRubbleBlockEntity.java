@@ -3,7 +3,6 @@ package com.acikek.purpeille.block.entity.rubble;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.sound.ModSoundEvents;
-import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
@@ -118,7 +117,7 @@ public class EndRubbleBlockEntity extends LootableContainerBlockEntity {
     }
 
     public void playSound(World world, BlockPos pos, SoundEvent event, BlockState state) {
-        Vec3i vec3i = state.get(BarrelBlock.FACING).getVector();
+        Vec3i vec3i = state.get(EndRubble.FACING).getVector();
         double x = (double) pos.getX() + 0.5 + (double) vec3i.getX() / 2.0;
         double y = (double) pos.getY() + 0.5 + (double) vec3i.getY() / 2.0;
         double z = (double) pos.getZ() + 0.5 + (double) vec3i.getZ() / 2.0;
