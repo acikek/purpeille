@@ -1,0 +1,109 @@
+{
+  "parent": "purpeille:purpeille/root",
+  "display": {
+    "icon": {
+      "item": "purpeille:monolithic_purpur"
+    },
+    "title": {
+      "translate": "advancements.purpeille.find_structure.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.find_structure.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ancient_monolith": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "purpeille:ancient_monolith"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "ancient_post": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "purpeille:ancient_post"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "destroyed_pillar": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "purpeille:destroyed_pillar"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "gateway_station": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "purpeille:gateway_station"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "ruined_end_ship": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "purpeille:ruined_end_ship"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "ancient_monolith",
+      "ancient_post",
+      "destroyed_pillar",
+      "gateway_station",
+      "ruined_end_ship"
+    ]
+  ]
+}
