@@ -1,11 +1,11 @@
 {
-  "name": "purpeille:ruined_end_ship",
+  "name": "purpeille:ancient_post/base",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "purpeille:ruined_end_ship",
+        "location": "purpeille:ancient_post/base",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
