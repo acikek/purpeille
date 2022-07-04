@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:end_highlands",
+    "#minecraft:has_structure/end_city",
     "#purpeille:has_structure/compat"
   ]
 }

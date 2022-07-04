@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "enderscape:celestial_plains",
+      "required": false
+    },
+    {
+      "id": "betterend:chorus_forest",
+      "required": false
+    },
+    {
+      "id": "betterend:dragon_graveyards",
+      "required": false
+    },
+    {
+      "id": "betterend:glowing_grasslands",
+      "required": false
+    },
+    {
+      "id": "betterend:lantern_woods",
+      "required": false
+    },
+    {
+      "id": "betterend:umbra_valley",
+      "required": false
+    }
+  ]
+}
