@@ -150,7 +150,7 @@
         },
         {
           "type": "minecraft:tag",
-          "expand": false,
+          "expand": true,
           "weight": 1,
           "name": "purpeille:warpath_base",
           "functions": [
