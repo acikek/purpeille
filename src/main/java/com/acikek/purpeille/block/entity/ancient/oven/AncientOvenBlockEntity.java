@@ -3,7 +3,7 @@ package com.acikek.purpeille.block.entity.ancient.oven;
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
-import com.acikek.purpeille.block.entity.ancient.AncientMachineBlockEntity;
+import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import net.minecraft.block.BlockState;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
+public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
 
     public static BlockEntityType<AncientOvenBlockEntity> BLOCK_ENTITY_TYPE;
 

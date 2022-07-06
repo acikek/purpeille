@@ -5,6 +5,7 @@ import com.acikek.purpeille.block.entity.ancient.gateway.AncientGateway;
 import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardian;
 import com.acikek.purpeille.block.entity.ancient.oven.AncientOven;
 import com.acikek.purpeille.block.entity.ancient.oven.Damage;
+import com.acikek.purpeille.block.entity.monolithic.MonolithicPurpur;
 import com.acikek.purpeille.block.entity.rubble.EndRubble;
 import com.acikek.purpeille.item.ModItems;
 import lib.BlockItemProvider;

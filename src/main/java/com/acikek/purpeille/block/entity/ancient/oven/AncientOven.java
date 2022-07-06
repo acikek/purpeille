@@ -124,7 +124,7 @@ public class AncientOven extends CommonBlockWithEntity<AncientOvenBlockEntity> i
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(LIT).add(FULL);
+        builder.add(FULL).add(LIT);
     }
 
     @Nullable

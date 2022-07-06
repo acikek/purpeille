@@ -1,4 +1,4 @@
-package com.acikek.purpeille.block.entity.ancient;
+package com.acikek.purpeille.block.entity;
 
 import com.acikek.purpeille.item.core.EncasedCore;
 import lib.ImplementedInventory;
@@ -23,13 +23,14 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class AncientMachineBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory {
+public class SingleSlotBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory {
 
     public DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
-    public AncientMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public SingleSlotBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 

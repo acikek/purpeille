@@ -2,6 +2,7 @@ package com.acikek.purpeille.block.entity.ancient.gateway;
 
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
+import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import com.acikek.purpeille.block.entity.ancient.CorePoweredAncientMachineBlockEntity;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.item.core.EncasedCore;
@@ -134,7 +135,7 @@ public class AncientGatewayBlockEntity extends CorePoweredAncientMachineBlockEnt
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
         return dir != Direction.DOWN
-                && !getCachedState().get(AncientGateway.READY)
+                && !getCachedState().get(AncientGateway.FULL)
                 && stack.getItem() instanceof EncasedCore;
     }
 
