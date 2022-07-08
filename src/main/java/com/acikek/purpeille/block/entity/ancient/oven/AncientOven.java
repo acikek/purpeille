@@ -62,7 +62,7 @@ public class AncientOven extends CommonBlockWithEntity<AncientOvenBlockEntity> i
 
     @Override
     public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
-        return state.get(FULL)
+        return !state.get(FULL)
                 && blockEntity instanceof AncientOvenBlockEntity ancientOven
                 && ancientOven.startRecipe(world, handStack, true, player, pos, state)
                 ? ActionResult.SUCCESS
