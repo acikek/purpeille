@@ -31,12 +31,13 @@ public class AncientGuardianRenderer implements SingleSlotRenderer<AncientGuardi
     }
 
     @Override
-    public void beforeCompletion(AncientGuardianBlockEntity entity, float tickDelta, ItemStack stack, int lightAbove, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public boolean beforeCompletion(AncientGuardianBlockEntity entity, float tickDelta, ItemStack stack, int lightAbove, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         Direction direction = entity.getCachedState().get(CommonBlockWithEntity.FACING);
         translate(matrices, AncientGuardian.isZ(direction), isOffset(direction));
         float angle = MathHelper.sin((PurpeilleClient.rotationTicks % 120 + tickDelta) / 120.0f * MathHelper.TAU) * 145.0f;
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(angle + direction.asRotation()));
         matrices.scale(0.45f, 0.45f, 0.45f);
+        return true;
     }
 
     public static void register() {

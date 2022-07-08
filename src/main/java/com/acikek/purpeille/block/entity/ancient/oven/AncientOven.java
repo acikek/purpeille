@@ -46,7 +46,7 @@ public class AncientOven extends CommonBlockWithEntity<AncientOvenBlockEntity> i
     public Damage damage;
 
     public AncientOven(Settings settings, Damage damage) {
-        super(settings, AncientOvenBlockEntity::tick);
+        super(settings, AncientOvenBlockEntity::tick, null, false);
         setDefaultState(getDefaultFacing().with(LIT, false).with(FULL, false));
         this.damage = damage;
     }

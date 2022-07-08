@@ -17,11 +17,12 @@ public interface SingleSlotRenderer<T extends SingleSlotBlockEntity> extends Blo
         ItemStack stack = entity.getItem();
         if (!stack.isEmpty()) {
             int lightAbove = entity.getWorld() != null ? WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up()) : light;
-            beforeCompletion(entity, tickDelta, stack, lightAbove, matrices, vertexConsumers, light, overlay);
-            MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, lightAbove, overlay, matrices, vertexConsumers, 0);
+            if (beforeCompletion(entity, tickDelta, stack, lightAbove, matrices, vertexConsumers, light, overlay)) {
+                MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, lightAbove, overlay, matrices, vertexConsumers, 0);
+            }
         }
         matrices.pop();
     }
 
-    void beforeCompletion(T entity, float tickDelta, ItemStack stack, int lightAbove, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay);
+    boolean beforeCompletion(T entity, float tickDelta, ItemStack stack, int lightAbove, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay);
 }

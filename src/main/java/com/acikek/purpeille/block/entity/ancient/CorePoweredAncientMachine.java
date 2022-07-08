@@ -21,7 +21,7 @@ public abstract class CorePoweredAncientMachine<T extends CorePoweredAncientMach
     public boolean playerCheckCore;
 
     public CorePoweredAncientMachine(Settings settings, BlockEntityTicker<T> ticker, BiFunction<BlockPos, BlockState, T> supplier, Class<T> blockEntityClass, boolean playerCheckCore) {
-        super(settings, ticker, supplier);
+        super(settings, ticker, supplier, false);
         this.blockEntityClass = blockEntityClass;
         this.playerCheckCore = playerCheckCore;
     }

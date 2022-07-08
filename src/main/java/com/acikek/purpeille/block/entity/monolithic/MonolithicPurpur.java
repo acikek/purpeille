@@ -20,6 +20,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBlockEntity> {
@@ -31,13 +32,8 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public static final DirectionProperty FACING = Properties.FACING;
 
     public MonolithicPurpur(Settings settings) {
-        super(settings, MonolithicPurpurBlockEntity::tick);
+        super(settings, MonolithicPurpurBlockEntity::tick, null, true);
         setDefaultState(getDefaultFacing().with(FULL, false));
-    }
-
-    @Override
-    public boolean canSetFull() {
-        return true;
     }
 
     @Override

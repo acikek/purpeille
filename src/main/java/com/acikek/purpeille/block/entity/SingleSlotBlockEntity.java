@@ -136,9 +136,9 @@ public class SingleSlotBlockEntity extends BlockEntity implements ImplementedInv
      * Removes an item from an optional player source.
      * @param checkCreative Whether the player shouldn't receive the item if in creative mode.
      */
-    public void onRemoveItem(PlayerEntity player, boolean checkCreative, boolean remove) {
+    public void onRemoveItem(PlayerEntity player, boolean checkCreative, boolean copy, boolean remove) {
         if (player != null && (!checkCreative || !player.isCreative())) {
-            player.getInventory().offerOrDrop(getItem());
+            player.getInventory().offerOrDrop(copy ? getItem().copy() : getItem());
         }
         if (remove) {
             removeItem();

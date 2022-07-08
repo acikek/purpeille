@@ -30,7 +30,7 @@ public class EndRubble extends CommonBlockWithEntity<EndRubbleBlockEntity> {
     public static final VoxelShape SHAPE = VoxelShapes.cuboid(0.0625, 0.0, 0.0625, 0.9375, 0.375, 0.9375);
 
     public EndRubble(Settings settings) {
-        super(settings, EndRubbleBlockEntity::tick, EndRubbleBlockEntity::new);
+        super(settings, EndRubbleBlockEntity::tick, EndRubbleBlockEntity::new, false);
         setDefaultState(getDefaultFacing());
     }
 

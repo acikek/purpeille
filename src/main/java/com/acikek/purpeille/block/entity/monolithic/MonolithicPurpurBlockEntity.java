@@ -26,8 +26,8 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     }
 
     @Override
-    public void onRemoveItem(PlayerEntity player, boolean checkCreative, boolean remove) {
-        super.onRemoveItem(player, checkCreative, false);
+    public void onRemoveItem(PlayerEntity player, boolean checkCreative, boolean copy, boolean remove) {
+        super.onRemoveItem(player, checkCreative, true, false);
         easeMode = 1;
         removalTicks = 10;
     }

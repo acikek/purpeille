@@ -28,24 +28,22 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
 
     public BlockEntityTicker<T> ticker;
     public BiFunction<BlockPos, BlockState, T> supplier;
+    public boolean canSetFull;
 
-    public CommonBlockWithEntity(Settings settings, BlockEntityTicker<T> ticker, BiFunction<BlockPos, BlockState, T> supplier) {
+    public CommonBlockWithEntity(Settings settings, BlockEntityTicker<T> ticker, BiFunction<BlockPos, BlockState, T> supplier, boolean canSetFull) {
         super(settings);
         this.ticker = ticker;
         this.supplier = supplier;
+        this.canSetFull = canSetFull;
     }
 
     public boolean extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         return false;
     }
 
-    public boolean canSetFull() {
-        return false;
-    }
-
     public ActionResult removeItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
-        blockEntity.onRemoveItem(player, true, true);
-        if (canSetFull()) {
+        blockEntity.onRemoveItem(player, true, false, true);
+        if (canSetFull) {
             world.setBlockState(pos, state.with(FULL, false));
         }
         return ActionResult.SUCCESS;
@@ -57,7 +55,7 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
 
     public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         blockEntity.onAddItem(handStack, true, player);
-        if (canSetFull()) {
+        if (canSetFull) {
             world.setBlockState(pos, state.with(FULL, true));
         }
         return ActionResult.SUCCESS;
@@ -80,9 +78,7 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
         return ActionResult.PASS;
     }
 
-    public CommonBlockWithEntity(Settings settings, BlockEntityTicker<T> ticker) {
-        this(settings, ticker, null);
-    }
+
 
     public BlockState getDefaultFacing() {
         return getStateManager().getDefaultState().with(FACING, Direction.NORTH);
