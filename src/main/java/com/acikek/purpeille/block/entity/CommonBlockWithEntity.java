@@ -39,8 +39,15 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
         return false;
     }
 
+    public boolean canSetFull() {
+        return false;
+    }
+
     public ActionResult removeItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         blockEntity.onRemoveItem(player, true, true);
+        if (canSetFull()) {
+            world.setBlockState(pos, state.with(FULL, false));
+        }
         return ActionResult.SUCCESS;
     }
 
@@ -50,6 +57,9 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
 
     public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         blockEntity.onAddItem(handStack, true, player);
+        if (canSetFull()) {
+            world.setBlockState(pos, state.with(FULL, true));
+        }
         return ActionResult.SUCCESS;
     }
 

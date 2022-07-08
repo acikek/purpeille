@@ -15,10 +15,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -35,13 +32,22 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
 
     public MonolithicPurpur(Settings settings) {
         super(settings, MonolithicPurpurBlockEntity::tick);
+        setDefaultState(getDefaultFacing().with(FULL, false));
+    }
+
+    @Override
+    public boolean canSetFull() {
+        return true;
     }
 
     @Override
     public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
-        super.addItem(state, world, pos, player, hand, handStack, blockEntity);
-        blockEntity.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, world.random.nextFloat() * 0.4f + 0.8f);
-        return ActionResult.SUCCESS;
+        if (world.getBlockState(pos.up()).isAir()) {
+            super.addItem(state, world, pos, player, hand, handStack, blockEntity);
+            blockEntity.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, world.random.nextFloat() * 0.4f + 0.8f);
+            return ActionResult.SUCCESS;
+        }
+        return ActionResult.PASS;
     }
 
     @Override
@@ -52,6 +58,13 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
+    }
+
+    @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        if (!world.getBlockState(pos.up()).isAir() && state.get(FULL)) {
+            world.breakBlock(pos, true);
+        }
     }
 
     @Nullable
@@ -73,7 +86,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FULL).add(FACING);
     }
 
     @Override

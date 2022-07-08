@@ -1,9 +1,7 @@
 package com.acikek.purpeille.client.render;
 
 import com.acikek.purpeille.block.entity.monolithic.MonolithicPurpurBlockEntity;
-import com.acikek.purpeille.client.PurpeilleClient;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
