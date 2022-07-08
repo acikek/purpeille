@@ -2,9 +2,8 @@ package com.acikek.purpeille.block.entity.ancient.gateway;
 
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
-import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
-import com.acikek.purpeille.block.entity.ancient.CorePoweredAncientMachineBlockEntity;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
+import com.acikek.purpeille.block.entity.ancient.CorePoweredAncientMachineBlockEntity;
 import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.sound.ModSoundEvents;
 import net.minecraft.block.BlockState;
@@ -37,7 +36,7 @@ public class AncientGatewayBlockEntity extends CorePoweredAncientMachineBlockEnt
         super.addCore(world, stack, unset, player, pos, state);
         if (world != null) {
             world.setBlockState(pos, state
-                    .with(AncientGateway.READY, true)
+                    .with(AncientGateway.FULL, true)
                     .with(AncientGateway.CHARGING, world.isReceivingRedstonePower(pos)));
             playSound(SoundEvents.BLOCK_END_PORTAL_FRAME_FILL);
         }
@@ -46,7 +45,7 @@ public class AncientGatewayBlockEntity extends CorePoweredAncientMachineBlockEnt
     @Override
     public void removeCore(World world, PlayerEntity player, boolean remove, BlockPos pos, BlockState state) {
         super.removeCore(world, player, remove, pos, state);
-        BlockState newState = state.with(AncientGateway.READY, false);
+        BlockState newState = state.with(AncientGateway.FULL, false);
         if (state.get(AncientGateway.CHARGING)) {
             newState = newState.with(AncientGateway.CHARGING, false);
             charge = 0;
@@ -92,7 +91,7 @@ public class AncientGatewayBlockEntity extends CorePoweredAncientMachineBlockEnt
         }
         int damage = Math.abs(blocks / 10);
         if (damageCore(damage > 0 ? damage : 1, world.random)) {
-            return state.with(AncientGateway.READY, false);
+            return state.with(AncientGateway.FULL, false);
         }
         return state;
     }

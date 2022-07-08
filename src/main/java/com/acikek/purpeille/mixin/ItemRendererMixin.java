@@ -24,7 +24,7 @@ public class ItemRendererMixin {
         if (renderMode != ModelTransformation.Mode.GUI && renderMode != ModelTransformation.Mode.GROUND
                 && stack.getItem() instanceof BlockItem blockItem
                 && blockItem.getBlock() == ModBlocks.ANCIENT_GUARDIAN) {
-            return models.getModelManager().getModel(PurpeilleClient.MODEL);
+            return models.getModelManager().getModel(PurpeilleClient.GUARDIAN_HAND_MODEL);
         }
         return defaultModel;
     }

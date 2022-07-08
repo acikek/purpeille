@@ -1,17 +1,19 @@
 package com.acikek.purpeille.block.entity;
 
+import com.acikek.purpeille.block.entity.monolithic.MonolithicPurpurBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.*;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -31,6 +33,41 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
         super(settings);
         this.ticker = ticker;
         this.supplier = supplier;
+    }
+
+    public boolean extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+        return false;
+    }
+
+    public ActionResult removeItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+        blockEntity.onRemoveItem(player, true, true);
+        return ActionResult.SUCCESS;
+    }
+
+    public boolean isValidHandStack(ItemStack stack) {
+        return !stack.isEmpty();
+    }
+
+    public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+        blockEntity.onAddItem(handStack, true, player);
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (hand == Hand.MAIN_HAND && world.getBlockEntity(pos) instanceof SingleSlotBlockEntity blockEntity) {
+            ItemStack handStack = player.getStackInHand(hand);
+            if (extraChecks(state, world, pos, player, hand, handStack, blockEntity)) {
+                return ActionResult.SUCCESS;
+            }
+            if (!blockEntity.isEmpty()) {
+                return removeItem(state, world, pos, player, hand, handStack, blockEntity);
+            }
+            else if (isValidHandStack(handStack)) {
+                return addItem(state, world, pos, player, hand, handStack, blockEntity);
+            }
+        }
+        return ActionResult.PASS;
     }
 
     public CommonBlockWithEntity(Settings settings, BlockEntityTicker<T> ticker) {
@@ -97,6 +134,9 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
     @Nullable
     @Override
     public <E extends BlockEntity> BlockEntityTicker<E> getTicker(World world, BlockState state, BlockEntityType<E> type) {
+        if (ticker == null) {
+            return null;
+        }
         return checkType(type, getBlockEntityType(), ticker);
     }
 }

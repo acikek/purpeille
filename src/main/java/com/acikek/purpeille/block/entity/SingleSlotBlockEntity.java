@@ -103,8 +103,8 @@ public class SingleSlotBlockEntity extends BlockEntity implements ImplementedInv
      * in which case nothing else should follow.</p>
      * @return Whether the player checked the core.
      */
-    public boolean playerCheckCore(PlayerEntity player, Hand hand) {
-        if (player.isSneaking() && player.getStackInHand(hand).isEmpty()) {
+    public boolean playerCheckCore(PlayerEntity player, ItemStack stack) {
+        if (player.isSneaking() && stack.isEmpty()) {
             EncasedCore core = getCore();
             if (core != null) {
                 MutableText text = Text.translatable(core.getTranslationKey()).formatted(core.type.rarity.formatting);
@@ -136,12 +136,12 @@ public class SingleSlotBlockEntity extends BlockEntity implements ImplementedInv
      * Removes an item from an optional player source.
      * @param checkCreative Whether the player shouldn't receive the item if in creative mode.
      */
-    public void onRemoveItem(PlayerEntity player, boolean checkCreative) {
-        if (player != null) {
-            if (checkCreative && player.isCreative()) {
-                return;
-            }
+    public void onRemoveItem(PlayerEntity player, boolean checkCreative, boolean remove) {
+        if (player != null && (!checkCreative || !player.isCreative())) {
             player.getInventory().offerOrDrop(getItem());
+        }
+        if (remove) {
+            removeItem();
         }
     }
 
@@ -155,7 +155,7 @@ public class SingleSlotBlockEntity extends BlockEntity implements ImplementedInv
     }
 
     /**
-     * Calls {@link AncientMachineBlockEntity#playSound(SoundEvent, float)} with a pitch of {@code 1.0f}.
+     * Calls {@link SingleSlotBlockEntity#playSound(SoundEvent, float)} with a pitch of {@code 1.0f}.
      */
     public void playSound(SoundEvent event) {
         playSound(event, 1.0f);

@@ -9,6 +9,7 @@ import com.acikek.purpeille.client.networking.VacuousBlastListener;
 import com.acikek.purpeille.client.particle.AncientGuardianParticle;
 import com.acikek.purpeille.client.particle.ModParticleTypes;
 import com.acikek.purpeille.client.render.AncientGuardianRenderer;
+import com.acikek.purpeille.client.render.MonolithicPurpurRenderer;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
@@ -24,9 +25,6 @@ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.network.PacketByteBuf;
@@ -38,17 +36,20 @@ import java.util.function.Function;
 @Environment(EnvType.CLIENT)
 public class PurpeilleClient implements ClientModInitializer {
 
-    public static final ModelIdentifier MODEL = new ModelIdentifier("purpeille:ancient_guardian_in_hand#inventory");
+    public static final ModelIdentifier GUARDIAN_HAND_MODEL = new ModelIdentifier("purpeille:ancient_guardian_in_hand#inventory");
+
+    public static int rotationTicks;
 
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.END_RUBBLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.END_RUBBLE, RenderLayer.getTranslucent());
-        ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(MODEL));
+        ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(GUARDIAN_HAND_MODEL));
         AncientGuardianRenderer.register();
+        MonolithicPurpurRenderer.register();
         ModParticleTypes.register();
         AncientGuardianParticle.register();
-        ClientTickEvents.START_WORLD_TICK.register(world -> AncientGuardianRenderer.tick());
+        ClientTickEvents.START_WORLD_TICK.register(world -> rotationTick());
         registerReceivers();
         registerPacks();
         handleReload("revelations", Component.REVELATIONS, Revelation::read);
@@ -59,13 +60,11 @@ public class PurpeilleClient implements ClientModInitializer {
         ResourceManagerHelper.registerBuiltinResourcePack(Purpeille.id(key), mod, name, type);
     }
 
-    public static void registerPacks() {
-        FabricLoader.getInstance()
-                .getModContainer(Purpeille.ID)
-                .ifPresent(mod -> {
-                    registerPack(mod, "old", "Purpeille Legacy", ResourcePackActivationType.NORMAL);
-                    registerPack(mod, "theinar", "Theinar Language", ResourcePackActivationType.ALWAYS_ENABLED);
-                });
+    public static void rotationTick() {
+        rotationTicks++;
+        if (rotationTicks >= 360) {
+            rotationTicks = 0;
+        }
     }
 
     public static void registerReceivers() {
@@ -76,6 +75,15 @@ public class PurpeilleClient implements ClientModInitializer {
                 client.world.addBlockBreakParticles(buf.readBlockPos(), Block.getStateFromRawId(buf.readInt()));
             }
         });
+    }
+
+    public static void registerPacks() {
+        FabricLoader.getInstance()
+                .getModContainer(Purpeille.ID)
+                .ifPresent(mod -> {
+                    registerPack(mod, "old", "Purpeille Legacy", ResourcePackActivationType.NORMAL);
+                    registerPack(mod, "theinar", "Theinar Language", ResourcePackActivationType.ALWAYS_ENABLED);
+                });
     }
 
     public static <T extends Component> void handleReload(String key, Map<Identifier, T> registry, Function<PacketByteBuf, T> read) {

@@ -3,6 +3,7 @@ package com.acikek.purpeille.block.entity.ancient.guardian;
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.ModBlocks;
+import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import com.acikek.purpeille.block.entity.ancient.CorePoweredAncientMachine;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -93,14 +94,16 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     }
 
     @Override
-    public boolean canPlayerUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, AncientGuardianBlockEntity blockEntity) {
-        if (blockEntity.pendingRemoval) {
-            return false;
+    public boolean canPlayerUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, SingleSlotBlockEntity blockEntity) {
+        if (blockEntity instanceof AncientGuardianBlockEntity ancientGuardian) {
+            if (ancientGuardian.pendingRemoval) {
+                return false;
+            }
+            if (ancientGuardian.isPlayerTethered(player)) {
+                return true;
+            }
+            player.sendMessage(HAS_TETHERED_PLAYER, true);
         }
-        if (blockEntity.isPlayerTethered(player)) {
-            return true;
-        }
-        player.sendMessage(HAS_TETHERED_PLAYER, true);
         return false;
     }
 

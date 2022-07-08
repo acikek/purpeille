@@ -19,9 +19,6 @@ public class CorePoweredAncientMachineBlockEntity extends SingleSlotBlockEntity 
     }
 
     public void removeCore(World world, PlayerEntity player, boolean remove, BlockPos pos, BlockState state) {
-        onRemoveItem(player, true);
-        if (remove) {
-            removeItem();
-        }
+        onRemoveItem(player, true, remove);
     }
 }

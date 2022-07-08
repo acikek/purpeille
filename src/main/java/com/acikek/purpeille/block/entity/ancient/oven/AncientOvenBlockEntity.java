@@ -82,7 +82,7 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
     }
 
     public void finishRecipe(World world, PlayerEntity player, BlockPos pos, BlockState state) {
-        onRemoveItem(player, false);
+        onRemoveItem(player, false, true);
         durability -= damageToTake;
         damageToTake = 0;
         result = ItemStack.EMPTY;

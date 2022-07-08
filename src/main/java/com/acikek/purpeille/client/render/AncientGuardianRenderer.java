@@ -3,29 +3,17 @@ package com.acikek.purpeille.client.render;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardian;
 import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardianBlockEntity;
+import com.acikek.purpeille.client.PurpeilleClient;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
 
-public class AncientGuardianRenderer implements BlockEntityRenderer<AncientGuardianBlockEntity> {
-
-    public static int ticks;
-
-    public static void tick() {
-        ticks++;
-        if (ticks >= 120) {
-            ticks = 0;
-        }
-    }
+public class AncientGuardianRenderer implements SingleSlotRenderer<AncientGuardianBlockEntity> {
 
     public AncientGuardianRenderer(BlockEntityRendererFactory.Context ctx) {
     }
@@ -43,19 +31,12 @@ public class AncientGuardianRenderer implements BlockEntityRenderer<AncientGuard
     }
 
     @Override
-    public void render(AncientGuardianBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        matrices.push();
-        ItemStack stack = entity.getItem();
-        if (!stack.isEmpty()) {
-            int lightAbove = entity.getWorld() != null ? WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up()) : light;
-            Direction direction = entity.getCachedState().get(CommonBlockWithEntity.FACING);
-            translate(matrices, AncientGuardian.isZ(direction), isOffset(direction));
-            float angle = MathHelper.sin((ticks + tickDelta) / 120.0f * MathHelper.TAU) * 145.0f;
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(angle + direction.asRotation()));
-            matrices.scale(0.45f, 0.45f, 0.45f);
-            MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, lightAbove, overlay, matrices, vertexConsumers, 0);
-        }
-        matrices.pop();
+    public void beforeCompletion(AncientGuardianBlockEntity entity, float tickDelta, ItemStack stack, int lightAbove, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        Direction direction = entity.getCachedState().get(CommonBlockWithEntity.FACING);
+        translate(matrices, AncientGuardian.isZ(direction), isOffset(direction));
+        float angle = MathHelper.sin((PurpeilleClient.rotationTicks % 120 + tickDelta) / 120.0f * MathHelper.TAU) * 145.0f;
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(angle + direction.asRotation()));
+        matrices.scale(0.45f, 0.45f, 0.45f);
     }
 
     public static void register() {

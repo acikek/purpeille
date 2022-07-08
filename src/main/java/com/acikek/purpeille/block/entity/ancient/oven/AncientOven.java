@@ -3,6 +3,7 @@ package com.acikek.purpeille.block.entity.ancient.oven;
 import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
+import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import lib.BlockItemProvider;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -51,22 +52,21 @@ public class AncientOven extends CommonBlockWithEntity<AncientOvenBlockEntity> i
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (hand == Hand.MAIN_HAND && world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
-            ItemStack handStack = player.getStackInHand(hand);
-            boolean lit = state.get(LIT);
-            boolean full = state.get(FULL);
-            if (!blockEntity.isEmpty() && !lit && full) {
-                blockEntity.finishRecipe(world, player, pos, state);
-                return ActionResult.SUCCESS;
-            }
-            else if (!handStack.isEmpty() && !full) {
-                return blockEntity.startRecipe(world, handStack, true, player, pos, state)
-                        ? ActionResult.SUCCESS
-                        : ActionResult.PASS;
-            }
+    public ActionResult removeItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+        if (!state.get(LIT) && state.get(FULL) && blockEntity instanceof AncientOvenBlockEntity ancientOven) {
+            ancientOven.finishRecipe(world, player, pos, state);
+            return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
+    }
+
+    @Override
+    public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+        return state.get(FULL)
+                && blockEntity instanceof AncientOvenBlockEntity ancientOven
+                && ancientOven.startRecipe(world, handStack, true, player, pos, state)
+                ? ActionResult.SUCCESS
+                : ActionResult.PASS;
     }
 
     public static BlockState getNextState(BlockState state, Damage damage) {
