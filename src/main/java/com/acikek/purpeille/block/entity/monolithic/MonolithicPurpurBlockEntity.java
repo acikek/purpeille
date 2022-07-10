@@ -8,6 +8,9 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -18,6 +21,8 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     public int easeMode = -1;
     public int easing = 0;
     public int removalTicks = 0;
+    public int property = -1;
+    public int propertyMode = 0;
 
     @Override
     public void onAddItem(ItemStack stack, boolean unset, PlayerEntity player) {
@@ -54,11 +59,42 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         }
     }
 
+    public void cycleProperty() {
+        propertyMode++;
+        if (propertyMode == MonolithicPurpur.SUPPORTED_PROPERTIES[property].getValues().size()) {
+            propertyMode = 0;
+        }
+    }
+
+    public void resetProperty() {
+        property = -1;
+        propertyMode = 0;
+    }
+
+    public <V extends Enum<V> & StringIdentifiable> V getPropertyValue(EnumProperty<V> property) {
+        return property.getValues().stream().toList().get(propertyMode);
+    }
+
+    public BlockState getModifiedState(BlockState state) {
+        if (!state.contains(MonolithicPurpur.SUPPORTED_PROPERTIES[property])) {
+            resetProperty();
+            return state;
+        }
+        return switch (property) {
+            case 0 -> state.with(Properties.AXIS, getPropertyValue(Properties.AXIS));
+            case 1 -> state.with(Properties.HORIZONTAL_AXIS, getPropertyValue(Properties.HORIZONTAL_AXIS));
+            case 2 -> state.with(Properties.FACING, getPropertyValue(Properties.FACING));
+            case 3 -> state.with(Properties.HORIZONTAL_FACING, getPropertyValue(Properties.HORIZONTAL_FACING));
+            default -> state;
+        };
+    }
+
     public static void tick(World world, BlockPos blockPos, BlockState state, MonolithicPurpurBlockEntity blockEntity) {
         if (blockEntity.removalTicks > 0) {
             blockEntity.removalTicks--;
             if (blockEntity.removalTicks == 0) {
                 blockEntity.removeItem();
+                blockEntity.resetProperty();
             }
         }
     }
@@ -68,12 +104,16 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         super.readNbt(nbt);
         easeMode = nbt.getInt("EaseMode");
         removalTicks = nbt.getInt("RemovalTicks");
+        property = nbt.getInt("Property");
+        propertyMode = nbt.getInt("PropertyMode");
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.putInt("EaseMode", easeMode);
         nbt.putInt("RemovalTicks", removalTicks);
+        nbt.putInt("Property", property);
+        nbt.putInt("PropertyMode", propertyMode);
         super.writeNbt(nbt);
     }
 

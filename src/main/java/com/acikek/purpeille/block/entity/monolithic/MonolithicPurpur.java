@@ -6,7 +6,9 @@ import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
@@ -14,6 +16,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
@@ -22,6 +25,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Map;
 
 public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBlockEntity> {
 
@@ -36,11 +42,54 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         setDefaultState(getDefaultFacing().with(FULL, false));
     }
 
+    public static final EnumProperty<?>[] SUPPORTED_PROPERTIES = {
+            Properties.AXIS,
+            Properties.HORIZONTAL_AXIS,
+            Properties.FACING,
+            Properties.HORIZONTAL_FACING,
+    };
+
+    public Pair<Integer, EnumProperty<?>> getSupportedProperty(BlockState state) {
+        for (int i = 0; i < SUPPORTED_PROPERTIES.length; i++) {
+            if (state.contains(SUPPORTED_PROPERTIES[i])) {
+                return new Pair<>(i, SUPPORTED_PROPERTIES[i]);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+        if (player.isSneaking()
+                && !blockEntity.isEmpty()
+                && blockEntity.getItem().getItem() instanceof BlockItem blockItem
+                && blockEntity instanceof MonolithicPurpurBlockEntity monolithicPurpur) {
+            boolean canCycle = monolithicPurpur.property != -1;
+            Pair<Integer, EnumProperty<?>> property = null;
+            if (!canCycle) {
+                property = getSupportedProperty(blockItem.getBlock().getDefaultState());
+            }
+            if (property != null) {
+                monolithicPurpur.property = property.getLeft();
+                canCycle = true;
+            }
+            if (canCycle) {
+                monolithicPurpur.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
+                monolithicPurpur.cycleProperty();
+            }
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (world.getBlockState(pos.up()).isAir()) {
             super.addItem(state, world, pos, player, hand, handStack, blockEntity);
             blockEntity.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, world.random.nextFloat() * 0.4f + 0.8f);
+            if (handStack.getItem() instanceof BlockItem blockItem) {
+                blockEntity.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
+            }
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;

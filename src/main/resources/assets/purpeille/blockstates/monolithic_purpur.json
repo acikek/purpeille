@@ -3,8 +3,12 @@
     "facing=up": {
       "model": "purpeille:block/monolithic_purpur"
     },
-    "facing=down": {
+    "facing=down,full=false": {
       "model": "purpeille:block/monolithic_purpur",
+      "x": 180
+    },
+    "facing=down,full=true": {
+      "model": "purpeille:block/monolithic_purpur_full",
       "x": 180
     },
     "facing=east": {

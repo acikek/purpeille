@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "purpeille:block/monolithic_purpur_side",
+    "north": "purpeille:block/monolithic_purpur_side",
+    "south": "purpeille:block/monolithic_purpur_side",
+    "east": "purpeille:block/monolithic_purpur_side",
+    "west": "purpeille:block/monolithic_purpur_side",
+    "up": "purpeille:block/monolithic_purpur_top",
+    "down": "#bottom"
+  }
+}
