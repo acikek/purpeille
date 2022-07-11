@@ -68,7 +68,9 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
                 canCycle = true;
             }
             if (canCycle) {
-                monolithicPurpur.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
+                if (!world.isClient()) {
+                    monolithicPurpur.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
+                }
                 monolithicPurpur.cycleProperty();
             }
             return true;
@@ -84,8 +86,10 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (world.getBlockState(pos.up()).isAir()) {
             super.addItem(state, world, pos, player, hand, handStack, blockEntity);
-            playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE);
-            blockEntity.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, world.random.nextFloat() * 0.4f + 0.8f);
+            if (!world.isClient()) {
+                playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE);
+                blockEntity.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, world.random.nextFloat() * 0.4f + 0.8f);
+            }
             if (handStack.getItem() instanceof BlockItem blockItem) {
                 blockEntity.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
             }
@@ -98,7 +102,9 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public ActionResult removeItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (blockEntity instanceof MonolithicPurpurBlockEntity monolithicPurpur && monolithicPurpur.canRemove()) {
             super.removeItem(state, world, pos, player, hand, handStack, blockEntity);
-            playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE);
+            if (!world.isClient()) {
+                playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE);
+            }
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
