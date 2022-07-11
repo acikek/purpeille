@@ -3,11 +3,35 @@
     "facing=up": {
       "model": "purpeille:block/monolithic_purpur"
     },
-    "facing=down,full=false": {
+    "facing=down,full=false,transition=0": {
       "model": "purpeille:block/monolithic_purpur",
       "x": 180
     },
-    "facing=down,full=true": {
+    "facing=down,full=false,transition=5": {
+      "model": "purpeille:block/monolithic_purpur_full",
+      "x": 180
+    },
+    "facing=down,transition=1": {
+      "model": "purpeille:block/monolithic_purpur_transition_1",
+      "x": 180
+    },
+    "facing=down,transition=2": {
+      "model": "purpeille:block/monolithic_purpur_transition_2",
+      "x": 180
+    },
+    "facing=down,transition=3": {
+      "model": "purpeille:block/monolithic_purpur_transition_3",
+      "x": 180
+    },
+    "facing=down,transition=4": {
+      "model": "purpeille:block/monolithic_purpur_transition_4",
+      "x": 180
+    },
+    "facing=down,full=true,transition=0": {
+      "model": "purpeille:block/monolithic_purpur",
+      "x": 180
+    },
+    "facing=down,full=true,transition=5": {
       "model": "purpeille:block/monolithic_purpur_full",
       "x": 180
     },

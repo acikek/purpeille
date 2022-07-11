@@ -1,0 +1,6 @@
+{
+  "parent": "purpeille:block/monolithic_purpur_base",
+  "textures": {
+    "bottom": "purpeille:block/monolithic_purpur_bottom_transition_3"
+  }
+}

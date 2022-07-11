@@ -20,7 +20,7 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
 
     public int easeMode = -1;
     public int easing = 0;
-    public int transitionTicks = 0;
+    public int transitionTicks = 10;
     public int removalTicks = 0;
     public int property = -1;
     public int propertyMode = 0;
@@ -29,13 +29,15 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     public void onAddItem(ItemStack stack, boolean unset, PlayerEntity player) {
         super.onAddItem(stack, unset, player);
         easeMode = 0;
-        transitionTicks = 10;
+        transitionTicks = 0;
+        removalTicks = 0;
     }
 
     @Override
     public void onRemoveItem(PlayerEntity player, boolean checkCreative, boolean copy, boolean remove) {
         super.onRemoveItem(player, checkCreative, true, false);
         easeMode = 1;
+        transitionTicks = 10;
         removalTicks = 10;
     }
 
@@ -91,23 +93,23 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         };
     }
 
-    public static void removeTransition(World world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(MonolithicPurpur.TRANSITION, false));
+    public static void checkTransition(World world, BlockPos pos, BlockState state, int ticks) {
+        if (ticks % 2 == 0) {
+            world.setBlockState(pos, state.with(MonolithicPurpur.TRANSITION, ticks / 2));
+        }
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState state, MonolithicPurpurBlockEntity blockEntity) {
-        if (blockEntity.transitionTicks > 0) {
-            blockEntity.transitionTicks--;
-            if (blockEntity.transitionTicks == 0) {
-               removeTransition(world, blockPos, state);
-            }
+        if (blockEntity.transitionTicks < 10) {
+            blockEntity.transitionTicks++;
+            checkTransition(world, blockPos, state, blockEntity.transitionTicks);
         }
         if (blockEntity.removalTicks > 0) {
             blockEntity.removalTicks--;
+            checkTransition(world, blockPos, state, blockEntity.removalTicks);
             if (blockEntity.removalTicks == 0) {
                 blockEntity.removeItem();
                 blockEntity.resetProperty();
-                removeTransition(world, blockPos, state);
             }
         }
     }

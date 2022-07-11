@@ -6,30 +6,20 @@ import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.state.property.*;
 import net.minecraft.util.*;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-import java.util.Map;
 
 public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBlockEntity> {
 
@@ -38,11 +28,11 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
             .sounds(BlockSoundGroup.BONE);
 
     public static final DirectionProperty FACING = Properties.FACING;
-    public static final BooleanProperty TRANSITION = BooleanProperty.of("transition");
+    public static final IntProperty TRANSITION = IntProperty.of("transition", 0, 5);
 
     public MonolithicPurpur(Settings settings) {
         super(settings, MonolithicPurpurBlockEntity::tick, null, true);
-        setDefaultState(getDefaultFacing().with(FULL, false).with(TRANSITION, false));
+        setDefaultState(getDefaultFacing().with(FULL, false).with(TRANSITION, 0));
     }
 
     public static final EnumProperty<?>[] SUPPORTED_PROPERTIES = {
@@ -85,8 +75,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         return false;
     }
 
-    public static void changeItem(BlockState state, World world, BlockPos pos, SingleSlotBlockEntity blockEntity, SoundEvent event) {
-        world.setBlockState(pos, world.getBlockState(pos).with(TRANSITION, true));
+    public static void playSound(World world, SingleSlotBlockEntity blockEntity, SoundEvent event) {
         blockEntity.playSound(event, world.random.nextFloat() * 0.4f + 0.8f);
     }
 
@@ -94,7 +83,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (world.getBlockState(pos.up()).isAir()) {
             super.addItem(state, world, pos, player, hand, handStack, blockEntity);
-            changeItem(state, world, pos, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE);
+            playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE);
             blockEntity.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, world.random.nextFloat() * 0.4f + 0.8f);
             if (handStack.getItem() instanceof BlockItem blockItem) {
                 blockEntity.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
@@ -108,7 +97,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public ActionResult removeItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (blockEntity instanceof MonolithicPurpurBlockEntity monolithicPurpur && monolithicPurpur.canRemove()) {
             super.removeItem(state, world, pos, player, hand, handStack, blockEntity);
-            changeItem(state, world, pos, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE);
+            playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE);
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
