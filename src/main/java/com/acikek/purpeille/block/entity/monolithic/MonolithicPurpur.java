@@ -23,12 +23,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBlockEntity> {
 
-    public static final AbstractBlock.Settings SETTINGS = BlockSettings.baseSettings(Material.STONE)
-            .strength(5.0f)
-            .sounds(BlockSoundGroup.BONE);
-
     public static final DirectionProperty FACING = Properties.FACING;
     public static final IntProperty TRANSITION = IntProperty.of("transition", 0, 5);
+
+    public static final AbstractBlock.Settings SETTINGS = BlockSettings.baseSettings(Material.STONE)
+            .strength(5.0f)
+            .sounds(BlockSoundGroup.BONE)
+            .luminance(value -> value.get(TRANSITION));
 
     public MonolithicPurpur(Settings settings) {
         super(settings, MonolithicPurpurBlockEntity::tick, null, true);
