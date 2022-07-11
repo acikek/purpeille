@@ -98,13 +98,13 @@ public class SingleSlotBlockEntity extends BlockEntity implements ImplementedInv
     }
 
     /**
-     * Sends a core name and durability indicator to the player if they are sneaking with an empty hand.
+     * Sends a core name and durability indicator to the player if they have an empty hand.
      * <p>The intended behavior is for the player to be able to check the core inside the machine by shift-right-clicking,
      * in which case nothing else should follow.</p>
      * @return Whether the player checked the core.
      */
-    public boolean playerCheckCore(PlayerEntity player, ItemStack stack) {
-        if (player.isSneaking() && stack.isEmpty()) {
+    public boolean playerCheckCore(PlayerEntity player, ItemStack handStack) {
+        if (handStack.isEmpty()) {
             EncasedCore core = getCore();
             if (core != null) {
                 MutableText text = Text.translatable(core.getTranslationKey()).formatted(core.type.rarity.formatting);

@@ -38,8 +38,14 @@ public abstract class CorePoweredAncientMachine<T extends CorePoweredAncientMach
     }
 
     @Override
-    public boolean extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
-        return playerCheckCore && blockEntity.playerCheckCore(player, handStack);
+    public ActionResult extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+        if (!player.isSneaking()) {
+            return null;
+        }
+        if (playerCheckCore && blockEntity.playerCheckCore(player, handStack)) {
+            return ActionResult.SUCCESS;
+        }
+        return ActionResult.PASS;
     }
 
     @Override

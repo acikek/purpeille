@@ -29,7 +29,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public static final AbstractBlock.Settings SETTINGS = BlockSettings.baseSettings(Material.STONE)
             .strength(5.0f)
             .sounds(BlockSoundGroup.BONE)
-            .luminance(value -> value.get(TRANSITION));
+            .luminance(value -> (int) (value.get(TRANSITION) * 1.75));
 
     public MonolithicPurpur(Settings settings) {
         super(settings, MonolithicPurpurBlockEntity::tick, null, true);
@@ -53,7 +53,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     }
 
     @Override
-    public boolean extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+    public ActionResult extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (player.isSneaking()
                 && !blockEntity.isEmpty()
                 && blockEntity.getItem().getItem() instanceof BlockItem blockItem
@@ -72,10 +72,11 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
                     monolithicPurpur.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
                 }
                 monolithicPurpur.cycleProperty();
+                return ActionResult.SUCCESS;
             }
-            return true;
+            return ActionResult.PASS;
         }
-        return false;
+        return null;
     }
 
     public static void playSound(World world, SingleSlotBlockEntity blockEntity, SoundEvent event) {
