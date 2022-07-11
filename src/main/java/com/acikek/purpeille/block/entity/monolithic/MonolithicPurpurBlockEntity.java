@@ -20,6 +20,7 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
 
     public int easeMode = -1;
     public int easing = 0;
+    public int transitionTicks = 0;
     public int removalTicks = 0;
     public int property = -1;
     public int propertyMode = 0;
@@ -28,6 +29,7 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     public void onAddItem(ItemStack stack, boolean unset, PlayerEntity player) {
         super.onAddItem(stack, unset, player);
         easeMode = 0;
+        transitionTicks = 10;
     }
 
     @Override
@@ -89,12 +91,23 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         };
     }
 
+    public static void removeTransition(World world, BlockPos pos, BlockState state) {
+        world.setBlockState(pos, state.with(MonolithicPurpur.TRANSITION, false));
+    }
+
     public static void tick(World world, BlockPos blockPos, BlockState state, MonolithicPurpurBlockEntity blockEntity) {
+        if (blockEntity.transitionTicks > 0) {
+            blockEntity.transitionTicks--;
+            if (blockEntity.transitionTicks == 0) {
+               removeTransition(world, blockPos, state);
+            }
+        }
         if (blockEntity.removalTicks > 0) {
             blockEntity.removalTicks--;
             if (blockEntity.removalTicks == 0) {
                 blockEntity.removeItem();
                 blockEntity.resetProperty();
+                removeTransition(world, blockPos, state);
             }
         }
     }
@@ -103,6 +116,7 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         easeMode = nbt.getInt("EaseMode");
+        transitionTicks = nbt.getInt("TransitionTicks");
         removalTicks = nbt.getInt("RemovalTicks");
         property = nbt.getInt("Property");
         propertyMode = nbt.getInt("PropertyMode");
@@ -111,6 +125,7 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.putInt("EaseMode", easeMode);
+        nbt.putInt("TransitionTicks", transitionTicks);
         nbt.putInt("RemovalTicks", removalTicks);
         nbt.putInt("Property", property);
         nbt.putInt("PropertyMode", propertyMode);

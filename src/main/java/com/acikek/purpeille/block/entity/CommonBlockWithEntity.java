@@ -23,8 +23,8 @@ import java.util.function.BiFunction;
 
 public abstract class CommonBlockWithEntity<T extends BlockEntity> extends BlockWithEntity {
 
-    public static DirectionProperty FACING = HorizontalFacingBlock.FACING;
-    public static BooleanProperty FULL = BooleanProperty.of("full");
+    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static final BooleanProperty FULL = BooleanProperty.of("full");
 
     public BlockEntityTicker<T> ticker;
     public BiFunction<BlockPos, BlockState, T> supplier;

@@ -13,8 +13,10 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
@@ -36,10 +38,11 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
             .sounds(BlockSoundGroup.BONE);
 
     public static final DirectionProperty FACING = Properties.FACING;
+    public static final BooleanProperty TRANSITION = BooleanProperty.of("transition");
 
     public MonolithicPurpur(Settings settings) {
         super(settings, MonolithicPurpurBlockEntity::tick, null, true);
-        setDefaultState(getDefaultFacing().with(FULL, false));
+        setDefaultState(getDefaultFacing().with(FULL, false).with(TRANSITION, false));
     }
 
     public static final EnumProperty<?>[] SUPPORTED_PROPERTIES = {
@@ -82,10 +85,16 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         return false;
     }
 
+    public static void changeItem(BlockState state, World world, BlockPos pos, SingleSlotBlockEntity blockEntity, SoundEvent event) {
+        world.setBlockState(pos, world.getBlockState(pos).with(TRANSITION, true));
+        blockEntity.playSound(event, world.random.nextFloat() * 0.4f + 0.8f);
+    }
+
     @Override
     public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (world.getBlockState(pos.up()).isAir()) {
             super.addItem(state, world, pos, player, hand, handStack, blockEntity);
+            changeItem(state, world, pos, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE);
             blockEntity.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, world.random.nextFloat() * 0.4f + 0.8f);
             if (handStack.getItem() instanceof BlockItem blockItem) {
                 blockEntity.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
@@ -99,7 +108,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public ActionResult removeItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (blockEntity instanceof MonolithicPurpurBlockEntity monolithicPurpur && monolithicPurpur.canRemove()) {
             super.removeItem(state, world, pos, player, hand, handStack, blockEntity);
-            blockEntity.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, world.random.nextFloat() * 0.4f + 0.8f);
+            changeItem(state, world, pos, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE);
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
@@ -131,7 +140,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FULL).add(FACING);
+        builder.add(FULL).add(FACING).add(TRANSITION);
     }
 
     @Override
