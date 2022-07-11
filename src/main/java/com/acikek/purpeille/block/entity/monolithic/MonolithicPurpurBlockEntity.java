@@ -46,7 +46,7 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     }
 
     public boolean canRemove() {
-        return easeMode != 1 || removalTicks == 0;
+        return easeMode == -1 || (removalTicks == 0 && transitionTicks == 10);
     }
     
     public void ease() {
