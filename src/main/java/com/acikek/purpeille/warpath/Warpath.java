@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class Warpath {
 
     public static final String NBT_KEY = "WarpathData";
+    public static final String ETR_NBT_KEY = "enchant_the_rainbow:GlintColor";
     public static final MutableText SEPARATOR = Text.translatable("separator.purpeille.warpath");
     public static final ClampedColor SEPARATOR_COLOR = new ClampedColor(Formatting.GRAY);
 
@@ -135,7 +137,9 @@ public class Warpath {
     public static void add(ItemStack stack, Revelation revelation, Aspect aspect) {
         NbtCompound data = new NbtCompound();
         addData(data, revelation, aspect);
-        stack.getOrCreateNbt().put(NBT_KEY, data);
+        NbtCompound stackNbt = stack.getOrCreateNbt();
+        stackNbt.put(NBT_KEY, data);
+        stackNbt.putInt(ETR_NBT_KEY, DyeColor.RED.getId());
         addModifiers(stack, revelation, aspect);
     }
 
@@ -145,6 +149,7 @@ public class Warpath {
     public static void remove(ItemStack stack) {
         NbtCompound nbt = stack.getOrCreateNbt();
         nbt.remove(NBT_KEY);
+        nbt.remove(ETR_NBT_KEY);
         nbt.remove("AttributeModifiers");
     }
 }
