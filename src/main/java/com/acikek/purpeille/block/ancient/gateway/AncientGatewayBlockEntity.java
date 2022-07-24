@@ -105,7 +105,9 @@ public class AncientGatewayBlockEntity extends CorePoweredAncientMachineBlockEnt
         player.teleport(destination.getX(), destination.getY(), destination.getZ());
         player.playSound(ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
         world.playSound(player, pos, ModSoundEvents.ANCIENT_GATEWAY_TELEPORT, SoundCategory.BLOCKS, 1.0f, 1.0f);
-        ModCriteria.ANCIENT_GATEWAY_USED.trigger((ServerPlayerEntity) player, blocks);
+        if (player instanceof ServerPlayerEntity serverPlayer) {
+            ModCriteria.ANCIENT_GATEWAY_USED.trigger(serverPlayer, blocks);
+        }
         return damageCore(world, state, blocks);
     }
 

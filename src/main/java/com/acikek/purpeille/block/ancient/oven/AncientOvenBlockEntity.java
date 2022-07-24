@@ -51,8 +51,8 @@ public class AncientOvenBlockEntity extends AncientMachineBlockEntity {
             Damage newDamage = Damage.getFromDurability(durability);
             world.setBlockState(pos, AncientOven.getNextState(state, newDamage));
             block.breakParticles(world, pos, state);
-            if (player != null) {
-                ModCriteria.ANCIENT_OVEN_DAMAGED.trigger((ServerPlayerEntity) player, newDamage);
+            if (player instanceof ServerPlayerEntity playerEntity) {
+                ModCriteria.ANCIENT_OVEN_DAMAGED.trigger(playerEntity, newDamage);
             }
             if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
                 blockEntity.durability = durability;
