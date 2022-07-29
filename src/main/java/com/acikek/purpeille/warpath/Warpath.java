@@ -139,7 +139,7 @@ public class Warpath {
         addData(data, revelation, aspect);
         NbtCompound stackNbt = stack.getOrCreateNbt();
         stackNbt.put(NBT_KEY, data);
-        stackNbt.putInt(ETR_NBT_KEY, DyeColor.RED.getId());
+        stackNbt.putInt(ETR_NBT_KEY, revelation.dyeColor.getId());
         addModifiers(stack, revelation, aspect);
     }
 

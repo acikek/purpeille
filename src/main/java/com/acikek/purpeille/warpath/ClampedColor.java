@@ -36,6 +36,10 @@ public class ClampedColor {
         return MathHelper.packRgb(r.clamp(wave), g.clamp(wave), b.clamp(wave));
     }
 
+    public float getDifference(float[] components) {
+        return r.getDifference(components[0]) + g.getDifference(components[1]) + b.getDifference(components[2]);
+    }
+
     public static int getWave() {
         float progress = (System.currentTimeMillis() % INTERVAL) / INTERVAL_F;
         return (int) (MathHelper.sin(progress * MathHelper.TAU) * (float) THRESHOLD);
@@ -62,6 +66,10 @@ public class ClampedColor {
                 result -= max;
             }
             return result;
+        }
+
+        public float getDifference(float component) {
+            return Math.abs(((float) value / 255.0f) - component);
         }
     }
 

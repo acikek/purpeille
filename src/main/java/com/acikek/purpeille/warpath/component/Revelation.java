@@ -1,5 +1,6 @@
 package com.acikek.purpeille.warpath.component;
 
+import com.acikek.purpeille.warpath.ClampedColor;
 import com.acikek.purpeille.warpath.Synergy;
 import com.acikek.purpeille.warpath.Tone;
 import com.acikek.purpeille.warpath.Type;
@@ -12,6 +13,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
@@ -29,6 +31,7 @@ public class Revelation extends Component {
     public Ingredient affinity;
     public Map<Identifier, Synergy> synergy;
     public EntityAttributeModifier.Operation operation;
+    public DyeColor dyeColor;
     public boolean forceInt;
     public MutableText rite;
 
@@ -38,12 +41,26 @@ public class Revelation extends Component {
         this.affinity = affinity;
         this.synergy = synergy;
         operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
+        dyeColor = getClosestDyeColor(waveColor);
         this.forceInt = forceInt;
         rite = Text.translatable(getIdKey("rite", id)).styled(style -> style.withColor(RITE_RGB));
     }
 
     public Revelation(Aspect aspect, EntityAttribute attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, boolean multiply, boolean forceInt) {
         this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, attribute, affinity, synergy, multiply, forceInt);
+    }
+
+    public static DyeColor getClosestDyeColor(ClampedColor waveColor) {
+        DyeColor closestColor = null;
+        float difference = Float.MAX_VALUE;
+        for (DyeColor dyeColor : DyeColor.values()) {
+            float diff = waveColor.getDifference(dyeColor.getColorComponents());
+            if (diff < difference) {
+                difference = diff;
+                closestColor = dyeColor;
+            }
+        }
+        return closestColor == null ? DyeColor.RED : closestColor;
     }
 
     @Override
