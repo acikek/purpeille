@@ -31,36 +31,36 @@ public class Revelation extends Component {
     public Ingredient affinity;
     public Map<Identifier, Synergy> synergy;
     public EntityAttributeModifier.Operation operation;
-    public DyeColor dyeColor;
+    public int dyeColor;
     public boolean forceInt;
     public MutableText rite;
 
-    public Revelation(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, EntityAttribute attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, boolean multiply, boolean forceInt) {
+    public Revelation(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, EntityAttribute attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, int dyeColor, boolean multiply, boolean forceInt) {
         super(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist);
         this.attribute = attribute;
         this.affinity = affinity;
         this.synergy = synergy;
         operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
-        dyeColor = getClosestDyeColor(waveColor);
+        this.dyeColor = dyeColor == -1 ? getClosestDyeColor(waveColor) : dyeColor;
         this.forceInt = forceInt;
         rite = Text.translatable(getIdKey("rite", id)).styled(style -> style.withColor(RITE_RGB));
     }
 
-    public Revelation(Aspect aspect, EntityAttribute attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, boolean multiply, boolean forceInt) {
-        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, attribute, affinity, synergy, multiply, forceInt);
+    public Revelation(Aspect aspect, EntityAttribute attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, int dyeColor, boolean multiply, boolean forceInt) {
+        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, attribute, affinity, synergy, dyeColor, multiply, forceInt);
     }
 
-    public static DyeColor getClosestDyeColor(ClampedColor waveColor) {
-        DyeColor closestColor = null;
+    public static int getClosestDyeColor(ClampedColor waveColor) {
+        int closestColor = -1;
         float difference = Float.MAX_VALUE;
         for (DyeColor dyeColor : DyeColor.values()) {
             float diff = waveColor.getDifference(dyeColor.getColorComponents());
             if (diff < difference) {
                 difference = diff;
-                closestColor = dyeColor;
+                closestColor = dyeColor.getId();
             }
         }
-        return closestColor == null ? DyeColor.RED : closestColor;
+        return closestColor;
     }
 
     @Override
@@ -91,9 +91,10 @@ public class Revelation extends Component {
         EntityAttribute attribute = Registry.ATTRIBUTE.get(Identifier.tryParse(JsonHelper.getString(obj, "attribute")));
         Ingredient affinity = Ingredient.fromJson(obj.get("affinity"));
         Map<Identifier, Synergy> synergy = Synergy.overridesFromJson(JsonHelper.getObject(obj, "synergy"));
+        int dyeColor = JsonHelper.getInt(obj, "dye_color", -1);
         boolean multiply = JsonHelper.getBoolean(obj, "multiply");
         boolean forceInt = JsonHelper.getBoolean(obj, "force_int", false);
-        return new Revelation(aspect, attribute, affinity, synergy, multiply, forceInt);
+        return new Revelation(aspect, attribute, affinity, synergy, dyeColor, multiply, forceInt);
     }
 
     public static Revelation read(PacketByteBuf buf) {
@@ -101,9 +102,10 @@ public class Revelation extends Component {
         EntityAttribute attribute = Registry.ATTRIBUTE.get(buf.readIdentifier());
         Ingredient affinity = Ingredient.fromPacket(buf);
         Map<Identifier, Synergy> synergy = Synergy.readOverrides(buf);
+        int dyeColor = buf.readInt();
         boolean multiply = buf.readBoolean();
         boolean forceInt = buf.readBoolean();
-        return new Revelation(aspect, attribute, affinity, synergy, multiply, forceInt);
+        return new Revelation(aspect, attribute, affinity, synergy, dyeColor, multiply, forceInt);
     }
 
     @Override
@@ -112,6 +114,7 @@ public class Revelation extends Component {
         buf.writeIdentifier(Registry.ATTRIBUTE.getId(attribute));
         affinity.write(buf);
         Synergy.writeOverrides(synergy, buf);
+        buf.writeInt(dyeColor);
         buf.writeBoolean(operation == EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
         buf.writeBoolean(forceInt);
     }
