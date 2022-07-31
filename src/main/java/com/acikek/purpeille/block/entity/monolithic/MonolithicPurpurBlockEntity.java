@@ -96,18 +96,20 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         };
     }
 
+    public static void checkTransition(World world, BlockPos pos, BlockState state, int ticks) {
+        if (!world.isClient() && ticks % 2 == 0) {
+            world.setBlockState(pos, state.with(MonolithicPurpur.TRANSITION, ticks / 2));
+        }
+    }
+
     public static void tick(World world, BlockPos blockPos, BlockState state, MonolithicPurpurBlockEntity blockEntity) {
         if (blockEntity.transitionTicks < 10) {
             blockEntity.transitionTicks++;
-            if (!world.isClient() && blockEntity.transitionTicks % 2 == 0 && blockEntity.transitionTicks <= 8) {
-                world.setBlockState(blockPos, state.with(MonolithicPurpur.TRANSITION, blockEntity.transitionTicks / 2 + 1));
-            }
+            checkTransition(world, blockPos, state, blockEntity.transitionTicks);
         }
         if (blockEntity.removalTicks > 0) {
             blockEntity.removalTicks--;
-            if (!world.isClient() && blockEntity.removalTicks % 2 == 0 && blockEntity.removalTicks >= 2) {
-                world.setBlockState(blockPos, state.with(MonolithicPurpur.TRANSITION, blockEntity.removalTicks / 2 - 1));
-            }
+            checkTransition(world, blockPos, state, blockEntity.removalTicks);
             if (blockEntity.removalTicks == 0) {
                 blockEntity.removeItem();
                 blockEntity.resetProperty();

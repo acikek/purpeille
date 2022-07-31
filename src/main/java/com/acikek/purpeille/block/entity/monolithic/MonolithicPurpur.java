@@ -85,7 +85,6 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public ActionResult addItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (world.getBlockState(pos.up()).isAir()) {
             super.addItem(state, world, pos, player, hand, handStack, blockEntity);
-            world.setBlockState(pos, world.getBlockState(pos).with(TRANSITION, 1));
             if (!world.isClient()) {
                 playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE);
                 blockEntity.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, world.random.nextFloat() * 0.4f + 0.8f);
@@ -102,7 +101,6 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public ActionResult removeItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (blockEntity instanceof MonolithicPurpurBlockEntity monolithicPurpur && monolithicPurpur.canRemove()) {
             super.removeItem(state, world, pos, player, hand, handStack, blockEntity);
-            world.setBlockState(pos, world.getBlockState(pos).with(TRANSITION, 4));
             if (!world.isClient()) {
                 playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE);
             }
