@@ -2,6 +2,7 @@ package com.acikek.purpeille.block.entity;
 
 import com.acikek.purpeille.item.core.EncasedCore;
 import lib.ImplementedInventory;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -14,6 +15,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.MutableText;
@@ -159,6 +161,17 @@ public class SingleSlotBlockEntity extends BlockEntity implements ImplementedInv
      */
     public void playSound(SoundEvent event) {
         playSound(event, 1.0f);
+    }
+
+    @Override
+    public void markDirty() {
+        super.markDirty();
+        if (world instanceof ServerWorld serverWorld) {
+            serverWorld.getChunkManager().markForUpdate(pos);
+        }
+        else if (world != null) {
+            world.updateListeners(pos, getCachedState(), getCachedState(), Block.REDRAW_ON_MAIN_THREAD);
+        }
     }
 
     @Override

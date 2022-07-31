@@ -8,6 +8,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.StringIdentifiable;
@@ -68,11 +69,13 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         if (propertyMode == MonolithicPurpur.SUPPORTED_PROPERTIES[property].getValues().size()) {
             propertyMode = 0;
         }
+        markDirty();
     }
 
     public void resetProperty() {
         property = -1;
         propertyMode = 0;
+        markDirty();
     }
 
     public <V extends Enum<V> & StringIdentifiable> V getPropertyValue(EnumProperty<V> property) {
@@ -96,13 +99,13 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     public static void tick(World world, BlockPos blockPos, BlockState state, MonolithicPurpurBlockEntity blockEntity) {
         if (blockEntity.transitionTicks < 10) {
             blockEntity.transitionTicks++;
-            if (blockEntity.transitionTicks % 2 == 0 && blockEntity.transitionTicks <= 8) {
+            if (!world.isClient() && blockEntity.transitionTicks % 2 == 0 && blockEntity.transitionTicks <= 8) {
                 world.setBlockState(blockPos, state.with(MonolithicPurpur.TRANSITION, blockEntity.transitionTicks / 2 + 1));
             }
         }
         if (blockEntity.removalTicks > 0) {
             blockEntity.removalTicks--;
-            if (blockEntity.removalTicks % 2 == 0 && blockEntity.removalTicks >= 2) {
+            if (!world.isClient() && blockEntity.removalTicks % 2 == 0 && blockEntity.removalTicks >= 2) {
                 world.setBlockState(blockPos, state.with(MonolithicPurpur.TRANSITION, blockEntity.removalTicks / 2 - 1));
             }
             if (blockEntity.removalTicks == 0) {

@@ -68,9 +68,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
                 canCycle = true;
             }
             if (canCycle) {
-                if (!world.isClient()) {
-                    monolithicPurpur.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
-                }
+                monolithicPurpur.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
                 monolithicPurpur.cycleProperty();
                 return ActionResult.SUCCESS;
             }
