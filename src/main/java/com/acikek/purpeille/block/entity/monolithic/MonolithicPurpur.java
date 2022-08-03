@@ -54,6 +54,9 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
 
     @Override
     public ActionResult extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+        if (world.getBlockState(pos.down()).isOf(Blocks.OBSIDIAN)) {
+            return ActionResult.PASS;
+        }
         if (player.isSneaking()
                 && !blockEntity.isEmpty()
                 && blockEntity.getItem().getItem() instanceof BlockItem blockItem

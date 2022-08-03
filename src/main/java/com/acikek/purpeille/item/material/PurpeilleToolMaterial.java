@@ -3,8 +3,6 @@ package com.acikek.purpeille.item.material;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.tag.ModTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.*;
