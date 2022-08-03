@@ -2,7 +2,6 @@ package com.acikek.purpeille.warpath.component;
 
 import com.acikek.purpeille.warpath.ClampedColor;
 import com.acikek.purpeille.warpath.Tone;
-import com.acikek.purpeille.warpath.Type;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -38,7 +37,7 @@ public abstract class Component {
     public MutableText baseText;
     public MutableText defaultText;
 
-    public Component(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist) {
+    Component(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist) {
         this.id = id;
         this.tone = tone;
         this.color = color;

@@ -73,14 +73,18 @@ public class ClampedColor {
         }
     }
 
+    public static int colorByName(String name) {
+        Formatting formatting = Formatting.byName(name);
+        if (formatting == null) {
+            throw new IllegalStateException("'" + name + "' is not a valid color");
+        }
+        return formatting.getColorValue() != null ? formatting.getColorValue() : -1;
+    }
+
     public static int colorFromJson(JsonElement element) {
         if (JsonHelper.isNumber(element)) {
             return element.getAsInt();
         }
-        Formatting formatting = Formatting.byName(element.getAsString());
-        if (formatting == null) {
-            throw new IllegalStateException("'" + element.getAsString() + "' is not a valid color");
-        }
-        return formatting.getColorValue() != null ? formatting.getColorValue() : -1;
+        return colorByName(element.getAsString());
     }
 }

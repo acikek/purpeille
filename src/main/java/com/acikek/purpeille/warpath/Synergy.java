@@ -35,7 +35,7 @@ public enum Synergy {
         if (aspect == null) {
             return NEUTRAL;
         }
-        if (revelation.synergy.containsKey(aspect.id)) {
+        if (revelation.synergy != null && revelation.synergy.containsKey(aspect.id)) {
             return revelation.synergy.get(aspect.id);
         }
         if (revelation.tone.getOpposition() == aspect.tone) {
@@ -56,6 +56,9 @@ public enum Synergy {
     }
 
     public static Map<Identifier, Synergy> overridesFromJson(JsonObject obj) {
+        if (obj == null) {
+            return null;
+        }
         Map<Identifier, Synergy> result = new HashMap<>();
         for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
             Identifier id = Identifier.tryParse(entry.getKey());
@@ -66,10 +69,16 @@ public enum Synergy {
     }
 
     public static Map<Identifier, Synergy> readOverrides(PacketByteBuf buf) {
+        if (!buf.readBoolean()) {
+            return null;
+        }
         return buf.readMap(PacketByteBuf::readIdentifier, Synergy::read);
     }
 
     public static void writeOverrides(Map<Identifier, Synergy> map, PacketByteBuf buf) {
-        buf.writeMap(map, PacketByteBuf::writeIdentifier, Synergy::write);
+        buf.writeBoolean(map == null);
+        if (map != null) {
+            buf.writeMap(map, PacketByteBuf::writeIdentifier, Synergy::write);
+        }
     }
 }

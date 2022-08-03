@@ -3,7 +3,6 @@ package com.acikek.purpeille.warpath.component;
 import com.acikek.purpeille.warpath.ClampedColor;
 import com.acikek.purpeille.warpath.Synergy;
 import com.acikek.purpeille.warpath.Tone;
-import com.acikek.purpeille.warpath.Type;
 import com.google.gson.JsonObject;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -20,6 +19,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Revelation extends Component {
@@ -86,15 +86,88 @@ public class Revelation extends Component {
         return Type.REVELATION.getFromNbt(nbt, REVELATIONS);
     }
 
+    public static class Builder extends Aspect.Builder {
+
+        EntityAttribute attribute;
+        Ingredient affinity;
+        Map<Identifier, Synergy> synergy;
+        int dyeColor = -1;
+        boolean multiply;
+        boolean forceInt = false;
+
+        public Builder aspect(Aspect aspect) {
+            tone = aspect.tone;
+            color = aspect.color;
+            catalyst = aspect.catalyst;
+            index = aspect.index;
+            modifier = aspect.modifier;
+            ignoreSlot = aspect.ignoreSlot;
+            whitelist = aspect.whitelist;
+            return this;
+        }
+
+        public Builder attribute(EntityAttribute attribute) {
+            this.attribute = attribute;
+            return this;
+        }
+
+        public Builder affinity(Ingredient affinity) {
+            this.affinity = affinity;
+            return this;
+        }
+
+        public Builder synergy(Map<Identifier, Synergy> synergy) {
+            this.synergy = synergy;
+            return this;
+        }
+
+        public Builder dyeColor(int dyeColor) {
+            this.dyeColor = dyeColor;
+            return this;
+        }
+
+        public Builder dyeColor(DyeColor color) {
+            return dyeColor(color.getId());
+        }
+
+        public Builder multiply(boolean multiply) {
+            this.multiply = multiply;
+            return this;
+        }
+
+        public Builder forceInt(boolean forceInt) {
+            this.forceInt = forceInt;
+            return this;
+        }
+
+        @Override
+        boolean isValid(Identifier id) {
+            Objects.requireNonNull(attribute);
+            Objects.requireNonNull(affinity);
+            if (dyeColor < -1 || dyeColor >= DyeColor.values().length) {
+                throw new IllegalStateException("'dyeColor' must be a valid dye color ID or -1");
+            }
+            return super.isValid(id);
+        }
+
+        public Revelation buildRevelation(Identifier id) {
+            if (isValid(id)) {
+                return new Revelation(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, attribute, affinity, synergy, dyeColor, multiply, forceInt);
+            }
+            return null;
+        }
+    }
+
     public static Revelation fromJson(JsonObject obj, Identifier id) {
-        Aspect aspect = Aspect.fromJson(obj, id);
-        EntityAttribute attribute = Registry.ATTRIBUTE.get(Identifier.tryParse(JsonHelper.getString(obj, "attribute")));
-        Ingredient affinity = Ingredient.fromJson(obj.get("affinity"));
-        Map<Identifier, Synergy> synergy = Synergy.overridesFromJson(JsonHelper.getObject(obj, "synergy"));
-        int dyeColor = JsonHelper.getInt(obj, "dye_color", -1);
-        boolean multiply = JsonHelper.getBoolean(obj, "multiply");
-        boolean forceInt = JsonHelper.getBoolean(obj, "force_int", false);
-        return new Revelation(aspect, attribute, affinity, synergy, dyeColor, multiply, forceInt);
+        return new Builder()
+                .aspect(Aspect.fromJson(obj, id))
+                .attribute(Registry.ATTRIBUTE.get(Identifier.tryParse(JsonHelper.getString(obj, "attribute"))))
+                .affinity(Ingredient.fromJson(obj.get("affinity")))
+                .synergy(Synergy.overridesFromJson(JsonHelper.getObject(obj, "synergy", null)))
+                .dyeColor(JsonHelper.getInt(obj, "dye_color", -1))
+                .multiply(JsonHelper.getBoolean(obj, "multiply"))
+                .forceInt(JsonHelper.getBoolean(obj, "force_int", false))
+                .buildRevelation(id);
     }
 
     public static Revelation read(PacketByteBuf buf) {

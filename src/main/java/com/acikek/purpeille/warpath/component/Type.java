@@ -1,7 +1,6 @@
-package com.acikek.purpeille.warpath;
+package com.acikek.purpeille.warpath.component;
 
 import com.acikek.purpeille.command.WarpathCommand;
-import com.acikek.purpeille.warpath.component.Component;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
@@ -13,9 +12,9 @@ public enum Type {
     REVELATION("revelation", "Revelation"),
     ASPECT("aspect", "Aspect");
 
-    public String translationKey;
-    public String nbtKey;
-    public DynamicCommandExceptionType exception;
+    public final String translationKey;
+    public final String nbtKey;
+    public final DynamicCommandExceptionType exception;
 
     Type(String translationKey, String nbtKey) {
         this.translationKey = translationKey;
