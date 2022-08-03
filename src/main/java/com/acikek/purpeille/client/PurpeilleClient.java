@@ -9,7 +9,9 @@ import com.acikek.purpeille.client.networking.VacuousBlastListener;
 import com.acikek.purpeille.client.particle.AncientGuardianParticle;
 import com.acikek.purpeille.client.particle.ModParticleTypes;
 import com.acikek.purpeille.client.render.AncientGuardianRenderer;
+import com.acikek.purpeille.client.render.AncientMessageHud;
 import com.acikek.purpeille.client.render.MonolithicPurpurRenderer;
+import com.acikek.purpeille.command.AncientMessageCommand;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
@@ -20,6 +22,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -45,6 +48,7 @@ public class PurpeilleClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.END_RUBBLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.END_RUBBLE, RenderLayer.getTranslucent());
         ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(GUARDIAN_HAND_MODEL));
+        HudRenderCallback.EVENT.register(new AncientMessageHud());
         AncientGuardianRenderer.register();
         MonolithicPurpurRenderer.register();
         ModParticleTypes.register();
@@ -70,6 +74,7 @@ public class PurpeilleClient implements ClientModInitializer {
     public static void registerReceivers() {
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.VACUOUS_BLAST, new VacuousBlastListener());
+        ClientPlayNetworking.registerGlobalReceiver(AncientMessageCommand.CHANNEL, new AncientMessageHud.Listener());
         ClientPlayNetworking.registerGlobalReceiver(ChorusInfestedBlocks.INFESTATION_TRIM, (client, handler, buf, responseSender) -> {
             if (client.world != null) {
                 client.world.addBlockBreakParticles(buf.readBlockPos(), Block.getStateFromRawId(buf.readInt()));

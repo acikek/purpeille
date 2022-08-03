@@ -1,4 +1,4 @@
-package com.acikek.purpeille.mixin;
+package com.acikek.purpeille.mixin.client;
 
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.client.PurpeilleClient;

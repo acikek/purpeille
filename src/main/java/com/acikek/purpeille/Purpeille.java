@@ -6,6 +6,7 @@ import com.acikek.purpeille.block.ChorusInfestedBlocks;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.PurpurRemnants;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
+import com.acikek.purpeille.command.AncientMessageCommand;
 import com.acikek.purpeille.command.VacuousBlastCommand;
 import com.acikek.purpeille.command.WarpathCommand;
 import com.acikek.purpeille.effect.ModStatusEffects;
@@ -64,6 +65,7 @@ public class Purpeille implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             VacuousBlastCommand.register(dispatcher);
             WarpathCommand.register(dispatcher);
+            AncientMessageCommand.register(dispatcher);
         });
         UseBlockCallback.EVENT.register(new ChorusInfestedBlocks());
         RandomRevelationLootFunction.register();

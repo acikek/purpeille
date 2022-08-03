@@ -14,7 +14,8 @@
     "StatusEffectMixin"
   ],
   "client": [
-    "ItemRendererMixin"
+    "client.ItemRendererMixin",
+    "client.InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
