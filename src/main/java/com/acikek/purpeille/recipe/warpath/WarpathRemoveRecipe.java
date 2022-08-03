@@ -21,13 +21,13 @@ public class WarpathRemoveRecipe extends SpecialCraftingRecipe {
 
     @Override
     public boolean matches(CraftingInventory inventory, World world) {
-        ItemStack base = WarpathCreateRecipe.getBase(inventory, true);
+        ItemStack base = WarpathCreateRecipe.getBase(inventory);
         return base != null && Warpath.getData(base) != null;
     }
 
     @Override
     public ItemStack craft(CraftingInventory inventory) {
-        ItemStack base = WarpathCreateRecipe.getBase(inventory, true);
+        ItemStack base = WarpathCreateRecipe.getBase(inventory);
         if (base == null) {
             return null;
         }

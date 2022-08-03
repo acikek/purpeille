@@ -75,17 +75,14 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    public static ItemStack getBase(CraftingInventory inventory, boolean strict) {
+    public static ItemStack getBase(CraftingInventory inventory) {
         ItemStack base = null;
         for (int i = 0; i < inventory.size(); i++) {
             ItemStack stack = inventory.getStack(i);
             if (base == null && stack.isIn(ModTags.WARPATH_BASE)) {
-                if (!strict) {
-                    return stack;
-                }
                 base = stack;
             }
-            else if (strict && !stack.isEmpty()) {
+            else if (!stack.isEmpty() && !stack.isIn(ModTags.REVELATION_CATALYST) && !stack.isIn(ModTags.ASPECT_CATALYST)) {
                 return null;
             }
         }
@@ -111,7 +108,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
 
     @Override
     public boolean matches(CraftingInventory inventory, World world) {
-        ItemStack base = getBase(inventory, false);
+        ItemStack base = getBase(inventory);
         if (base == null || Warpath.getData(base) != null) {
             return false;
         }
@@ -124,7 +121,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
 
     @Override
     public ItemStack craft(CraftingInventory inventory) {
-        ItemStack base = getBase(inventory, false);
+        ItemStack base = getBase(inventory);
         ComponentPair data = getRecipeData(inventory);
         if (base == null || data == null) {
             return null;
