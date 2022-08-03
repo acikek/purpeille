@@ -3,6 +3,7 @@ package com.acikek.purpeille.item.material;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.tag.ModTags;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -22,11 +23,8 @@ public class PurpeilleToolMaterial implements ToolMaterial {
         @Override
         public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
             int efficiency = EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, stack);
-            float multiplier = efficiency <= 2
-                    ? 1.0f + efficiency * 0.2f
-                    : Math.min(efficiency * 0.56f, 2.8f);
             return state.isIn(ModTags.PURPEILLE_PICKAXE_HASTENERS)
-                    ? miningSpeed * multiplier
+                    ? miningSpeed * (1.0f + efficiency * 0.36f)
                     : super.getMiningSpeedMultiplier(stack, state);
         }
     }
