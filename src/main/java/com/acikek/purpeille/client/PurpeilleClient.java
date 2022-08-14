@@ -80,6 +80,7 @@ public class PurpeilleClient implements ClientModInitializer {
                 client.world.addBlockBreakParticles(buf.readBlockPos(), Block.getStateFromRawId(buf.readInt()));
             }
         });
+        ClientPlayNetworking.registerGlobalReceiver(Revelation.FINISH_RELOAD, (client, handler, buf, responseSender) -> Revelation.finishReload());
     }
 
     public static void registerPacks() {

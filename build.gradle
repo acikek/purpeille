@@ -55,6 +55,9 @@ dependencies {
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}", {
         exclude(group: "net.fabricmc.fabric-api")
     }
+
+    // Data Attributes
+    modImplementation "maven.modrinth:data-attributes:${project.data_attributes_version}"
 }
 
 processResources {

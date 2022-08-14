@@ -82,6 +82,11 @@ public class PurpeillePlugin implements EmiPlugin {
         for (Block oven : ANCIENT_OVENS) {
             registry.addWorkstation(EmiAncientOvenRecipe.CATEGORY, EmiStack.of(oven.asItem().getDefaultStack()));
         }
+        for (Map.Entry<Identifier, Revelation> pair : Component.REVELATIONS.entrySet()) {
+            if (pair.getValue().attribute == null) {
+                pair.getValue().updateAttribute();
+            }
+        }
         List<Item> aspectCatalysts = getTagItems(ModTags.ASPECT_CATALYST).orElse(Collections.emptyList());
         getTagItems(ModTags.WARPATH_BASE).ifPresent(warpathBases -> getTagItems(ModTags.REVELATION_CATALYST).ifPresent(revelationCatalysts -> {
             List<CatalystInstance<Aspect>> aspectInstances = CatalystInstance.getInstances(aspectCatalysts, Component.ASPECTS);

@@ -1,15 +1,20 @@
 package com.acikek.purpeille.warpath.component;
 
+import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.warpath.ClampedColor;
 import com.acikek.purpeille.warpath.Synergy;
 import com.acikek.purpeille.warpath.Tone;
 import com.google.gson.JsonObject;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
@@ -26,8 +31,10 @@ public class Revelation extends Component {
 
     public static UUID WARPATH_ID = UUID.fromString("2c67c058-5d5e-4b39-98e3-b3eb9965f7eb");
     public static int RITE_RGB = 13421772;
+    public static Identifier FINISH_RELOAD = Purpeille.id("revelation_finish_reload");
 
     public EntityAttribute attribute;
+    public final Identifier attributeId;
     public Ingredient affinity;
     public Map<Identifier, Synergy> synergy;
     public EntityAttributeModifier.Operation operation;
@@ -35,9 +42,9 @@ public class Revelation extends Component {
     public boolean forceInt;
     public MutableText rite;
 
-    public Revelation(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, EntityAttribute attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, int dyeColor, boolean multiply, boolean forceInt) {
+    public Revelation(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, Identifier attributeId, Ingredient affinity, Map<Identifier, Synergy> synergy, int dyeColor, boolean multiply, boolean forceInt) {
         super(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist);
-        this.attribute = attribute;
+        this.attributeId = attributeId;
         this.affinity = affinity;
         this.synergy = synergy;
         operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
@@ -46,8 +53,18 @@ public class Revelation extends Component {
         rite = Text.translatable(getIdKey("rite", id)).styled(style -> style.withColor(RITE_RGB));
     }
 
-    public Revelation(Aspect aspect, EntityAttribute attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, int dyeColor, boolean multiply, boolean forceInt) {
-        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, attribute, affinity, synergy, dyeColor, multiply, forceInt);
+    public Revelation(Aspect aspect, Identifier attributeId, Ingredient affinity, Map<Identifier, Synergy> synergy, int dyeColor, boolean multiply, boolean forceInt) {
+        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, attributeId, affinity, synergy, dyeColor, multiply, forceInt);
+    }
+
+    public void updateAttribute() {
+        attribute = Registry.ATTRIBUTE.get(attributeId);
+    }
+
+    public static void finishReload() {
+        for (Map.Entry<Identifier, Revelation> pair : Component.REVELATIONS.entrySet()) {
+            pair.getValue().updateAttribute();
+        }
     }
 
     public static int getClosestDyeColor(ClampedColor waveColor) {
@@ -88,7 +105,7 @@ public class Revelation extends Component {
 
     public static class Builder extends Aspect.Builder {
 
-        EntityAttribute attribute;
+        Identifier attributeId;
         Ingredient affinity;
         Map<Identifier, Synergy> synergy;
         int dyeColor = -1;
@@ -106,9 +123,13 @@ public class Revelation extends Component {
             return this;
         }
 
-        public Builder attribute(EntityAttribute attribute) {
-            this.attribute = attribute;
+        public Builder attribute(Identifier attributeId) {
+            this.attributeId = attributeId;
             return this;
+        }
+
+        public Builder attribute(EntityAttribute attribute) {
+            return attribute(Registry.ATTRIBUTE.getId(attribute));
         }
 
         public Builder affinity(Ingredient affinity) {
@@ -142,7 +163,7 @@ public class Revelation extends Component {
 
         @Override
         boolean isValid(Identifier id) {
-            Objects.requireNonNull(attribute);
+            Objects.requireNonNull(attributeId);
             Objects.requireNonNull(affinity);
             if (dyeColor < -1 || dyeColor >= DyeColor.values().length) {
                 throw new IllegalStateException("'dyeColor' must be a valid dye color ID or -1");
@@ -152,7 +173,7 @@ public class Revelation extends Component {
 
         public Revelation buildRevelation(Identifier id) {
             if (isValid(id)) {
-                return new Revelation(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, attribute, affinity, synergy, dyeColor, multiply, forceInt);
+                return new Revelation(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, attributeId, affinity, synergy, dyeColor, multiply, forceInt);
             }
             return null;
         }
@@ -161,7 +182,7 @@ public class Revelation extends Component {
     public static Revelation fromJson(JsonObject obj, Identifier id) {
         return new Builder()
                 .aspect(Aspect.fromJson(obj, id))
-                .attribute(Registry.ATTRIBUTE.get(Identifier.tryParse(JsonHelper.getString(obj, "attribute"))))
+                .attribute(Identifier.tryParse(JsonHelper.getString(obj, "attribute")))
                 .affinity(Ingredient.fromJson(obj.get("affinity")))
                 .synergy(Synergy.overridesFromJson(JsonHelper.getObject(obj, "synergy", null)))
                 .dyeColor(JsonHelper.getInt(obj, "dye_color", -1))
@@ -172,19 +193,19 @@ public class Revelation extends Component {
 
     public static Revelation read(PacketByteBuf buf) {
         Aspect aspect = Aspect.read(buf);
-        EntityAttribute attribute = Registry.ATTRIBUTE.get(buf.readIdentifier());
+        Identifier attributeId = buf.readIdentifier();
         Ingredient affinity = Ingredient.fromPacket(buf);
         Map<Identifier, Synergy> synergy = Synergy.readOverrides(buf);
         int dyeColor = buf.readInt();
         boolean multiply = buf.readBoolean();
         boolean forceInt = buf.readBoolean();
-        return new Revelation(aspect, attribute, affinity, synergy, dyeColor, multiply, forceInt);
+        return new Revelation(aspect, attributeId, affinity, synergy, dyeColor, multiply, forceInt);
     }
 
     @Override
     public void write(PacketByteBuf buf) {
         super.write(buf);
-        buf.writeIdentifier(Registry.ATTRIBUTE.getId(attribute));
+        buf.writeIdentifier(attributeId);
         affinity.write(buf);
         Synergy.writeOverrides(synergy, buf);
         buf.writeInt(dyeColor);
