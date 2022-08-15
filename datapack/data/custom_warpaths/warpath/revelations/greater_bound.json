@@ -6,7 +6,7 @@
   },
   "index": 0,
   "modifier": 0.5,
-  "attribute": "purpeille:generic.jump_boost",
+  "attribute": "custom_warpaths:test_attribute",
   "affinity": {
     "item": "minecraft:iron_shovel"
   },

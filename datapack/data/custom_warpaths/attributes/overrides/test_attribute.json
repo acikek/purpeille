@@ -1,0 +1,7 @@
+{
+  "fallbackValue": 0.0,
+  "minValue": 0.0,
+  "maxValue": 30.0,
+  "translationKey": "attribute.name.test",
+  "stackingBehaviour": "FLAT"
+}
