@@ -61,7 +61,7 @@ public class ReloadHandler {
                 for (ServerPlayerEntity player : players) {
                     ServerPlayNetworking.send(player, Revelation.FINISH_RELOAD, PacketByteBufs.empty());
                 }
-                Revelation.finishReload();
+                Revelation.finishReload(true);
             }
         });
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
@@ -80,7 +80,7 @@ public class ReloadHandler {
         handleComponentReload("revelations", Component.REVELATIONS, Revelation::fromJson, true);
         handleComponentReload("aspects", Component.ASPECTS, Aspect::fromJson, false);
         if (DATA_ATTRIBUTES) {
-            AttributesReloadedEvent.EVENT.register(Revelation::finishReload);
+            AttributesReloadedEvent.EVENT.register(() -> Revelation.finishReload(true));
         }
     }
 }

@@ -22,10 +22,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class Revelation extends Component {
 
@@ -61,9 +58,19 @@ public class Revelation extends Component {
         attribute = Registry.ATTRIBUTE.get(attributeId);
     }
 
-    public static void finishReload() {
+    public static void finishReload(boolean log) {
+        List<Identifier> toRemove = new ArrayList<>();
         for (Map.Entry<Identifier, Revelation> pair : Component.REVELATIONS.entrySet()) {
             pair.getValue().updateAttribute();
+            if (pair.getValue().attribute == null) {
+                if (log) {
+                    Purpeille.LOGGER.error("Revelation '" + pair.getKey() + "' has an invalid attribute ID: '" + pair.getValue().attributeId + "'");
+                }
+                toRemove.add(pair.getKey());
+            }
+        }
+        for (Identifier id : toRemove) {
+            Component.REVELATIONS.remove(id);
         }
     }
 
