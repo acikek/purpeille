@@ -80,7 +80,10 @@ public class ReloadHandler {
         handleComponentReload("revelations", Component.REVELATIONS, Revelation::fromJson, true);
         handleComponentReload("aspects", Component.ASPECTS, Aspect::fromJson, false);
         if (DATA_ATTRIBUTES) {
-            AttributesReloadedEvent.EVENT.register(() -> Revelation.finishReload(true));
+            AttributesReloadedEvent.EVENT.register(() -> {
+                Purpeille.LOGGER.info("Updating revelations");
+                Revelation.finishReload(true);
+            });
         }
     }
 }
