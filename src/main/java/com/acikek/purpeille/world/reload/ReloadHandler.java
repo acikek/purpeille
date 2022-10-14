@@ -45,6 +45,7 @@ public class ReloadHandler {
 
     public static <T extends Component> void handleComponentReload(String key, Map<Identifier, T> registry, BiFunction<JsonObject, Identifier, T> fromJson, boolean revelation) {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ComponentReloader<>(key, registry, fromJson));
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> Revelation.finishReload(true));
         Identifier componentId = Purpeille.id(key);
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resourceManager, success) -> {
             if (server == null) {
