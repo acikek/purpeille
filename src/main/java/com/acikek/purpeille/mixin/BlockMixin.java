@@ -25,7 +25,7 @@ public abstract class BlockMixin {
 
     @Inject(method = "onBreak", locals = LocalCapture.CAPTURE_FAILHARD,
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;emitGameEvent(Lnet/minecraft/world/event/GameEvent;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/event/GameEvent$Emitter;)V"))
-    private void applyMiningExperience(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
+    private void purpeille$applyMiningExperience(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
         if (!world.isClient()
                 && state.isIn(ModTags.MINING_EXPERIENCE)
                 && EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, player.getInventory().getMainHandStack()) == 0) {

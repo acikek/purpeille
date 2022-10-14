@@ -20,7 +20,7 @@ public class ItemRendererMixin {
     @Shadow @Final private ItemModels models;
 
     @ModifyVariable(method = "renderItem", at = @At("HEAD"), argsOnly = true)
-    private BakedModel modifyModel(BakedModel defaultModel, ItemStack stack, ModelTransformation.Mode renderMode) {
+    private BakedModel purpeille$modifyModel(BakedModel defaultModel, ItemStack stack, ModelTransformation.Mode renderMode) {
         if (renderMode != ModelTransformation.Mode.GUI && renderMode != ModelTransformation.Mode.GROUND
                 && stack.getItem() instanceof BlockItem blockItem
                 && blockItem.getBlock() == ModBlocks.ANCIENT_GUARDIAN) {

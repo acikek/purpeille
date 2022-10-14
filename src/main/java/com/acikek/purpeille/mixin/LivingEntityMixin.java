@@ -35,7 +35,7 @@ public abstract class LivingEntityMixin {
     @Shadow public abstract @Nullable StatusEffectInstance getStatusEffect(StatusEffect effect);
 
     @Inject(method = "createLivingAttributes", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private static void addCustomAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+    private static void purpeille$addCustomAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
         cir.getReturnValue()
                 .add(ModAttributes.GENERIC_MINING_EXPERIENCE)
                 .add(ModAttributes.GENERIC_POISON_RESISTANCE)
@@ -48,7 +48,7 @@ public abstract class LivingEntityMixin {
             at = @At(value = "INVOKE", target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;"),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void applyPoisonResistance(StatusEffectInstance effect, Entity source, CallbackInfoReturnable<Boolean> cir) {
+    private void purpeille$applyPoisonResistance(StatusEffectInstance effect, Entity source, CallbackInfoReturnable<Boolean> cir) {
         if (effect.getEffectType() == StatusEffects.POISON) {
             EntityAttributeInstance instance = getAttributeInstance(ModAttributes.GENERIC_POISON_RESISTANCE);
             if (instance != null) {
@@ -58,7 +58,7 @@ public abstract class LivingEntityMixin {
     }
 
     @Inject(method = "getJumpVelocity", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void applyJumpBoost(CallbackInfoReturnable<Float> cir) {
+    private void purpeille$applyJumpBoost(CallbackInfoReturnable<Float> cir) {
         EntityAttributeInstance instance = getAttributeInstance(ModAttributes.GENERIC_JUMP_BOOST);
         if (instance != null) {
             cir.setReturnValue(cir.getReturnValue() * (float) (instance.getValue()));
@@ -69,7 +69,7 @@ public abstract class LivingEntityMixin {
             method = "travel", ordinal = 1,
             at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getDepthStrider(Lnet/minecraft/entity/LivingEntity;)I")
     )
-    private float applyWaterSpeed(float g) {
+    private float purpeille$applyWaterSpeed(float g) {
         EntityAttributeInstance instance = getAttributeInstance(ModAttributes.GENERIC_WATER_SPEED);
         return instance != null ? g * (float) instance.getValue() : g;
     }
@@ -86,7 +86,7 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "tryUseTotem", cancellable = true,
             at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/util/Hand;values()[Lnet/minecraft/util/Hand;"))
-    private void useVoidTether(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+    private void purpeille$useVoidTether(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
         int armorPieces = getArmorPieces();
         if (armorPieces > 0 && entity instanceof ServerPlayerEntity playerEntity) {
@@ -99,7 +99,7 @@ public abstract class LivingEntityMixin {
     }
 
     @Inject(method = "damage", cancellable = true, at = @At("HEAD"))
-    private void applyVoidImmunity(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void purpeille$applyVoidImmunity(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (source == DamageSource.OUT_OF_WORLD && getStatusEffect(ModStatusEffects.VOID_IMMUNITY) != null) {
             cir.setReturnValue(false);
         }

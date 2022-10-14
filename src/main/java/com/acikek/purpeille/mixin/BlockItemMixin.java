@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockItemMixin {
 
     @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At("HEAD"), cancellable = true)
-    private void protectMonolithicPurpur(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
+    private void purpeille$protectMonolithicPurpur(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
         BlockState state = context.getWorld().getBlockState(context.getBlockPos().down());
         if (context.getWorld().getBlockEntity(context.getBlockPos().down()) instanceof MonolithicPurpurBlockEntity blockEntity
                 && (state.get(MonolithicPurpur.FULL) || blockEntity.removalTicks != 0)) {

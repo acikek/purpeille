@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ShearsDispenserBehaviorMixin {
 
     @Inject(method = "tryShearBlock", cancellable = true, at = @At("HEAD"))
-    private static void shearInfestedBlock(ServerWorld world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+    private static void purpeille$shearInfestedBlock(ServerWorld world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         if (ChorusInfestedBlocks.shearInfestedBlock(world, pos, world.getBlockState(pos), null, null)) {
             cir.setReturnValue(true);
         }

@@ -21,7 +21,7 @@ public class PlayerEntityMixin {
 
     @Inject(method = "findRespawnPosition", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true,
             at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;", ordinal = 0))
-    private static void allowGuardianRespawn(
+    private static void purpeille$allowGuardianRespawn(
             ServerWorld world,
             BlockPos pos,
             float angle,

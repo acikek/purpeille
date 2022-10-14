@@ -24,7 +24,7 @@ import java.util.List;
 public class ItemMixin {
 
     @Inject(method = "appendTooltip", at = @At(value = "TAIL"))
-    private void appendWarpath(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
+    private void purpeille$appendWarpath(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
         if (world == null) {
             return;
         }
@@ -38,7 +38,7 @@ public class ItemMixin {
     }
 
     @Inject(method = "onCraft", at = @At(value = "TAIL"))
-    private void triggerCriterion(ItemStack stack, World world, PlayerEntity player, CallbackInfo ci) {
+    private void purpeille$triggerCriterion(ItemStack stack, World world, PlayerEntity player, CallbackInfo ci) {
         if (world.isClient()) {
             return;
         }
