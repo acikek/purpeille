@@ -4,14 +4,15 @@
   "package": "com.acikek.purpeille.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AbyssalTokenItemMixin",
     "BlockItemMixin",
     "BlockMixin",
-    "ItemMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "ShearsDispenserBehaviorMixin",
     "StatusEffectInstanceAccessor",
-    "StatusEffectMixin"
+    "StatusEffectMixin",
+    "WarpathItemMixin"
   ],
   "client": [
     "client.InGameHudMixin",

@@ -18,7 +18,7 @@ public enum Synergy {
     TONE(1.5),
     IDENTICAL(1.75);
 
-    public double modifier;
+    public final double modifier;
 
     Synergy(double modifier) {
         this.modifier = modifier;
@@ -66,19 +66,5 @@ public enum Synergy {
             result.put(id, synergy);
         }
         return result;
-    }
-
-    public static Map<Identifier, Synergy> readOverrides(PacketByteBuf buf) {
-        if (!buf.readBoolean()) {
-            return null;
-        }
-        return buf.readMap(PacketByteBuf::readIdentifier, Synergy::read);
-    }
-
-    public static void writeOverrides(Map<Identifier, Synergy> map, PacketByteBuf buf) {
-        buf.writeBoolean(map == null);
-        if (map != null) {
-            buf.writeMap(map, PacketByteBuf::writeIdentifier, Synergy::write);
-        }
     }
 }

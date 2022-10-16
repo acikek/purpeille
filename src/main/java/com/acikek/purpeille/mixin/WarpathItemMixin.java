@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(Item.class)
-public class ItemMixin {
+public class WarpathItemMixin {
 
     @Inject(method = "appendTooltip", at = @At(value = "TAIL"))
     private void purpeille$appendWarpath(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context, CallbackInfo ci) {

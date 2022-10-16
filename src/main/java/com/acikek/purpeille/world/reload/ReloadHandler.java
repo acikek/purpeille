@@ -25,6 +25,7 @@ import java.util.function.BiFunction;
 public class ReloadHandler {
 
     public static boolean DATA_ATTRIBUTES;
+    public static boolean STARTED;
 
     public static <T extends Component> List<PacketByteBuf> getReloadBufs(Map<Identifier, T> registry) {
         boolean start = true;
@@ -45,7 +46,13 @@ public class ReloadHandler {
 
     public static <T extends Component> void handleComponentReload(String key, Map<Identifier, T> registry, BiFunction<JsonObject, Identifier, T> fromJson, boolean revelation) {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ComponentReloader<>(key, registry, fromJson));
-        ServerLifecycleEvents.SERVER_STARTED.register(server -> Revelation.finishReload(true));
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            if (!STARTED) {
+                Revelation.finishAttributeReload(true);
+                Revelation.finishAbyssaliteReload(true);
+                STARTED = true;
+            }
+        });
         Identifier componentId = Purpeille.id(key);
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resourceManager, success) -> {
             if (server == null) {
@@ -58,11 +65,14 @@ public class ReloadHandler {
                     ServerPlayNetworking.send(player, componentId, buf);
                 }
             }
-            if (revelation && !DATA_ATTRIBUTES) {
-                for (ServerPlayerEntity player : players) {
-                    ServerPlayNetworking.send(player, Revelation.FINISH_RELOAD, PacketByteBufs.empty());
+            if (revelation) {
+                if (!DATA_ATTRIBUTES) {
+                    for (ServerPlayerEntity player : players) {
+                        ServerPlayNetworking.send(player, Revelation.FINISH_RELOAD, PacketByteBufs.empty());
+                    }
+                    Revelation.finishAttributeReload(true);
                 }
-                Revelation.finishReload(true);
+                Revelation.finishAbyssaliteReload(true);
             }
         });
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
@@ -82,8 +92,8 @@ public class ReloadHandler {
         handleComponentReload("aspects", Component.ASPECTS, Aspect::fromJson, false);
         if (DATA_ATTRIBUTES) {
             AttributesReloadedEvent.EVENT.register(() -> {
-                Purpeille.LOGGER.info("Updating revelations");
-                Revelation.finishReload(true);
+                Purpeille.LOGGER.info("Updating revelation attributes");
+                Revelation.finishAttributeReload(true);
             });
         }
     }
