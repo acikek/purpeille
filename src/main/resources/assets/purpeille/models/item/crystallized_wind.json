@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "purpeille:item/crystallized_wind"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "purpeille:item/crystallized_wind_energized"
+    }
+  ]
+}

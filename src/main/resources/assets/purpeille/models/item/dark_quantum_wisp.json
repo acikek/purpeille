@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "purpeille:item/dark_quantum_wisp"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "purpeille:item/dark_quantum_wisp_energized"
+    }
+  ]
+}

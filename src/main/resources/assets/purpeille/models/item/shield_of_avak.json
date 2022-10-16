@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "purpeille:item/shield_of_avak"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "purpeille:item/shield_of_avak_energized"
+    }
+  ]
+}

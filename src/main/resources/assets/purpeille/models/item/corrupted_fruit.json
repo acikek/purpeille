@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "purpeille:item/corrupted_fruit"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "purpeille:item/corrupted_fruit_energized"
+    }
+  ]
+}

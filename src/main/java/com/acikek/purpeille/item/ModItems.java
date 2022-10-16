@@ -33,6 +33,17 @@ public class ModItems {
     public static final EncasedCore VACUOUS_CORE = EncasedCore.Type.VACUOUS.getCore();
     public static final CreativeCore CREATIVE_CORE = new CreativeCore(defaultSettings());
 
+    // Abyssal Tokens
+    public static final Item SHIELD_OF_AVAK = new Item(defaultSettings());
+    public static final Item VIBRANT_PYROCLAST = new Item(defaultSettings());
+    public static final Item VOIDED_HEART = new Item(defaultSettings());
+    public static final Item TOKEN_OF_TATEMO = new Item(defaultSettings());
+    public static final Item CORRUPTED_FRUIT = new Item(defaultSettings());
+    public static final Item SYNDICALISTS_SKULL = new Item(defaultSettings());
+    public static final Item DWELLERS_SOLE = new Item(defaultSettings());
+    public static final Item CRYSTALLIZED_WIND = new Item(defaultSettings());
+    public static final Item DARK_QUANTUM_WISP = new Item(defaultSettings());
+
     // Armor
     public static final ArmorItem PURPEILLE_HELMET = PurpeilleArmorMaterial.getItem(EquipmentSlot.HEAD);
     public static final ArmorItem PURPEILLE_CHESTPLATE = PurpeilleArmorMaterial.getItem(EquipmentSlot.CHEST);
@@ -69,6 +80,15 @@ public class ModItems {
         ITEMS.put("overclocked_core", OVERCLOCKED_CORE);
         ITEMS.put("vacuous_core", VACUOUS_CORE);
         ITEMS.put("creative_core", CREATIVE_CORE);
+        ITEMS.put("shield_of_avak", SHIELD_OF_AVAK);
+        ITEMS.put("vibrant_pyroclast", VIBRANT_PYROCLAST);
+        ITEMS.put("voided_heart", VOIDED_HEART);
+        ITEMS.put("token_of_tatemo", TOKEN_OF_TATEMO);
+        ITEMS.put("corrupted_fruit", CORRUPTED_FRUIT);
+        ITEMS.put("syndicalists_skull", SYNDICALISTS_SKULL);
+        ITEMS.put("dwellers_sole", DWELLERS_SOLE);
+        ITEMS.put("crystallized_wind", CRYSTALLIZED_WIND);
+        ITEMS.put("dark_quantum_wisp", DARK_QUANTUM_WISP);
         ITEMS.put("purpeille_helmet", PURPEILLE_HELMET);
         ITEMS.put("purpeille_chestplate", PURPEILLE_CHESTPLATE);
         ITEMS.put("purpeille_leggings", PURPEILLE_LEGGINGS);
