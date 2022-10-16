@@ -11,9 +11,9 @@ public enum Damage {
     DIM(128, 64, 1),
     VERY_DIM(64, 0, 2);
 
-    public int max;
-    public int min;
-    public int index;
+    public final int max;
+    public final int min;
+    public final int index;
 
     Damage(int value, int min, int index) {
         this.max = value;

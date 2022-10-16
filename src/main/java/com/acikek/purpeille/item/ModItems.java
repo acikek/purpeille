@@ -25,6 +25,7 @@ public class ModItems {
     public static final Item SMOLDERED_PURPEILLE_INGOT = new Item(defaultSettings());
     public static final Item ULTRAVIOLET_PRISM = new Item(defaultSettings());
     public static final Item METALLIC_LIGHTNING = new Item(defaultSettings());
+    public static final Item VOID_AMALGAM = new Item(defaultSettings());
 
     // Encased Cores
     public static final EncasedCore ENCASED_CORE = EncasedCore.Type.NORMAL.getCore();
@@ -75,6 +76,7 @@ public class ModItems {
         ITEMS.put("smoldered_purpeille_ingot", SMOLDERED_PURPEILLE_INGOT);
         ITEMS.put("ultraviolet_prism", ULTRAVIOLET_PRISM);
         ITEMS.put("metallic_lightning", METALLIC_LIGHTNING);
+        ITEMS.put("void_amalgam", VOID_AMALGAM);
         ITEMS.put("encased_core", ENCASED_CORE);
         ITEMS.put("energetic_core", ENERGETIC_CORE);
         ITEMS.put("overclocked_core", OVERCLOCKED_CORE);

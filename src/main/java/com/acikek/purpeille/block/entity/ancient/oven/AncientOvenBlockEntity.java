@@ -5,17 +5,22 @@ import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
+import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +33,7 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
     public int durability;
     public int cookTime;
     public int damageToTake;
+    public int voidAmalgams;
     public ItemStack result;
 
     public AncientOvenBlockEntity(BlockPos pos, BlockState state) {
@@ -37,7 +43,7 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
 
     public AncientOvenBlockEntity(BlockPos pos, BlockState state, Damage damage) {
         this(pos, state);
-        this.durability = damage.max;
+        durability = damage.max;
     }
 
     public void addRecipe(AncientOvenRecipe recipe) {
@@ -55,8 +61,25 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 ModCriteria.ANCIENT_OVEN_DAMAGED.trigger(serverPlayer, newDamage);
             }
+            if (newDamage != null && newDamage.compareTo(block.damage) < 0 && world.random.nextFloat() > 0.75f) {
+                voidAmalgams++;
+            }
+            System.out.println(world.getBlockEntity(pos) instanceof AncientOvenBlockEntity);
+            System.out.println(voidAmalgams);
             if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
                 blockEntity.durability = durability;
+                blockEntity.voidAmalgams = voidAmalgams;
+            }
+            else {
+                int size = voidAmalgams / 64 + 1;
+                DefaultedList<ItemStack> items = DefaultedList.ofSize(size);
+                for (int i = 0; i < size; i++) {
+                    ItemStack stack = ModItems.VOID_AMALGAM.getDefaultStack();
+                    stack.setCount(MathHelper.clamp(voidAmalgams, 0, 64));
+                    items.add(stack);
+                    voidAmalgams -= 64;
+                }
+                ItemScatterer.spawn(world, pos, items);
             }
             return false;
         }
@@ -141,6 +164,7 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
         durability = nbt.getInt("Durability");
         cookTime = nbt.getInt("CookTime");
         damageToTake = nbt.getInt("DamageToTake");
+        voidAmalgams = nbt.getInt("VoidAmalgams");
         result = ItemStack.fromNbt(nbt.getCompound("Result"));
     }
 
@@ -149,6 +173,7 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
         nbt.putInt("Durability", durability);
         nbt.putInt("CookTime", cookTime);
         nbt.putInt("DamageToTake", damageToTake);
+        nbt.putInt("VoidAmalgams", voidAmalgams);
         nbt.put("Result", result.writeNbt(new NbtCompound()));
         super.writeNbt(nbt);
     }
