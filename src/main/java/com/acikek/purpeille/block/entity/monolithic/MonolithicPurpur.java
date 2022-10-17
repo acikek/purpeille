@@ -1,13 +1,16 @@
 package com.acikek.purpeille.block.entity.monolithic;
 
+import com.acikek.purpeille.api.AbyssalToken;
 import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
+import com.acikek.purpeille.item.core.EncasedCore;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
@@ -15,11 +18,15 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.*;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBlockEntity> {
 
@@ -31,9 +38,56 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
             .sounds(BlockSoundGroup.BONE)
             .luminance(value -> (int) (value.get(TRANSITION) * 1.75));
 
+    public static final int MAX_IMBUEMENT_DISTANCE = 5;
+
     public MonolithicPurpur(Settings settings) {
         super(settings, MonolithicPurpurBlockEntity::tick, null, true);
         setDefaultState(getDefaultFacing().with(FULL, false).with(TRANSITION, 0));
+    }
+
+    public static double getBaseEnergyForDistance(int distance) {
+        return 90.0 * -Math.log10((double) distance / MAX_IMBUEMENT_DISTANCE) / 4.0;
+    }
+
+    public static List<BlockPos> findAltars(World world, BlockPos pos) {
+        List<BlockPos> result = new ArrayList<>();
+        for (Direction direction : Direction.HORIZONTAL) {
+            for (int i = 1; i < MAX_IMBUEMENT_DISTANCE + 1; i++) {
+                BlockPos target = pos.offset(direction, i);
+                if (world.getBlockState(target).getBlock() instanceof MonolithicPurpur) {
+                    result.add(target);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public static boolean isValidAltar(World world, BlockPos pos, AbyssalToken token) {
+        if (world.getBlockEntity(pos) instanceof MonolithicPurpurBlockEntity blockEntity) {
+            if (blockEntity.getItem().isEmpty()) {
+                return false;
+            }
+            for (TagKey<Item> tag : token.getRevelation().abyssalite.modifiers().keySet()) {
+                if (blockEntity.getItem().isIn(tag)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static ActionResult tryImbue(World world, BlockPos pos, AbyssalToken token) {
+        List<BlockPos> altars = findAltars(world, pos);
+        if (altars.size() < 4) {
+            return null;
+        }
+        for (BlockPos altar : altars) {
+            if (!isValidAltar(world, altar, token)) {
+                return null;
+            }
+        }
+        return ActionResult.SUCCESS;
     }
 
     public static final EnumProperty<?>[] SUPPORTED_PROPERTIES = {
@@ -43,7 +97,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
             Properties.HORIZONTAL_FACING,
     };
 
-    public Pair<Integer, EnumProperty<?>> getSupportedProperty(BlockState state) {
+    public static Pair<Integer, EnumProperty<?>> getSupportedProperty(BlockState state) {
         for (int i = 0; i < SUPPORTED_PROPERTIES.length; i++) {
             if (state.contains(SUPPORTED_PROPERTIES[i])) {
                 return new Pair<>(i, SUPPORTED_PROPERTIES[i]);
@@ -52,30 +106,39 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         return null;
     }
 
+    public static ActionResult tryCycleProperty(MonolithicPurpurBlockEntity blockEntity, BlockItem blockItem) {
+        boolean canCycle = blockEntity.property != -1;
+        Pair<Integer, EnumProperty<?>> property = null;
+        if (!canCycle) {
+            property = getSupportedProperty(blockItem.getBlock().getDefaultState());
+        }
+        if (property != null) {
+            blockEntity.property = property.getLeft();
+            canCycle = true;
+        }
+        if (canCycle) {
+            blockEntity.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
+            blockEntity.cycleProperty();
+            return ActionResult.SUCCESS;
+        }
+        return ActionResult.PASS;
+    }
+
     @Override
     public ActionResult extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
+        MonolithicPurpurBlockEntity monolithicPurpur = (MonolithicPurpurBlockEntity) blockEntity;
+        if (handStack.getItem() instanceof EncasedCore core
+                && monolithicPurpur.getItem().getItem() instanceof AbyssalToken token
+                && token.hasRevelation()) {
+            return tryImbue(world, pos, token);
+        }
         if (world.getBlockState(pos.down()).isOf(Blocks.OBSIDIAN)) {
             return ActionResult.PASS;
         }
         if (player.isSneaking()
                 && !blockEntity.isEmpty()
-                && blockEntity.getItem().getItem() instanceof BlockItem blockItem
-                && blockEntity instanceof MonolithicPurpurBlockEntity monolithicPurpur) {
-            boolean canCycle = monolithicPurpur.property != -1;
-            Pair<Integer, EnumProperty<?>> property = null;
-            if (!canCycle) {
-                property = getSupportedProperty(blockItem.getBlock().getDefaultState());
-            }
-            if (property != null) {
-                monolithicPurpur.property = property.getLeft();
-                canCycle = true;
-            }
-            if (canCycle) {
-                monolithicPurpur.playSound(blockItem.getBlock().getDefaultState().getSoundGroup().getPlaceSound(), 1.5f);
-                monolithicPurpur.cycleProperty();
-                return ActionResult.SUCCESS;
-            }
-            return ActionResult.PASS;
+                && blockEntity.getItem().getItem() instanceof BlockItem blockItem) {
+            return tryCycleProperty(monolithicPurpur, blockItem);
         }
         return null;
     }
