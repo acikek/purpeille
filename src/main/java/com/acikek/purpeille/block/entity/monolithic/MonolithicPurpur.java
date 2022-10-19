@@ -1,10 +1,12 @@
 package com.acikek.purpeille.block.entity.monolithic;
 
 import com.acikek.purpeille.api.AbyssalToken;
+import com.acikek.purpeille.api.Imbuements;
 import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import com.acikek.purpeille.item.core.EncasedCore;
+import com.acikek.purpeille.warpath.Abyssalite;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -27,6 +29,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBlockEntity> {
 
@@ -45,17 +49,13 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         setDefaultState(getDefaultFacing().with(FULL, false).with(TRANSITION, 0));
     }
 
-    public static double getBaseEnergyForDistance(int distance) {
-        return 90.0 * -Math.log10((double) distance / MAX_IMBUEMENT_DISTANCE) / 4.0;
-    }
-
-    public static List<BlockPos> findAltars(World world, BlockPos pos) {
-        List<BlockPos> result = new ArrayList<>();
+    public static List<Pair<BlockPos, Integer>> findAltars(World world, BlockPos pos) {
+        List<Pair<BlockPos, Integer>> result = new ArrayList<>();
         for (Direction direction : Direction.HORIZONTAL) {
             for (int i = 1; i < MAX_IMBUEMENT_DISTANCE + 1; i++) {
                 BlockPos target = pos.offset(direction, i);
                 if (world.getBlockState(target).getBlock() instanceof MonolithicPurpur) {
-                    result.add(target);
+                    result.add(new Pair<>(target, i - 1));
                     break;
                 }
             }
@@ -63,30 +63,80 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         return result;
     }
 
-    public static boolean isValidAltar(World world, BlockPos pos, AbyssalToken token) {
-        if (world.getBlockEntity(pos) instanceof MonolithicPurpurBlockEntity blockEntity) {
-            if (blockEntity.getItem().isEmpty()) {
-                return false;
-            }
-            for (TagKey<Item> tag : token.getRevelation().abyssalite.modifiers().keySet()) {
-                if (blockEntity.getItem().isIn(tag)) {
-                    return true;
-                }
-            }
+    public static float getBaseEnergyForDistance(int distance) {
+        if (distance == 0) {
+            return 90.0f;
         }
-        return false;
+        return 90.0f * (-(float) Math.log10((double) distance / (MAX_IMBUEMENT_DISTANCE + 1))) / 6.0f;
     }
 
-    public static ActionResult tryImbue(World world, BlockPos pos, AbyssalToken token) {
-        List<BlockPos> altars = findAltars(world, pos);
-        if (altars.size() < 4) {
+    public static float getRandomnessFactor(int altars, int timesImbued, List<Abyssalite.Effect> effects) {
+        float altarFactor = altars * 2.5f;
+        float timesX = timesImbued / 4.0f;
+        float timesFactor = timesX * timesX * timesX;
+        int effectsSize = effects.stream()
+                .distinct()
+                .toList()
+                .size();
+        float effectsFactor = effectsSize * 2.75f;
+        return altarFactor + timesFactor - effectsFactor;
+    }
+
+    public static ActionResult tryImbue(World world, BlockPos pos, ItemStack stack, AbyssalToken token) {
+        // Find all altar blocks on the same x and z axis as this block.
+        List<Pair<BlockPos, Integer>> altars = findAltars(world, pos);
+        // If there aren't any, the imbuement fails.
+        if (altars.isEmpty()) {
             return null;
         }
-        for (BlockPos altar : altars) {
-            if (!isValidAltar(world, altar, token)) {
-                return null;
-            }
+        // Get all the surrounding altars' item stacks.
+        List<ItemStack> altarItems = altars.stream()
+                .map(Pair::getLeft)
+                .map(world::getBlockEntity)
+                .map(blockEntity -> ((MonolithicPurpurBlockEntity) blockEntity))
+                .filter(Objects::nonNull)
+                .map(MonolithicPurpurBlockEntity::getItem)
+                .toList();
+        // Get all the item stacks' modifier objects.
+        Abyssalite abyssalite = token.getRevelation().abyssalite;
+        List<Pair<Float, Abyssalite.Effect>> modifiers = altarItems.stream()
+                .map(abyssalite::getModifier)
+                .toList();
+        // If any of the stacks doesn't match to a modifier, the imbuement fails.
+        if (modifiers.contains(null)) {
+            return null;
         }
+        // Calculate the randomness factor with the token stack's imbuement data and the altars' stack effects.
+        Imbuements imbuements = Imbuements.read(stack.getOrCreateNbt().getCompound(Imbuements.KEY));
+        List<Abyssalite.Effect> effects = modifiers.stream()
+                .map(Pair::getRight)
+                .toList();
+        float randomness = getRandomnessFactor(altars.size(), imbuements.count, effects);
+        System.out.println("Distances: " + altars.stream().map(Pair::getRight).toList());
+        System.out.println("Randomness: " + randomness);
+        // Calculate the spiritual energy by multiplying the modifiers to the base distance energy for each altar.
+        List<Float> baseEnergies = altars.stream()
+                .map(Pair::getRight)
+                .map(MonolithicPurpur::getBaseEnergyForDistance)
+                .toList();
+        System.out.println("Base energies: " + baseEnergies);
+        List<Float> energies = new ArrayList<>();
+        for (int i = 0; i < modifiers.size(); i++) {
+            energies.add(baseEnergies.get(i) * modifiers.get(i).getLeft());
+        }
+        System.out.println(energies);
+        float pureEnergy = energies.stream()
+                .reduce(Float::sum)
+                .orElse(0.0f);
+        // Calculate the total energy based on the randomness factor.
+        float energy = pureEnergy + world.random.nextFloat() * randomness;
+        // Imbue the token stack.
+        List<Item> itemsUsed = altarItems.stream()
+                .map(ItemStack::getItem)
+                .toList();
+        System.out.println((int) energy);
+        AbyssalToken.imbue(stack, (int) energy, itemsUsed);
+        // TODO: Initiate animation
         return ActionResult.SUCCESS;
     }
 
@@ -127,10 +177,14 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     @Override
     public ActionResult extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         MonolithicPurpurBlockEntity monolithicPurpur = (MonolithicPurpurBlockEntity) blockEntity;
-        if (handStack.getItem() instanceof EncasedCore core
+        if (handStack.getItem() instanceof EncasedCore
                 && monolithicPurpur.getItem().getItem() instanceof AbyssalToken token
                 && token.hasRevelation()) {
-            return tryImbue(world, pos, token);
+            ActionResult result = tryImbue(world, pos, monolithicPurpur.getItem(), token);
+            if (result != null) {
+                handStack.damage(128, player, playerEntity -> playerEntity.sendToolBreakStatus(hand));
+            }
+            return result;
         }
         if (world.getBlockState(pos.down()).isOf(Blocks.OBSIDIAN)) {
             return ActionResult.PASS;

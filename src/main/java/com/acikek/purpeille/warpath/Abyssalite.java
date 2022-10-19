@@ -11,44 +11,58 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
-public record Abyssalite(Item token, Map<TagKey<Item>, Float> modifiers) {
+public class Abyssalite {
 
-    public int getPositiveValue(int energy) {
-        int s = energy - 65;
-        int denom = energy < 65 ? 64 : 30;
-        return - MathHelper.ceil((float) s * s / denom + 66.0f);
+    public enum Effect {
+
+        WEAK,
+        STANDARD,
+        GREAT;
+
+        public static Effect getEffect(float modifier, float min, float max) {
+            float range = max - min;
+            float offset = modifier - min;
+            if (offset < range / 3.0f) {
+                return WEAK;
+            }
+            else if (offset > range / 3.0f * 2.0f) {
+                return GREAT;
+            }
+            return STANDARD;
+        }
     }
 
-    public int getNegativeValue(int energy) {
-        float result;
-        if (energy < 60) {
-            result = 1.0f / 7.35f * energy;
+    public Item token;
+    public Map<TagKey<Item>, Pair<Float, Effect>> modifiers;
+
+    public Abyssalite(Item token, Map<TagKey<Item>, Float> modifiers) {
+        this.token = token;
+        Map<TagKey<Item>, Pair<Float, Effect>> withEffect = new HashMap<>();
+        Collection<Float> values = modifiers.values();
+        float min = Collections.min(values);
+        float max = Collections.max(values);
+        for (Map.Entry<TagKey<Item>, Float> pair : modifiers.entrySet()) {
+            Effect effect = Effect.getEffect(pair.getValue(), min, max);
+            withEffect.put(pair.getKey(), new Pair<>(pair.getValue(), effect));
         }
-        else if (energy <= 81) {
-            float s = MathHelper.sqrt(energy - 50);
-            result = - MathHelper.sqrt(1000.0f - (s * s * s * s)) + 38.164f;
-        }
-        else {
-            float s = energy - 105.0f;
-            result = - s * s / 13.17f + 75.5f;
-        }
-        return MathHelper.ceil(result);
+        this.modifiers = withEffect;
     }
 
-    public void energize(ItemStack stack, UnaryOperator<Integer> fn) {
-        NbtCompound nbt = stack.getOrCreateNbt();
-        if (!nbt.contains(AbyssalToken.ENERGY_KEY)) {
-            nbt.putInt("CustomModelData", 1);
+    public Pair<Float, Effect> getModifier(ItemStack stack) {
+        for (Map.Entry<TagKey<Item>, Pair<Float, Effect>> entry : modifiers.entrySet()) {
+            if (stack.isIn(entry.getKey())) {
+                return entry.getValue();
+            }
         }
-        int result = fn.apply(nbt.contains(AbyssalToken.ENERGY_KEY) ? nbt.getInt(AbyssalToken.ENERGY_KEY) : 0);
-        nbt.putInt(AbyssalToken.ENERGY_KEY, result);
+        return null;
     }
 
     public void load(Revelation revelation) {
@@ -83,6 +97,6 @@ public record Abyssalite(Item token, Map<TagKey<Item>, Float> modifiers) {
 
     public void write(PacketByteBuf buf) {
         buf.writeRegistryValue(Registry.ITEM, token);
-        buf.writeMap(modifiers, (byteBuf, tag) -> byteBuf.writeIdentifier(tag.id()), PacketByteBuf::writeFloat);
+        buf.writeMap(modifiers, (byteBuf, tag) -> byteBuf.writeIdentifier(tag.id()), (byteBuf, modifier) -> byteBuf.writeFloat(modifier.getLeft()));
     }
 }

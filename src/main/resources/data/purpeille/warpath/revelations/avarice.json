@@ -13,5 +13,11 @@
   "synergy": {
     "purpeille:terran": "identical"
   },
+  "abyssalite": {
+    "token": "purpeille:token_of_tatemo",
+    "modifiers": {
+      "minecraft:piglin_loved": 2.0
+    }
+  },
   "multiply": false
 }

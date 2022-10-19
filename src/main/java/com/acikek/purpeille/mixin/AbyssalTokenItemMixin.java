@@ -1,6 +1,7 @@
 package com.acikek.purpeille.mixin;
 
 import com.acikek.purpeille.api.AbyssalToken;
+import com.acikek.purpeille.api.Imbuements;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
@@ -49,7 +50,7 @@ public class AbyssalTokenItemMixin implements AbyssalToken {
             return;
         }
         if (stack.hasNbt()) {
-            int energy = stack.getOrCreateNbt().getInt(ENERGY_KEY);
+            int energy = Imbuements.readEnergy(stack.getOrCreateNbt().getCompound(Imbuements.KEY));
             Text energyLevel = Text.literal(String.valueOf(energy)).formatted(getEnergyFormatting(energy))
                     .append(Text.literal("/").formatted(Formatting.DARK_GRAY))
                     .append(Text.literal(String.valueOf(MAX_ENERGY)).formatted(Formatting.GRAY));

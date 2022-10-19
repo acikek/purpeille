@@ -53,7 +53,7 @@ public class ChorusInfestedBlocks implements UseBlockCallback {
         STAGES.put(ModBlocks.CHORUS_INFESTED_MECHANICAL_BRICK_WALL, ModBlocks.CHORAL_BLOOM_INFESTED_MECHANICAL_BRICK_WALL);
     }
 
-    public static boolean shearInfestedBlock(World world, BlockPos pos, BlockState state, PlayerEntity player, ItemStack stack) {
+    public static boolean shearInfestedBlock(World world, BlockPos pos, BlockState state, PlayerEntity player, ItemStack stack, Hand hand) {
         if (STAGES.inverse().containsKey(state.getBlock())) {
             world.setBlockState(pos, STAGES.inverse().get(state.getBlock()).getStateWithProperties(state));
             world.playSound(null, pos, SoundEvents.BLOCK_GROWING_PLANT_CROP, SoundCategory.BLOCKS, 1.0f, 1.0f);
@@ -72,7 +72,7 @@ public class ChorusInfestedBlocks implements UseBlockCallback {
             }
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 if (!player.isCreative()) {
-                    stack.damage(1, world.random, serverPlayer);
+                    stack.damage(1, serverPlayer, serverPlayerEntity -> serverPlayerEntity.sendToolBreakStatus(hand));
                 }
                 ModCriteria.CHORUS_INFESTATION_SHEARED.trigger(serverPlayer, dropped);
             }
@@ -85,7 +85,7 @@ public class ChorusInfestedBlocks implements UseBlockCallback {
     public ActionResult interact(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
         if (hand == Hand.MAIN_HAND && player.getStackInHand(hand).isOf(Items.SHEARS)) {
             BlockPos pos = hitResult.getBlockPos();
-            if (shearInfestedBlock(world, pos, world.getBlockState(pos), player, player.getStackInHand(hand))) {
+            if (shearInfestedBlock(world, pos, world.getBlockState(pos), player, player.getStackInHand(hand), hand)) {
                 return ActionResult.SUCCESS;
             }
         }

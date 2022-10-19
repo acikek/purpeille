@@ -14,7 +14,7 @@ public class ShearsDispenserBehaviorMixin {
 
     @Inject(method = "tryShearBlock", cancellable = true, at = @At("HEAD"))
     private static void purpeille$shearInfestedBlock(ServerWorld world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        if (ChorusInfestedBlocks.shearInfestedBlock(world, pos, world.getBlockState(pos), null, null)) {
+        if (ChorusInfestedBlocks.shearInfestedBlock(world, pos, world.getBlockState(pos), null, null, null)) {
             cir.setReturnValue(true);
         }
     }

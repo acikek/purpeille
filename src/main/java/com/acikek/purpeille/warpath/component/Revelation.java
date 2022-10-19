@@ -66,13 +66,13 @@ public class Revelation extends Component {
                 .toList();
         Set<Item> uniques = new HashSet<>();
         List<Item> duplicates = hasAbyssalite.stream()
-                .filter(pair -> !uniques.add(pair.getValue().abyssalite.token()))
-                .map(pair -> pair.getValue().abyssalite.token())
+                .filter(pair -> !uniques.add(pair.getValue().abyssalite.token))
+                .map(pair -> pair.getValue().abyssalite.token)
                 .toList();
         for (Map.Entry<Identifier, Revelation> pair : hasAbyssalite) {
-            if (duplicates.contains(pair.getValue().abyssalite.token())) {
+            if (duplicates.contains(pair.getValue().abyssalite.token)) {
                 if (log) {
-                    Identifier tokenId = Registry.ITEM.getId(pair.getValue().abyssalite.token());
+                    Identifier tokenId = Registry.ITEM.getId(pair.getValue().abyssalite.token);
                     Purpeille.LOGGER.error("Revelation '" + pair.getKey() + "' has duplicate abyssal token: '" + tokenId + "'");
                 }
                 continue;
