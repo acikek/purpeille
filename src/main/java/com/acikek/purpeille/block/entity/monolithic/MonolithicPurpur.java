@@ -89,12 +89,15 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         if (altars.isEmpty()) {
             return null;
         }
-        // Get all the surrounding altars' item stacks.
-        List<ItemStack> altarItems = altars.stream()
+        // Get all the surrounding altars' block entities.
+        List<MonolithicPurpurBlockEntity> blockEntities = altars.stream()
                 .map(Pair::getLeft)
                 .map(world::getBlockEntity)
                 .map(blockEntity -> ((MonolithicPurpurBlockEntity) blockEntity))
                 .filter(Objects::nonNull)
+                .toList();
+        // Get all the altars' item stacks.
+        List<ItemStack> altarItems = blockEntities.stream()
                 .map(MonolithicPurpurBlockEntity::getItem)
                 .toList();
         // Get all the item stacks' modifier objects.
@@ -135,8 +138,16 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
                 .map(ItemStack::getItem)
                 .toList();
         System.out.println((int) energy);
+        // Modify the energy values before the animation.
         AbyssalToken.imbue(stack, (int) energy, itemsUsed);
-        // TODO: Initiate animation
+        // Queue imbuements for all block entities.
+        // The animation will automatically be different for the central altar.
+        if (world.getBlockEntity(pos) instanceof MonolithicPurpurBlockEntity blockEntity) {
+            blockEntity.queueImbuement();
+        }
+        for (MonolithicPurpurBlockEntity blockEntity : blockEntities) {
+            blockEntity.queueImbuement();
+        }
         return ActionResult.SUCCESS;
     }
 

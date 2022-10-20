@@ -1,5 +1,6 @@
 package com.acikek.purpeille.block.entity.monolithic;
 
+import com.acikek.purpeille.api.AbyssalToken;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
@@ -8,7 +9,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.StringIdentifiable;
@@ -19,27 +19,51 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
 
     public static BlockEntityType<MonolithicPurpurBlockEntity> BLOCK_ENTITY_TYPE;
 
-    public int easeMode = -1;
-    public int easing = 0;
+    public enum AnimationMode {
+        NONE,
+        ADDING,
+        REMOVING,
+        IMBUING
+    }
+
+    public AnimationMode animationMode;
+    public int scaleEasing = -1;
+    public int heightEasing = 0;
     public int transitionTicks = 10;
     public int removalTicks = 0;
+    public int imbuingTicks = 0;
+    public boolean hasToken;
     public int property = -1;
     public int propertyMode = 0;
 
     @Override
     public void onAddItem(ItemStack stack, boolean unset, PlayerEntity player) {
         super.onAddItem(stack, unset, player);
-        easeMode = 0;
+        animationMode = AnimationMode.ADDING;
         transitionTicks = 0;
         removalTicks = 0;
+        if (stack.getItem() instanceof AbyssalToken token && token.hasRevelation()) {
+            hasToken = true;
+        }
+    }
+
+    public void queueRemoval() {
+        animationMode = AnimationMode.REMOVING;
+        transitionTicks = 10;
+        removalTicks = 10;
+        scaleEasing = 30;
+    }
+
+    public void queueImbuement() {
+        animationMode = AnimationMode.IMBUING;
+        imbuingTicks = 30;
     }
 
     @Override
     public void onRemoveItem(PlayerEntity player, boolean checkCreative, boolean copy, boolean remove) {
         super.onRemoveItem(player, checkCreative, true, false);
-        easeMode = 1;
-        transitionTicks = 10;
-        removalTicks = 10;
+        queueRemoval();
+        hasToken = false;
     }
 
     public MonolithicPurpurBlockEntity(BlockPos pos, BlockState state) {
@@ -47,19 +71,30 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     }
 
     public boolean canRemove() {
-        return easeMode == -1 || (removalTicks == 0 && transitionTicks == 10);
+        return animationMode == AnimationMode.NONE || (removalTicks == 0 && transitionTicks == 10);
     }
     
     public void ease() {
-        if (easeMode > -1) {
-            if (easing < 30 && easeMode == 0) {
-                easing++;
+        if (animationMode == AnimationMode.ADDING || animationMode == AnimationMode.REMOVING) {
+            if (scaleEasing < 30 && animationMode == AnimationMode.ADDING) {
+                if (scaleEasing == -1) {
+                    scaleEasing = 0;
+                }
+                scaleEasing++;
             }
-            else if (easing > 0 && easeMode == 1) {
-                easing--;
+            else if (scaleEasing > 0 && animationMode == AnimationMode.REMOVING) {
+                scaleEasing--;
             }
-            else if (easing == 0 || easing == 30) {
-                easeMode = -1;
+            else if (scaleEasing == 0 || scaleEasing == 30) {
+                animationMode = AnimationMode.NONE;
+            }
+        }
+        else if (animationMode == AnimationMode.IMBUING) {
+            if (heightEasing < 90) {
+                heightEasing++;
+            }
+            else {
+                animationMode = AnimationMode.NONE;
             }
         }
     }
@@ -102,10 +137,19 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         }
     }
 
+    public void finishImbuing() {
+        getItem().getOrCreateNbt().putInt("CustomModelData", 1);
+        animationMode = AnimationMode.NONE;
+        heightEasing = 0;
+    }
+
     public static void tick(World world, BlockPos blockPos, BlockState state, MonolithicPurpurBlockEntity blockEntity) {
         if (blockEntity.transitionTicks < 10) {
             blockEntity.transitionTicks++;
             checkTransition(world, blockPos, state, blockEntity.transitionTicks);
+            if (blockEntity.transitionTicks == 10) {
+                blockEntity.animationMode = AnimationMode.NONE;
+            }
         }
         if (blockEntity.removalTicks > 0) {
             blockEntity.removalTicks--;
@@ -113,6 +157,19 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
             if (blockEntity.removalTicks == 0) {
                 blockEntity.removeItem();
                 blockEntity.resetProperty();
+                blockEntity.heightEasing = 0;
+                blockEntity.animationMode = AnimationMode.NONE;
+            }
+        }
+        if (blockEntity.imbuingTicks > 0) {
+            blockEntity.imbuingTicks--;
+            if (blockEntity.imbuingTicks == 0) {
+                if (blockEntity.hasToken) {
+                    blockEntity.finishImbuing();
+                }
+                else {
+                    blockEntity.queueRemoval();
+                }
             }
         }
     }
@@ -120,18 +177,23 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        easeMode = nbt.getInt("EaseMode");
+        String animationString = nbt.getString("AnimationMode");
+        animationMode = !animationString.equals("") ? AnimationMode.valueOf(animationString) : null;
         transitionTicks = nbt.getInt("TransitionTicks");
         removalTicks = nbt.getInt("RemovalTicks");
+        hasToken = nbt.getBoolean("HasToken");
         property = nbt.getInt("Property");
         propertyMode = nbt.getInt("PropertyMode");
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.putInt("EaseMode", easeMode);
+        if (animationMode != null) {
+            nbt.putString("AnimationMode", animationMode.name());
+        }
         nbt.putInt("TransitionTicks", transitionTicks);
         nbt.putInt("RemovalTicks", removalTicks);
+        nbt.putBoolean("HasToken", hasToken);
         nbt.putInt("Property", property);
         nbt.putInt("PropertyMode", propertyMode);
         super.writeNbt(nbt);

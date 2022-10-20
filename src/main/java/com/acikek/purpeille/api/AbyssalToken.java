@@ -58,7 +58,6 @@ public interface AbyssalToken {
     static void imbue(ItemStack stack, int energy, Collection<Item> itemsUsed) {
         NbtCompound nbt = stack.getOrCreateNbt();
         if (!nbt.contains(Imbuements.KEY)) {
-            nbt.putInt("CustomModelData", 1);
             NbtCompound imbuements = new NbtCompound();
             new Imbuements(energy, 1, new HashSet<>(itemsUsed)).write(imbuements);
             nbt.put(Imbuements.KEY, imbuements);
