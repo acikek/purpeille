@@ -15,9 +15,14 @@
   },
   "abyssalite": {
     "token": "purpeille:token_of_tatemo",
-    "modifiers": {
-      "minecraft:piglin_loved": 2.0
-    }
+    "modifiers": [
+      {
+        "item": {
+          "tag": "minecraft:piglin_loved"
+        },
+        "modifier": 2.0
+      }
+    ]
   },
   "multiply": false
 }

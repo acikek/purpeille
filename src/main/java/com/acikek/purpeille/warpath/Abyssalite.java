@@ -2,12 +2,14 @@ package com.acikek.purpeille.warpath;
 
 import com.acikek.purpeille.api.AbyssalToken;
 import com.acikek.purpeille.warpath.component.Revelation;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -41,15 +43,15 @@ public class Abyssalite {
     }
 
     public Item token;
-    public Map<TagKey<Item>, Pair<Float, Effect>> modifiers;
+    public Map<Ingredient, Pair<Float, Effect>> modifiers;
 
-    public Abyssalite(Item token, Map<TagKey<Item>, Float> modifiers) {
+    public Abyssalite(Item token, Map<Ingredient, Float> modifiers) {
         this.token = token;
-        Map<TagKey<Item>, Pair<Float, Effect>> withEffect = new HashMap<>();
+        Map<Ingredient, Pair<Float, Effect>> withEffect = new HashMap<>();
         Collection<Float> values = modifiers.values();
         float min = Collections.min(values);
         float max = Collections.max(values);
-        for (Map.Entry<TagKey<Item>, Float> pair : modifiers.entrySet()) {
+        for (Map.Entry<Ingredient, Float> pair : modifiers.entrySet()) {
             Effect effect = Effect.getEffect(pair.getValue(), min, max);
             withEffect.put(pair.getKey(), new Pair<>(pair.getValue(), effect));
         }
@@ -57,8 +59,8 @@ public class Abyssalite {
     }
 
     public Pair<Float, Effect> getModifier(ItemStack stack) {
-        for (Map.Entry<TagKey<Item>, Pair<Float, Effect>> entry : modifiers.entrySet()) {
-            if (stack.isIn(entry.getKey())) {
+        for (Map.Entry<Ingredient, Pair<Float, Effect>> entry : modifiers.entrySet()) {
+            if (entry.getKey().test(stack)) {
                 return entry.getValue();
             }
         }
@@ -71,11 +73,13 @@ public class Abyssalite {
         AbyssalToken.TOKENS.add(abyssalToken);
     }
 
-    public static Map<TagKey<Item>, Float> modifiersFromJson(JsonObject obj) {
-        Map<TagKey<Item>, Float> result = new HashMap<>();
-        for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-            TagKey<Item> itemTag = TagKey.of(Registry.ITEM_KEY, Identifier.tryParse(entry.getKey()));
-            result.put(itemTag, entry.getValue().getAsFloat());
+    public static Map<Ingredient, Float> modifiersFromJson(JsonArray array) {
+        Map<Ingredient, Float> result = new HashMap<>();
+        for (JsonElement element : array) {
+            JsonObject obj = JsonHelper.asObject(element, "modifier entry");
+            Ingredient ingredient = Ingredient.fromJson(obj.get("item"));
+            float modifier = JsonHelper.getFloat(obj, "modifier");
+            result.put(ingredient, modifier);
         }
         return result;
     }
@@ -85,18 +89,30 @@ public class Abyssalite {
             return null;
         }
         Item token = JsonHelper.getItem(obj, "token");
-        Map<TagKey<Item>, Float> modifiers = modifiersFromJson(JsonHelper.getObject(obj, "modifiers"));
+        Map<Ingredient, Float> modifiers = modifiersFromJson(JsonHelper.getArray(obj, "modifiers"));
         return new Abyssalite(token, modifiers);
     }
 
     public static Abyssalite read(PacketByteBuf buf) {
         Item token = buf.readRegistryValue(Registry.ITEM);
-        Map<TagKey<Item>, Float> modifiers = buf.readMap(byteBuf -> TagKey.of(Registry.ITEM_KEY, byteBuf.readIdentifier()), PacketByteBuf::readFloat);
+        List<Pair<Ingredient, Float>> modifierList = buf.readList(byteBuf -> {
+            Ingredient item = Ingredient.fromPacket(byteBuf);
+            float modifier = byteBuf.readFloat();
+            return new Pair<>(item, modifier);
+        });
+        Map<Ingredient, Float> modifiers = modifierList.stream()
+                .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
         return new Abyssalite(token, modifiers);
     }
 
     public void write(PacketByteBuf buf) {
         buf.writeRegistryValue(Registry.ITEM, token);
-        buf.writeMap(modifiers, (byteBuf, tag) -> byteBuf.writeIdentifier(tag.id()), (byteBuf, modifier) -> byteBuf.writeFloat(modifier.getLeft()));
+        List<Pair<Ingredient, Float>> modifierList = modifiers.entrySet().stream()
+                .map(entry -> new Pair<>(entry.getKey(), entry.getValue().getLeft()))
+                .toList();
+        buf.writeCollection(modifierList, (byteBuf, pair) -> {
+            pair.getLeft().write(byteBuf);
+            byteBuf.writeFloat(pair.getRight());
+        });
     }
 }
