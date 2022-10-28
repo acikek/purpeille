@@ -44,18 +44,20 @@ public class Abyssalite {
 
     public Item token;
     public Map<Ingredient, Pair<Float, Effect>> modifiers;
+    public float max;
 
-    public Abyssalite(Item token, Map<Ingredient, Float> modifiers) {
+    public Abyssalite(Item token, Map<Ingredient, Float> modifiers, float max) {
         this.token = token;
         Map<Ingredient, Pair<Float, Effect>> withEffect = new HashMap<>();
         Collection<Float> values = modifiers.values();
-        float min = Collections.min(values);
-        float max = Collections.max(values);
+        float minValue = Collections.min(values);
+        float maxValue = Collections.max(values);
         for (Map.Entry<Ingredient, Float> pair : modifiers.entrySet()) {
-            Effect effect = Effect.getEffect(pair.getValue(), min, max);
+            Effect effect = Effect.getEffect(pair.getValue(), minValue, maxValue);
             withEffect.put(pair.getKey(), new Pair<>(pair.getValue(), effect));
         }
         this.modifiers = withEffect;
+        this.max = max;
     }
 
     public Pair<Float, Effect> getModifier(ItemStack stack) {
@@ -90,7 +92,8 @@ public class Abyssalite {
         }
         Item token = JsonHelper.getItem(obj, "token");
         Map<Ingredient, Float> modifiers = modifiersFromJson(JsonHelper.getArray(obj, "modifiers"));
-        return new Abyssalite(token, modifiers);
+        float max = JsonHelper.getFloat(obj, "max");
+        return new Abyssalite(token, modifiers, max);
     }
 
     public static Abyssalite read(PacketByteBuf buf) {
@@ -102,7 +105,8 @@ public class Abyssalite {
         });
         Map<Ingredient, Float> modifiers = modifierList.stream()
                 .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
-        return new Abyssalite(token, modifiers);
+        float max = buf.readFloat();
+        return new Abyssalite(token, modifiers, max);
     }
 
     public void write(PacketByteBuf buf) {
@@ -114,5 +118,6 @@ public class Abyssalite {
             pair.getLeft().write(byteBuf);
             byteBuf.writeFloat(pair.getRight());
         });
+        buf.writeFloat(max);
     }
 }

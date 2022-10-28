@@ -13,6 +13,7 @@
   "synergy": {
     "purpeille:terran": "identical"
   },
+  "multiply": false,
   "abyssalite": {
     "token": "purpeille:token_of_tatemo",
     "modifiers": [
@@ -22,7 +23,7 @@
         },
         "modifier": 2.0
       }
-    ]
-  },
-  "multiply": false
+    ],
+    "max": 4.0
+  }
 }

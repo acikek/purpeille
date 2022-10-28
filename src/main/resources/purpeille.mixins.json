@@ -10,6 +10,7 @@
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "ShearsDispenserBehaviorMixin",
+    "SmithingScreenHandlerMixin",
     "StatusEffectInstanceAccessor",
     "StatusEffectMixin",
     "WarpathItemMixin"

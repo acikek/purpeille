@@ -46,6 +46,10 @@ public class WarpathItemMixin {
         if (data == null) {
             return;
         }
+        // TODO: advancement for this as well
+        if (data.contains("AppliedToken")) {
+            return;
+        }
         Revelation revelation = Revelation.fromNbt(data);
         Aspect aspect = Aspect.fromNbt(data);
         ModCriteria.WARPATH_CREATED.trigger((ServerPlayerEntity) player, stack, revelation, aspect, Synergy.getSynergy(revelation, aspect));

@@ -20,7 +20,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.*;
-import net.minecraft.tag.TagKey;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -30,7 +29,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBlockEntity> {
 
@@ -190,7 +188,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         MonolithicPurpurBlockEntity monolithicPurpur = (MonolithicPurpurBlockEntity) blockEntity;
         if (handStack.getItem() instanceof EncasedCore
                 && monolithicPurpur.getItem().getItem() instanceof AbyssalToken token
-                && token.hasRevelation()) {
+                && token.isAbyssalToken()) {
             ActionResult result = tryImbue(world, pos, monolithicPurpur.getItem(), token);
             if (result != null) {
                 handStack.damage(128, player, playerEntity -> playerEntity.sendToolBreakStatus(hand));

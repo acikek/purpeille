@@ -42,7 +42,7 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         animationMode = AnimationMode.ADDING;
         transitionTicks = 0;
         removalTicks = 0;
-        if (stack.getItem() instanceof AbyssalToken token && token.hasRevelation()) {
+        if (stack.getItem() instanceof AbyssalToken token && token.isAbyssalToken()) {
             hasToken = true;
         }
     }

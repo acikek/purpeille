@@ -28,7 +28,9 @@ repositories {
 
     maven { url "https://maven.shedaniel.me" }
 
-    maven { url 'https://maven.blamejared.com' }
+    maven { url "https://maven.blamejared.com" }
+
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -42,6 +44,7 @@ dependencies {
     // JIJ Dependencies
     modImplementation include("maven.modrinth:voidcrafting:${project.voidcrafting_version}")
     modImplementation include("maven.modrinth:cmods:${project.cmods_version}")
+    modImplementation include("com.github.emilyploszaj:step-height-entity-attribute:v${project.step_height_entity_attribute_version}")
 
     // EMI
     modImplementation "dev.emi:emi:${emi_version}", {

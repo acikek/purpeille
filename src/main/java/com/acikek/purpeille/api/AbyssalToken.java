@@ -1,16 +1,18 @@
 package com.acikek.purpeille.api;
 
+import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.component.Revelation;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.registry.Registry;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.UnaryOperator;
+import java.util.UUID;
 
 public interface AbyssalToken {
 
@@ -29,7 +31,7 @@ public interface AbyssalToken {
 
     void setRevelation(Revelation revelation);
 
-    default boolean hasRevelation() {
+    default boolean isAbyssalToken() {
         return getRevelation() != null;
     }
 
@@ -70,5 +72,28 @@ public interface AbyssalToken {
         imbuements.itemsUsed.addAll(itemsUsed);
         imbuements.write(imbuementsNbt);
         nbt.put(Imbuements.KEY, imbuementsNbt);
+    }
+
+    static void apply(ItemStack base, ItemStack tokenStack) {
+        if (tokenStack.getItem() instanceof AbyssalToken token) {
+            Revelation revelation = token.getRevelation();
+            int energy = Imbuements.readEnergy(tokenStack.getOrCreateNbt().getCompound(Imbuements.KEY));
+            int positive = getPositiveValue(energy);
+            int negative = getNegativeValue(energy);
+            double value = (positive / (float) MAX_ENERGY) * revelation.abyssalite.max;
+            // TODO modify this when converting to logarithmic system
+            UUID uuid = UUID.fromString("5bf752ea-56f2-11ed-9b6a-0242ac120002");
+            EntityAttributeModifier modifier = new EntityAttributeModifier(
+                    uuid, "Abyssal token modifier", value,
+                    EntityAttributeModifier.Operation.ADDITION
+            );
+            // TODO: apply new attribute
+            NbtCompound nbt = Warpath.getData(base);
+            if (nbt != null) {
+                nbt.putString("AppliedToken", Registry.ITEM.getId(tokenStack.getItem()).toString());
+            }
+            base.addAttributeModifier(token.getRevelation().attribute, modifier, Warpath.getSlot(base));
+            // TODO: Apply negative attribute value
+        }
     }
 }

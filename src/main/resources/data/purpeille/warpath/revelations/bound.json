@@ -13,5 +13,32 @@
   "synergy": {
     "purpeille:limitless": "identical"
   },
-  "multiply": true
+  "multiply": true,
+  "abyssalite": {
+    "token": "purpeille:dwellers_sole",
+    "modifiers": [
+      {
+        "item": {
+          "tag": "minecraft:coals"
+        },
+        "modifier": 0.7
+      },
+      {
+        "item": "minecraft:rabbit_hide",
+        "modifier": 1.1
+      },
+      {
+        "item": "minecraft:leather",
+        "modifier": 1.2
+      },
+      {
+        "item": "minecraft:rabbit_foot",
+        "modifier": 1.4
+      },
+      {
+        "item": "minecraft:diamond",
+        "modifier": 1.5
+      }
+    ]
+  }
 }

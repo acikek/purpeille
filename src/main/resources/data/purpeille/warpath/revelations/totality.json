@@ -13,5 +13,11 @@
   "synergy": {
     "purpeille:heroic": "identical"
   },
-  "multiply": false
+  "multiply": false,
+  "abyssalite": {
+    "token": "voided_heart",
+    "modifiers": {
+
+    }
+  }
 }

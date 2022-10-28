@@ -13,5 +13,11 @@
   "synergy": {
     "purpeille:unrivaled": "identical"
   },
-  "multiply": true
+  "multiply": true,
+  "abyssalite": {
+    "token": "purpeille:dark_quantum_wisp",
+    "modifiers": {
+
+    }
+  }
 }

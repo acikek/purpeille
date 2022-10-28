@@ -68,6 +68,9 @@ public class Warpath {
         return getWarpath(revelation, aspect, animated, rite);
     }
 
+    /**
+     * TODO: Migrate over to a class-based system
+     */
     public static NbtCompound getData(ItemStack stack) {
         if (!stack.hasNbt()) {
             return null;

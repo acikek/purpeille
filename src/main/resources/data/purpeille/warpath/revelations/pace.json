@@ -13,5 +13,11 @@
   "synergy": {
     "purpeille:tranquil": "identical"
   },
-  "multiply": true
+  "multiply": true,
+  "abyssalite": {
+    "token": "purpeille:dwellers_sole",
+    "modifiers": {
+
+    }
+  }
 }

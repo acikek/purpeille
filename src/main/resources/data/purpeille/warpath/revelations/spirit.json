@@ -13,5 +13,11 @@
   "synergy": {
     "purpeille:virtuous": "identical"
   },
-  "multiply": true
+  "multiply": true,
+  "abyssalite": {
+    "token": "purpeille:shield_of_avak",
+    "modifiers": {
+
+    }
+  }
 }

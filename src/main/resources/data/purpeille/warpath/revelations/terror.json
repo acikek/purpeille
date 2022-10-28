@@ -13,5 +13,11 @@
   "synergy": {
     "purpeille:deathly": "identical"
   },
-  "multiply": false
+  "multiply": false,
+  "abyssalite": {
+    "token": "purpeille:syndicalists_skull",
+    "modifiers": {
+
+    }
+  }
 }

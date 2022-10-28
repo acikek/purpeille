@@ -13,5 +13,11 @@
   "synergy": {
     "purpeille:shocking": "identical"
   },
-  "multiply": false
+  "multiply": false,
+  "abyssalite": {
+    "token": "purpeille:corrupted_fruit",
+    "modifiers": {
+
+    }
+  }
 }
