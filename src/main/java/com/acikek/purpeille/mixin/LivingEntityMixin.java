@@ -16,6 +16,8 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -36,11 +38,9 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "createLivingAttributes", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
     private static void purpeille$addCustomAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
-        cir.getReturnValue()
-                .add(ModAttributes.GENERIC_MINING_EXPERIENCE)
-                .add(ModAttributes.GENERIC_POISON_RESISTANCE)
-                .add(ModAttributes.GENERIC_JUMP_BOOST)
-                .add(ModAttributes.GENERIC_WATER_SPEED);
+        for (EntityAttribute attribute : ModAttributes.ATTRIBUTES.values()) {
+            cir.getReturnValue().add(attribute);
+        }
     }
 
     @Inject(
@@ -94,6 +94,22 @@ public abstract class LivingEntityMixin {
             if (blockEntity != null && blockEntity.cooldown == 0 && blockEntity.isPlayerTethered(playerEntity)) {
                 blockEntity.activate(playerEntity, armorPieces);
                 cir.setReturnValue(true);
+            }
+        }
+    }
+
+    @Inject(method = "damage", at = @At("HEAD"))
+    private void purpeille$applyAttackerKnockback(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (source.getAttacker() instanceof LivingEntity livingEntity) {
+            EntityAttributeInstance instance = getAttributeInstance(ModAttributes.GENERIC_ATTACKER_KNOCKBACK_CHANCE);
+            if (instance == null) {
+                return;
+            }
+            World world = ((Entity) (Object) this).world;
+            if (world.random.nextDouble() < instance.getValue()) {
+                Vec3d velocity = livingEntity.getVelocity();
+                Vec3d pos = livingEntity.getPos().subtract(velocity.multiply(1.5));
+                livingEntity.takeKnockback(velocity.length(), pos.x, pos.z);
             }
         }
     }
