@@ -14,6 +14,8 @@ public class ModSoundEvents {
     public static final SoundEvent INFESTED_BLOCK_BREAK = create("block.infested_block.break");
     public static final SoundEvent RUBBLE_OPEN = create("block.rubble.open");
     public static final SoundEvent RUBBLE_CLOSE = create("block.rubble.close");
+    public static final SoundEvent IMBUE_RISE = create("imbue.rise");
+    public static final SoundEvent IMBUE_COLLAPSE = create("imbue.collapse");
 
     public static SoundEvent create(String id) {
         return new SoundEvent(Purpeille.id(id));
@@ -26,7 +28,9 @@ public class ModSoundEvents {
             INFESTED_BLOCK_PLACE,
             INFESTED_BLOCK_BREAK,
             RUBBLE_OPEN,
-            RUBBLE_CLOSE
+            RUBBLE_CLOSE,
+            IMBUE_RISE,
+            IMBUE_COLLAPSE
     };
 
     public static void register() {

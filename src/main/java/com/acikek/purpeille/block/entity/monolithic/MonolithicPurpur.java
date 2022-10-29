@@ -6,6 +6,7 @@ import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import com.acikek.purpeille.item.core.EncasedCore;
+import com.acikek.purpeille.sound.ModSoundEvents;
 import com.acikek.purpeille.warpath.AbyssaliteData;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -183,6 +184,10 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         return ActionResult.PASS;
     }
 
+    public static void playSound(World world, SingleSlotBlockEntity blockEntity, SoundEvent event) {
+        blockEntity.playSound(event, world.random.nextFloat() * 0.4f + 0.8f);
+    }
+
     @Override
     public ActionResult extraChecks(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         MonolithicPurpurBlockEntity monolithicPurpur = (MonolithicPurpurBlockEntity) blockEntity;
@@ -190,6 +195,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
                 && monolithicPurpur.getItem().getItem() instanceof AbyssalToken token
                 && token.isAbyssalToken()) {
             ActionResult result = tryImbue(world, pos, monolithicPurpur.getItem(), token);
+            playSound(world, blockEntity, ModSoundEvents.IMBUE_RISE);
             if (result != null) {
                 handStack.damage(128, player, playerEntity -> playerEntity.sendToolBreakStatus(hand));
             }
@@ -204,10 +210,6 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
             return tryCycleProperty(monolithicPurpur, blockItem);
         }
         return null;
-    }
-
-    public static void playSound(World world, SingleSlotBlockEntity blockEntity, SoundEvent event) {
-        blockEntity.playSound(event, world.random.nextFloat() * 0.4f + 0.8f);
     }
 
     @Override

@@ -56,5 +56,17 @@
     "sounds": [
       "purpeille:rubble/close"
     ]
+  },
+  "imbue.rise": {
+    "subtitle": "subtitles.purpeille.imbue.rise",
+    "sounds": [
+      "purpeille:imbue/rise"
+    ]
+  },
+  "imbue.collapse": {
+    "subtitle": "subtitles.purpeille.imbue.collapse",
+    "sounds": [
+      "purpeille:imbue/collapse"
+    ]
   }
 }

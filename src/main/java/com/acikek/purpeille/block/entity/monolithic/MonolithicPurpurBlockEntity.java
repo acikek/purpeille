@@ -4,6 +4,7 @@ import com.acikek.purpeille.api.AbyssalToken;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
+import com.acikek.purpeille.sound.ModSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -141,8 +142,9 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         }
     }
 
-    public void finishImbuing() {
+    public void finishImbuing(World world) {
         getItem().getOrCreateNbt().putInt("CustomModelData", 1);
+        playSound(ModSoundEvents.IMBUE_COLLAPSE, 0.4f * world.random.nextFloat() + 0.8f);
         animationMode = AnimationMode.FALLING;
         heightEasing = 120;
     }
@@ -169,7 +171,7 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
             blockEntity.imbuingTicks--;
             if (blockEntity.imbuingTicks == 0) {
                 if (blockEntity.hasToken) {
-                    blockEntity.finishImbuing();
+                    blockEntity.finishImbuing(world);
                 }
                 else {
                     blockEntity.queueRemoval();
