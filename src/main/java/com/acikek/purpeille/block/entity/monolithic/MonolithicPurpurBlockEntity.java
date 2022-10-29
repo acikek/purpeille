@@ -23,7 +23,8 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
         NONE,
         ADDING,
         REMOVING,
-        IMBUING
+        IMBUING,
+        FALLING
     }
 
     public AnimationMode animationMode;
@@ -89,12 +90,15 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
                 animationMode = AnimationMode.NONE;
             }
         }
-        else if (animationMode == AnimationMode.IMBUING) {
-            if (heightEasing < 90) {
+        else if (animationMode == AnimationMode.IMBUING || animationMode == AnimationMode.FALLING) {
+            if (heightEasing < 90 && animationMode == AnimationMode.IMBUING) {
                 heightEasing++;
             }
-            else {
-                animationMode = AnimationMode.NONE;
+            else if (heightEasing > 0 && animationMode == AnimationMode.FALLING) {
+                heightEasing--;
+                if (heightEasing == 0) {
+                    animationMode = AnimationMode.NONE;
+                }
             }
         }
     }
@@ -139,8 +143,8 @@ public class MonolithicPurpurBlockEntity extends SingleSlotBlockEntity {
 
     public void finishImbuing() {
         getItem().getOrCreateNbt().putInt("CustomModelData", 1);
-        animationMode = AnimationMode.NONE;
-        heightEasing = 0;
+        animationMode = AnimationMode.FALLING;
+        heightEasing = 120;
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState state, MonolithicPurpurBlockEntity blockEntity) {

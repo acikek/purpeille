@@ -21,6 +21,23 @@ public class MonolithicPurpurRenderer implements SingleSlotRenderer<MonolithicPu
     public MonolithicPurpurRenderer(BlockEntityRendererFactory.Context ctx) {
     }
 
+    public float getHeightOffset(MonolithicPurpurBlockEntity entity, float tickDelta, Item item, boolean falling) {
+        float amount = (Math.min(entity.heightEasing, 90) + tickDelta) / 90.0f;
+        if (falling) {
+            return amount / 2.0f;
+        }
+        float offset = amount < 0.5f
+                ? 16.0f * amount * amount * amount * amount * amount
+                : 1.0f - (float) Math.pow(-2.0 * amount + 2.0, 5.0) / 2.0f;
+        if (entity.hasToken) {
+            offset /= 2.0f;
+        }
+        if (item instanceof BlockItem) {
+            offset *= 1.15f;
+        }
+        return offset;
+    }
+
     @Override
     public boolean beforeCompletion(MonolithicPurpurBlockEntity entity, float tickDelta, ItemStack stack, int lightAbove, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         entity.ease();
@@ -32,16 +49,7 @@ public class MonolithicPurpurRenderer implements SingleSlotRenderer<MonolithicPu
             scale = 1.0f - (float) Math.pow(1.0 - (entity.scaleEasing + tickDelta) / 30.0, 5.0);
         }
         if (entity.heightEasing > 0) {
-            float amount = (entity.heightEasing + tickDelta) / 90.0f;
-            float offset = amount < 0.5f
-                    ? 16.0f * amount * amount * amount * amount * amount
-                    : 1.0f - (float) Math.pow(-2.0 * amount + 2.0, 5.0) / 2.0f;
-            if (entity.hasToken) {
-                offset /= 2.0f;
-            }
-            if (item instanceof BlockItem) {
-                offset *= 1.15f;
-            }
+            float offset = getHeightOffset(entity, tickDelta, item, entity.animationMode == MonolithicPurpurBlockEntity.AnimationMode.FALLING);
             matrices.translate(0.0, offset, 0.0);
         }
         if (item instanceof BlockItem) {
