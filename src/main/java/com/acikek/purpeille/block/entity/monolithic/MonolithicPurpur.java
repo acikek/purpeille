@@ -6,7 +6,7 @@ import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
 import com.acikek.purpeille.item.core.EncasedCore;
-import com.acikek.purpeille.warpath.Abyssalite;
+import com.acikek.purpeille.warpath.AbyssaliteData;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -68,7 +68,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         return 90.0f * (-(float) Math.log10((double) distance / (MAX_IMBUEMENT_DISTANCE + 1))) / 6.0f;
     }
 
-    public static float getRandomnessFactor(int altars, int timesImbued, List<Abyssalite.Effect> effects) {
+    public static float getRandomnessFactor(int altars, int timesImbued, List<AbyssaliteData.Effect> effects) {
         float altarFactor = altars * 2.5f;
         float timesX = timesImbued / 4.0f;
         float timesFactor = timesX * timesX * timesX;
@@ -99,8 +99,8 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
                 .map(MonolithicPurpurBlockEntity::getItem)
                 .toList();
         // Get all the item stacks' modifier objects.
-        Abyssalite abyssalite = token.getRevelation().abyssalite;
-        List<Pair<Float, Abyssalite.Effect>> modifiers = altarItems.stream()
+        AbyssaliteData abyssalite = token.getRevelation().abyssalite;
+        List<Pair<Float, AbyssaliteData.Effect>> modifiers = altarItems.stream()
                 .map(abyssalite::getModifier)
                 .toList();
         // If any of the stacks doesn't match to a modifier, the imbuement fails.
@@ -108,8 +108,8 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
             return null;
         }
         // Calculate the randomness factor with the token stack's imbuement data and the altars' stack effects.
-        Imbuements imbuements = Imbuements.read(stack.getOrCreateNbt().getCompound(Imbuements.KEY));
-        List<Abyssalite.Effect> effects = modifiers.stream()
+        Imbuements imbuements = Imbuements.readNbt(stack.getOrCreateNbt().getCompound(Imbuements.KEY));
+        List<AbyssaliteData.Effect> effects = modifiers.stream()
                 .map(Pair::getRight)
                 .toList();
         float randomness = getRandomnessFactor(altars.size(), imbuements.count, effects);

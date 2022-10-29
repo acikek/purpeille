@@ -21,18 +21,17 @@ import java.util.List;
 
 public class Warpath {
 
-    public static final String NBT_KEY = "WarpathData";
     public static final String ETR_NBT_KEY = "enchant_the_rainbow:GlintColor";
     public static final MutableText SEPARATOR = Text.translatable("separator.purpeille.warpath");
     public static final ClampedColor SEPARATOR_COLOR = new ClampedColor(Formatting.GRAY);
 
     /**
-     * Generates warpath text based on component instances.
+     * Generates warpath tooltip text based on component instances.
      * @param aspect If {@code null}, only generates revelation text.
      * @param animated Whether to use a sine wave animation for the text color of both components.
      * @param rite Whether to include the 'rite' text if {@link Synergy#getSynergy(Revelation, Aspect)} returns {@link Synergy#IDENTICAL}.
      */
-    public static List<Text> getWarpath(Revelation revelation, Aspect aspect, boolean animated, boolean rite) {
+    public static List<Text> getTooltip(Revelation revelation, Aspect aspect, boolean animated, boolean rite) {
         boolean hasAspect = aspect != null;
         int wave = animated ? ClampedColor.getWave() : Integer.MIN_VALUE;
         Style style = hasAspect && animated && Synergy.getSynergy(revelation, aspect) == Synergy.IDENTICAL
@@ -53,33 +52,33 @@ public class Warpath {
     }
 
     /**
-     * Returns the result of {@link Warpath#getWarpath(Revelation, Aspect, boolean, boolean)} based on a stack's NBT.
+     * Returns the result of {@link Warpath#getTooltip(Revelation, Aspect, boolean, boolean)} based on a stack's NBT.
      */
-    public static List<Text> getWarpath(ItemStack stack, boolean animated, boolean rite) {
-        NbtCompound data = getData(stack);
+    public static List<Text> getTooltip(ItemStack stack, boolean animated, boolean rite) {
+        WarpathData data = getData(stack);
         if (data == null) {
             return null;
         }
-        Revelation revelation = Revelation.fromNbt(data);
+        Revelation revelation = data.getRevelation();
         if (revelation == null) {
             return null;
         }
-        Aspect aspect = Aspect.fromNbt(data);
-        return getWarpath(revelation, aspect, animated, rite);
+        Aspect aspect = data.getAspect();
+        return getTooltip(revelation, aspect, animated, rite);
     }
 
     /**
      * TODO: Migrate over to a class-based system
      */
-    public static NbtCompound getData(ItemStack stack) {
+    public static WarpathData getData(ItemStack stack) {
         if (!stack.hasNbt()) {
             return null;
         }
         NbtCompound nbt = stack.getOrCreateNbt();
-        if (!nbt.contains(NBT_KEY)) {
+        if (!nbt.contains(WarpathData.KEY)) {
             return null;
         }
-        return nbt.getCompound(NBT_KEY);
+        return WarpathData.fromNbt(nbt.getCompound(WarpathData.KEY));
     }
 
     /**
@@ -106,7 +105,7 @@ public class Warpath {
         EntityAttributeModifier modifier = revelation.getModifier(stack, aspect);
         EquipmentSlot slot = getSlot(stack);
         if (slot != null) {
-            stack.addAttributeModifier(revelation.attribute, modifier, slot);
+            stack.addAttributeModifier(revelation.attribute.value, modifier, slot);
         }
     }
 
@@ -135,13 +134,13 @@ public class Warpath {
 
     /**
      * Adds a warpath to a stack.<br>
-     * Encodes Warpath data using {@link Warpath#addData(NbtCompound, Revelation, Aspect)} under the {@link Warpath#NBT_KEY} key.
+     * Encodes Warpath data using {@link Warpath#addData(NbtCompound, Revelation, Aspect)} under the {@link WarpathData#KEY} key.
      */
     public static void add(ItemStack stack, Revelation revelation, Aspect aspect) {
         NbtCompound data = new NbtCompound();
         addData(data, revelation, aspect);
         NbtCompound stackNbt = stack.getOrCreateNbt();
-        stackNbt.put(NBT_KEY, data);
+        stackNbt.put(WarpathData.KEY, data);
         stackNbt.putInt(ETR_NBT_KEY, revelation.dyeColor);
         addModifiers(stack, revelation, aspect);
     }
@@ -151,7 +150,7 @@ public class Warpath {
      */
     public static void remove(ItemStack stack) {
         NbtCompound nbt = stack.getOrCreateNbt();
-        nbt.remove(NBT_KEY);
+        nbt.remove(WarpathData.KEY);
         nbt.remove(ETR_NBT_KEY);
         nbt.remove("AttributeModifiers");
     }

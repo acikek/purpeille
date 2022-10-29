@@ -2,13 +2,11 @@ package com.acikek.purpeille.mixin;
 
 import com.acikek.purpeille.api.AbyssalToken;
 import com.acikek.purpeille.warpath.Warpath;
-import com.acikek.purpeille.warpath.component.Component;
+import com.acikek.purpeille.warpath.WarpathData;
 import com.acikek.purpeille.warpath.component.Revelation;
-import com.acikek.purpeille.warpath.component.Type;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.SmithingScreenHandler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,15 +29,12 @@ public class SmithingScreenHandlerMixin {
     private void purpeille$setAbyssalTokensUsable(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (stack.getItem() instanceof AbyssalToken token && token.isAbyssalToken()) {
             Inventory input = ((ForgingScreenHandler) (Object) this).input;
-            NbtCompound warpath = Warpath.getData(input.getStack(0));
+            WarpathData data = Warpath.getData(input.getStack(0));
             // The base item must have an existing warpath but no token must be applied to it
-            if (warpath == null || warpath.contains("AppliedToken")) {
+            if (data == null || data.appliedToken != null) {
                 return;
             }
-            Revelation revelation = Type.REVELATION.getFromNbt(warpath, Component.REVELATIONS);
-            if (revelation == null) {
-                return;
-            }
+            Revelation revelation = data.getRevelation();
             // If the base item's revelation matches the token's revelation, the recipe works
             cir.setReturnValue(token.getRevelation().id.equals(revelation.id));
         }

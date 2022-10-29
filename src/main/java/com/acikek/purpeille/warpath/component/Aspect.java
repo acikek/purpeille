@@ -22,10 +22,6 @@ public class Aspect extends Component {
         return Type.ASPECT;
     }
 
-    public static Aspect fromNbt(NbtCompound nbt) {
-        return Type.ASPECT.getFromNbt(nbt, ASPECTS);
-    }
-
     public static class Builder {
 
         Tone tone;

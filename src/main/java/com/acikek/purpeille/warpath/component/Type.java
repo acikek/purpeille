@@ -26,12 +26,4 @@ public enum Type {
     public void addNbt(NbtCompound nbt, Identifier id) {
         nbt.putString(nbtKey, id.toString());
     }
-
-    public <T extends Component> T getFromNbt(NbtCompound nbt, Map<Identifier, T> registry) {
-        String id = nbt.getString(nbtKey);
-        if (id == null) {
-            return null;
-        }
-        return registry.get(Identifier.tryParse(id));
-    }
 }

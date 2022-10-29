@@ -2,12 +2,8 @@ package com.acikek.purpeille.warpath.component;
 
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.api.AbyssalToken;
-import com.acikek.purpeille.warpath.Abyssalite;
-import com.acikek.purpeille.warpath.ClampedColor;
-import com.acikek.purpeille.warpath.Synergy;
-import com.acikek.purpeille.warpath.Tone;
+import com.acikek.purpeille.warpath.*;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,34 +25,27 @@ public class Revelation extends Component {
     public static int RITE_RGB = 13421772;
     public static Identifier FINISH_RELOAD = Purpeille.id("revelation_finish_reload");
 
-    public EntityAttribute attribute;
-    public final Identifier attributeId;
+    public AttributeData attribute;
     public Ingredient affinity;
     public Map<Identifier, Synergy> synergy;
-    public Abyssalite abyssalite;
-    public EntityAttributeModifier.Operation operation;
+    public AbyssaliteData abyssalite;
     public int dyeColor;
     public boolean forceInt;
     public MutableText rite;
 
-    public Revelation(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, Identifier attributeId, Ingredient affinity, Map<Identifier, Synergy> synergy, Abyssalite abyssalite, int dyeColor, boolean multiply, boolean forceInt) {
+    public Revelation(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, AttributeData attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, AbyssaliteData abyssalite, int dyeColor, boolean forceInt) {
         super(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist);
-        this.attributeId = attributeId;
+        this.attribute = attribute;
         this.affinity = affinity;
         this.synergy = synergy;
         this.abyssalite = abyssalite;
-        operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
         this.dyeColor = dyeColor == -1 ? getClosestDyeColor(waveColor) : dyeColor;
         this.forceInt = forceInt;
         rite = Text.translatable(getIdKey("rite", id)).styled(style -> style.withColor(RITE_RGB));
     }
 
-    public Revelation(Aspect aspect, Identifier attributeId, Ingredient affinity, Map<Identifier, Synergy> synergy, Abyssalite abyssalite, int dyeColor, boolean multiply, boolean forceInt) {
-        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, attributeId, affinity, synergy, abyssalite, dyeColor, multiply, forceInt);
-    }
-
-    public void updateAttribute() {
-        attribute = Registry.ATTRIBUTE.get(attributeId);
+    public Revelation(Aspect aspect, AttributeData attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, AbyssaliteData abyssalite, int dyeColor, boolean forceInt) {
+        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, attribute, affinity, synergy, abyssalite, dyeColor, forceInt);
     }
 
     public static void finishAbyssaliteReload(boolean log) {
@@ -84,10 +73,10 @@ public class Revelation extends Component {
     public static void finishAttributeReload(boolean log) {
         List<Identifier> toRemove = new ArrayList<>();
         for (Map.Entry<Identifier, Revelation> pair : Component.REVELATIONS.entrySet()) {
-            pair.getValue().updateAttribute();
-            if (pair.getValue().attribute == null) {
+            Revelation revelation = pair.getValue();
+            if (!revelation.attribute.finishReload() || (revelation.abyssalite != null && !revelation.abyssalite.attribute.finishReload())) {
                 if (log) {
-                    Purpeille.LOGGER.error("Revelation '" + pair.getKey() + "' has an invalid attribute ID: '" + pair.getValue().attributeId + "'");
+                    Purpeille.LOGGER.error("Revelation '" + pair.getKey() + "' has an invalid attribute ID: '" + pair.getValue().attribute.id + "'");
                 }
                 toRemove.add(pair.getKey());
             }
@@ -126,21 +115,16 @@ public class Revelation extends Component {
     public EntityAttributeModifier getModifier(ItemStack stack, Aspect aspect) {
         double value = getModifierValue(stack, aspect);
         double adjusted = forceInt ? (int) value : value;
-        return new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", adjusted, operation);
-    }
-
-    public static Revelation fromNbt(NbtCompound nbt) {
-        return Type.REVELATION.getFromNbt(nbt, REVELATIONS);
+        return new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", adjusted, attribute.operation);
     }
 
     public static class Builder extends Aspect.Builder {
 
-        Identifier attributeId;
+        AttributeData attribute;
         Ingredient affinity;
         Map<Identifier, Synergy> synergy;
-        Abyssalite abyssalite;
+        AbyssaliteData abyssalite;
         int dyeColor = -1;
-        boolean multiply;
         boolean forceInt = false;
 
         public Builder aspect(Aspect aspect) {
@@ -154,13 +138,9 @@ public class Revelation extends Component {
             return this;
         }
 
-        public Builder attribute(Identifier attributeId) {
-            this.attributeId = attributeId;
+        public Builder attribute(AttributeData attribute) {
+            this.attribute = attribute;
             return this;
-        }
-
-        public Builder attribute(EntityAttribute attribute) {
-            return attribute(Registry.ATTRIBUTE.getId(attribute));
         }
 
         public Builder affinity(Ingredient affinity) {
@@ -173,7 +153,7 @@ public class Revelation extends Component {
             return this;
         }
 
-        public Builder abyssalite(Abyssalite abyssalite) {
+        public Builder abyssalite(AbyssaliteData abyssalite) {
             this.abyssalite = abyssalite;
             return this;
         }
@@ -187,11 +167,6 @@ public class Revelation extends Component {
             return dyeColor(color.getId());
         }
 
-        public Builder multiply(boolean multiply) {
-            this.multiply = multiply;
-            return this;
-        }
-
         public Builder forceInt(boolean forceInt) {
             this.forceInt = forceInt;
             return this;
@@ -199,7 +174,7 @@ public class Revelation extends Component {
 
         @Override
         boolean isValid(Identifier id) {
-            Objects.requireNonNull(attributeId);
+            Objects.requireNonNull(attribute);
             Objects.requireNonNull(affinity);
             if (dyeColor < -1 || dyeColor >= DyeColor.values().length) {
                 throw new IllegalStateException("'dyeColor' must be a valid dye color ID or -1");
@@ -209,41 +184,42 @@ public class Revelation extends Component {
 
         public Revelation buildRevelation(Identifier id) {
             if (isValid(id)) {
-                return new Revelation(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, attributeId, affinity, synergy, abyssalite, dyeColor, multiply, forceInt);
+                return new Revelation(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, attribute, affinity, synergy, abyssalite, dyeColor, forceInt);
             }
             return null;
         }
     }
 
     public static Revelation fromJson(JsonObject obj, Identifier id) {
+        AttributeData attribute = JsonHelper.hasBoolean(obj, "multiply")
+                ? new AttributeData(Identifier.tryParse(JsonHelper.getString(obj, "attribute")), JsonHelper.getBoolean(obj, "multiply"))
+                : AttributeData.fromJson(JsonHelper.getObject(obj, "attribute"));
         return new Builder()
                 .aspect(Aspect.fromJson(obj, id))
-                .attribute(Identifier.tryParse(JsonHelper.getString(obj, "attribute")))
+                .attribute(attribute)
                 .affinity(Ingredient.fromJson(obj.get("affinity")))
                 .synergy(Synergy.overridesFromJson(JsonHelper.getObject(obj, "synergy", null)))
-                .abyssalite(Abyssalite.fromJson(JsonHelper.getObject(obj, "abyssalite", null)))
+                .abyssalite(AbyssaliteData.fromJson(JsonHelper.getObject(obj, "abyssalite", null)))
                 .dyeColor(JsonHelper.getInt(obj, "dye_color", -1))
-                .multiply(JsonHelper.getBoolean(obj, "multiply"))
                 .forceInt(JsonHelper.getBoolean(obj, "force_int", false))
                 .buildRevelation(id);
     }
 
     public static Revelation read(PacketByteBuf buf) {
         Aspect aspect = Aspect.read(buf);
-        Identifier attributeId = buf.readIdentifier();
+        AttributeData attribute = AttributeData.read(buf);
         Ingredient affinity = Ingredient.fromPacket(buf);
         Map<Identifier, Synergy> synergy = buf.readBoolean() ? buf.readMap(PacketByteBuf::readIdentifier, Synergy::read) : null;
-        Abyssalite abyssalite = buf.readBoolean() ? Abyssalite.read(buf) : null;
+        AbyssaliteData abyssalite = buf.readBoolean() ? AbyssaliteData.read(buf) : null;
         int dyeColor = buf.readInt();
-        boolean multiply = buf.readBoolean();
         boolean forceInt = buf.readBoolean();
-        return new Revelation(aspect, attributeId, affinity, synergy, abyssalite, dyeColor, multiply, forceInt);
+        return new Revelation(aspect, attribute, affinity, synergy, abyssalite, dyeColor, forceInt);
     }
 
     @Override
     public void write(PacketByteBuf buf) {
         super.write(buf);
-        buf.writeIdentifier(attributeId);
+        attribute.write(buf);
         affinity.write(buf);
         buf.writeBoolean(synergy != null);
         if (synergy != null) {
@@ -254,7 +230,6 @@ public class Revelation extends Component {
             abyssalite.write(buf);
         }
         buf.writeInt(dyeColor);
-        buf.writeBoolean(operation == EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
         buf.writeBoolean(forceInt);
     }
 }

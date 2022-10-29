@@ -7,21 +7,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Pair;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 
 import java.util.*;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
-public class Abyssalite {
+public class AbyssaliteData {
 
     public enum Effect {
 
@@ -44,9 +39,10 @@ public class Abyssalite {
 
     public Item token;
     public Map<Ingredient, Pair<Float, Effect>> modifiers;
+    public AttributeData attribute;
     public float max;
 
-    public Abyssalite(Item token, Map<Ingredient, Float> modifiers, float max) {
+    public AbyssaliteData(Item token, Map<Ingredient, Float> modifiers, AttributeData attribute, float max) {
         this.token = token;
         Map<Ingredient, Pair<Float, Effect>> withEffect = new HashMap<>();
         Collection<Float> values = modifiers.values();
@@ -57,6 +53,7 @@ public class Abyssalite {
             withEffect.put(pair.getKey(), new Pair<>(pair.getValue(), effect));
         }
         this.modifiers = withEffect;
+        this.attribute = attribute;
         this.max = max;
     }
 
@@ -86,17 +83,18 @@ public class Abyssalite {
         return result;
     }
 
-    public static Abyssalite fromJson(JsonObject obj) {
+    public static AbyssaliteData fromJson(JsonObject obj) {
         if (obj == null) {
             return null;
         }
         Item token = JsonHelper.getItem(obj, "token");
         Map<Ingredient, Float> modifiers = modifiersFromJson(JsonHelper.getArray(obj, "modifiers"));
+        AttributeData attribute = AttributeData.fromJson(JsonHelper.getObject(obj, "attribute"));
         float max = JsonHelper.getFloat(obj, "max");
-        return new Abyssalite(token, modifiers, max);
+        return new AbyssaliteData(token, modifiers, attribute, max);
     }
 
-    public static Abyssalite read(PacketByteBuf buf) {
+    public static AbyssaliteData read(PacketByteBuf buf) {
         Item token = buf.readRegistryValue(Registry.ITEM);
         List<Pair<Ingredient, Float>> modifierList = buf.readList(byteBuf -> {
             Ingredient item = Ingredient.fromPacket(byteBuf);
@@ -105,8 +103,9 @@ public class Abyssalite {
         });
         Map<Ingredient, Float> modifiers = modifierList.stream()
                 .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
+        AttributeData attribute = AttributeData.read(buf);
         float max = buf.readFloat();
-        return new Abyssalite(token, modifiers, max);
+        return new AbyssaliteData(token, modifiers, attribute, max);
     }
 
     public void write(PacketByteBuf buf) {

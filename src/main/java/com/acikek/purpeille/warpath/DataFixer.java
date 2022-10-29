@@ -53,6 +53,6 @@ public class DataFixer {
         }
         NbtCompound data = new NbtCompound();
         Warpath.addData(data, revelationId, aspectId);
-        nbt.put(Warpath.NBT_KEY, data);
+        nbt.put(WarpathData.KEY, data);
     }
 }

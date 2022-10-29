@@ -3,6 +3,7 @@ package com.acikek.purpeille.mixin;
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.warpath.*;
 import com.acikek.purpeille.warpath.component.Aspect;
+import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,7 +32,7 @@ public class WarpathItemMixin {
         if (DataFixer.hasOldData(stack)) {
             DataFixer.fixData(stack.getOrCreateNbt());
         }
-        List<Text> warpath = Warpath.getWarpath(stack, true, true);
+        List<Text> warpath = Warpath.getTooltip(stack, true, true);
         if (warpath != null) {
             tooltip.addAll(warpath);
         }
@@ -42,16 +43,16 @@ public class WarpathItemMixin {
         if (world.isClient()) {
             return;
         }
-        NbtCompound data = Warpath.getData(stack);
+        WarpathData data = Warpath.getData(stack);
         if (data == null) {
             return;
         }
         // TODO: advancement for this as well
-        if (data.contains("AppliedToken")) {
+        if (data.appliedToken != null) {
             return;
         }
-        Revelation revelation = Revelation.fromNbt(data);
-        Aspect aspect = Aspect.fromNbt(data);
+        Revelation revelation = data.getRevelation();
+        Aspect aspect = data.getAspect();
         ModCriteria.WARPATH_CREATED.trigger((ServerPlayerEntity) player, stack, revelation, aspect, Synergy.getSynergy(revelation, aspect));
     }
 }

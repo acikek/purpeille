@@ -1,7 +1,9 @@
 package com.acikek.purpeille.api;
 
 import com.acikek.purpeille.warpath.Warpath;
+import com.acikek.purpeille.warpath.WarpathData;
 import com.acikek.purpeille.warpath.component.Revelation;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -61,16 +63,16 @@ public interface AbyssalToken {
         NbtCompound nbt = stack.getOrCreateNbt();
         if (!nbt.contains(Imbuements.KEY)) {
             NbtCompound imbuements = new NbtCompound();
-            new Imbuements(energy, 1, new HashSet<>(itemsUsed)).write(imbuements);
+            new Imbuements(energy, 1, new HashSet<>(itemsUsed)).writeNbt(imbuements);
             nbt.put(Imbuements.KEY, imbuements);
         }
         NbtCompound imbuementsNbt = nbt.getCompound(Imbuements.KEY);
-        Imbuements imbuements = Imbuements.read(imbuementsNbt);
+        Imbuements imbuements = Imbuements.readNbt(imbuementsNbt);
         imbuements.energy += energy;
         imbuements.energy = Math.min(imbuements.energy, MAX_ENERGY);
         imbuements.count++;
         imbuements.itemsUsed.addAll(itemsUsed);
-        imbuements.write(imbuementsNbt);
+        imbuements.writeNbt(imbuementsNbt);
         nbt.put(Imbuements.KEY, imbuementsNbt);
     }
 
@@ -83,16 +85,25 @@ public interface AbyssalToken {
             double value = (positive / (float) MAX_ENERGY) * revelation.abyssalite.max;
             // TODO modify this when converting to logarithmic system
             UUID uuid = UUID.fromString("5bf752ea-56f2-11ed-9b6a-0242ac120002");
+            EquipmentSlot slot = Warpath.getSlot(base);
+            // TODO: consider modifying the existing modifier's value?
             EntityAttributeModifier modifier = new EntityAttributeModifier(
-                    uuid, "Abyssal token modifier", value,
-                    EntityAttributeModifier.Operation.ADDITION
+                    uuid, "Abyssal token modifier", value / 4.0,
+                    revelation.attribute.operation
             );
-            // TODO: apply new attribute
-            NbtCompound nbt = Warpath.getData(base);
-            if (nbt != null) {
-                nbt.putString("AppliedToken", Registry.ITEM.getId(tokenStack.getItem()).toString());
+            base.addAttributeModifier(revelation.attribute.value, modifier, slot);
+            // TODO: make this better
+            EntityAttributeModifier newModifier = new EntityAttributeModifier(
+                    uuid, "Abyssal token bonus modifier", value,
+                    revelation.abyssalite.attribute.operation
+            );
+            base.addAttributeModifier(revelation.abyssalite.attribute.value, newModifier, slot);
+            NbtCompound nbt = base.getOrCreateNbt();
+            WarpathData data = Warpath.getData(base);
+            if (data != null) {
+                data.appliedToken = Registry.ITEM.getId(tokenStack.getItem());
+                data.writeNbt(nbt.getCompound(WarpathData.KEY));
             }
-            base.addAttributeModifier(token.getRevelation().attribute, modifier, Warpath.getSlot(base));
             // TODO: Apply negative attribute value
         }
     }

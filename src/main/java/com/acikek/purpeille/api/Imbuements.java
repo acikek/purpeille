@@ -38,14 +38,14 @@ public class Imbuements {
         return itemsUsed;
     }
 
-    public static Imbuements read(NbtCompound nbt) {
+    public static Imbuements readNbt(NbtCompound nbt) {
         int energy = readEnergy(nbt);
         int count = nbt.getInt("Count");
         Set<Item> itemsUsed = readItemsUsed(nbt);
         return new Imbuements(energy, count, itemsUsed);
     }
 
-    public void write(NbtCompound nbt) {
+    public void writeNbt(NbtCompound nbt) {
         nbt.putInt("SpiritualEnergy", energy);
         nbt.putInt("Count", count);
         NbtList items = new NbtList();
