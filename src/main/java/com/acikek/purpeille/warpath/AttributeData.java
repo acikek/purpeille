@@ -1,6 +1,8 @@
 package com.acikek.purpeille.warpath;
 
+import com.acikek.purpeille.attribute.ModAttributes;
 import com.google.gson.JsonObject;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.network.PacketByteBuf;
@@ -8,15 +10,20 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 
+import java.util.Map;
+import java.util.UUID;
+
 public class AttributeData {
 
     public EntityAttribute value;
     public Identifier id;
     public EntityAttributeModifier.Operation operation;
+    public Map<EquipmentSlot, UUID> uuids;
 
     public AttributeData(Identifier id, boolean multiply) {
         this.id = id;
         operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
+        uuids = ModAttributes.getEquipmentSlotUUIDs(id.toString());
     }
 
     public boolean finishReload() {

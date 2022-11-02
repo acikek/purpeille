@@ -102,9 +102,9 @@ public class Warpath {
      * Use {@link Warpath#add(ItemStack, Revelation, Aspect)} to add a full warpath.
      */
     public static void addModifiers(ItemStack stack, Revelation revelation, Aspect aspect) {
-        EntityAttributeModifier modifier = revelation.getModifier(stack, aspect);
         EquipmentSlot slot = getSlot(stack);
         if (slot != null) {
+            EntityAttributeModifier modifier = revelation.getModifier(stack, slot, aspect);
             stack.addAttributeModifier(revelation.attribute.value, modifier, slot);
         }
     }

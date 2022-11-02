@@ -2,8 +2,11 @@ package com.acikek.purpeille.warpath.component;
 
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.api.AbyssalToken;
+import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.warpath.*;
 import com.google.gson.JsonObject;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,13 +18,15 @@ import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
+import org.apache.commons.lang3.EnumUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Revelation extends Component {
 
-    public static UUID WARPATH_ID = UUID.fromString("2c67c058-5d5e-4b39-98e3-b3eb9965f7eb");
     public static int RITE_RGB = 13421772;
     public static Identifier FINISH_RELOAD = Purpeille.id("revelation_finish_reload");
 
@@ -112,10 +117,10 @@ public class Revelation extends Component {
         return value * aspect.modifier * Synergy.getSynergy(this, aspect).modifier;
     }
 
-    public EntityAttributeModifier getModifier(ItemStack stack, Aspect aspect) {
+    public EntityAttributeModifier getModifier(ItemStack stack, EquipmentSlot slot, Aspect aspect) {
         double value = getModifierValue(stack, aspect);
         double adjusted = forceInt ? (int) value : value;
-        return new EntityAttributeModifier(WARPATH_ID, "Warpath modifier", adjusted, attribute.operation);
+        return new EntityAttributeModifier(attribute.uuids.get(slot), "Warpath modifier", adjusted, attribute.operation);
     }
 
     public static class Builder extends Aspect.Builder {

@@ -1,12 +1,17 @@
 package com.acikek.purpeille.attribute;
 
 import com.acikek.purpeille.Purpeille;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
+import org.apache.commons.lang3.EnumUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class ModAttributes {
 
@@ -25,6 +30,7 @@ public class ModAttributes {
     public static final EntityAttribute GENERIC_ABYSSAL_ALLEGIANCE = new ClampedEntityAttribute("attribute.name.generic_abyssal_allegiance", 0.0, 0.0, 1024.0);
 
     public static Map<String, EntityAttribute> ATTRIBUTES = new LinkedHashMap<>();
+    public static final Map<EquipmentSlot, UUID> ABYSSAL_ALLEGIANCE_UUIDS = getEquipmentSlotUUIDs("generic.abyssal_allegiance");
 
     static {
         ATTRIBUTES.put("generic.mining_experience", GENERIC_MINING_EXPERIENCE);
@@ -46,5 +52,14 @@ public class ModAttributes {
         for (Map.Entry<String, EntityAttribute> pair : ATTRIBUTES.entrySet()) {
             Registry.register(Registry.ATTRIBUTE, Purpeille.id(pair.getKey()), pair.getValue());
         }
+    }
+
+    public static Map<EquipmentSlot, UUID> getEquipmentSlotUUIDs(String id) {
+        return EnumUtils.getEnumList(EquipmentSlot.class).stream()
+                .map(slot -> {
+                    String newId = id + "_" + slot.getName();
+                    return new Pair<>(slot, UUID.nameUUIDFromBytes(newId.getBytes()));
+                })
+                .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
     }
 }
