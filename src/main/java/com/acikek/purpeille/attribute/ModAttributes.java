@@ -22,6 +22,7 @@ public class ModAttributes {
     public static final EntityAttribute GENERIC_CRITICAL_DAMAGE = new ClampedEntityAttribute("attribute.name.generic_critical_damage", 1.0, 0.0, 16.0).setTracked(true);
     public static final EntityAttribute GENERIC_AIR_VELOCITY = new ClampedEntityAttribute("attribute.name.generic_air_velocity", 1.0, 0.0, 16.0).setTracked(true);
     public static final EntityAttribute GENERIC_SWIMMING_RESPIRATION = new ClampedEntityAttribute("attribute.name.generic_swimming_respiration", 1.0, 0.0, 16.0).setTracked(true);
+    public static final EntityAttribute GENERIC_ABYSSAL_ALLEGIANCE = new ClampedEntityAttribute("attribute.name.generic_abyssal_allegiance", 0.0, 0.0, 1024.0);
 
     public static Map<String, EntityAttribute> ATTRIBUTES = new LinkedHashMap<>();
 
@@ -38,6 +39,7 @@ public class ModAttributes {
         ATTRIBUTES.put("generic.critical_damage", GENERIC_CRITICAL_DAMAGE);
         ATTRIBUTES.put("generic.air_velocity", GENERIC_AIR_VELOCITY);
         ATTRIBUTES.put("generic.swimming_respiration", GENERIC_SWIMMING_RESPIRATION);
+        ATTRIBUTES.put("generic.abyssal_allegiance", GENERIC_ABYSSAL_ALLEGIANCE);
     }
 
     public static void register() {

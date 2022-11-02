@@ -17,20 +17,12 @@ public class StatusEffectMixin {
     private static LivingEntity purpeille$target;
 
     @Inject(method = "applyUpdateEffect", at = @At(value = "HEAD"))
-    private void purpeille$applyPoisonResistance(LivingEntity entity, int amplifier, CallbackInfo ci) {
+    private void purpeille$captureTarget(LivingEntity entity, int amplifier, CallbackInfo ci) {
         purpeille$target = entity;
     }
 
-    @ModifyArg(
-            method = "applyUpdateEffect",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z",
-                    ordinal = 0
-            ),
-            index = 1
-    )
-    private float purpeille$applyPoisonResistanceNew(float amount) {
+    @ModifyArg(method = "applyUpdateEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 0), index = 1)
+    private float purpeille$applyPoisonResistance(float amount) {
         if ((Object) this == StatusEffects.POISON) {
             EntityAttributeInstance instance = purpeille$target.getAttributeInstance(ModAttributes.GENERIC_POISON_RESISTANCE);
             if (instance != null) {
