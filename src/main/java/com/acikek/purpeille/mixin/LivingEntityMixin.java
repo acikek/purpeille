@@ -24,6 +24,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -65,13 +66,18 @@ public abstract class LivingEntityMixin {
         }
     }
 
-    @ModifyVariable(
-            method = "travel", ordinal = 1,
-            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getDepthStrider(Lnet/minecraft/entity/LivingEntity;)I")
-    )
+    @ModifyVariable(method = "travel", ordinal = 1,
+                    at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getDepthStrider(Lnet/minecraft/entity/LivingEntity;)I"))
     private float purpeille$applyWaterSpeed(float g) {
         EntityAttributeInstance instance = getAttributeInstance(ModAttributes.GENERIC_WATER_SPEED);
         return instance != null ? g * (float) instance.getValue() : g;
+    }
+
+    @Redirect(method = "getMovementSpeed(F)F",
+              at = @At(value = "FIELD", target = "Lnet/minecraft/entity/LivingEntity;airStrafingSpeed:F"))
+    private float purpeille$applyAirVelocity(LivingEntity instance) {
+        EntityAttributeInstance attributeInstance = getAttributeInstance(ModAttributes.GENERIC_AIR_VELOCITY);
+        return instance.airStrafingSpeed * (attributeInstance != null ? (float) attributeInstance.getValue() : 1.0f);
     }
 
     public int getArmorPieces() {
