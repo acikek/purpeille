@@ -82,6 +82,8 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     }
 
     public static ActionResult tryImbue(World world, BlockPos pos, ItemStack stack, AbyssalToken token) {
+        // TODO: Refine these values
+        // TODO: Remove debug statements
         // Find all altar blocks on the same x and z axis as this block.
         List<Pair<BlockPos, Integer>> altars = findAltars(world, pos);
         // If there aren't any, the imbuement fails.

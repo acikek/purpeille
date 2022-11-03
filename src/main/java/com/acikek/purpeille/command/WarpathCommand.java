@@ -1,11 +1,13 @@
 package com.acikek.purpeille.command;
 
+import com.acikek.purpeille.api.AbyssalToken;
 import com.acikek.purpeille.warpath.component.Type;
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
@@ -31,17 +33,24 @@ public class WarpathCommand {
     public static final String NAME = "warpath";
 
     public static final MutableText INVALID_WARPATH = getMessage("invalid.warpath", null);
+    public static final MutableText INVALID_ENERGY = getMessage("invalid.energy", null);
     public static final DynamicCommandExceptionType INVALID_STACK = getException("invalid.stack");
 
     public static final String ADD_SUCCESS = "success.add";
     public static final String REMOVE_SUCCESS = "success.remove";
 
-    public static int add(CommandContext<ServerCommandSource> context, boolean hasAspect) throws CommandSyntaxException {
+    public static int add(CommandContext<ServerCommandSource> context, boolean hasAspect, boolean hasEnergy) throws CommandSyntaxException {
         Revelation revelation = parseComponent(context, Type.REVELATION, Component.REVELATIONS);
         Aspect aspect = hasAspect ? parseComponent(context, Type.ASPECT, Component.ASPECTS) : null;
         ItemStack stack = getStack(context);
         Warpath.remove(stack);
         Warpath.add(stack, revelation, hasAspect ? aspect : null);
+        if (hasEnergy) {
+            if (revelation.abyssalite == null) {
+                throw new SimpleCommandExceptionType(INVALID_ENERGY).create();
+            }
+            AbyssalToken.apply(stack, revelation, IntegerArgumentType.getInteger(context, "energy"), revelation.abyssalite.token);
+        }
         context.getSource().sendFeedback(getMessage(ADD_SUCCESS, Warpath.getTooltip(revelation, aspect, false, false).get(0)), false);
         return 0;
     }
@@ -97,8 +106,10 @@ public class WarpathCommand {
                                         .suggests((context, builder) -> suggestRegistry(Component.REVELATIONS, builder))
                                         .then(CommandManager.argument("aspect", IdentifierArgumentType.identifier())
                                                 .suggests(((context, builder) -> suggestRegistry(Component.ASPECTS, builder)))
-                                                .executes(context -> WarpathCommand.add(context, true)))
-                                        .executes(context -> WarpathCommand.add(context, false))
+                                                .then(CommandManager.argument("energy", IntegerArgumentType.integer(0, 100))
+                                                        .executes(context -> WarpathCommand.add(context, true, true)))
+                                                .executes(context -> WarpathCommand.add(context, true, false)))
+                                        .executes(context -> WarpathCommand.add(context, false, false))
                                 ))
                         .then(CommandManager.literal("remove")
                                 .executes(WarpathCommand::remove)))

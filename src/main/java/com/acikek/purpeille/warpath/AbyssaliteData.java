@@ -41,8 +41,9 @@ public class AbyssaliteData {
     public Map<Ingredient, Pair<Float, Effect>> modifiers;
     public AttributeData attribute;
     public float max;
+    public float baseBonus;
 
-    public AbyssaliteData(Item token, Map<Ingredient, Float> modifiers, AttributeData attribute, float max) {
+    public AbyssaliteData(Item token, Map<Ingredient, Float> modifiers, AttributeData attribute, float max, float baseBonus) {
         this.token = token;
         Map<Ingredient, Pair<Float, Effect>> withEffect = new HashMap<>();
         Collection<Float> values = modifiers.values();
@@ -55,6 +56,7 @@ public class AbyssaliteData {
         this.modifiers = withEffect;
         this.attribute = attribute;
         this.max = max;
+        this.baseBonus = baseBonus;
     }
 
     public Pair<Float, Effect> getModifier(ItemStack stack) {
@@ -91,7 +93,8 @@ public class AbyssaliteData {
         Map<Ingredient, Float> modifiers = modifiersFromJson(JsonHelper.getArray(obj, "modifiers"));
         AttributeData attribute = AttributeData.fromJson(JsonHelper.getObject(obj, "attribute"));
         float max = JsonHelper.getFloat(obj, "max");
-        return new AbyssaliteData(token, modifiers, attribute, max);
+        float baseBonus = JsonHelper.getFloat(obj, "base_bonus");
+        return new AbyssaliteData(token, modifiers, attribute, max, baseBonus);
     }
 
     public static AbyssaliteData read(PacketByteBuf buf) {
@@ -105,7 +108,8 @@ public class AbyssaliteData {
                 .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
         AttributeData attribute = AttributeData.read(buf);
         float max = buf.readFloat();
-        return new AbyssaliteData(token, modifiers, attribute, max);
+        float baseBonus = buf.readFloat();
+        return new AbyssaliteData(token, modifiers, attribute, max, baseBonus);
     }
 
     public void write(PacketByteBuf buf) {
@@ -118,5 +122,6 @@ public class AbyssaliteData {
             byteBuf.writeFloat(pair.getRight());
         });
         buf.writeFloat(max);
+        buf.writeFloat(baseBonus);
     }
 }
