@@ -43,6 +43,9 @@ public class SmithingScreenHandlerMixin {
     @Inject(method = "updateResult", cancellable = true, at = @At("HEAD"))
     private void purpeille$applyAbyssalToken(CallbackInfo ci) {
         ForgingScreenHandler screen = ((ForgingScreenHandler) (Object) this);
+        if (screen.input.getStack(0).isEmpty()) {
+            return;
+        }
         if (screen.input.getStack(1).getItem() instanceof AbyssalToken token && token.isAbyssalToken()) {
             ItemStack baseStack = screen.input.getStack(0);
             ItemStack outputStack = baseStack.copy();
