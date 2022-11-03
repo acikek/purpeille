@@ -26,7 +26,7 @@ public class ModAttributes {
     public static final EntityAttribute GENERIC_REGENERATION_CHANCE = new ClampedEntityAttribute("attribute.name.generic_regeneration_chance", 0.0, 0.0, 1.0).setTracked(true);
     public static final EntityAttribute GENERIC_MINING_CONTINUATION_EFFICIENCY = new ClampedEntityAttribute("attribute.name.generic_mining_continuation_efficiency", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_POTION_USED_POTENCY = new ClampedEntityAttribute("attribute.name.generic_potion_used_potency", 1.0, 0.0, 1024.0).setTracked(true);
-    public static final EntityAttribute GENERIC_CRITICAL_DAMAGE = new ClampedEntityAttribute("attribute.name.generic_critical_damage", 1.0, 0.0, 1024.0).setTracked(true);
+    public static final EntityAttribute GENERIC_CRITICAL_DAMAGE = new ClampedEntityAttribute("attribute.name.generic_critical_damage", 0.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_AIR_VELOCITY = new ClampedEntityAttribute("attribute.name.generic_air_velocity", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_SWIMMING_RESPIRATION = new ClampedEntityAttribute("attribute.name.generic_swimming_respiration", 0.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_ABYSSAL_ALLEGIANCE = new ClampedEntityAttribute("attribute.name.generic_abyssal_allegiance", 0.0, 0.0, 1024.0);

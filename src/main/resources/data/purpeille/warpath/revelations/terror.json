@@ -6,18 +6,31 @@
   },
   "index": 2,
   "modifier": 2.0,
-  "attribute": "minecraft:generic.attack_damage",
+  "attribute": {
+    "id": "minecraft:generic.attack_damage",
+    "multiply": false
+  },
   "affinity": {
     "item": "purpeille:purpeille_sword"
   },
   "synergy": {
     "purpeille:deathly": "identical"
   },
-  "multiply": false,
   "abyssalite": {
     "token": "purpeille:syndicalists_skull",
-    "modifiers": {
-
-    }
+    "modifiers": [
+      {
+        "item": {
+          "item": "minecraft:iron_sword"
+        },
+        "modifier": 1.1
+      }
+    ],
+    "attribute": {
+      "id": "purpeille:generic.critical_damage",
+      "multiply": false
+    },
+    "max": 3.0,
+    "base_bonus": 1.0
   }
 }

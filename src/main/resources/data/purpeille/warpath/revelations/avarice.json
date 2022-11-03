@@ -6,14 +6,16 @@
   },
   "index": 0,
   "modifier": 1.0,
-  "attribute": "purpeille:generic.mining_experience",
+  "attribute": {
+    "id": "purpeille:generic.mining_experience",
+    "multiply": false
+  },
   "affinity": {
     "item": "purpeille:purpeille_pickaxe"
   },
   "synergy": {
     "purpeille:terran": "identical"
   },
-  "multiply": false,
   "abyssalite": {
     "token": "purpeille:token_of_tatemo",
     "modifiers": [
@@ -24,6 +26,11 @@
         "modifier": 2.0
       }
     ],
+    "attribute": {
+      "id": "purpeille:generic.mining_continuation_efficiency",
+      "multiply": true
+    },
+    "base_bonus": 0.5,
     "max": 4.0
   }
 }

@@ -6,18 +6,31 @@
   },
   "index": 0,
   "modifier": 0.2,
-  "attribute": "minecraft:generic.knockback_resistance",
+  "attribute": {
+    "id": "minecraft:generic.knockback_resistance",
+    "multiply": true
+  },
   "affinity": {
     "item": "purpeille:purpeille_helmet"
   },
   "synergy": {
     "purpeille:virtuous": "identical"
   },
-  "multiply": true,
   "abyssalite": {
     "token": "purpeille:shield_of_avak",
-    "modifiers": {
-
-    }
+    "modifiers": [
+      {
+        "item": {
+          "item": "minecraft:netherite_ingot"
+        },
+        "modifier": 3.5
+      }
+    ],
+    "attribute": {
+      "id": "purpeille:generic.attacker_knockback_chance",
+      "multiply": true
+    },
+    "max": 1.0,
+    "base_bonus": 0.075
   }
 }

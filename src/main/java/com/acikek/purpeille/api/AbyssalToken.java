@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 
@@ -94,7 +93,7 @@ public interface AbyssalToken {
         // Calculate all the values from the stored energy
         int positive = getPositiveValue(energy);
         int negative = getNegativeValue(energy);
-        double proportion = positive / (float) MAX_ENERGY;
+        double proportion = positive / 70.0f;
         // Add a small bonus to the existing Warpath modifier
         modifyExistingModifier(stack, revelation, proportion * revelation.abyssalite.baseBonus);
         EquipmentSlot slot = Warpath.getSlot(stack);

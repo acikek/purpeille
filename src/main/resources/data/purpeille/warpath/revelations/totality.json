@@ -6,18 +6,31 @@
   },
   "index": 2,
   "modifier": 2.0,
-  "attribute": "minecraft:generic.max_health",
+  "attribute": {
+    "id": "minecraft:generic.max_health",
+    "multiply": false
+  },
   "affinity": {
     "item": "purpeille:purpeille_chestplate"
   },
   "synergy": {
     "purpeille:heroic": "identical"
   },
-  "multiply": false,
   "abyssalite": {
-    "token": "voided_heart",
-    "modifiers": {
-
-    }
+    "token": "purpeille:voided_heart",
+    "modifiers": [
+      {
+        "item": {
+          "item": "minecraft:apple"
+        },
+        "modifier": 1.2
+      }
+    ],
+    "attribute": {
+      "id": "purpeille:generic.regeneration_chance",
+      "multiply": true
+    },
+    "max": 1.0,
+    "base_bonus": 2.0
   }
 }

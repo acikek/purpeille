@@ -6,14 +6,16 @@
   },
   "index": 0,
   "modifier": 0.25,
-  "attribute": "purpeille:generic.jump_boost",
+  "attribute": {
+    "id": "purpeille:generic.jump_boost",
+    "multiply": true
+  },
   "affinity": {
     "item": "purpeille:purpeille_shovel"
   },
   "synergy": {
     "purpeille:limitless": "identical"
   },
-  "multiply": true,
   "abyssalite": {
     "token": "purpeille:dwellers_sole",
     "modifiers": [
@@ -24,21 +26,36 @@
         "modifier": 0.7
       },
       {
-        "item": "minecraft:rabbit_hide",
+        "item": {
+          "item": "minecraft:rabbit_hide"
+        },
         "modifier": 1.1
       },
       {
-        "item": "minecraft:leather",
+        "item": {
+          "item": "minecraft:leather"
+        },
         "modifier": 1.2
       },
       {
-        "item": "minecraft:rabbit_foot",
+        "item": {
+          "item": "minecraft:rabbit_foot"
+        },
         "modifier": 1.4
       },
       {
-        "item": "minecraft:diamond",
+        "item": {
+          "item": "minecraft:diamond"
+        },
         "modifier": 1.5
       }
-    ]
+    ],
+    "attribute": {
+      "id": "stepheightentityattribute:stepheight",
+      "multiply": false,
+      "force_int": true
+    },
+    "max": 2.5,
+    "base_bonus": 0.4
   }
 }

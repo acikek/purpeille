@@ -18,11 +18,13 @@ public class AttributeData {
     public EntityAttribute value;
     public Identifier id;
     public EntityAttributeModifier.Operation operation;
+    public boolean forceInt;
     public Map<EquipmentSlot, UUID> uuids;
 
-    public AttributeData(Identifier id, boolean multiply) {
+    public AttributeData(Identifier id, boolean multiply, boolean forceInt) {
         this.id = id;
         operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
+        this.forceInt = forceInt;
         uuids = ModAttributes.getEquipmentSlotUUIDMap(id.toString());
     }
 
@@ -32,19 +34,22 @@ public class AttributeData {
     }
 
     public EntityAttributeModifier getModifier(EquipmentSlot slot, String name, double value) {
-        return new EntityAttributeModifier(uuids.get(slot), name, value, operation);
+        double adjusted = forceInt ? (int) value : value;
+        return new EntityAttributeModifier(uuids.get(slot), name, adjusted, operation);
     }
 
     public static AttributeData fromJson(JsonObject obj) {
-        Identifier id = Identifier.tryParse(JsonHelper.getString(obj, "id"));
+        Identifier id = new Identifier(JsonHelper.getString(obj, JsonHelper.hasString(obj, "attribute") ? "attribute" : "id"));
         boolean multiply = JsonHelper.getBoolean(obj, "multiply");
-        return new AttributeData(id, multiply);
+        boolean forceInt = JsonHelper.getBoolean(obj, "force_int", false);
+        return new AttributeData(id, multiply, forceInt);
     }
 
     public static AttributeData read(PacketByteBuf buf) {
         Identifier id = buf.readIdentifier();
         boolean operation = buf.readBoolean();
-        return new AttributeData(id, operation);
+        boolean forceInt = buf.readBoolean();
+        return new AttributeData(id, operation, forceInt);
     }
 
     public void write(PacketByteBuf buf) {

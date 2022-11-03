@@ -6,18 +6,31 @@
   },
   "index": 1,
   "modifier": 12.0,
-  "attribute": "purpeille:generic.poison_resistance",
+  "attribute": {
+    "id": "purpeille:generic.poison_resistance",
+    "multiply": false
+  },
   "affinity": {
     "item": "purpeille:purpeille_hoe"
   },
   "synergy": {
     "purpeille:shocking": "identical"
   },
-  "multiply": false,
   "abyssalite": {
     "token": "purpeille:corrupted_fruit",
-    "modifiers": {
-
-    }
+    "modifiers": [
+      {
+        "item": {
+          "item": "minecraft:poisonous_potato"
+        },
+        "modifier": 1.4
+      }
+    ],
+    "attribute": {
+      "id": "purpeille:generic.potion_used_potency",
+      "multiply": true
+    },
+    "max": 0.7,
+    "base_bonus": 6.0
   }
 }

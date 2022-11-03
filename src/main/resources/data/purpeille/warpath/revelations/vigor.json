@@ -6,7 +6,10 @@
   },
   "index": 1,
   "modifier": 0.15,
-  "attribute": "minecraft:generic.attack_speed",
+  "attribute": {
+    "id": "minecraft:generic.attack_speed",
+    "multiply": true
+  },
   "affinity": {
     "item": "purpeille:purpeille_axe"
   },
@@ -14,11 +17,27 @@
     "purpeille:excess": "identical"
   },
   "dye_color": 14,
-  "multiply": true,
   "abyssalite": {
     "token": "purpeille:vibrant_pyroclast",
-    "modifiers": {
-
-    }
+    "modifiers": [
+      {
+        "item": {
+          "item": "purpeille:metallic_lightning"
+        },
+        "modifier": 1.7
+      },
+      {
+        "item": {
+          "item": "minecraft:lightning_rod"
+        },
+        "modifier": 1.5
+      }
+    ],
+    "attribute": {
+      "id": "purpeille:generic.attack_pull",
+      "multiply": true
+    },
+    "max": 1.0,
+    "base_bonus": 0.10
   }
 }
