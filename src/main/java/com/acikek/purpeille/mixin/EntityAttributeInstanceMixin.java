@@ -1,8 +1,6 @@
 package com.acikek.purpeille.mixin;
 
 import com.acikek.purpeille.attribute.ModAttributes;
-import com.acikek.purpeille.warpath.component.Component;
-import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -39,25 +37,10 @@ public abstract class EntityAttributeInstanceMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void purpeille$checkIsRevelationAttribute(EntityAttribute type, Consumer<?> updateCallback, CallbackInfo ci) {
-        Map<EquipmentSlot, UUID> uuidMap = purpeille$getUUIDMap(type);
+        Map<EquipmentSlot, UUID> uuidMap = ModAttributes.getUUIDMap(type);
         if (uuidMap != null) {
             purpeille$uuids = uuidMap.values();
         }
-    }
-
-    private static Map<EquipmentSlot, UUID> purpeille$getUUIDMap(EntityAttribute attribute) {
-        if (attribute == ModAttributes.GENERIC_ABYSSAL_ALLEGIANCE) {
-            return ModAttributes.ABYSSAL_ALLEGIANCE_UUIDS;
-        }
-        for (Revelation revelation : Component.REVELATIONS.values()) {
-            if (attribute == revelation.attribute.value) {
-                return revelation.attribute.uuids;
-            }
-            if (revelation.abyssalite != null && attribute == revelation.abyssalite.attribute.value) {
-                return revelation.abyssalite.attribute.uuids;
-            }
-        }
-        return null;
     }
 
     @Inject(method = "onUpdate", at = @At("HEAD"))

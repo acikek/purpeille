@@ -23,12 +23,16 @@ public class AttributeData {
     public AttributeData(Identifier id, boolean multiply) {
         this.id = id;
         operation = multiply ? EntityAttributeModifier.Operation.MULTIPLY_TOTAL : EntityAttributeModifier.Operation.ADDITION;
-        uuids = ModAttributes.getEquipmentSlotUUIDs(id.toString());
+        uuids = ModAttributes.getEquipmentSlotUUIDMap(id.toString());
     }
 
     public boolean finishReload() {
         value = Registry.ATTRIBUTE.get(id);
         return value != null;
+    }
+
+    public EntityAttributeModifier getModifier(EquipmentSlot slot, String name, double value) {
+        return new EntityAttributeModifier(uuids.get(slot), name, value, operation);
     }
 
     public static AttributeData fromJson(JsonObject obj) {

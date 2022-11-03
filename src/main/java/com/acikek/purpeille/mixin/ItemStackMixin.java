@@ -5,7 +5,6 @@ import com.google.common.collect.Multimap;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;

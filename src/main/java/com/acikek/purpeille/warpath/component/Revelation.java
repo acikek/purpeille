@@ -120,7 +120,7 @@ public class Revelation extends Component {
     public EntityAttributeModifier getModifier(ItemStack stack, EquipmentSlot slot, Aspect aspect) {
         double value = getModifierValue(stack, aspect);
         double adjusted = forceInt ? (int) value : value;
-        return new EntityAttributeModifier(attribute.uuids.get(slot), "Warpath modifier", adjusted, attribute.operation);
+        return attribute.getModifier(slot, "Warpath modifier", adjusted);
     }
 
     public static class Builder extends Aspect.Builder {
