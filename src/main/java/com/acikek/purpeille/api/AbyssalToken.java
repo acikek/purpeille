@@ -96,7 +96,7 @@ public interface AbyssalToken {
         double proportion = positive / 70.0f;
         // Add a small bonus to the existing Warpath modifier
         modifyExistingModifier(stack, revelation, proportion * revelation.abyssalite.baseBonus);
-        EquipmentSlot slot = Warpath.getSlot(stack);
+        EquipmentSlot slot = Warpath.getSlot(stack, revelation.abyssalite.attribute);
         // Add the abyssal token modifier
         EntityAttributeModifier modifier = revelation.abyssalite.attribute.getModifier(slot, "Abyssal token modifier", proportion * revelation.abyssalite.max);
         stack.addAttributeModifier(revelation.abyssalite.attribute.value, modifier, slot);

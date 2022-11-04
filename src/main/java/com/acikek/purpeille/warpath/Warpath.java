@@ -83,11 +83,15 @@ public class Warpath {
 
     /**
      * Returns the slot in which the warpath should activate.
+     * If the specified {@link AttributeData} has a {@link AttributeData#slot}, returns it.
      * For tools, returns {@link EquipmentSlot#MAINHAND}.
      * For armor, returns its corresponding slot type.
      * Otherwise, returns {@code null}.
      */
-    public static EquipmentSlot getSlot(ItemStack stack) {
+    public static EquipmentSlot getSlot(ItemStack stack, AttributeData attribute) {
+        if (attribute.slot != null) {
+            return attribute.slot;
+        }
         if (stack.getItem() instanceof ToolItem) {
             return EquipmentSlot.MAINHAND;
         }
@@ -102,7 +106,7 @@ public class Warpath {
      * Use {@link Warpath#add(ItemStack, Revelation, Aspect)} to add a full warpath.
      */
     public static void addModifiers(ItemStack stack, Revelation revelation, Aspect aspect) {
-        EquipmentSlot slot = getSlot(stack);
+        EquipmentSlot slot = getSlot(stack, revelation.attribute);
         if (slot != null) {
             EntityAttributeModifier modifier = revelation.getModifier(stack, slot, aspect);
             stack.addAttributeModifier(revelation.attribute.value, modifier, slot);

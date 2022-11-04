@@ -8,6 +8,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import org.apache.commons.lang3.EnumUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -94,7 +95,7 @@ public class Aspect extends Component {
 
     public static Aspect fromJson(JsonObject obj, Identifier id) {
         return new Builder()
-                .tone(enumFromJson(obj.get("tone"), Tone::valueOf, "tone"))
+                .tone(EnumUtils.getEnumIgnoreCase(Tone.class, JsonHelper.getString(obj, "tone")))
                 .color(ClampedColor.colorFromJson(obj.get("color")))
                 .catalyst(Ingredient.fromJson(obj.get("catalyst")))
                 .index(JsonHelper.getInt(obj, "index", -1))

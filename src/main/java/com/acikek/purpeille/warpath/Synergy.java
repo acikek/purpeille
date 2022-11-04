@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
+import org.apache.commons.lang3.EnumUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,7 +63,7 @@ public enum Synergy {
         Map<Identifier, Synergy> result = new HashMap<>();
         for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
             Identifier id = Identifier.tryParse(entry.getKey());
-            Synergy synergy = Component.enumFromJson(entry.getValue(), Synergy::valueOf, "synergy");
+            Synergy synergy = EnumUtils.getEnumIgnoreCase(Synergy.class, entry.getValue().getAsString());
             result.put(id, synergy);
         }
         return result;

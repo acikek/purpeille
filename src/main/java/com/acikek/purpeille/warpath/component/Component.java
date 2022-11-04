@@ -90,16 +90,6 @@ public abstract class Component {
         return value + "." + id.getNamespace() + "." + id.getPath();
     }
 
-    public static <T extends Enum<T>> T enumFromJson(JsonElement element, Function<String, T> valueOf, String name) {
-        String key = element.getAsString();
-        try {
-            return valueOf.apply(key.toUpperCase());
-        }
-        catch (Exception e) {
-            throw new IllegalStateException("'" + key + "' is not a valid " + name);
-        }
-    }
-
     public static List<Identifier> whitelistFromJson(JsonObject obj) {
         JsonArray whitelistElements = JsonHelper.getArray(obj, "whitelist", null);
         if (whitelistElements == null) {

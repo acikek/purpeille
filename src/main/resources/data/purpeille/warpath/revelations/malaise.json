@@ -28,7 +28,8 @@
     ],
     "attribute": {
       "id": "purpeille:generic.potion_used_potency",
-      "multiply": true
+      "multiply": true,
+      "slot": "offhand"
     },
     "max": 0.7,
     "base_bonus": 6.0
