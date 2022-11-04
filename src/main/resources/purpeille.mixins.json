@@ -6,16 +6,20 @@
   "mixins": [
     "AbyssalTokenItemMixin",
     "BlockItemMixin",
-    "BlockMixin",
-    "EntityAttributeInstanceMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "ShearsDispenserBehaviorMixin",
     "SmithingScreenHandlerMixin",
     "StatusEffectInstanceAccessor",
-    "StatusEffectMixin",
-    "WarpathItemMixin"
+    "WarpathItemMixin",
+    "attribute.AttributeLivingEntityMixin",
+    "attribute.AttributePlayerEntityMixin",
+    "attribute.BlockMixin",
+    "attribute.EntityAttributeInstanceMixin",
+    "attribute.PotionEntityMixin",
+    "attribute.PotionItemMixin",
+    "attribute.StatusEffectMixin"
   ],
   "client": [
     "client.InGameHudMixin",

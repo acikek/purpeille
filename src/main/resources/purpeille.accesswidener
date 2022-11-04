@@ -5,8 +5,12 @@ accessible method net/minecraft/entity/damage/DamageSource setFire ()Lnet/minecr
 accessible method net/minecraft/block/Block spawnBreakParticles (Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V
 
 accessible field net/minecraft/util/math/Direction HORIZONTAL [Lnet/minecraft/util/math/Direction;
+
 accessible field net/minecraft/screen/ForgingScreenHandler input Lnet/minecraft/inventory/Inventory;
 accessible field net/minecraft/screen/ForgingScreenHandler output Lnet/minecraft/inventory/CraftingResultInventory;
+
+accessible field net/minecraft/entity/effect/StatusEffectInstance amplifier I
+accessible field net/minecraft/entity/effect/StatusEffectInstance duration I
 
 accessible field net/minecraft/client/gui/hud/InGameHud scaledWidth I
 accessible field net/minecraft/client/gui/hud/InGameHud scaledHeight I

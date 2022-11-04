@@ -1,4 +1,4 @@
-package com.acikek.purpeille.mixin;
+package com.acikek.purpeille.mixin.attribute;
 
 import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.tag.ModTags;

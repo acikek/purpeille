@@ -4,13 +4,17 @@ import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.EnumUtils;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,7 +22,7 @@ import java.util.stream.Collectors;
 public class ModAttributes {
 
     public static final EntityAttribute GENERIC_MINING_EXPERIENCE = new ClampedEntityAttribute("attribute.name.generic_mining_experience", 0.0, 0.0, 1024.0).setTracked(true);
-    public static final EntityAttribute GENERIC_POISON_RESISTANCE = new ClampedEntityAttribute("attribute.name.generic_poison_resistance", 1.0, 0.0, 1024.0).setTracked(true);
+    public static final EntityAttribute GENERIC_POISON_RESISTANCE = new ClampedEntityAttribute("attribute.name.generic_poison_resistance", 0.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_JUMP_BOOST = new ClampedEntityAttribute("attribute.name.generic_jump_boost", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_WATER_SPEED = new ClampedEntityAttribute("attribute.name.generic_water_speed", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_ATTACKER_KNOCKBACK_CHANCE = new ClampedEntityAttribute("attribute.name.generic_attacker_knockback_chance", 0.0, 0.0, 1.0).setTracked(true);
@@ -26,7 +30,7 @@ public class ModAttributes {
     public static final EntityAttribute GENERIC_REGENERATION_CHANCE = new ClampedEntityAttribute("attribute.name.generic_regeneration_chance", 0.0, 0.0, 1.0).setTracked(true);
     public static final EntityAttribute GENERIC_MINING_CONTINUATION_EFFICIENCY = new ClampedEntityAttribute("attribute.name.generic_mining_continuation_efficiency", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_POTION_USED_POTENCY = new ClampedEntityAttribute("attribute.name.generic_potion_used_potency", 1.0, 0.0, 1024.0).setTracked(true);
-    public static final EntityAttribute GENERIC_CRITICAL_DAMAGE = new ClampedEntityAttribute("attribute.name.generic_critical_damage", 0.0, 0.0, 1024.0).setTracked(true);
+    public static final EntityAttribute GENERIC_CRITICAL_DAMAGE = new ClampedEntityAttribute("attribute.name.generic_critical_damage", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_AIR_VELOCITY = new ClampedEntityAttribute("attribute.name.generic_air_velocity", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_SWIMMING_RESPIRATION = new ClampedEntityAttribute("attribute.name.generic_swimming_respiration", 0.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_ABYSSAL_ALLEGIANCE = new ClampedEntityAttribute("attribute.name.generic_abyssal_allegiance", 0.0, 0.0, 1024.0);
@@ -78,5 +82,16 @@ public class ModAttributes {
             }
         }
         return null;
+    }
+
+    public static void applyPotency(List<StatusEffectInstance> effects, LivingEntity livingEntity) {
+        EntityAttributeInstance instance = livingEntity.getAttributeInstance(GENERIC_POTION_USED_POTENCY);
+        if (instance == null || instance.getValue() == 1.0) {
+            return;
+        }
+        for (StatusEffectInstance effect : effects) {
+            effect.amplifier += (int) instance.getValue();
+            effect.duration *= instance.getValue();
+        }
     }
 }
