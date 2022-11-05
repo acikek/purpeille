@@ -43,7 +43,7 @@ public class AttributeData {
 
     public static AttributeData fromJson(JsonObject obj) {
         Identifier id = new Identifier(JsonHelper.getString(obj, JsonHelper.hasString(obj, "attribute") ? "attribute" : "id"));
-        EquipmentSlot slot = EnumUtils.getEnumIgnoreCase(EquipmentSlot.class, JsonHelper.getString(obj, "slot"));
+        EquipmentSlot slot = EnumUtils.getEnumIgnoreCase(EquipmentSlot.class, JsonHelper.getString(obj, "slot", null));
         boolean multiply = JsonHelper.getBoolean(obj, "multiply");
         boolean forceInt = JsonHelper.getBoolean(obj, "force_int", false);
         return new AttributeData(id, slot, multiply, forceInt);
