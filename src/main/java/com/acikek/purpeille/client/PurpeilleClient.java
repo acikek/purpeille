@@ -8,6 +8,7 @@ import com.acikek.purpeille.client.networking.AncientGuardianActivationListener;
 import com.acikek.purpeille.client.networking.VacuousBlastListener;
 import com.acikek.purpeille.client.particle.AncientGuardianParticle;
 import com.acikek.purpeille.client.particle.ModParticleTypes;
+import com.acikek.purpeille.client.particle.MonolithicPurpurParticles;
 import com.acikek.purpeille.client.render.AncientGuardianRenderer;
 import com.acikek.purpeille.client.render.AncientMessageHud;
 import com.acikek.purpeille.client.render.MonolithicPurpurRenderer;
@@ -53,6 +54,7 @@ public class PurpeilleClient implements ClientModInitializer {
         MonolithicPurpurRenderer.register();
         ModParticleTypes.register();
         AncientGuardianParticle.register();
+        MonolithicPurpurParticles.register();
         ClientTickEvents.START_WORLD_TICK.register(world -> rotationTick());
         registerReceivers();
         registerPacks();

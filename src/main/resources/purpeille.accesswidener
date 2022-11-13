@@ -1,8 +1,14 @@
 accessWidener v2 named
 
 accessible method net/minecraft/entity/damage/DamageSource <init> (Ljava/lang/String;)V
+
 accessible method net/minecraft/entity/damage/DamageSource setFire ()Lnet/minecraft/entity/damage/DamageSource;
 accessible method net/minecraft/block/Block spawnBreakParticles (Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V
+
+accessible method net/minecraft/client/particle/BlockLeakParticle <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/fluid/Fluid;)V
+accessible method net/minecraft/client/particle/BlockLeakParticle$Dripping <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/fluid/Fluid;Lnet/minecraft/particle/ParticleEffect;)V
+accessible method net/minecraft/client/particle/BlockLeakParticle$ContinuousFalling <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/fluid/Fluid;Lnet/minecraft/particle/ParticleEffect;)V
+accessible method net/minecraft/client/particle/BlockLeakParticle$Landing <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/fluid/Fluid;)V
 
 accessible field net/minecraft/util/math/Direction HORIZONTAL [Lnet/minecraft/util/math/Direction;
 
@@ -14,3 +20,10 @@ accessible field net/minecraft/entity/effect/StatusEffectInstance duration I
 
 accessible field net/minecraft/client/gui/hud/InGameHud scaledWidth I
 accessible field net/minecraft/client/gui/hud/InGameHud scaledHeight I
+
+accessible field net/minecraft/client/particle/Particle gravityStrength F
+accessible field net/minecraft/client/particle/Particle maxAge I
+
+accessible class net/minecraft/client/particle/BlockLeakParticle$Dripping
+accessible class net/minecraft/client/particle/BlockLeakParticle$ContinuousFalling
+accessible class net/minecraft/client/particle/BlockLeakParticle$Landing

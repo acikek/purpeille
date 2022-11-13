@@ -5,6 +5,7 @@ import com.acikek.purpeille.api.Imbuements;
 import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
+import com.acikek.purpeille.client.particle.ModParticleTypes;
 import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.sound.ModSoundEvents;
 import com.acikek.purpeille.warpath.AbyssaliteData;
@@ -16,6 +17,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -24,6 +26,7 @@ import net.minecraft.state.property.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -249,6 +252,24 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         Direction direction = ctx.getPlayer() != null && ctx.getPlayer().isSneaking() ? ctx.getSide().getOpposite() : ctx.getSide();
         return getDefaultState().with(FACING, direction);
+    }
+
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        if (state.get(FULL) && random.nextInt(5) == 0) {
+            world.addParticle(ModParticleTypes.DRIPPING_MONOLITHIC_RESIDUE, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 0.6, 0.0, 0.0);
+            /*Direction direction = Direction.random(random);
+            if (direction != Direction.UP) {
+                BlockPos blockPos = pos.offset(direction);
+                BlockState blockState = world.getBlockState(blockPos);
+                if (!state.isOpaque() || !blockState.isSideSolidFullSquare(world, blockPos, direction.getOpposite())) {
+                    double d = direction.getOffsetX() == 0 ? random.nextDouble() : 0.5 + (double)direction.getOffsetX() * 0.6;
+                    double e = direction.getOffsetY() == 0 ? random.nextDouble() : 0.5 + (double)direction.getOffsetY() * 0.6;
+                    double f = direction.getOffsetZ() == 0 ? random.nextDouble() : 0.5 + (double)direction.getOffsetZ() * 0.6;
+                    world.addParticle(ParticleTypes.DRIPPING_OBSIDIAN_TEAR, (double)pos.getX() + d, (double)pos.getY() + e, (double)pos.getZ() + f, 0.0, 0.0, 0.0);
+                }
+            }*/
+        }
     }
 
     @Override
