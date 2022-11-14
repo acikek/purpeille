@@ -12,10 +12,12 @@
     "ShearsDispenserBehaviorMixin",
     "SmithingScreenHandlerMixin",
     "WarpathItemMixin",
+    "attribute.AbyssalAllegianceLivingEntityMixin",
     "attribute.AttributeLivingEntityMixin",
     "attribute.AttributePlayerEntityMixin",
     "attribute.BlockMixin",
     "attribute.EntityAttributeInstanceMixin",
+    "attribute.MinecraftServerMixin",
     "attribute.PotionEntityMixin",
     "attribute.PotionItemMixin",
     "attribute.StatusEffectMixin"

@@ -189,6 +189,7 @@
   "command.purpeille.warpath.success.add": "Successfully added warpath [%s]",
   "command.purpeille.warpath.success.remove": "Successfully removed warpath [%s]",
   "tag.purpeille.mining_experience": "Mining Experience Blocks",
+  "tag.purpeille.abyssal_tribute": "Abyssal Tribute",
   "tag.purpeille.aspect_catalyst": "Aspect Catalysts",
   "tag.purpeille.revelation_catalyst": "Revelation Catalysts",
   "tag.purpeille.warpath_base": "Warpath Base Items",
