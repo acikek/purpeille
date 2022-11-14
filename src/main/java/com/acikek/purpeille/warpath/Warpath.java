@@ -2,7 +2,6 @@ package com.acikek.purpeille.warpath;
 
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Revelation;
-import com.acikek.purpeille.warpath.component.Type;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ArmorItem;
@@ -13,7 +12,6 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -114,35 +112,12 @@ public class Warpath {
     }
 
     /**
-     * Adds warpath data to an NBT compound based on component instances.
-     * @param aspect If {@code null}, does not append Aspect data.
-     */
-    public static void addData(NbtCompound nbt, Revelation revelation, Aspect aspect) {
-        Type.REVELATION.addNbt(nbt, revelation.id);
-        if (aspect != null) {
-            Type.ASPECT.addNbt(nbt, aspect.id);
-        }
-    }
-
-    /**
-     * Adds warpath data to an NBT compound based on component identifiers.<br>
-     * The identifiers should be included in their respective registries.
-     */
-    public static void addData(NbtCompound nbt, Identifier revelationId, Identifier aspectId) {
-        Revelation revelation = Revelation.REVELATIONS.get(revelationId);
-        if (revelation == null) {
-            return;
-        }
-        addData(nbt, revelation, Aspect.ASPECTS.get(aspectId));
-    }
-
-    /**
      * Adds a warpath to a stack.<br>
-     * Encodes Warpath data using {@link Warpath#addData(NbtCompound, Revelation, Aspect)} under the {@link WarpathData#KEY} key.
+     * Encodes Warpath data using {@link WarpathData#writeNbt(NbtCompound)} under the {@link WarpathData#KEY} key.
      */
     public static void add(ItemStack stack, Revelation revelation, Aspect aspect) {
         NbtCompound data = new NbtCompound();
-        addData(data, revelation, aspect);
+        new WarpathData(revelation.id, aspect != null ? aspect.id : null, null).writeNbt(data);
         NbtCompound stackNbt = stack.getOrCreateNbt();
         stackNbt.put(WarpathData.KEY, data);
         stackNbt.putInt(ETR_NBT_KEY, revelation.dyeColor);
