@@ -13,7 +13,7 @@ public class InGameHudMixin {
 
     @Inject(method = "renderCrosshair", cancellable = true, at = @At("HEAD"))
     private void purpeille$hideDuringAncientMessage(MatrixStack matrices, CallbackInfo ci) {
-        if (AncientMessageHud.ticks > 0) {
+        if (!AncientMessageHud.ticks.isEmpty()) {
             ci.cancel();
         }
     }

@@ -2,7 +2,6 @@ package com.acikek.purpeille.client.particle;
 
 import com.acikek.purpeille.Purpeille;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.registry.Registry;
@@ -24,7 +23,6 @@ public class ModParticleTypes {
         PARTICLES.put("falling_monolithic_residue", FALLING_MONOLITHIC_RESIDUE);
         PARTICLES.put("dripping_monolithic_residue", DRIPPING_MONOLITHIC_RESIDUE);
         PARTICLES.put("landing_monolithic_residue", LANDING_MONOLITHIC_RESIDUE);
-        PlayerEntityRenderer
     }
 
     public static void register() {
