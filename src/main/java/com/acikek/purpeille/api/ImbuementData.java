@@ -11,7 +11,7 @@ import net.minecraft.util.registry.Registry;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Imbuements {
+public class ImbuementData {
 
     public static final String KEY = "Imbuements";
 
@@ -19,7 +19,7 @@ public class Imbuements {
     public int count;
     public Set<Item> itemsUsed;
 
-    public Imbuements(int energy, int count, Set<Item> itemsUsed) {
+    public ImbuementData(int energy, int count, Set<Item> itemsUsed) {
         this.energy = energy;
         this.count = count;
         this.itemsUsed = itemsUsed;
@@ -38,11 +38,11 @@ public class Imbuements {
         return itemsUsed;
     }
 
-    public static Imbuements readNbt(NbtCompound nbt) {
+    public static ImbuementData readNbt(NbtCompound nbt) {
         int energy = readEnergy(nbt);
         int count = nbt.getInt("Count");
         Set<Item> itemsUsed = readItemsUsed(nbt);
-        return new Imbuements(energy, count, itemsUsed);
+        return new ImbuementData(energy, count, itemsUsed);
     }
 
     public void writeNbt(NbtCompound nbt) {

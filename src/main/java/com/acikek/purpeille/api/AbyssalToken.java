@@ -63,19 +63,19 @@ public interface AbyssalToken {
 
     static void imbue(ItemStack stack, int energy, Collection<Item> itemsUsed) {
         NbtCompound nbt = stack.getOrCreateNbt();
-        if (!nbt.contains(Imbuements.KEY)) {
+        if (!nbt.contains(ImbuementData.KEY)) {
             NbtCompound imbuements = new NbtCompound();
-            new Imbuements(energy, 1, new HashSet<>(itemsUsed)).writeNbt(imbuements);
-            nbt.put(Imbuements.KEY, imbuements);
+            new ImbuementData(energy, 1, new HashSet<>(itemsUsed)).writeNbt(imbuements);
+            nbt.put(ImbuementData.KEY, imbuements);
         }
-        NbtCompound imbuementsNbt = nbt.getCompound(Imbuements.KEY);
-        Imbuements imbuements = Imbuements.readNbt(imbuementsNbt);
+        NbtCompound imbuementsNbt = nbt.getCompound(ImbuementData.KEY);
+        ImbuementData imbuements = ImbuementData.readNbt(imbuementsNbt);
         imbuements.energy += energy;
         imbuements.energy = Math.min(imbuements.energy, MAX_ENERGY);
         imbuements.count++;
         imbuements.itemsUsed.addAll(itemsUsed);
         imbuements.writeNbt(imbuementsNbt);
-        nbt.put(Imbuements.KEY, imbuementsNbt);
+        nbt.put(ImbuementData.KEY, imbuementsNbt);
     }
 
     static void modifyExistingModifier(ItemStack stack, Revelation revelation, double value) {
@@ -118,7 +118,7 @@ public interface AbyssalToken {
     static void apply(ItemStack base, ItemStack tokenStack) {
         if (tokenStack.getItem() instanceof AbyssalToken token) {
             Revelation revelation = token.getRevelation();
-            int energy = Imbuements.readEnergy(tokenStack.getOrCreateNbt().getCompound(Imbuements.KEY));
+            int energy = ImbuementData.readEnergy(tokenStack.getOrCreateNbt().getCompound(ImbuementData.KEY));
             apply(base, revelation, energy, tokenStack.getItem());
         }
     }

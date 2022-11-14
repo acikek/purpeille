@@ -1,7 +1,7 @@
 package com.acikek.purpeille.block.entity.monolithic;
 
 import com.acikek.purpeille.api.AbyssalToken;
-import com.acikek.purpeille.api.Imbuements;
+import com.acikek.purpeille.api.ImbuementData;
 import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;
@@ -17,7 +17,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -114,7 +113,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
             return null;
         }
         // Calculate the randomness factor with the token stack's imbuement data and the altars' stack effects.
-        Imbuements imbuements = Imbuements.readNbt(stack.getOrCreateNbt().getCompound(Imbuements.KEY));
+        ImbuementData imbuements = ImbuementData.readNbt(stack.getOrCreateNbt().getCompound(ImbuementData.KEY));
         List<AbyssaliteData.Effect> effects = modifiers.stream()
                 .map(Pair::getRight)
                 .toList();
