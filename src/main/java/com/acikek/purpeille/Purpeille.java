@@ -22,6 +22,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -70,5 +72,11 @@ public class Purpeille implements ModInitializer {
         UseBlockCallback.EVENT.register(new ChorusInfestedBlocks());
         RandomRevelationLootFunction.register();
         ReloadHandler.register();
+        FabricLoader.getInstance().getModContainer(ID).ifPresent(mod ->
+                ResourceManagerHelper.registerBuiltinResourcePack(
+                        id("default"), mod, "Default Warpaths",
+                        ResourcePackActivationType.DEFAULT_ENABLED
+                )
+        );
     }
 }
