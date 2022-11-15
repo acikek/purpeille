@@ -7,7 +7,7 @@ import net.minecraft.util.registry.Registry;
 
 public class ModStatusEffects {
 
-    public static final StatusEffect VOID_IMMUNITY = new StatusEffect(StatusEffectCategory.BENEFICIAL, 0x1c0d3b) {};
+    public static final StatusEffect VOID_IMMUNITY = new StatusEffect(StatusEffectCategory.BENEFICIAL, 0x1c0d3b);
 
     public static void register() {
         Registry.register(Registry.STATUS_EFFECT, Purpeille.id("void_immunity"), VOID_IMMUNITY);
