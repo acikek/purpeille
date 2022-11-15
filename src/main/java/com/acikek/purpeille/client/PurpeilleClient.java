@@ -13,6 +13,7 @@ import com.acikek.purpeille.client.particle.MonolithicPurpurParticles;
 import com.acikek.purpeille.client.render.AncientGuardianRenderer;
 import com.acikek.purpeille.client.render.AncientMessageHud;
 import com.acikek.purpeille.client.render.MonolithicPurpurRenderer;
+import com.acikek.purpeille.impl.AncientMessagesImpl;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
@@ -76,7 +77,7 @@ public class PurpeilleClient implements ClientModInitializer {
     public static void registerReceivers() {
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.ANCIENT_GUARDIAN_ACTIVATED, new AncientGuardianActivationListener());
         ClientPlayNetworking.registerGlobalReceiver(AncientGuardian.VACUOUS_BLAST, new VacuousBlastListener());
-        ClientPlayNetworking.registerGlobalReceiver(AncientMessages.CHANNEL, new AncientMessageHud.Listener());
+        ClientPlayNetworking.registerGlobalReceiver(AncientMessages.getChannel(), new AncientMessageHud.Listener());
         ClientPlayNetworking.registerGlobalReceiver(ChorusInfestedBlocks.INFESTATION_TRIM, (client, handler, buf, responseSender) -> {
             if (client.world != null) {
                 client.world.addBlockBreakParticles(buf.readBlockPos(), Block.getStateFromRawId(buf.readInt()));

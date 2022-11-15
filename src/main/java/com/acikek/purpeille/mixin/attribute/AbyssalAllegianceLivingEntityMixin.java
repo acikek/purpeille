@@ -1,6 +1,7 @@
 package com.acikek.purpeille.mixin.attribute;
 
-import com.acikek.purpeille.api.AbyssallyAllegiantEntity;
+import com.acikek.purpeille.api.allegiance.AbyssallyAllegiantEntity;
+import com.acikek.purpeille.api.allegiance.AllegianceData;
 import com.acikek.purpeille.attribute.ModAttributes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -23,33 +24,11 @@ import java.util.Map;
 @Mixin(LivingEntity.class)
 public abstract class AbyssalAllegianceLivingEntityMixin implements AbyssallyAllegiantEntity {
 
-    private int purpeille$cyclicAllegiance;
-    private long purpeille$lastAllegiantTime;
-    private int purpeille$fulfilledAllegiance;
+    private AllegianceData purpeille$allegianceData;
 
     @Override
-    public int getCyclicAllegiance() {
-        return purpeille$cyclicAllegiance;
-    }
-
-    @Override
-    public long getLastAllegiantTime() {
-        return purpeille$lastAllegiantTime;
-    }
-
-    @Override
-    public void setLastAllegiantTime(long time) {
-        purpeille$lastAllegiantTime = time;
-    }
-
-    @Override
-    public int getFulfilledAllegiance() {
-        return purpeille$fulfilledAllegiance;
-    }
-
-    @Override
-    public void setFulfilledAllegiance(int allegiance) {
-        purpeille$fulfilledAllegiance = allegiance;
+    public AllegianceData getAllegianceData() {
+        return purpeille$allegianceData;
     }
 
     @Shadow @Nullable public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
@@ -60,32 +39,34 @@ public abstract class AbyssalAllegianceLivingEntityMixin implements AbyssallyAll
         if (instance == null || instance.getValue() == 0.0) {
             return;
         }
-        if (instance.getValue() > purpeille$cyclicAllegiance) {
+        if (purpeille$allegianceData == null) {
+            purpeille$allegianceData = new AllegianceData(0, 0, 0, 0L);
+        }
+        if (instance.getValue() > purpeille$allegianceData.cyclic) {
             World world = ((Entity) (Object) this).world;
-            if (purpeille$cyclicAllegiance == 0 && world != null) {
-                purpeille$lastAllegiantTime = world.getTime();
+            if (purpeille$allegianceData.cyclic == 0 && world != null) {
+                purpeille$allegianceData.initialTime = world.getTime();
             }
-            purpeille$cyclicAllegiance = (int) instance.getValue();
+            purpeille$allegianceData.cyclic = (int) instance.getValue();
         }
     }
 
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void purpeille$toNbt(NbtCompound nbt, CallbackInfo ci) {
-        if (purpeille$cyclicAllegiance != 0) {
-            nbt.putInt("CyclicAllegiance", purpeille$cyclicAllegiance);
+        if (purpeille$allegianceData == null) {
+            return;
         }
-        if (purpeille$lastAllegiantTime != 0L) {
-            nbt.putLong("LastAllegiantTime", purpeille$lastAllegiantTime);
-        }
-        if (purpeille$fulfilledAllegiance != 0) {
-            nbt.putInt("FulfilledAllegiance", purpeille$fulfilledAllegiance);
+        NbtCompound data = new NbtCompound();
+        purpeille$allegianceData.writeNbt(data);
+        if (!data.isEmpty()) {
+            nbt.put(AllegianceData.KEY, data);
         }
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     private void purpeille$readNbt(NbtCompound nbt, CallbackInfo ci) {
-        purpeille$cyclicAllegiance = nbt.getInt("CyclicAllegiance");
-        purpeille$lastAllegiantTime = nbt.getLong("LastAllegiantTime");
-        purpeille$fulfilledAllegiance = nbt.getInt("FulfilledAllegiance");
+        if (nbt.contains(AllegianceData.KEY)) {
+            purpeille$allegianceData = AllegianceData.readNbt(nbt.getCompound(AllegianceData.KEY));
+        }
     }
 }

@@ -1,9 +1,8 @@
 package com.acikek.purpeille.api.amsg;
 
-import com.acikek.purpeille.Purpeille;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.PacketByteBuf;
+import com.acikek.purpeille.impl.AncientMessagesImpl;
+import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
@@ -12,16 +11,36 @@ import java.util.List;
 
 public class AncientMessages {
 
-    public static final Identifier CHANNEL = Purpeille.id("ancient_message");
+    public static final Event<SeriesCompleted> SERIES_COMPLETED = EventFactory.createArrayBacked(
+            SeriesCompleted.class,
+            listeners -> (player, seriesId) -> {
+                for (SeriesCompleted listener : listeners) {
+                    listener.onSeriesCompleted(player, seriesId);
+                }
+            });
 
-    public static void message(Collection<ServerPlayerEntity> players, List<AncientMessageData> list) {
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeInt(list.size());
-        for (AncientMessageData data : list) {
-            data.write(buf);
-        }
-        for (ServerPlayerEntity player : players) {
-            ServerPlayNetworking.send(player, CHANNEL, buf);
-        }
+    public static Identifier getChannel() {
+        return AncientMessagesImpl.CHANNEL;
+    }
+
+    public static Identifier getCompletedChannel() {
+        return AncientMessagesImpl.COMPLETED_CHANNEL;
+    }
+
+    public static void message(Collection<ServerPlayerEntity> players, List<AncientMessageData> list, Identifier seriesId) {
+        AncientMessagesImpl.message(players, list, seriesId);
+    }
+
+    public static AncientMessageData.Builder singleLang(String key, Object... args) {
+        return AncientMessagesImpl.singleLang(key, args);
+    }
+
+    public static AncientMessageData.Builder singleLang(String key) {
+        return AncientMessagesImpl.singleLang(key);
+    }
+
+    @FunctionalInterface
+    public interface SeriesCompleted {
+        void onSeriesCompleted(ServerPlayerEntity player, Identifier seriesId);
     }
 }

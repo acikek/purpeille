@@ -10,6 +10,8 @@ import com.acikek.purpeille.command.AncientMessageCommand;
 import com.acikek.purpeille.command.VacuousBlastCommand;
 import com.acikek.purpeille.command.WarpathCommand;
 import com.acikek.purpeille.effect.ModStatusEffects;
+import com.acikek.purpeille.impl.AbyssalAllegianceImpl;
+import com.acikek.purpeille.impl.AncientMessagesImpl;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.loot.RandomRevelationLootFunction;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
@@ -72,6 +74,8 @@ public class Purpeille implements ModInitializer {
         UseBlockCallback.EVENT.register(new ChorusInfestedBlocks());
         RandomRevelationLootFunction.register();
         ReloadHandler.register();
+        AbyssalAllegianceImpl.register();
+        AncientMessagesImpl.register();
         FabricLoader.getInstance().getModContainer(ID).ifPresent(mod ->
                 ResourceManagerHelper.registerBuiltinResourcePack(
                         id("default"), mod, "Default Warpaths",

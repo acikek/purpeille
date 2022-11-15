@@ -1,6 +1,7 @@
 package com.acikek.purpeille.mixin;
 
 import com.acikek.purpeille.api.AbyssalToken;
+import com.acikek.purpeille.api.AbyssalTokens;
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.WarpathData;
 import com.acikek.purpeille.warpath.component.Revelation;
@@ -49,7 +50,7 @@ public class SmithingScreenHandlerMixin {
         if (screen.input.getStack(1).getItem() instanceof AbyssalToken token && token.isAbyssalToken()) {
             ItemStack baseStack = screen.input.getStack(0);
             ItemStack outputStack = baseStack.copy();
-            AbyssalToken.apply(outputStack, screen.input.getStack(1));
+            AbyssalTokens.apply(outputStack, screen.input.getStack(1));
             screen.output.setStack(0, outputStack);
             screen.output.setLastRecipe(null);
             ci.cancel();

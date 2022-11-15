@@ -1,11 +1,11 @@
 package com.acikek.purpeille.command;
 
-import com.acikek.purpeille.api.AbyssalToken;
-import com.acikek.purpeille.warpath.component.Type;
+import com.acikek.purpeille.api.AbyssalTokens;
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
+import com.acikek.purpeille.warpath.component.Type;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -49,7 +49,7 @@ public class WarpathCommand {
             if (revelation.abyssalite == null) {
                 throw new SimpleCommandExceptionType(INVALID_ENERGY).create();
             }
-            AbyssalToken.apply(stack, revelation, IntegerArgumentType.getInteger(context, "energy"), revelation.abyssalite.token);
+            AbyssalTokens.apply(stack, revelation, IntegerArgumentType.getInteger(context, "energy"), revelation.abyssalite.token);
         }
         context.getSource().sendFeedback(getMessage(ADD_SUCCESS, Warpath.getTooltip(revelation, aspect, false, false).get(0)), false);
         return 0;

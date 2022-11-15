@@ -1,6 +1,7 @@
 package com.acikek.purpeille.warpath;
 
 import com.acikek.purpeille.api.AbyssalToken;
+import com.acikek.purpeille.api.AbyssalTokens;
 import com.acikek.purpeille.warpath.component.Revelation;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -71,7 +72,7 @@ public class AbyssaliteData {
     public void load(Revelation revelation) {
         AbyssalToken abyssalToken = (AbyssalToken) token;
         abyssalToken.setRevelation(revelation);
-        AbyssalToken.TOKENS.add(abyssalToken);
+        AbyssalTokens.getTokens().add(abyssalToken);
     }
 
     public static Map<Ingredient, Float> modifiersFromJson(JsonArray array) {

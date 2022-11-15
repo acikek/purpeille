@@ -1,7 +1,7 @@
 package com.acikek.purpeille.warpath.component;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.api.AbyssalToken;
+import com.acikek.purpeille.api.AbyssalTokens;
 import com.acikek.purpeille.warpath.*;
 import com.google.gson.JsonObject;
 import net.minecraft.entity.EquipmentSlot;
@@ -46,7 +46,7 @@ public class Revelation extends Component {
     }
 
     public static void finishAbyssaliteReload(boolean log) {
-        AbyssalToken.clearTokens();
+        AbyssalTokens.clearTokens();
         List<Map.Entry<Identifier, Revelation>> hasAbyssalite = Component.REVELATIONS.entrySet().stream()
                 .filter(pair -> pair.getValue().abyssalite != null)
                 .toList();

@@ -1,6 +1,7 @@
 package com.acikek.purpeille.block.entity.monolithic;
 
 import com.acikek.purpeille.api.AbyssalToken;
+import com.acikek.purpeille.api.AbyssalTokens;
 import com.acikek.purpeille.api.ImbuementData;
 import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
@@ -142,7 +143,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
                 .toList();
         System.out.println((int) energy);
         // Modify the energy values before the animation.
-        AbyssalToken.imbue(stack, (int) energy, itemsUsed);
+        AbyssalTokens.imbue(stack, (int) energy, itemsUsed);
         // Queue imbuements for all block entities.
         // The animation will automatically be different for the central altar.
         if (world.getBlockEntity(pos) instanceof MonolithicPurpurBlockEntity blockEntity) {
