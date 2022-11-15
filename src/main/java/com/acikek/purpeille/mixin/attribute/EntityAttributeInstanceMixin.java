@@ -32,8 +32,11 @@ public abstract class EntityAttributeInstanceMixin {
 
     @Shadow protected abstract Collection<EntityAttributeModifier> getModifiersByOperation(EntityAttributeModifier.Operation operation);
 
+    @Shadow protected abstract double computeValue();
+
     private Collection<UUID> purpeille$uuids;
     private boolean purpeille$isWarpath;
+    private boolean purpeille$isDirty = true;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void purpeille$checkIsRevelationAttribute(EntityAttribute type, Consumer<?> updateCallback, CallbackInfo ci) {
@@ -77,11 +80,19 @@ public abstract class EntityAttributeInstanceMixin {
         return logs;
     }
 
+    @Inject(method = "getValue", cancellable = true, at = @At("HEAD"))
+    private void purpeille$forceScaling(CallbackInfoReturnable<Double> cir) {
+        if (purpeille$isWarpath && purpeille$isDirty) {
+            cir.setReturnValue(computeValue());
+        }
+    }
+
     @Inject(method = "computeValue", cancellable = true, at = @At("HEAD"))
     private void purpeille$scaledWarpathStacking(CallbackInfoReturnable<Double> cir) {
         if (!purpeille$isWarpath) {
             return;
         }
+        purpeille$isDirty = false;
         double additionBase = getBaseValue();
         for (double m : getScaledModifiersByOperation(EntityAttributeModifier.Operation.ADDITION)) {
             additionBase += m;
