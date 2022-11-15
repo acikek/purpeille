@@ -42,7 +42,8 @@ public abstract class AbyssalAllegianceLivingEntityMixin implements AbyssallyAll
         if (purpeille$allegianceData == null) {
             purpeille$allegianceData = new AllegianceData(0, 0, 0, 0L);
         }
-        if (instance.getValue() > purpeille$allegianceData.cyclic) {
+        double value = instance.getValue();
+        if (value > purpeille$allegianceData.cyclic) {
             World world = ((Entity) (Object) this).world;
             if (purpeille$allegianceData.cyclic == 0 && world != null) {
                 purpeille$allegianceData.initialTime = world.getTime();

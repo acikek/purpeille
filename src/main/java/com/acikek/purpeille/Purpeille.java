@@ -70,6 +70,7 @@ public class Purpeille implements ModInitializer {
             VacuousBlastCommand.register(dispatcher);
             WarpathCommand.register(dispatcher);
             AncientMessageCommand.register(dispatcher);
+            AbyssalAllegianceImpl.registerCommand(dispatcher);
         });
         UseBlockCallback.EVENT.register(new ChorusInfestedBlocks());
         RandomRevelationLootFunction.register();

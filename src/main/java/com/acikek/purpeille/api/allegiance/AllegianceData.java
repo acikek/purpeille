@@ -18,8 +18,12 @@ public class AllegianceData {
         this.initialTime = initialTime;
     }
 
+    public int neglected() {
+        return previous - fulfilled;
+    }
+
     public boolean passed() {
-        return fulfilled >= previous;
+        return neglected() < 0;
     }
 
     public void cycle() {
