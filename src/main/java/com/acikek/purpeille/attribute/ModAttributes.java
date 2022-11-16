@@ -11,7 +11,7 @@ import java.util.Map;
 public class ModAttributes {
 
     public static final EntityAttribute GENERIC_MINING_EXPERIENCE = new ClampedEntityAttribute("attribute.name.generic_mining_experience", 0.0, 0.0, 1024.0).setTracked(true);
-    public static final EntityAttribute GENERIC_POISON_RESISTANCE = new ClampedEntityAttribute("attribute.name.generic_poison_resistance", 1.0, 0.0, 1024.0).setTracked(true);
+    public static final EntityAttribute GENERIC_POISON_RESISTANCE = new ClampedEntityAttribute("attribute.name.generic_poison_resistance", 0.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_JUMP_BOOST = new ClampedEntityAttribute("attribute.name.generic_jump_boost", 1.0, 0.0, 2.0).setTracked(true);
     public static final EntityAttribute GENERIC_WATER_SPEED = new ClampedEntityAttribute("attribute.name.generic_water_speed", 1.0, 0.0, 2.0).setTracked(true);
 
