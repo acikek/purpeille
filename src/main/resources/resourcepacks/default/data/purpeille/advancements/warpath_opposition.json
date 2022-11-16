@@ -1,16 +1,16 @@
 {
-  "parent": "default_warpaths:warpath",
+  "parent": "purpeille:warpath",
   "display": {
     "icon": {
-      "item": "purpeille:purpeille_sword"
+      "item": "purpeille:purpeille_helmet"
     },
     "title": {
-      "translate": "advancements.purpeille.warpath_terror.title"
+      "translate": "advancements.purpeille.warpath_opposition.title"
     },
     "description": {
-      "translate": "advancements.purpeille.warpath_terror.description"
+      "translate": "advancements.purpeille.warpath_opposition.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
@@ -21,10 +21,10 @@
       "conditions": {
         "item": {
           "items": [
-            "purpeille:purpeille_sword"
+            "purpeille:purpeille_helmet"
           ]
         },
-        "revelation": "terror"
+        "synergy": "opposition"
       }
     }
   }

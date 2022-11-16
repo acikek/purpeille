@@ -1,5 +1,5 @@
 {
-  "parent": "default_warpaths:warpath",
+  "parent": "purpeille:warpath",
   "display": {
     "icon": {
       "item": "purpeille:purpeille_boots"
