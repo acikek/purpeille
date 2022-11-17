@@ -13,6 +13,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -81,7 +82,7 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted {
             player.sendMessage(Text.translatable("message.purpeille.cycle_next", allegiant.getAllegianceData().cyclic));
             if (!allegiant.getAllegianceData().passed()) {
                 player.sendMessage(CYCLE_FAIL);
-                player.playSound(SoundEvents.ENTITY_WITHER_SPAWN, 1.0f, 1.0f);
+                player.playSound(SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.PLAYERS, 1.0f, 1.0f);
                 EntityAttributeInstance instance = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
                 if (instance != null) {
                     instance.addPersistentModifier(getTreasonousModifier(allegiant.getAllegianceData().neglected()));

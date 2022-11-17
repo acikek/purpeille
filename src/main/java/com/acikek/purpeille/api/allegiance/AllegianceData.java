@@ -23,7 +23,7 @@ public class AllegianceData {
     }
 
     public boolean passed() {
-        return neglected() < 0;
+        return neglected() <= 0;
     }
 
     public void cycle() {
