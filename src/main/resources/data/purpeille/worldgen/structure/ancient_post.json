@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:jigsaw",
+  "type": "purpeille:end_land",
   "start_pool": "purpeille:ancient_post/base",
   "size": 6,
   "max_distance_from_center": 64,

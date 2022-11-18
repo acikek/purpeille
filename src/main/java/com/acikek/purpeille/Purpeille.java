@@ -18,6 +18,7 @@ import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathCreateRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathRemoveRecipe;
 import com.acikek.purpeille.sound.ModSoundEvents;
+import com.acikek.purpeille.structure.EndLandStructure;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
@@ -65,6 +66,7 @@ public class Purpeille implements ModInitializer {
         WarpathRemoveRecipe.register();
         AncientOvenRecipe.register();
         EndCityProximityPlacementModifier.register();
+        EndLandStructure.register();
         PurpurRemnants.build();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             VacuousBlastCommand.register(dispatcher);
