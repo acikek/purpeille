@@ -5,13 +5,19 @@ import com.acikek.purpeille.api.allegiance.AbyssallyAllegiantEntity;
 import com.acikek.purpeille.api.allegiance.AllegianceData;
 import com.acikek.purpeille.api.amsg.AncientMessageData;
 import com.acikek.purpeille.api.amsg.AncientMessages;
+import com.acikek.purpeille.tag.ModTags;
+import com.acikek.voidcrafting.api.VoidCraftingAPI;
+import com.acikek.voidcrafting.api.event.StackVoided;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -24,24 +30,30 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, ServerPlayConnectionEvents.Join {
+public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, ServerPlayConnectionEvents.Join, StackVoided {
 
-    public static final Identifier SERIES_ID = Purpeille.id("abyssal_allegiance");
+    public static final Identifier ID = Purpeille.id("abyssal_allegiance");
+    public static final Identifier VOIDED_SERIES = Purpeille.id("abyssal_allegiance_voided");
 
     public static final Text CYCLE_FAIL = Text.translatable("message.purpeille.cycle_fail").formatted(Formatting.RED);
 
     public static final UUID TREASONOUS_UUID = UUID.fromString("ee8ced72-9bcc-4892-8e9c-de4dcc2f23de");
 
-    public static AncientMessageData.Builder getFailureMessage(int n) {
-        return AncientMessages.singleLang("amsg.purpeille.failure_" + n).color(0xFF0000);
+    public static AncientMessageData.Builder getSuccessMessage(int n) {
+        return AncientMessages.singleLang("amsg.purpeille.success_" + n).color(0x22E68E);
     }
 
-    public static List<AncientMessageData> getCycleMessages(AbyssallyAllegiantEntity allegiant, Random random, boolean failedLast) {
+    public static AncientMessageData.Builder getFailureMessage(int n) {
+        return AncientMessages.singleLang("amsg.purpeille.failure_" + n).color(0xD90936);
+    }
+
+    public static List<AncientMessageData> getCycleMessages(AbyssallyAllegiantEntity allegiant, Random random, boolean failed) {
         AllegianceData data = allegiant.getAllegianceData();
         List<AncientMessageData> result = new ArrayList<>(List.of(
                 AncientMessages.singleLang("amsg.purpeille.cycle_" + (random.nextInt(3) + 1))
@@ -49,10 +61,14 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
                         .build(),
                 AncientMessages.singleLang("amsg.purpeille.payment", data.cyclic).build()
         ));
-        if (failedLast) {
+        if (failed) {
             result.add(getFailureMessage(1).build());
             result.add(getFailureMessage(2).soundEvent(SoundEvents.ENTITY_WITHER_DEATH).build());
             result.add(getFailureMessage(3).soundEvent(SoundEvents.ENTITY_WITHER_AMBIENT).build());
+        }
+        else if (data.failedLast) {
+            result.add(getSuccessMessage(3).build());
+            result.add(getSuccessMessage(4).soundEvent(SoundEvents.AMBIENT_NETHER_WASTES_MOOD).build());
         }
         return result;
     }
@@ -66,7 +82,7 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
             AncientMessages.message(
                     List.of(player),
                     getCycleMessages(allegiant, random, !allegiant.getAllegianceData().passed()),
-                    SERIES_ID
+                    ID
             );
         }
     }
@@ -82,7 +98,7 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
 
     @Override
     public void onSeriesCompleted(ServerPlayerEntity player, Identifier seriesId) {
-        if (seriesId.equals(SERIES_ID) && player instanceof AbyssallyAllegiantEntity allegiant) {
+        if (seriesId.equals(ID) && player instanceof AbyssallyAllegiantEntity allegiant) {
             player.sendMessage(Text.translatable("message.purpeille.cycle_next", allegiant.getAllegianceData().cyclic));
             if (!allegiant.getAllegianceData().passed()) {
                 player.sendMessage(CYCLE_FAIL);
@@ -98,11 +114,31 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
 
     @Override
     public void onPlayReady(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server) {
-        if (handler.player instanceof AbyssallyAllegiantEntity allegiant
-                && allegiant.getAllegianceData() != null
-                && allegiant.getAllegianceData().initialTime != 0L) {
+        if (handler.player instanceof AbyssallyAllegiantEntity allegiant && allegiant.getAllegianceData().initialTime != 0L) {
             if (handler.player.world.getTime() - allegiant.getAllegianceData().initialTime >= 168000L) {
                 cycle(handler.player, handler.player.world.random);
+            }
+        }
+    }
+
+    @Override
+    public void onStackVoided(World world, ItemEntity itemEntity, ItemStack itemStack, PlayerEntity thrower) {
+        if (thrower instanceof ServerPlayerEntity serverPlayer
+                && serverPlayer instanceof AbyssallyAllegiantEntity allegiant
+                && itemStack.isIn(ModTags.ABYSSAL_TRIBUTE)) {
+            AllegianceData data = allegiant.getAllegianceData();
+            if (data.cyclic == 0) {
+                return;
+            }
+            data.fulfilled += itemStack.getCount();
+            if (data.fulfilled >= data.cyclic) {
+                AncientMessages.message(
+                        List.of(serverPlayer),
+                        List.of(getSuccessMessage(world.random.nextInt(2) + 1)
+                                .soundEvent(SoundEvents.ENTITY_ENDER_DRAGON_GROWL)
+                                .build()),
+                        VOIDED_SERIES
+                );
             }
         }
     }
@@ -111,6 +147,8 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
         AbyssalAllegianceImpl obj = new AbyssalAllegianceImpl();
         AncientMessages.SERIES_COMPLETED.register(obj);
         ServerPlayConnectionEvents.JOIN.register(obj);
+        VoidCraftingAPI.STACK_VOIDED.register(ID, obj);
+        VoidCraftingAPI.addStackVoidedPhase(ID);
     }
 
     public static void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher) {

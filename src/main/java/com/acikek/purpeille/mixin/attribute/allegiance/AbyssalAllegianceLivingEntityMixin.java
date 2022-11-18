@@ -26,8 +26,15 @@ public abstract class AbyssalAllegianceLivingEntityMixin implements AbyssallyAll
 
     private AllegianceData purpeille$allegianceData;
 
+    private void initAllegianceData() {
+        if (purpeille$allegianceData == null) {
+            purpeille$allegianceData = new AllegianceData(0, 0, 0, 0L, false);
+        }
+    }
+
     @Override
     public AllegianceData getAllegianceData() {
+        initAllegianceData();
         return purpeille$allegianceData;
     }
 
@@ -39,9 +46,7 @@ public abstract class AbyssalAllegianceLivingEntityMixin implements AbyssallyAll
         if (instance == null || instance.getValue() == 0.0) {
             return;
         }
-        if (purpeille$allegianceData == null) {
-            purpeille$allegianceData = new AllegianceData(0, 0, 0, 0L);
-        }
+        initAllegianceData();
         double value = instance.getValue();
         if (value > purpeille$allegianceData.cyclic) {
             World world = ((Entity) (Object) this).world;
@@ -54,11 +59,8 @@ public abstract class AbyssalAllegianceLivingEntityMixin implements AbyssallyAll
 
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void purpeille$toNbt(NbtCompound nbt, CallbackInfo ci) {
-        if (purpeille$allegianceData == null) {
-            return;
-        }
         NbtCompound data = new NbtCompound();
-        purpeille$allegianceData.writeNbt(data);
+        getAllegianceData().writeNbt(data);
         if (!data.isEmpty()) {
             nbt.put(AllegianceData.KEY, data);
         }
