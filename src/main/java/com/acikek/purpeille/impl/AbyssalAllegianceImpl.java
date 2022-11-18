@@ -98,7 +98,9 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
 
     @Override
     public void onPlayReady(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server) {
-        if (handler.player instanceof AbyssallyAllegiantEntity allegiant && allegiant.getAllegianceData().initialTime != 0L) {
+        if (handler.player instanceof AbyssallyAllegiantEntity allegiant
+                && allegiant.getAllegianceData() != null
+                && allegiant.getAllegianceData().initialTime != 0L) {
             if (handler.player.world.getTime() - allegiant.getAllegianceData().initialTime >= 168000L) {
                 cycle(handler.player, handler.player.world.random);
             }
