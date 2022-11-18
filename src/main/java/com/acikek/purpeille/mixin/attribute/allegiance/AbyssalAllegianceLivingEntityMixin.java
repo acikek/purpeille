@@ -1,4 +1,4 @@
-package com.acikek.purpeille.mixin.attribute;
+package com.acikek.purpeille.mixin.attribute.allegiance;
 
 import com.acikek.purpeille.api.allegiance.AbyssallyAllegiantEntity;
 import com.acikek.purpeille.api.allegiance.AllegianceData;
