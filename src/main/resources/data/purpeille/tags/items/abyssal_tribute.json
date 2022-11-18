@@ -1,6 +1,12 @@
 {
   "replace": false,
   "values": [
-    "minecraft:apple"
+    "purpeille:void_amalgam",
+    "minecraft:netherite_scrap",
+    "minecraft:golden_apple",
+    "minecraft:heart_of_the_sea",
+    "purpeille:encased_core",
+    "purpeille:energetic_core",
+    "minecraft:end_crystal"
   ]
 }
