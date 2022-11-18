@@ -1,5 +1,6 @@
 package com.acikek.purpeille.mixin.attribute;
 
+import com.acikek.purpeille.api.allegiance.AbyssalAllegiance;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,7 +23,7 @@ public class MinecraftServerMixin {
     private void purpeille$demandAbyssalTribute(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         if (ticks % 168000 == 0) {
             for (ServerPlayerEntity player : playerManager.getPlayerList()) {
-
+                AbyssalAllegiance.cycle(player, player.world.random);
             }
         }
     }

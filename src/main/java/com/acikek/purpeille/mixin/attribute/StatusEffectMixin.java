@@ -27,7 +27,7 @@ public class StatusEffectMixin {
             EntityAttributeInstance instance = purpeille$target.getAttributeInstance(ModAttributes.GENERIC_POISON_RESISTANCE);
             if (instance != null) {
                 float max = 1.0f + (float) instance.getValue() / 3.0f;
-                if (purpeille$target.getHealth() > max) {
+                if (purpeille$target.getHealth() < max) {
                     return 0.0f;
                 }
             }

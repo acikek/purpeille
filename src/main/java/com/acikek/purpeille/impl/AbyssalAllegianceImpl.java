@@ -6,12 +6,16 @@ import com.acikek.purpeille.api.allegiance.AllegianceData;
 import com.acikek.purpeille.api.amsg.AncientMessageData;
 import com.acikek.purpeille.api.amsg.AncientMessages;
 import com.mojang.brigadier.CommandDispatcher;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -25,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted {
+public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, ServerPlayConnectionEvents.Join {
 
     public static final Identifier SERIES_ID = Purpeille.id("abyssal_allegiance");
 
@@ -92,8 +96,19 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted {
         }
     }
 
+    @Override
+    public void onPlayReady(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server) {
+        if (handler.player instanceof AbyssallyAllegiantEntity allegiant && allegiant.getAllegianceData().initialTime != 0L) {
+            if (handler.player.world.getTime() - allegiant.getAllegianceData().initialTime >= 168000L) {
+                cycle(handler.player, handler.player.world.random);
+            }
+        }
+    }
+
     public static void register() {
-        AncientMessages.SERIES_COMPLETED.register(new AbyssalAllegianceImpl());
+        AbyssalAllegianceImpl obj = new AbyssalAllegianceImpl();
+        AncientMessages.SERIES_COMPLETED.register(obj);
+        ServerPlayConnectionEvents.JOIN.register(obj);
     }
 
     public static void registerCommand(CommandDispatcher<ServerCommandSource> dispatcher) {
