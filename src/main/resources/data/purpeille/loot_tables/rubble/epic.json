@@ -158,6 +158,12 @@
               "function": "purpeille:random_revelation"
             }
           ]
+        },
+        {
+          "type": "minecraft:tag",
+          "expand": true,
+          "weight": 5,
+          "name": "purpeille:abyssal_tokens"
         }
       ]
     }
