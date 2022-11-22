@@ -12,15 +12,15 @@
     "ShearsDispenserBehaviorMixin",
     "SmithingScreenHandlerMixin",
     "WarpathItemMixin",
-    "attribute.allegiance.AbyssalAllegianceLivingEntityMixin",
     "attribute.AttributeLivingEntityMixin",
     "attribute.AttributePlayerEntityMixin",
     "attribute.BlockMixin",
     "attribute.EntityAttributeInstanceMixin",
-    "attribute.allegiance.MinecraftServerMixin",
     "attribute.PotionEntityMixin",
     "attribute.PotionItemMixin",
-    "attribute.StatusEffectMixin"
+    "attribute.StatusEffectMixin",
+    "attribute.allegiance.AbyssalAllegianceLivingEntityMixin",
+    "attribute.allegiance.MinecraftServerMixin"
   ],
   "client": [
     "client.InGameHudMixin",

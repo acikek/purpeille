@@ -31,6 +31,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.minecraft.world.level.LevelProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +116,8 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
     @Override
     public void onPlayReady(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server) {
         if (handler.player instanceof AbyssallyAllegiantEntity allegiant && allegiant.getAllegianceData().initialTime != 0L) {
-            if (handler.player.world.getTime() - allegiant.getAllegianceData().initialTime >= 168000L) {
+            if (server.getSaveProperties() instanceof LevelProperties levelProperties
+                    && levelProperties.getTime() - allegiant.getAllegianceData().initialTime >= 168000L) {
                 cycle(handler.player, handler.player.world.random);
             }
         }

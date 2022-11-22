@@ -10,7 +10,9 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.level.LevelProperties;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -50,8 +52,10 @@ public abstract class AbyssalAllegianceLivingEntityMixin implements AbyssallyAll
         double value = instance.getValue();
         if (value > purpeille$allegianceData.cyclic) {
             World world = ((Entity) (Object) this).world;
-            if (purpeille$allegianceData.cyclic == 0 && world != null) {
-                purpeille$allegianceData.initialTime = world.getTime();
+            if (purpeille$allegianceData.cyclic == 0
+                    && world instanceof ServerWorld serverWorld
+                    && serverWorld.getServer().getSaveProperties() instanceof LevelProperties levelProperties) {
+                purpeille$allegianceData.initialTime = levelProperties.getTime();
             }
             purpeille$allegianceData.cyclic = (int) instance.getValue();
         }
