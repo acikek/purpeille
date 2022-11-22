@@ -57,6 +57,7 @@ public class ModItems {
     public static final ToolItem PURPEILLE_PICKAXE = new PurpeilleToolMaterial.PurpeillePickaxeItem(1, -2.8f);
     public static final ToolItem PURPEILLE_AXE = new PurpeilleToolMaterial.PurpeilleAxeItem(5.0f, -3.0f);
     public static final ToolItem PURPEILLE_HOE = new PurpeilleToolMaterial.PurpeilleHoeItem(-4, -0.0f);
+    public static final SpyglassItem AMALGAMATED_SPYGLASS = new SpyglassItem(defaultSettings());
 
     // Handbook
     public static final Item ANCIENTS_ALMANAC = new AncientsAlmanac(defaultSettings().rarity(Rarity.UNCOMMON).maxCount(1));
@@ -100,6 +101,7 @@ public class ModItems {
         ITEMS.put("purpeille_pickaxe", PURPEILLE_PICKAXE);
         ITEMS.put("purpeille_axe", PURPEILLE_AXE);
         ITEMS.put("purpeille_hoe", PURPEILLE_HOE);
+        ITEMS.put("amalgamated_spyglass", AMALGAMATED_SPYGLASS);
         ITEMS.put("ancients_almanac", ANCIENTS_ALMANAC);
     }
 
