@@ -82,7 +82,7 @@ public class Aspect extends Component {
             if (color < 0) {
                 throw new IllegalStateException("'color' cannot be negative");
             }
-            if (index < 0 || index > 8) {
+            if (index != -1 && (index < 0 || index > 8)) {
                 throw new IllegalStateException("'index' must be in the range [0-8]");
             }
             return true;
