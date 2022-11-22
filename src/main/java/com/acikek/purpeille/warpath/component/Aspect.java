@@ -88,7 +88,7 @@ public class Aspect implements Writer {
         return whitelist;
     }
 
-    public static Aspect fromJson(JsonObject obj, Identifier id, Type type) {
+    public static Aspect fromJson(JsonObject obj, Identifier id, String key) {
         AspectBuilder builder = new AspectBuilder()
                 .tone(EnumUtils.getEnumIgnoreCase(Tone.class, JsonHelper.getString(obj, "tone")))
                 .color(ClampedColor.colorFromJson(obj.get("color")))
@@ -99,13 +99,13 @@ public class Aspect implements Writer {
                 .whitelist(whitelistFromJson(obj));
         MutableText display = obj.has("display")
                 ? Text.Serializer.fromJson(obj.get("display"))
-                : Text.translatable(getIdKey(type.translationKey, id));
+                : Text.translatable(getIdKey(key, id));
         return builder.display(display)
                 .buildAspect(id);
     }
 
     public static Aspect fromJson(JsonObject obj, Identifier id) {
-        return fromJson(obj, id, Type.ASPECT);
+        return fromJson(obj, id, KEY);
     }
 
     public void writeWhitelist(PacketByteBuf buf) {

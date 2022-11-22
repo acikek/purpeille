@@ -125,7 +125,7 @@ public class Revelation extends Aspect implements Writer {
                         : JsonHelper.getObject(obj, "attribute")
         );
         RevelationBuilder builder = new RevelationBuilder()
-                .aspect(Aspect.fromJson(obj, id, Type.REVELATION))
+                .aspect(Aspect.fromJson(obj, id, KEY))
                 .attribute(attribute)
                 .affinity(Ingredient.fromJson(obj.get("affinity")))
                 .synergy(Synergy.overridesFromJson(JsonHelper.getObject(obj, "synergy", null)))
