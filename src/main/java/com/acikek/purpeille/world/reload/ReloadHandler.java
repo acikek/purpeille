@@ -1,9 +1,10 @@
 package com.acikek.purpeille.world.reload;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.impl.ComponentsImpl;
 import com.acikek.purpeille.warpath.component.Aspect;
-import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
+import com.acikek.purpeille.warpath.component.Writer;
 import com.github.clevernucleus.dataattributes.api.event.AttributesReloadedEvent;
 import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -27,7 +28,7 @@ public class ReloadHandler {
     public static boolean DATA_ATTRIBUTES;
     public static boolean STARTED;
 
-    public static <T extends Component> List<PacketByteBuf> getReloadBufs(Map<Identifier, T> registry) {
+    public static <T extends Writer> List<PacketByteBuf> getReloadBufs(Map<Identifier, T> registry) {
         boolean start = true;
         List<PacketByteBuf> bufs = new ArrayList<>();
         for (Map.Entry<Identifier, T> entry : registry.entrySet()) {
@@ -44,7 +45,7 @@ public class ReloadHandler {
         return bufs;
     }
 
-    public static <T extends Component> void handleComponentReload(String key, Map<Identifier, T> registry, BiFunction<JsonObject, Identifier, T> fromJson, boolean revelation) {
+    public static <T extends Writer> void handleComponentReload(String key, Map<Identifier, T> registry, BiFunction<JsonObject, Identifier, T> fromJson, boolean revelation) {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ComponentReloader<>(key, registry, fromJson));
         if (revelation) {
             ServerLifecycleEvents.SERVER_STARTED.register(server -> {
@@ -90,8 +91,8 @@ public class ReloadHandler {
 
     public static void register() {
         DATA_ATTRIBUTES = FabricLoader.getInstance().isModLoaded("dataattributes");
-        handleComponentReload("revelations", Component.REVELATIONS, Revelation::fromJson, true);
-        handleComponentReload("aspects", Component.ASPECTS, Aspect::fromJson, false);
+        handleComponentReload("revelations", ComponentsImpl.REVELATIONS, Revelation::fromJson, true);
+        handleComponentReload("aspects", ComponentsImpl.ASPECTS, Aspect::fromJson, false);
         if (DATA_ATTRIBUTES) {
             AttributesReloadedEvent.EVENT.register(() -> {
                 Purpeille.LOGGER.info("Updating revelation attributes");

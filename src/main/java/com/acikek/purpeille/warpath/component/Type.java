@@ -9,21 +9,14 @@ import java.util.Map;
 
 public enum Type {
 
-    REVELATION("revelation", "Revelation"),
-    ASPECT("aspect", "Aspect");
+    REVELATION("revelation"),
+    ASPECT("aspect");
 
     public final String translationKey;
-    public final String nbtKey;
     public final DynamicCommandExceptionType exception;
 
-    Type(String translationKey, String nbtKey) {
+    Type(String translationKey) {
         this.translationKey = translationKey;
-        this.nbtKey = nbtKey;
         exception = WarpathCommand.getException("invalid." + translationKey);
-    }
-
-
-    public void addNbt(NbtCompound nbt, Identifier id) {
-        nbt.putString(nbtKey, id.toString());
     }
 }

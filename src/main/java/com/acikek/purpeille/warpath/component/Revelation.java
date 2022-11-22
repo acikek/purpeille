@@ -2,6 +2,9 @@ package com.acikek.purpeille.warpath.component;
 
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.api.abyssal.AbyssalTokens;
+import com.acikek.purpeille.api.warpath.Components;
+import com.acikek.purpeille.api.warpath.RevelationBuilder;
+import com.acikek.purpeille.impl.ComponentsImpl;
 import com.acikek.purpeille.warpath.*;
 import com.google.gson.JsonObject;
 import net.minecraft.entity.EquipmentSlot;
@@ -19,7 +22,9 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.*;
 
-public class Revelation extends Component {
+public class Revelation extends Aspect implements Writer {
+
+    public static final String KEY = "revelation";
 
     public static int RITE_RGB = 13421772;
     public static Identifier FINISH_RELOAD = Purpeille.id("revelation_finish_reload");
@@ -45,9 +50,14 @@ public class Revelation extends Component {
         this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, aspect.display, attribute, affinity, synergy, abyssalite, rite, dyeColor);
     }
 
+    @Override
+    public int getIndex() {
+        return relativeIndex;
+    }
+
     public static void finishAbyssaliteReload(boolean log) {
         AbyssalTokens.clearTokens();
-        List<Map.Entry<Identifier, Revelation>> hasAbyssalite = Component.REVELATIONS.entrySet().stream()
+        List<Map.Entry<Identifier, Revelation>> hasAbyssalite = Components.getRevelations().entrySet().stream()
                 .filter(pair -> pair.getValue().abyssalite != null)
                 .toList();
         Set<Item> uniques = new HashSet<>();
@@ -69,7 +79,7 @@ public class Revelation extends Component {
 
     public static void finishAttributeReload(boolean log) {
         List<Identifier> toRemove = new ArrayList<>();
-        for (Map.Entry<Identifier, Revelation> pair : Component.REVELATIONS.entrySet()) {
+        for (Map.Entry<Identifier, Revelation> pair : Components.getRevelations().entrySet()) {
             Revelation revelation = pair.getValue();
             if (!revelation.attribute.finishReload() || (revelation.abyssalite != null && !revelation.abyssalite.attribute.finishReload())) {
                 if (log) {
@@ -79,7 +89,7 @@ public class Revelation extends Component {
             }
         }
         for (Identifier id : toRemove) {
-            Component.REVELATIONS.remove(id);
+            ComponentsImpl.REVELATIONS.remove(id);
         }
     }
 
@@ -108,86 +118,13 @@ public class Revelation extends Component {
         return attribute.getModifier(slot, "Warpath modifier", getModifierValue(stack, aspect));
     }
 
-    public static class Builder extends Aspect.Builder {
-
-        AttributeData attribute;
-        Ingredient affinity;
-        Map<Identifier, Synergy> synergy;
-        AbyssaliteData abyssalite;
-        MutableText rite;
-        int dyeColor = -1;
-
-        public Builder aspect(Aspect aspect) {
-            tone = aspect.tone;
-            color = aspect.color;
-            catalyst = aspect.catalyst;
-            index = aspect.index;
-            modifier = aspect.modifier;
-            ignoreSlot = aspect.ignoreSlot;
-            whitelist = aspect.whitelist;
-            display = aspect.display;
-            return this;
-        }
-
-        public Builder attribute(AttributeData attribute) {
-            this.attribute = attribute;
-            return this;
-        }
-
-        public Builder affinity(Ingredient affinity) {
-            this.affinity = affinity;
-            return this;
-        }
-
-        public Builder synergy(Map<Identifier, Synergy> synergy) {
-            this.synergy = synergy;
-            return this;
-        }
-
-        public Builder abyssalite(AbyssaliteData abyssalite) {
-            this.abyssalite = abyssalite;
-            return this;
-        }
-
-        public Builder rite(MutableText rite) {
-            this.rite = rite;
-            return this;
-        }
-
-        public Builder dyeColor(int dyeColor) {
-            this.dyeColor = dyeColor;
-            return this;
-        }
-
-        public Builder dyeColor(DyeColor color) {
-            return dyeColor(color.getId());
-        }
-
-        @Override
-        boolean isValid(Identifier id) {
-            Objects.requireNonNull(attribute);
-            Objects.requireNonNull(affinity);
-            if (dyeColor < -1 || dyeColor >= DyeColor.values().length) {
-                throw new IllegalStateException("'dyeColor' must be a valid dye color ID or -1");
-            }
-            return super.isValid(id);
-        }
-
-        public Revelation buildRevelation(Identifier id) {
-            if (isValid(id)) {
-                return new Revelation(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, display, attribute, affinity, synergy, abyssalite, rite, dyeColor);
-            }
-            return null;
-        }
-    }
-
     public static Revelation fromJson(JsonObject obj, Identifier id) {
         AttributeData attribute = AttributeData.fromJson(
                 JsonHelper.hasBoolean(obj, "multiply")
                         ? obj
                         : JsonHelper.getObject(obj, "attribute")
         );
-        Builder builder = new Builder()
+        RevelationBuilder builder = new RevelationBuilder()
                 .aspect(Aspect.fromJson(obj, id, Type.REVELATION))
                 .attribute(attribute)
                 .affinity(Ingredient.fromJson(obj.get("affinity")))

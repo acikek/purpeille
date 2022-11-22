@@ -1,7 +1,7 @@
 package com.acikek.purpeille.world.reload;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.warpath.component.Component;
+import com.acikek.purpeille.warpath.component.Writer;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -14,7 +14,7 @@ import net.minecraft.util.profiler.Profiler;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-public class ComponentReloader<T extends Component> extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class ComponentReloader<T extends Writer> extends JsonDataLoader implements IdentifiableResourceReloadListener {
 
     public String type;
     public Identifier id;

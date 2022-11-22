@@ -2,7 +2,6 @@ package com.acikek.purpeille.compat.emi.warpath;
 
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.component.Aspect;
-import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import dev.emi.emi.api.recipe.EmiPatternCraftingRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -51,10 +50,10 @@ public class EmiWarpathCreateRecipe extends EmiPatternCraftingRecipe {
         return EmiStack.of(stack);
     }
 
-    public static <T extends Component> void appendComponent(List<Integer> slots, List<EmiIngredient> result, CatalystInstance<T> instance, Random random) {
+    public static <T extends Aspect> void appendComponent(List<Integer> slots, List<EmiIngredient> result, CatalystInstance<T> instance, Random random) {
         int index = instance.component().ignoreSlot
                 ? slots.get(random.nextInt(slots.size()))
-                : instance.component().getFixedIndex();
+                : instance.component().getIndex();
         if (!slots.contains(index)) {
             return;
         }

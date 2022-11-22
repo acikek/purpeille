@@ -1,7 +1,8 @@
 package com.acikek.purpeille.attribute;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.warpath.component.Component;
+import com.acikek.purpeille.api.warpath.Components;
+import com.acikek.purpeille.impl.ComponentsImpl;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -73,7 +74,7 @@ public class ModAttributes {
         if (attribute == ModAttributes.GENERIC_ABYSSAL_ALLEGIANCE) {
             return ModAttributes.ABYSSAL_ALLEGIANCE_UUIDS;
         }
-        for (Revelation revelation : Component.REVELATIONS.values()) {
+        for (Revelation revelation : Components.getRevelations().values()) {
             if (attribute == revelation.attribute.value) {
                 return revelation.attribute.uuids;
             }

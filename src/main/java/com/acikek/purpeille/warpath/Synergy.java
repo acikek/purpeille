@@ -1,7 +1,6 @@
 package com.acikek.purpeille.warpath;
 
 import com.acikek.purpeille.warpath.component.Aspect;
-import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

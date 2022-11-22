@@ -1,11 +1,10 @@
 package com.acikek.purpeille.command;
 
 import com.acikek.purpeille.api.abyssal.AbyssalTokens;
+import com.acikek.purpeille.api.warpath.Components;
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.component.Aspect;
-import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
-import com.acikek.purpeille.warpath.component.Type;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -40,8 +39,8 @@ public class WarpathCommand {
     public static final String REMOVE_SUCCESS = "success.remove";
 
     public static int add(CommandContext<ServerCommandSource> context, boolean hasAspect, boolean hasEnergy) throws CommandSyntaxException {
-        Revelation revelation = parseComponent(context, Type.REVELATION, Component.REVELATIONS);
-        Aspect aspect = hasAspect ? parseComponent(context, Type.ASPECT, Component.ASPECTS) : null;
+        Revelation revelation = parseComponent(context, Revelation.KEY, Components.getRevelations());
+        Aspect aspect = hasAspect ? parseComponent(context, Aspect.KEY, Components.getAspects()) : null;
         ItemStack stack = getStack(context);
         Warpath.remove(stack);
         Warpath.add(stack, revelation, hasAspect ? aspect : null);
@@ -66,10 +65,10 @@ public class WarpathCommand {
         return 0;
     }
 
-    public static <T extends Component> T parseComponent(CommandContext<ServerCommandSource> context, Type type, Map<Identifier, T> registry) throws CommandSyntaxException {
-        Identifier id = IdentifierArgumentType.getIdentifier(context, type.translationKey);
+    public static <T extends Aspect> T parseComponent(CommandContext<ServerCommandSource> context, String key, Map<Identifier, T> registry) throws CommandSyntaxException {
+        Identifier id = IdentifierArgumentType.getIdentifier(context, key);
         if (!registry.containsKey(id)) {
-            throw type.exception.create(id.toString());
+            throw getException(key).create(id.toString());
         }
         return registry.get(id);
     }
@@ -91,7 +90,7 @@ public class WarpathCommand {
         return new DynamicCommandExceptionType(value -> getMessage(key, value));
     }
 
-    public static <T extends Component> CompletableFuture<Suggestions> suggestRegistry(Map<Identifier, T> registry, SuggestionsBuilder builder) {
+    public static <T extends Aspect> CompletableFuture<Suggestions> suggestRegistry(Map<Identifier, T> registry, SuggestionsBuilder builder) {
         for (Identifier id : registry.keySet()) {
             builder.suggest(id.toString());
         }
@@ -103,9 +102,9 @@ public class WarpathCommand {
                 .then(CommandManager.argument("target", EntityArgumentType.entity())
                         .then(CommandManager.literal("add")
                                 .then(CommandManager.argument("revelation", IdentifierArgumentType.identifier())
-                                        .suggests((context, builder) -> suggestRegistry(Component.REVELATIONS, builder))
+                                        .suggests((context, builder) -> suggestRegistry(Components.getRevelations(), builder))
                                         .then(CommandManager.argument("aspect", IdentifierArgumentType.identifier())
-                                                .suggests(((context, builder) -> suggestRegistry(Component.ASPECTS, builder)))
+                                                .suggests(((context, builder) -> suggestRegistry(Components.getAspects(), builder)))
                                                 .then(CommandManager.argument("energy", IntegerArgumentType.integer(0, 100))
                                                         .executes(context -> WarpathCommand.add(context, true, true)))
                                                 .executes(context -> WarpathCommand.add(context, true, false)))

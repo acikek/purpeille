@@ -1,10 +1,10 @@
 package com.acikek.purpeille.recipe.warpath;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.api.warpath.Components;
 import com.acikek.purpeille.tag.ModTags;
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.component.Aspect;
-import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         super(id);
     }
 
-    public record ComponentData<T extends Component>(ItemStack stack, int index) {
+    public record ComponentData<T extends Aspect>(ItemStack stack, int index) {
 
         public boolean isEmpty() {
             return stack == ItemStack.EMPTY || index == -1;
@@ -36,14 +36,14 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
                 return null;
             }
             for (T component : registry.values()) {
-                if ((component.ignoreSlot || component.getFixedIndex() == index) && component.catalyst.test(stack)) {
+                if ((component.ignoreSlot || component.getIndex() == index) && component.catalyst.test(stack)) {
                     return component;
                 }
             }
             return null;
         }
 
-        public static <T extends Component> ComponentData<T> getEmpty() {
+        public static <T extends Aspect> ComponentData<T> getEmpty() {
             return new ComponentData<>(ItemStack.EMPTY, -1);
         }
     }
@@ -59,15 +59,15 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         }
 
         public boolean isValid() {
-            Revelation revelationComponent = revelation.getComponent(Component.REVELATIONS);
+            Revelation revelationComponent = revelation.getComponent(Components.getRevelations());
             if (revelationComponent == null) {
                 return false;
             }
-            Aspect aspectComponent = aspect.getComponent(Component.ASPECTS);
+            Aspect aspectComponent = aspect.getComponent(Components.getAspects());
             if (!aspect.isEmpty() && aspectComponent == null) {
                 return false;
             }
-            return Component.areCompatible(revelationComponent, aspectComponent);
+            return Components.areCompatible(revelationComponent, aspectComponent);
         }
 
         public static ComponentPair getEmpty() {
@@ -127,11 +127,11 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
             return null;
         }
         ItemStack stack = base.copy();
-        Revelation revelation = data.revelation.getComponent(Component.REVELATIONS);
+        Revelation revelation = data.revelation.getComponent(Components.getRevelations());
         if (revelation == null) {
             return null;
         }
-        Aspect aspect = data.aspect.getComponent(Component.ASPECTS);
+        Aspect aspect = data.aspect.getComponent(Components.getAspects());
         Warpath.add(stack, revelation, aspect);
         return stack;
     }

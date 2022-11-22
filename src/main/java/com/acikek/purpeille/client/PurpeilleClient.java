@@ -13,9 +13,8 @@ import com.acikek.purpeille.client.particle.MonolithicPurpurParticles;
 import com.acikek.purpeille.client.render.AncientGuardianRenderer;
 import com.acikek.purpeille.client.render.AncientMessageHud;
 import com.acikek.purpeille.client.render.MonolithicPurpurRenderer;
-import com.acikek.purpeille.impl.AncientMessagesImpl;
+import com.acikek.purpeille.impl.ComponentsImpl;
 import com.acikek.purpeille.warpath.component.Aspect;
-import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -59,8 +58,8 @@ public class PurpeilleClient implements ClientModInitializer {
         ClientTickEvents.START_WORLD_TICK.register(world -> rotationTick());
         registerReceivers();
         registerPacks();
-        handleReload("revelations", Component.REVELATIONS, Revelation::read);
-        handleReload("aspects", Component.ASPECTS, Aspect::read);
+        handleReload("revelations", ComponentsImpl.REVELATIONS, Revelation::read);
+        handleReload("aspects", ComponentsImpl.ASPECTS, Aspect::read);
     }
 
     public static void registerPack(ModContainer mod, String key, String name, ResourcePackActivationType type) {
@@ -98,7 +97,7 @@ public class PurpeilleClient implements ClientModInitializer {
                 });
     }
 
-    public static <T extends Component> void handleReload(String key, Map<Identifier, T> registry, Function<PacketByteBuf, T> read) {
+    public static <T extends Aspect> void handleReload(String key, Map<Identifier, T> registry, Function<PacketByteBuf, T> read) {
         ClientPlayNetworking.registerGlobalReceiver(Purpeille.id(key), (client, handler, buf, responseSender) -> {
             if (client.isInSingleplayer()) {
                 return;

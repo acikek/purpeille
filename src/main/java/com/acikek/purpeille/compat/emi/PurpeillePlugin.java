@@ -1,6 +1,7 @@
 package com.acikek.purpeille.compat.emi;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.api.warpath.Components;
 import com.acikek.purpeille.block.ChorusInfestedBlocks;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.compat.emi.warpath.CatalystInstance;
@@ -9,7 +10,6 @@ import com.acikek.purpeille.compat.emi.warpath.EmiWarpathRemoveRecipe;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import com.acikek.purpeille.tag.ModTags;
 import com.acikek.purpeille.warpath.component.Aspect;
-import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
@@ -49,8 +49,8 @@ public class PurpeillePlugin implements EmiPlugin {
         Map<CatalystInstance<Revelation>, List<CatalystInstance<Aspect>>> result = new HashMap<>();
         for (CatalystInstance<Revelation> revelationInstance : revelationInstances) {
             List<CatalystInstance<Aspect>> compatibleAspects = aspectInstances.stream()
-                    .filter(instance -> Component.areCompatible(revelationInstance.component(), instance.component()))
-                    .filter(instance -> revelationInstance.component().getFixedIndex() != instance.component().getFixedIndex())
+                    .filter(instance -> Components.areCompatible(revelationInstance.component(), instance.component()))
+                    .filter(instance -> revelationInstance.component().getIndex() != instance.component().getIndex())
                     .collect(Collectors.toList());
             result.put(revelationInstance, compatibleAspects);
         }
@@ -85,8 +85,8 @@ public class PurpeillePlugin implements EmiPlugin {
         Revelation.finishAttributeReload(false);
         List<Item> aspectCatalysts = getTagItems(ModTags.ASPECT_CATALYST).orElse(Collections.emptyList());
         getTagItems(ModTags.WARPATH_BASE).ifPresent(warpathBases -> getTagItems(ModTags.REVELATION_CATALYST).ifPresent(revelationCatalysts -> {
-            List<CatalystInstance<Aspect>> aspectInstances = CatalystInstance.getInstances(aspectCatalysts, Component.ASPECTS);
-            List<CatalystInstance<Revelation>> revelationInstances = CatalystInstance.getInstances(revelationCatalysts, Component.REVELATIONS);
+            List<CatalystInstance<Aspect>> aspectInstances = CatalystInstance.getInstances(aspectCatalysts, Components.getAspects());
+            List<CatalystInstance<Revelation>> revelationInstances = CatalystInstance.getInstances(revelationCatalysts, Components.getRevelations());
             Map<CatalystInstance<Revelation>, List<CatalystInstance<Aspect>>> compatibleCatalysts = getCompatibleCatalysts(revelationInstances, aspectInstances);
             List<Item> allItems = getAllItems(revelationInstances, aspectInstances);
             for (Item base : warpathBases) {

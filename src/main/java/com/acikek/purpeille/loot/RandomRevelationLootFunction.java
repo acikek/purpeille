@@ -1,8 +1,8 @@
 package com.acikek.purpeille.loot;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.api.warpath.Components;
 import com.acikek.purpeille.warpath.Warpath;
-import com.acikek.purpeille.warpath.component.Component;
 import com.acikek.purpeille.warpath.component.Revelation;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
@@ -25,7 +25,7 @@ public class RandomRevelationLootFunction extends ConditionalLootFunction {
 
     @Override
     protected ItemStack process(ItemStack stack, LootContext context) {
-        List<Revelation> revelations = Component.REVELATIONS.values().stream().toList();
+        List<Revelation> revelations = Components.getRevelations().values().stream().toList();
         Warpath.add(stack, revelations.get(context.getRandom().nextInt(revelations.size())), null);
         return stack;
     }
