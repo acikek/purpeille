@@ -1,0 +1,30 @@
+{
+  "parent": "purpeille:purpeille/find_structure",
+  "display": {
+    "icon": {
+      "item": "purpeille:shield_of_avak"
+    },
+    "title": {
+      "translate": "advancements.purpeille.abyssal_token.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.abyssal_token.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_token": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "purpeille:abyssal_tokens"
+          }
+        ]
+      }
+    }
+  }
+}

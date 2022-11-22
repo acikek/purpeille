@@ -1,0 +1,23 @@
+{
+  "parent": "purpeille:purpeille/upgrade_warpath",
+  "display": {
+    "icon": {
+      "item": "minecraft:lily_of_the_valley"
+    },
+    "title": {
+      "translate": "advancements.purpeille.allegiance_fail_success.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.allegiance_fail_success.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "imbue_token": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

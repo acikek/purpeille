@@ -1,0 +1,23 @@
+{
+  "parent": "purpeille:purpeille/upgrade_warpath",
+  "display": {
+    "icon": {
+      "item": "minecraft:golden_apple"
+    },
+    "title": {
+      "translate": "advancements.purpeille.abyssal_allegiance.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.abyssal_allegiance.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sacrifice_item": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

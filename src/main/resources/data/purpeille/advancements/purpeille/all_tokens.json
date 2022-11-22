@@ -1,0 +1,72 @@
+{
+  "parent": "purpeille:purpeille/abyssal_token",
+  "display": {
+    "icon": {
+      "item": "purpeille:token_of_tatemo"
+    },
+    "title": {
+      "translate": "advancements.purpeille.all_tokens.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.all_tokens.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_all_tokens": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:shield_of_avak"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:vibrant_pyroclast"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:voided_heart"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:token_of_tatemo"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:corrupted_fruit"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:syndicalists_skull"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:dwellers_sole"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:crystallized_wind"
+            ]
+          },
+          {
+            "items": [
+              "purpeille:dark_quantum_wisp"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

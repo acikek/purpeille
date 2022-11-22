@@ -1,0 +1,32 @@
+{
+  "parent": "purpeille:purpeille/abyssal_token",
+  "display": {
+    "icon": {
+      "item": "purpeille:void_amalgam"
+    },
+    "title": {
+      "translate": "advancements.purpeille.void_amalgam.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.void_amalgam.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_token": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "purpeille:void_amalgam"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

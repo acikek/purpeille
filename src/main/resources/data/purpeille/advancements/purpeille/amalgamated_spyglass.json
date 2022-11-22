@@ -1,0 +1,23 @@
+{
+  "parent": "purpeille:purpeille/void_amalgam",
+  "display": {
+    "icon": {
+      "item": "purpeille:amalgamated_spyglass"
+    },
+    "title": {
+      "translate": "advancements.purpeille.amalgamated_spyglass.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.amalgamated_spyglass.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "upgradw_warpath": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

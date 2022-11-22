@@ -1,0 +1,23 @@
+{
+  "parent": "purpeille:purpeille/imbue_token",
+  "display": {
+    "icon": {
+      "item": "minecraft:smithing_table"
+    },
+    "title": {
+      "translate": "advancements.purpeille.upgrade_warpath.title"
+    },
+    "description": {
+      "translate": "advancements.purpeille.upgrade_warpath.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "upgradw_warpath": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
