@@ -1,8 +1,8 @@
 package com.acikek.purpeille.mixin;
 
-import com.acikek.purpeille.api.AbyssalToken;
-import com.acikek.purpeille.api.AbyssalTokens;
-import com.acikek.purpeille.api.ImbuementData;
+import com.acikek.purpeille.api.abyssal.AbyssalToken;
+import com.acikek.purpeille.api.abyssal.AbyssalTokens;
+import com.acikek.purpeille.api.abyssal.ImbuementData;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;

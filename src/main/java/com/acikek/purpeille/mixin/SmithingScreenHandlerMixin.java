@@ -1,7 +1,7 @@
 package com.acikek.purpeille.mixin;
 
-import com.acikek.purpeille.api.AbyssalToken;
-import com.acikek.purpeille.api.AbyssalTokens;
+import com.acikek.purpeille.api.abyssal.AbyssalToken;
+import com.acikek.purpeille.api.abyssal.AbyssalTokens;
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.WarpathData;
 import com.acikek.purpeille.warpath.component.Revelation;

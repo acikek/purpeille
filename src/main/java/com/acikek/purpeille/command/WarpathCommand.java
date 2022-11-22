@@ -1,6 +1,6 @@
 package com.acikek.purpeille.command;
 
-import com.acikek.purpeille.api.AbyssalTokens;
+import com.acikek.purpeille.api.abyssal.AbyssalTokens;
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Component;

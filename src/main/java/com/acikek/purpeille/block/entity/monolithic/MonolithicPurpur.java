@@ -1,8 +1,8 @@
 package com.acikek.purpeille.block.entity.monolithic;
 
-import com.acikek.purpeille.api.AbyssalToken;
-import com.acikek.purpeille.api.AbyssalTokens;
-import com.acikek.purpeille.api.ImbuementData;
+import com.acikek.purpeille.api.abyssal.AbyssalToken;
+import com.acikek.purpeille.api.abyssal.AbyssalTokens;
+import com.acikek.purpeille.api.abyssal.ImbuementData;
 import com.acikek.purpeille.block.BlockSettings;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;

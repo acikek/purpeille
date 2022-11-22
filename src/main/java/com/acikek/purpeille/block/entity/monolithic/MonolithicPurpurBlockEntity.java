@@ -1,6 +1,6 @@
 package com.acikek.purpeille.block.entity.monolithic;
 
-import com.acikek.purpeille.api.AbyssalToken;
+import com.acikek.purpeille.api.abyssal.AbyssalToken;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.ModBlockEntities;
 import com.acikek.purpeille.block.entity.SingleSlotBlockEntity;

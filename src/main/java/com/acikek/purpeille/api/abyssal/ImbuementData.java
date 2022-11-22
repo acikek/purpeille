@@ -1,4 +1,4 @@
-package com.acikek.purpeille.api;
+package com.acikek.purpeille.api.abyssal;
 
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;

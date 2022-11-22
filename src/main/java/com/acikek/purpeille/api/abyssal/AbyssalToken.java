@@ -1,4 +1,4 @@
-package com.acikek.purpeille.api;
+package com.acikek.purpeille.api.abyssal;
 
 import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.warpath.Warpath;

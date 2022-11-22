@@ -1,7 +1,7 @@
 package com.acikek.purpeille.impl;
 
-import com.acikek.purpeille.api.AbyssalToken;
-import com.acikek.purpeille.api.ImbuementData;
+import com.acikek.purpeille.api.abyssal.AbyssalToken;
+import com.acikek.purpeille.api.abyssal.ImbuementData;
 import com.acikek.purpeille.attribute.ModAttributes;
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.WarpathData;

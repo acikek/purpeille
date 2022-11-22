@@ -1,7 +1,7 @@
 package com.acikek.purpeille.warpath.component;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.api.AbyssalTokens;
+import com.acikek.purpeille.api.abyssal.AbyssalTokens;
 import com.acikek.purpeille.warpath.*;
 import com.google.gson.JsonObject;
 import net.minecraft.entity.EquipmentSlot;
