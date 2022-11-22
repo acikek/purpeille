@@ -28,21 +28,21 @@ public class Revelation extends Component {
     public Ingredient affinity;
     public Map<Identifier, Synergy> synergy;
     public AbyssaliteData abyssalite;
-    public int dyeColor;
     public MutableText rite;
+    public int dyeColor;
 
-    public Revelation(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, AttributeData attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, AbyssaliteData abyssalite, int dyeColor) {
-        super(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist);
+    public Revelation(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, MutableText display, AttributeData attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, AbyssaliteData abyssalite, MutableText rite, int dyeColor) {
+        super(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, display);
         this.attribute = attribute;
         this.affinity = affinity;
         this.synergy = synergy;
         this.abyssalite = abyssalite;
+        this.rite = rite.styled(style -> style.withColor(RITE_RGB));
         this.dyeColor = dyeColor == -1 ? getClosestDyeColor(waveColor) : dyeColor;
-        rite = Text.translatable(getIdKey("rite", id)).styled(style -> style.withColor(RITE_RGB));
     }
 
-    public Revelation(Aspect aspect, AttributeData attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, AbyssaliteData abyssalite, int dyeColor) {
-        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, attribute, affinity, synergy, abyssalite, dyeColor);
+    public Revelation(Aspect aspect, AttributeData attribute, Ingredient affinity, Map<Identifier, Synergy> synergy, AbyssaliteData abyssalite, MutableText rite, int dyeColor) {
+        this(aspect.id, aspect.tone, aspect.color, aspect.catalyst, aspect.index, aspect.modifier, aspect.ignoreSlot, aspect.whitelist, aspect.display, attribute, affinity, synergy, abyssalite, rite, dyeColor);
     }
 
     public static void finishAbyssaliteReload(boolean log) {
@@ -96,11 +96,6 @@ public class Revelation extends Component {
         return closestColor;
     }
 
-    @Override
-    public Type getType() {
-        return Type.REVELATION;
-    }
-
     public double getModifierValue(ItemStack stack, Aspect aspect) {
         double value = affinity.test(stack) ? modifier * 1.2 : modifier;
         if (aspect == null) {
@@ -119,6 +114,7 @@ public class Revelation extends Component {
         Ingredient affinity;
         Map<Identifier, Synergy> synergy;
         AbyssaliteData abyssalite;
+        MutableText rite;
         int dyeColor = -1;
 
         public Builder aspect(Aspect aspect) {
@@ -129,6 +125,7 @@ public class Revelation extends Component {
             modifier = aspect.modifier;
             ignoreSlot = aspect.ignoreSlot;
             whitelist = aspect.whitelist;
+            display = aspect.display;
             return this;
         }
 
@@ -149,6 +146,11 @@ public class Revelation extends Component {
 
         public Builder abyssalite(AbyssaliteData abyssalite) {
             this.abyssalite = abyssalite;
+            return this;
+        }
+
+        public Builder rite(MutableText rite) {
+            this.rite = rite;
             return this;
         }
 
@@ -173,7 +175,7 @@ public class Revelation extends Component {
 
         public Revelation buildRevelation(Identifier id) {
             if (isValid(id)) {
-                return new Revelation(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, attribute, affinity, synergy, abyssalite, dyeColor);
+                return new Revelation(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, display, attribute, affinity, synergy, abyssalite, rite, dyeColor);
             }
             return null;
         }
@@ -185,13 +187,17 @@ public class Revelation extends Component {
                         ? obj
                         : JsonHelper.getObject(obj, "attribute")
         );
-        return new Builder()
-                .aspect(Aspect.fromJson(obj, id))
+        Builder builder = new Builder()
+                .aspect(Aspect.fromJson(obj, id, Type.REVELATION))
                 .attribute(attribute)
                 .affinity(Ingredient.fromJson(obj.get("affinity")))
                 .synergy(Synergy.overridesFromJson(JsonHelper.getObject(obj, "synergy", null)))
                 .abyssalite(AbyssaliteData.fromJson(JsonHelper.getObject(obj, "abyssalite", null)))
-                .dyeColor(JsonHelper.getInt(obj, "dye_color", -1))
+                .dyeColor(JsonHelper.getInt(obj, "dye_color", -1));
+        MutableText rite = obj.has("rite")
+                ? Text.Serializer.fromJson(obj.get("rite"))
+                : Text.translatable(getIdKey("rite", id));
+        return builder.rite(rite)
                 .buildRevelation(id);
     }
 
@@ -201,8 +207,9 @@ public class Revelation extends Component {
         Ingredient affinity = Ingredient.fromPacket(buf);
         Map<Identifier, Synergy> synergy = buf.readBoolean() ? buf.readMap(PacketByteBuf::readIdentifier, Synergy::read) : null;
         AbyssaliteData abyssalite = buf.readBoolean() ? AbyssaliteData.read(buf) : null;
+        MutableText rite = (MutableText) buf.readText();
         int dyeColor = buf.readInt();
-        return new Revelation(aspect, attribute, affinity, synergy, abyssalite, dyeColor);
+        return new Revelation(aspect, attribute, affinity, synergy, abyssalite, rite, dyeColor);
     }
 
     @Override
@@ -218,6 +225,7 @@ public class Revelation extends Component {
         if (abyssalite != null) {
             abyssalite.write(buf);
         }
+        buf.writeText(rite);
         buf.writeInt(dyeColor);
     }
 }

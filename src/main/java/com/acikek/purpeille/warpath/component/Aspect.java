@@ -3,9 +3,10 @@ package com.acikek.purpeille.warpath.component;
 import com.acikek.purpeille.warpath.ClampedColor;
 import com.acikek.purpeille.warpath.Tone;
 import com.google.gson.JsonObject;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import org.apache.commons.lang3.EnumUtils;
@@ -15,12 +16,8 @@ import java.util.Objects;
 
 public class Aspect extends Component {
 
-    Aspect(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist) {
-        super(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist);
-    }
-
-    public Type getType() {
-        return Type.ASPECT;
+    Aspect(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, MutableText display) {
+        super(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, display);
     }
 
     public static class Builder {
@@ -32,6 +29,7 @@ public class Aspect extends Component {
         double modifier = 1.0;
         boolean ignoreSlot = false;
         List<Identifier> whitelist;
+        MutableText display;
 
         public Builder tone(Tone tone) {
             this.tone = tone;
@@ -72,14 +70,20 @@ public class Aspect extends Component {
             return this;
         }
 
+        public Builder display(MutableText text) {
+            this.display = text;
+            return this;
+        }
+
         boolean isValid(Identifier id) {
             Objects.requireNonNull(id);
             Objects.requireNonNull(tone);
             Objects.requireNonNull(catalyst);
+            Objects.requireNonNull(display);
             if (color < 0) {
                 throw new IllegalStateException("'color' cannot be negative");
             }
-            if (index < 0 || index > 8) {
+            if (index != -1 && (index < 0 || index > 8)) {
                 throw new IllegalStateException("'index' must be in the range [0-8]");
             }
             return true;
@@ -87,21 +91,25 @@ public class Aspect extends Component {
 
         public Aspect buildAspect(Identifier id) {
             if (isValid(id)) {
-                return new Aspect(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist);
+                return new Aspect(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, display);
             }
             return null;
         }
     }
 
-    public static Aspect fromJson(JsonObject obj, Identifier id) {
-        return new Builder()
+    public static Aspect fromJson(JsonObject obj, Identifier id, Type type) {
+        Builder builder = new Builder()
                 .tone(EnumUtils.getEnumIgnoreCase(Tone.class, JsonHelper.getString(obj, "tone")))
                 .color(ClampedColor.colorFromJson(obj.get("color")))
                 .catalyst(Ingredient.fromJson(obj.get("catalyst")))
                 .index(JsonHelper.getInt(obj, "index", -1))
                 .modifier(JsonHelper.getDouble(obj, "modifier", 1.0))
                 .ignoreSlot(JsonHelper.getBoolean(obj, "ignore_slot", false))
-                .whitelist(whitelistFromJson(obj))
+                .whitelist(whitelistFromJson(obj));
+        MutableText display = obj.has("display")
+                ? Text.Serializer.fromJson(obj.get("display"))
+                : Text.translatable(getIdKey(type.translationKey, id));
+        return builder.display(display)
                 .buildAspect(id);
     }
 
@@ -114,6 +122,7 @@ public class Aspect extends Component {
         double modifier = buf.readDouble();
         boolean ignoreSlot = buf.readBoolean();
         List<Identifier> whitelist = readWhitelist(buf);
-        return new Aspect(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist);
+        MutableText display = (MutableText) buf.readText();
+        return new Aspect(id, tone, color, catalyst, index, modifier, ignoreSlot, whitelist, display);
     }
 }

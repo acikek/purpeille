@@ -9,7 +9,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 public abstract class Component {
 
@@ -32,12 +30,12 @@ public abstract class Component {
     public double modifier;
     public boolean ignoreSlot;
     public List<Identifier> whitelist;
+    public MutableText display;
     public int relativeIndex;
     public ClampedColor waveColor;
-    public MutableText baseText;
     public MutableText defaultText;
 
-    Component(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist) {
+    Component(Identifier id, Tone tone, int color, Ingredient catalyst, int index, double modifier, boolean ignoreSlot, List<Identifier> whitelist, MutableText display) {
         this.id = id;
         this.tone = tone;
         this.color = color;
@@ -46,20 +44,18 @@ public abstract class Component {
         this.modifier = modifier;
         this.ignoreSlot = ignoreSlot;
         this.whitelist = whitelist;
+        this.display = display;
         relativeIndex = tone.index * 3 + index;
         waveColor = new ClampedColor(color);
-        baseText = Text.translatable(getIdKey(getType().translationKey, id));
-        defaultText = baseText.styled(style -> style.withColor(color));
+        defaultText = display.styled(style -> style.withColor(color));
     }
-
-    public abstract Type getType();
 
     public Style getStyle(int wave) {
         return Style.EMPTY.withColor(waveColor.getModified(wave));
     }
 
     public MutableText getText(Style style) {
-        return baseText.copy().setStyle(style);
+        return display.copy().setStyle(style);
     }
 
     public MutableText getText(int wave, Style style) {
@@ -135,5 +131,6 @@ public abstract class Component {
         buf.writeDouble(modifier);
         buf.writeBoolean(ignoreSlot);
         writeWhitelist(buf);
+        buf.writeText(display);
     }
 }
