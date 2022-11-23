@@ -2,7 +2,6 @@ package com.acikek.purpeille.advancement;
 
 import com.acikek.purpeille.Purpeille;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
@@ -12,7 +11,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 
-public class ChorusInfestationSheared extends AbstractCriterion<ChorusInfestationSheared.Conditions> {
+public class ChorusInfestationShearedCriterion extends AbstractCriterion<ChorusInfestationShearedCriterion.Conditions> {
 
     public static Identifier ID = Purpeille.id("chorus_infestation_sheared");
 

@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.text.Text;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
@@ -24,6 +25,8 @@ public class AbyssaliteData {
         WEAK,
         STANDARD,
         GREAT;
+
+        public Text text = Text.translatable("abyssalite_effect.purpeille." + name().toLowerCase());
 
         public static Effect getEffect(float modifier, float min, float max) {
             float range = max - min;

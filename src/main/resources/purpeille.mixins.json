@@ -23,8 +23,10 @@
     "attribute.allegiance.MinecraftServerMixin"
   ],
   "client": [
+    "client.GameRendererMixin",
     "client.InGameHudMixin",
-    "client.ItemRendererMixin"
+    "client.ItemRendererMixin",
+    "client.MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

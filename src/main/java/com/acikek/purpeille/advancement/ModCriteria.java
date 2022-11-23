@@ -6,10 +6,11 @@ public class ModCriteria {
 
     public static AbyssalAllegianceCycledCriterion ABYSSAL_ALLEGIANCE_CYCLED = new AbyssalAllegianceCycledCriterion();
     public static AbyssalTokenImbuedCriterion ABYSSAL_TOKEN_IMBUED = new AbyssalTokenImbuedCriterion();
+    public static AmalgamatedSpyglassUsedCriterion AMALGAMATED_SPYGLASS_USED = new AmalgamatedSpyglassUsedCriterion();
     public static AncientGatewayUsedCriterion ANCIENT_GATEWAY_USED = new AncientGatewayUsedCriterion();
     public static AncientGuardianUsedCriterion ANCIENT_GUARDIAN_USED = new AncientGuardianUsedCriterion();
     public static AncientOvenDamagedCriterion ANCIENT_OVEN_DAMAGED = new AncientOvenDamagedCriterion();
-    public static ChorusInfestationSheared CHORUS_INFESTATION_SHEARED = new ChorusInfestationSheared();
+    public static ChorusInfestationShearedCriterion CHORUS_INFESTATION_SHEARED = new ChorusInfestationShearedCriterion();
     public static UltravioletComplexBurnsCriterion ULTRAVIOLET_COMPLEX_BURNS = new UltravioletComplexBurnsCriterion();
     public static VoidSacrificeCriterion VOID_SACRIFICE = new VoidSacrificeCriterion();
     public static WarpathCreatedCriterion WARPATH_CREATED = new WarpathCreatedCriterion();
@@ -18,6 +19,7 @@ public class ModCriteria {
     public static void register() {
         Criteria.register(ABYSSAL_ALLEGIANCE_CYCLED);
         Criteria.register(ABYSSAL_TOKEN_IMBUED);
+        Criteria.register(AMALGAMATED_SPYGLASS_USED);
         Criteria.register(ANCIENT_GATEWAY_USED);
         Criteria.register(ANCIENT_GUARDIAN_USED);
         Criteria.register(ANCIENT_OVEN_DAMAGED);

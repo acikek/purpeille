@@ -1,6 +1,6 @@
 package com.acikek.purpeille.mixin.client;
 
-import com.acikek.purpeille.api.PurpeilleAPI;
+import com.acikek.purpeille.api.abyssal.AmalgamatedSpyglass;
 import com.acikek.purpeille.client.render.AncientMessageHud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -29,7 +29,7 @@ public class InGameHudMixin {
     @ModifyArg(method = "renderSpyglassOverlay", index = 1,
                at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/util/Identifier;)V"))
     private Identifier purpeille$renderAmalgamatedSpyglassOverlay(Identifier spyglassTexture) {
-        return PurpeilleAPI.isUsingAmalgamatedSpyglass(client.player)
+        return AmalgamatedSpyglass.isUsingAmalgamatedSpyglass(client.player)
             ? spyglassTexture // TODO: Replace with custom texture
             : spyglassTexture;
     }

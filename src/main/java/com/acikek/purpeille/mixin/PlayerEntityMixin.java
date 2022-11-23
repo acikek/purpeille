@@ -1,11 +1,9 @@
 package com.acikek.purpeille.mixin;
 
-import com.acikek.purpeille.api.PurpeilleAPI;
+import com.acikek.purpeille.api.abyssal.AmalgamatedSpyglass;
 import com.acikek.purpeille.block.entity.ancient.guardian.AncientGuardianBlockEntity;
-import com.acikek.purpeille.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RespawnAnchorBlock;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,7 +39,7 @@ public class PlayerEntityMixin {
 
     @Inject(method = "isUsingSpyglass", cancellable = true, at = @At("HEAD"))
     private void purpeille$recognizeAmalgamatedSpyglass(CallbackInfoReturnable<Boolean> cir) {
-        if (PurpeilleAPI.isUsingAmalgamatedSpyglass((LivingEntity) (Object) this)) {
+        if (AmalgamatedSpyglass.isUsingAmalgamatedSpyglass((LivingEntity) (Object) this)) {
             cir.setReturnValue(true);
         }
     }
