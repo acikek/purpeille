@@ -10,14 +10,14 @@ public class AllegianceData {
     public int previous;
     public int fulfilled;
     public long initialTime;
-    public boolean failedLast;
+    public boolean passedLast = true;
 
-    public AllegianceData(int cyclic, int previous, int fulfilled, long initialTime, boolean failedLast) {
+    public AllegianceData(int cyclic, int previous, int fulfilled, long initialTime, boolean passedLast) {
         this.cyclic = cyclic;
         this.previous = previous;
         this.fulfilled = fulfilled;
         this.initialTime = initialTime;
-        this.failedLast = failedLast;
+        this.passedLast = !passedLast;
     }
 
     public int neglected() {
@@ -29,7 +29,7 @@ public class AllegianceData {
     }
 
     public void cycle() {
-        failedLast = !passed();
+        passedLast = passed();
         previous = cyclic;
         cyclic = 0;
         fulfilled = 0;
@@ -41,8 +41,8 @@ public class AllegianceData {
         int previous = nbt.getInt("Previous");
         int fulfilled = nbt.getInt("Fulfilled");
         long initialTime = nbt.getLong("InitialTime");
-        boolean failedLast = nbt.getBoolean("FailedLast");
-        return new AllegianceData(cyclic, previous, fulfilled, initialTime, failedLast);
+        boolean passedLast = nbt.getBoolean("FailedLast");
+        return new AllegianceData(cyclic, previous, fulfilled, initialTime, passedLast);
     }
 
     public void writeNbt(NbtCompound nbt) {
@@ -50,6 +50,6 @@ public class AllegianceData {
         nbt.putInt("Previous", previous);
         nbt.putInt("Fulfilled", fulfilled);
         nbt.putLong("InitialTime", initialTime);
-        nbt.putBoolean("FailedLast", failedLast);
+        nbt.putBoolean("FailedLast", !passedLast);
     }
 }

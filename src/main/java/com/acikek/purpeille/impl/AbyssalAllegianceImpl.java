@@ -1,6 +1,7 @@
 package com.acikek.purpeille.impl;
 
 import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.api.allegiance.AbyssallyAllegiantEntity;
 import com.acikek.purpeille.api.allegiance.AllegianceData;
 import com.acikek.purpeille.api.amsg.AncientMessageData;
@@ -67,7 +68,7 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
             result.add(getFailureMessage(2).soundEvent(SoundEvents.ENTITY_WITHER_DEATH).build());
             result.add(getFailureMessage(3).soundEvent(SoundEvents.ENTITY_WITHER_AMBIENT).build());
         }
-        else if (data.failedLast) {
+        else if (!data.passedLast) {
             result.add(getSuccessMessage(3).build());
             result.add(getSuccessMessage(4).soundEvent(SoundEvents.AMBIENT_NETHER_WASTES_MOOD).build());
         }
@@ -99,17 +100,24 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
 
     @Override
     public void onSeriesCompleted(ServerPlayerEntity player, Identifier seriesId) {
-        if (seriesId.equals(ID) && player instanceof AbyssallyAllegiantEntity allegiant) {
-            player.sendMessage(Text.translatable("message.purpeille.cycle_next", allegiant.getAllegianceData().cyclic));
-            if (!allegiant.getAllegianceData().passed()) {
-                player.sendMessage(CYCLE_FAIL);
-                player.playSound(SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                EntityAttributeInstance instance = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
-                if (instance != null) {
-                    instance.addPersistentModifier(getTreasonousModifier(allegiant.getAllegianceData().neglected()));
+        if (player instanceof AbyssallyAllegiantEntity allegiant) {
+            AllegianceData data = allegiant.getAllegianceData();
+            if (seriesId.equals(ID)) {
+                player.sendMessage(Text.translatable("message.purpeille.cycle_next", data.cyclic));
+                if (!data.passed()) {
+                    player.sendMessage(CYCLE_FAIL);
+                    player.playSound(SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                    EntityAttributeInstance instance = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+                    if (instance != null) {
+                        instance.addPersistentModifier(getTreasonousModifier(data.neglected()));
+                    }
                 }
+                ModCriteria.ABYSSAL_ALLEGIANCE_CYCLED.trigger(player, data.passed(), data.passedLast);
+                data.cycle();
             }
-            allegiant.getAllegianceData().cycle();
+            else if (seriesId.equals(VOIDED_SERIES)) {
+                ModCriteria.VOID_SACRIFICE.trigger(player, data.cyclic);
+            }
         }
     }
 

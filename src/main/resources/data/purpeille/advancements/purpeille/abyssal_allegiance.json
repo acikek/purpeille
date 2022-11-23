@@ -17,7 +17,7 @@
   },
   "criteria": {
     "sacrifice_item": {
-      "trigger": "minecraft:impossible"
+      "trigger": "purpeille:void_sacrifice"
     }
   }
 }

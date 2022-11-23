@@ -17,7 +17,11 @@
   },
   "criteria": {
     "imbue_token": {
-      "trigger": "minecraft:impossible"
+      "trigger": "purpeille:abyssal_allegiance_cycled",
+      "conditions": {
+        "passed": true,
+        "passed_last": false
+      }
     }
   }
 }
