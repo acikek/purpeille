@@ -17,7 +17,7 @@
   },
   "criteria": {
     "upgradw_warpath": {
-      "trigger": "minecraft:impossible"
+      "trigger": "purpeille:warpath_upgraded"
     }
   }
 }

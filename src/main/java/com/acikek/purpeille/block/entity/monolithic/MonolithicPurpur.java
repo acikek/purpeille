@@ -1,5 +1,6 @@
 package com.acikek.purpeille.block.entity.monolithic;
 
+import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.api.abyssal.AbyssalToken;
 import com.acikek.purpeille.api.abyssal.AbyssalTokens;
 import com.acikek.purpeille.api.abyssal.ImbuementData;
@@ -18,6 +19,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -84,7 +86,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         return altarFactor + timesFactor - effectsFactor;
     }
 
-    public static ActionResult tryImbue(World world, BlockPos pos, ItemStack stack, AbyssalToken token) {
+    public static ActionResult tryImbue(World world, BlockPos pos, PlayerEntity player, ItemStack stack, AbyssalToken token) {
         // TODO: Refine these values
         // TODO: Remove debug statements
         // Find all altar blocks on the same x and z axis as this block.
@@ -144,6 +146,10 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         System.out.println((int) energy);
         // Modify the energy values before the animation.
         AbyssalTokens.imbue(stack, (int) energy, itemsUsed);
+        // Trigger criterion for the activating player.
+        if (player instanceof ServerPlayerEntity serverPlayer) {
+            ModCriteria.ABYSSAL_TOKEN_IMBUED.trigger(serverPlayer, (int) energy, altars.size());
+        }
         // Queue imbuements for all block entities.
         // The animation will automatically be different for the central altar.
         if (world.getBlockEntity(pos) instanceof MonolithicPurpurBlockEntity blockEntity) {
@@ -199,10 +205,10 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         if (handStack.getItem() instanceof EncasedCore
                 && monolithicPurpur.getItem().getItem() instanceof AbyssalToken token
                 && token.isAbyssalToken()) {
-            ActionResult result = tryImbue(world, pos, monolithicPurpur.getItem(), token);
-            playSound(world, blockEntity, ModSoundEvents.IMBUE_RISE);
+            ActionResult result = tryImbue(world, pos, player, monolithicPurpur.getItem(), token);
             if (result != null) {
                 handStack.damage(128, player, playerEntity -> playerEntity.sendToolBreakStatus(hand));
+                playSound(world, blockEntity, ModSoundEvents.IMBUE_RISE);
             }
             return result;
         }

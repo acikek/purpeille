@@ -1,5 +1,6 @@
 package com.acikek.purpeille.mixin;
 
+import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.api.abyssal.AbyssalToken;
 import com.acikek.purpeille.api.abyssal.AbyssalTokens;
 import com.acikek.purpeille.warpath.Warpath;
@@ -10,6 +11,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.SmithingScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,6 +20,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SmithingScreenHandler.class)
 public class SmithingScreenHandlerMixin {
+
+    private boolean purpeille$isOutputUpgraded;
+    private int purpeille$positive;
+    private int purpeille$negative;
 
     @Inject(method = "canTakeOutput", cancellable = true, at = @At("HEAD"))
     private void purpeille$setCanTakeOutput(PlayerEntity player, boolean present, CallbackInfoReturnable<Boolean> cir) {
@@ -50,10 +56,24 @@ public class SmithingScreenHandlerMixin {
         if (screen.input.getStack(1).getItem() instanceof AbyssalToken token && token.isAbyssalToken()) {
             ItemStack baseStack = screen.input.getStack(0);
             ItemStack outputStack = baseStack.copy();
-            AbyssalTokens.apply(outputStack, screen.input.getStack(1));
+            int[] values = AbyssalTokens.apply(outputStack, screen.input.getStack(1));
+            System.out.println("applied");
             screen.output.setStack(0, outputStack);
             screen.output.setLastRecipe(null);
+            purpeille$isOutputUpgraded = true;
+            purpeille$positive = values[0];
+            purpeille$negative = values[1];
             ci.cancel();
+        }
+    }
+
+    @Inject(method = "onTakeOutput", at = @At("TAIL"))
+    private void purpeille$output(PlayerEntity player, ItemStack stack, CallbackInfo ci) {
+        if (purpeille$isOutputUpgraded) {
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                ModCriteria.WARPATH_UPGRADED.trigger(serverPlayer, purpeille$positive, purpeille$negative);
+            }
+            purpeille$isOutputUpgraded = false;
         }
     }
 }

@@ -83,10 +83,8 @@ public class AbyssalTokensImpl {
         }
     }
 
-    public static void apply(ItemStack stack, Revelation revelation, int energy, Item appliedToken) {
-        // Calculate all the values from the stored energy
-        int positive = getPositiveValue(energy);
-        int negative = getNegativeValue(energy);
+    public static void apply(ItemStack stack, Revelation revelation, int positive, int negative, Item appliedToken) {
+        // Calculate proportion from max positive energy
         double proportion = positive / 70.0f;
         // Add a small bonus to the existing Warpath modifier
         modifyExistingModifier(stack, revelation, proportion * revelation.abyssalite.baseBonus);
@@ -109,11 +107,19 @@ public class AbyssalTokensImpl {
         stack.addAttributeModifier(ModAttributes.GENERIC_ABYSSAL_ALLEGIANCE, negativeModifier, slot);
     }
 
-    public static void apply(ItemStack base, ItemStack tokenStack) {
+    public static int[] apply(ItemStack stack, Revelation revelation, int energy, Item appliedToken) {
+        int positive = getPositiveValue(energy);
+        int negative = getNegativeValue(energy);
+        apply(stack, revelation, positive, negative, appliedToken);
+        return new int[] { positive, negative };
+    }
+
+    public static int[] apply(ItemStack base, ItemStack tokenStack) {
         if (tokenStack.getItem() instanceof AbyssalToken token) {
             Revelation revelation = token.getRevelation();
             int energy = ImbuementData.readEnergy(tokenStack.getOrCreateNbt().getCompound(ImbuementData.KEY));
-            apply(base, revelation, energy, tokenStack.getItem());
+            return apply(base, revelation, energy, tokenStack.getItem());
         }
+        return null;
     }
 }

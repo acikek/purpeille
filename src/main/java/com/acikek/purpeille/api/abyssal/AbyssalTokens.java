@@ -26,11 +26,11 @@ public class AbyssalTokens {
         AbyssalTokensImpl.imbue(stack, energy, itemsUsed);
     }
 
-    public static void apply(ItemStack stack, Revelation revelation, int energy, Item appliedToken) {
-        AbyssalTokensImpl.apply(stack, revelation, energy, appliedToken);
+    public static int[] apply(ItemStack stack, Revelation revelation, int energy, Item appliedToken) {
+        return AbyssalTokensImpl.apply(stack, revelation, energy, appliedToken);
     }
 
-    public static void apply(ItemStack base, ItemStack tokenStack) {
-        AbyssalTokensImpl.apply(base, tokenStack);
+    public static int[] apply(ItemStack base, ItemStack tokenStack) {
+        return AbyssalTokensImpl.apply(base, tokenStack);
     }
 }
