@@ -22,7 +22,7 @@ public class AncientGuardianUsedCriterion extends AbstractCriterion<AncientGuard
     protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         EnumPredicate<EncasedCore.Type> coreType = EnumPredicate.fromJson(obj.get("core_type"), EncasedCore.Type::valueOf);
         NumberRange.IntRange killed = NumberRange.IntRange.fromJson(obj.get("killed"));
-        boolean interdimensional = JsonHelper.getBoolean(obj, "interdimensional", false);
+        Boolean interdimensional = JsonHelper.hasBoolean(obj, "interdimensional") ? JsonHelper.getBoolean(obj, "interdimensional") : null;
         return new Conditions(playerPredicate, coreType, killed, interdimensional);
     }
 
@@ -39,9 +39,9 @@ public class AncientGuardianUsedCriterion extends AbstractCriterion<AncientGuard
 
         public EnumPredicate<EncasedCore.Type> coreType;
         public NumberRange.IntRange killed;
-        public boolean interdimensional;
+        public Boolean interdimensional;
 
-        public Conditions(EntityPredicate.Extended playerPredicate, EnumPredicate<EncasedCore.Type> coreType, NumberRange.IntRange killed, boolean interdimensional) {
+        public Conditions(EntityPredicate.Extended playerPredicate, EnumPredicate<EncasedCore.Type> coreType, NumberRange.IntRange killed, Boolean interdimensional) {
             super(ID, playerPredicate);
             this.coreType = coreType;
             this.killed = killed;
@@ -51,7 +51,7 @@ public class AncientGuardianUsedCriterion extends AbstractCriterion<AncientGuard
         public boolean matches(EncasedCore.Type coreType, int killed, boolean interdimensional) {
             return this.coreType.test(coreType)
                     && this.killed.test(killed)
-                    && (!this.interdimensional || interdimensional);
+                    && (this.interdimensional == null || this.interdimensional == interdimensional);
         }
 
         @Override
@@ -59,7 +59,9 @@ public class AncientGuardianUsedCriterion extends AbstractCriterion<AncientGuard
             JsonObject obj = super.toJson(predicateSerializer);
             obj.add("core_type", coreType.toJson());
             obj.add("killed", killed.toJson());
-            obj.addProperty("interdimensional", interdimensional);
+            if (this.interdimensional != null) {
+                obj.addProperty("interdimensional", interdimensional);
+            }
             return obj;
         }
     }

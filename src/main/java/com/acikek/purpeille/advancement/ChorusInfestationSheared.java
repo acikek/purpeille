@@ -18,7 +18,7 @@ public class ChorusInfestationSheared extends AbstractCriterion<ChorusInfestatio
 
     @Override
     protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
-        boolean dropChorus = JsonHelper.getBoolean(obj, "drop_chorus", false);
+        Boolean dropChorus = JsonHelper.hasBoolean(obj, "drop_chorus") ? JsonHelper.getBoolean(obj, "drop_chorus") : null;
         return new Conditions(playerPredicate, dropChorus);
     }
 
@@ -33,21 +33,23 @@ public class ChorusInfestationSheared extends AbstractCriterion<ChorusInfestatio
 
     public static class Conditions extends AbstractCriterionConditions {
 
-        public boolean dropChorus;
+        public Boolean dropChorus;
 
-        public Conditions(EntityPredicate.Extended playerPredicate, boolean dropChorus) {
+        public Conditions(EntityPredicate.Extended playerPredicate, Boolean dropChorus) {
             super(ID, playerPredicate);
             this.dropChorus = dropChorus;
         }
 
         public boolean matches(boolean dropChorus) {
-            return this.dropChorus == dropChorus;
+            return this.dropChorus == null || this.dropChorus == dropChorus;
         }
 
         @Override
         public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
             JsonObject obj = super.toJson(predicateSerializer);
-            obj.add("drop_chorus", new JsonPrimitive(dropChorus));
+            if (dropChorus != null) {
+                obj.addProperty("drop_chorus", dropChorus);
+            }
             return obj;
         }
     }
