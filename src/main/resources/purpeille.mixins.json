@@ -26,7 +26,8 @@
     "client.GameRendererMixin",
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
-    "client.MinecraftClientMixin"
+    "client.MinecraftClientMixin",
+    "client.PlayerHeldItemFeatureRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

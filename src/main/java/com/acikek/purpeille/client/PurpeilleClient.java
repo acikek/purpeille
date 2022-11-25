@@ -41,6 +41,7 @@ import java.util.function.Function;
 public class PurpeilleClient implements ClientModInitializer {
 
     public static final ModelIdentifier GUARDIAN_HAND_MODEL = new ModelIdentifier("purpeille:ancient_guardian_in_hand#inventory");
+    public static final ModelIdentifier AMALGAMATED_SPYGLASS_HAND_MODEL = new ModelIdentifier("purpeille:amalgamated_spyglass_in_hand#inventory");
 
     public static int rotationTicks;
 
@@ -48,7 +49,10 @@ public class PurpeilleClient implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.END_RUBBLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.END_RUBBLE, RenderLayer.getTranslucent());
-        ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(GUARDIAN_HAND_MODEL));
+        ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
+            out.accept(GUARDIAN_HAND_MODEL);
+            out.accept(AMALGAMATED_SPYGLASS_HAND_MODEL);
+        });
         HudRenderCallback.EVENT.register(new AncientMessageHud());
         AncientGuardianRenderer.register();
         MonolithicPurpurRenderer.register();
