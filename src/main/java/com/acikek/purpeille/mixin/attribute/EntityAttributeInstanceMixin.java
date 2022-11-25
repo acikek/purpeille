@@ -59,25 +59,27 @@ public abstract class EntityAttributeInstanceMixin {
         }
     }
 
+    private double getValue(int i, double base) {
+        boolean aa = type == ModAttributes.GENERIC_ABYSSAL_ALLEGIANCE;
+        return i == 0 ? base : (Math.pow(aa ? 1.4 : 2.0, -i) * (aa ? 1.4 : 1.2)) * base;
+    }
+
     private List<Double> getScaledModifiersByOperation(EntityAttributeModifier.Operation operation) {
         List<EntityAttributeModifier> modifiers = getModifiersByOperation(operation).stream()
                 .sorted((a, b) -> Double.compare(b.getValue(), a.getValue()))
                 .toList();
-        List<Double> logs = new ArrayList<>();
+        List<Double> scaled = new ArrayList<>();
         List<Double> others = new ArrayList<>();
         for (int i = 0; i < modifiers.size(); i++) {
             double base = modifiers.get(i).getValue();
             if (purpeille$uuids.contains(modifiers.get(i).getId())) {
-                double value = i == 0
-                        ? base
-                        : (Math.pow(2.0, -i) * 1.2) * base;
-                logs.add(value);
+                scaled.add(getValue(i, base));
                 continue;
             }
             others.add(base);
         }
-        logs.addAll(others);
-        return logs;
+        scaled.addAll(others);
+        return scaled;
     }
 
     @Inject(method = "getValue", cancellable = true, at = @At("HEAD"))
