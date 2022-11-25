@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:spyglass"
+    },
+    {
+      "item": "purpeille:void_amalgam"
+    },
+    {
+      "item": "purpeille:void_amalgam"
+    },
+    {
+      "item": "purpeille:void_amalgam"
+    },
+    {
+      "item": "purpeille:metallic_lightning"
+    },
+    {
+      "item": "purpeille:ultraviolet_prism"
+    }
+  ],
+  "result": {
+    "item": "purpeille:amalgamated_spyglass",
+    "count": 1
+  }
+}
