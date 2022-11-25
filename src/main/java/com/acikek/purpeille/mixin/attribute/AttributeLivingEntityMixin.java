@@ -14,10 +14,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -61,6 +58,14 @@ public abstract class AttributeLivingEntityMixin {
         if (instance != null) {
             cir.setReturnValue(cir.getReturnValue() * (float) (instance.getValue()));
         }
+    }
+
+    @ModifyArg(method = "computeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;ceil(F)I", ordinal = 0))
+    private float purpeille$jumpBoostFallDecrease(float value) {
+        EntityAttributeInstance instance = getAttributeInstance(ModAttributes.GENERIC_JUMP_BOOST);
+        return instance != null && instance.getValue() - 1.0f > 0.0f
+                ? value - 2.5f * ((float) instance.getValue() - 1.0f)
+                : value;
     }
 
     @ModifyVariable(method = "travel", ordinal = 1,
