@@ -6,6 +6,7 @@ import com.acikek.purpeille.api.warpath.Components;
 import com.acikek.purpeille.api.warpath.RevelationBuilder;
 import com.acikek.purpeille.impl.ComponentsImpl;
 import com.acikek.purpeille.warpath.*;
+import com.acikek.purpeille.warpath.attribute.AttributeData;
 import com.google.gson.JsonObject;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;

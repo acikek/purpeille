@@ -77,7 +77,7 @@ public class AbyssalTokensImpl {
         for (int i = 0; i < list.size(); i++) {
             NbtCompound compound = list.getCompound(i);
             EntityAttributeModifier modifier = EntityAttributeModifier.fromNbt(compound);
-            if (modifier != null && revelation.attribute.uuids.containsValue(modifier.getId())) {
+            if (modifier != null && revelation.attribute.uuids.contains(modifier.getId())) {
                 compound.putDouble("Amount", modifier.getValue() + value);
             }
         }
@@ -101,7 +101,7 @@ public class AbyssalTokensImpl {
         }
         // Apply negative abyssal allegiance value
         EntityAttributeModifier negativeModifier = new EntityAttributeModifier(
-                ModAttributes.ABYSSAL_ALLEGIANCE_UUIDS.get(slot), "Abyssal token modifier",
+                ModAttributes.ABYSSAL_ALLEGIANCE_SCALING_DATA.uuidMap.get(slot), "Abyssal token modifier",
                 negative, EntityAttributeModifier.Operation.ADDITION
         );
         stack.addAttributeModifier(ModAttributes.GENERIC_ABYSSAL_ALLEGIANCE, negativeModifier, slot);

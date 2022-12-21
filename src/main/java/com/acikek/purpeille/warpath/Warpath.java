@@ -1,5 +1,6 @@
 package com.acikek.purpeille.warpath;
 
+import com.acikek.purpeille.warpath.attribute.AttributeData;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Revelation;
 import net.minecraft.entity.EquipmentSlot;

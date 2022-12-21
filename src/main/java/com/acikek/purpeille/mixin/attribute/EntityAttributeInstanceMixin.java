@@ -1,6 +1,7 @@
 package com.acikek.purpeille.mixin.attribute;
 
 import com.acikek.purpeille.attribute.ModAttributes;
+import com.acikek.purpeille.warpath.attribute.AttributeScalingData;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -34,34 +35,26 @@ public abstract class EntityAttributeInstanceMixin {
 
     @Shadow protected abstract double computeValue();
 
-    private Collection<UUID> purpeille$uuids;
+    private AttributeScalingData purpeille$scalingData;
     private boolean purpeille$isWarpath;
     private boolean purpeille$isDirty = true;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void purpeille$checkIsRevelationAttribute(EntityAttribute type, Consumer<?> updateCallback, CallbackInfo ci) {
-        Map<EquipmentSlot, UUID> uuidMap = ModAttributes.getUUIDMap(type);
-        if (uuidMap != null) {
-            purpeille$uuids = uuidMap.values();
-        }
+        purpeille$scalingData = AttributeScalingData.getScalingData(type);
     }
 
     @Inject(method = "onUpdate", at = @At("HEAD"))
     private void purpeille$checkIsWarpath(CallbackInfo ci) {
-        if (purpeille$uuids == null) {
+        if (purpeille$scalingData == null) {
             return;
         }
         for (Map.Entry<UUID, EntityAttributeModifier> entry : idToModifiers.entrySet()) {
-            if (purpeille$uuids.contains(entry.getKey())) {
+            if (purpeille$scalingData.uuids.contains(entry.getKey())) {
                 purpeille$isWarpath = true;
                 return;
             }
         }
-    }
-
-    private double getValue(int i, double base) {
-        boolean aa = type == ModAttributes.GENERIC_ABYSSAL_ALLEGIANCE;
-        return i == 0 ? base : (Math.pow(aa ? 1.4 : 2.0, -i) * (aa ? 1.4 : 1.2)) * base;
     }
 
     private List<Double> getScaledModifiersByOperation(EntityAttributeModifier.Operation operation) {
@@ -72,8 +65,8 @@ public abstract class EntityAttributeInstanceMixin {
         List<Double> others = new ArrayList<>();
         for (int i = 0; i < modifiers.size(); i++) {
             double base = modifiers.get(i).getValue();
-            if (purpeille$uuids.contains(modifiers.get(i).getId())) {
-                scaled.add(getValue(i, base));
+            if (purpeille$scalingData.uuids.contains(modifiers.get(i).getId())) {
+                scaled.add(purpeille$scalingData.getModifierValue(i, base));
                 continue;
             }
             others.add(base);
@@ -112,23 +105,18 @@ public abstract class EntityAttributeInstanceMixin {
     @Inject(method = "toNbt", locals = LocalCapture.CAPTURE_FAILHARD, at = @At("RETURN"))
     private void purpeille$toNbt(CallbackInfoReturnable<NbtCompound> cir, NbtCompound nbt) {
         nbt.putBoolean("IsWarpath", purpeille$isWarpath);
-        if (purpeille$uuids != null) {
-            NbtList uuids = new NbtList();
-            for (UUID uuid : purpeille$uuids) {
-                uuids.add(NbtHelper.fromUuid(uuid));
-            }
-            nbt.put("RevelationUUIDs", uuids);
+        if (purpeille$scalingData != null) {
+            NbtCompound scalingNbt = new NbtCompound();
+            purpeille$scalingData.writeNbt(scalingNbt);
+            nbt.put("RevelationScaling", scalingNbt);
         }
     }
 
     @Inject(method = "readNbt", at = @At("HEAD"))
     private void purpeille$readNbt(NbtCompound nbt, CallbackInfo ci) {
         purpeille$isWarpath = nbt.getBoolean("IsWarpath");
-        if (nbt.contains("RevelationUUIDs")) {
-            purpeille$uuids = new ArrayList<>();
-            for (NbtElement element : nbt.getList("RevelationUUIDs", NbtElement.INT_ARRAY_TYPE)) {
-                purpeille$uuids.add(NbtHelper.toUuid(element));
-            }
+        if (nbt.contains("RevelationScaling")) {
+            purpeille$scalingData = AttributeScalingData.readNbt(nbt.getCompound("RevelationScaling"));
         }
     }
 }

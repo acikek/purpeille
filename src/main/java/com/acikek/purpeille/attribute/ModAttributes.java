@@ -1,9 +1,7 @@
 package com.acikek.purpeille.attribute;
 
 import com.acikek.purpeille.Purpeille;
-import com.acikek.purpeille.api.warpath.Components;
-import com.acikek.purpeille.impl.ComponentsImpl;
-import com.acikek.purpeille.warpath.component.Revelation;
+import com.acikek.purpeille.warpath.attribute.AttributeScalingData;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
@@ -37,7 +35,8 @@ public class ModAttributes {
     public static final EntityAttribute GENERIC_ABYSSAL_ALLEGIANCE = new ClampedEntityAttribute("attribute.name.generic_abyssal_allegiance", 0.0, 0.0, 1024.0);
 
     public static Map<String, EntityAttribute> ATTRIBUTES = new LinkedHashMap<>();
-    public static final Map<EquipmentSlot, UUID> ABYSSAL_ALLEGIANCE_UUIDS = getEquipmentSlotUUIDMap("generic.abyssal_allegiance");
+
+    public static final AttributeScalingData ABYSSAL_ALLEGIANCE_SCALING_DATA = new AttributeScalingData(1.4, 1.4, getEquipmentSlotUUIDMap("generic.abyssal_allegiance"));
 
     static {
         ATTRIBUTES.put("generic.mining_experience", GENERIC_MINING_EXPERIENCE);
@@ -68,21 +67,6 @@ public class ModAttributes {
                     return new Pair<>(slot, UUID.nameUUIDFromBytes(newId.getBytes()));
                 })
                 .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
-    }
-
-    public static Map<EquipmentSlot, UUID> getUUIDMap(EntityAttribute attribute) {
-        if (attribute == ModAttributes.GENERIC_ABYSSAL_ALLEGIANCE) {
-            return ModAttributes.ABYSSAL_ALLEGIANCE_UUIDS;
-        }
-        for (Revelation revelation : Components.getRevelations().values()) {
-            if (attribute == revelation.attribute.value) {
-                return revelation.attribute.uuids;
-            }
-            if (revelation.abyssalite != null && attribute == revelation.abyssalite.attribute.value) {
-                return revelation.abyssalite.attribute.uuids;
-            }
-        }
-        return null;
     }
 
     public static void applyPotency(List<StatusEffectInstance> effects, LivingEntity livingEntity) {

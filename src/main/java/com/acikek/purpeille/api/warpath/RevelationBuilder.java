@@ -1,7 +1,7 @@
 package com.acikek.purpeille.api.warpath;
 
 import com.acikek.purpeille.warpath.AbyssaliteData;
-import com.acikek.purpeille.warpath.AttributeData;
+import com.acikek.purpeille.warpath.attribute.AttributeData;
 import com.acikek.purpeille.warpath.Synergy;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Revelation;

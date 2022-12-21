@@ -2,6 +2,7 @@ package com.acikek.purpeille.warpath;
 
 import com.acikek.purpeille.api.abyssal.AbyssalToken;
 import com.acikek.purpeille.api.abyssal.AbyssalTokens;
+import com.acikek.purpeille.warpath.attribute.AttributeData;
 import com.acikek.purpeille.warpath.component.Revelation;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
