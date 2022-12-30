@@ -48,6 +48,6 @@ public class WarpathItemMixin {
         }
         Revelation revelation = data.getRevelation();
         Aspect aspect = data.getAspect();
-        ModCriteria.WARPATH_CREATED.trigger((ServerPlayerEntity) player, stack, revelation, aspect, Synergy.getSynergy(revelation, aspect));
+        ModCriteria.triggerWarpathCreated((ServerPlayerEntity) player, stack, revelation.id, aspect.id, Synergy.getSynergy(revelation, aspect));
     }
 }

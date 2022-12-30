@@ -59,7 +59,7 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
             world.setBlockState(pos, AncientOven.getNextState(state, newDamage));
             block.spawnBreakParticles(world, null, pos, state);
             if (player instanceof ServerPlayerEntity serverPlayer) {
-                ModCriteria.ANCIENT_OVEN_DAMAGED.trigger(serverPlayer, newDamage);
+                ModCriteria.triggerAncientOvenDamaged(serverPlayer, newDamage);
             }
             if (newDamage != null && newDamage.compareTo(block.damage) < 0 && world.random.nextFloat() > 0.75f) {
                 voidAmalgams++;

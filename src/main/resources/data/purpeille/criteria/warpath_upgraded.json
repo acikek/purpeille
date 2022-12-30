@@ -1,0 +1,13 @@
+{
+  "optional": true,
+  "parameters": [
+    {
+      "name": "positive",
+      "type": "datacriteria:int"
+    },
+    {
+      "name": "negative",
+      "type": "datacriteria:int"
+    }
+  ]
+}

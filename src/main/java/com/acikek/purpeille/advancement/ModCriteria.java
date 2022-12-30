@@ -1,32 +1,70 @@
 package com.acikek.purpeille.advancement;
 
-import net.minecraft.advancement.criterion.Criteria;
+import com.acikek.datacriteria.api.DataCriteriaAPI;
+import com.acikek.purpeille.Purpeille;
+import com.acikek.purpeille.block.UltravioletComplex;
+import com.acikek.purpeille.block.entity.ancient.oven.Damage;
+import com.acikek.purpeille.item.core.EncasedCore;
+import com.acikek.purpeille.warpath.Synergy;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class ModCriteria {
 
-    public static AbyssalAllegianceCycledCriterion ABYSSAL_ALLEGIANCE_CYCLED = new AbyssalAllegianceCycledCriterion();
-    public static AbyssalTokenImbuedCriterion ABYSSAL_TOKEN_IMBUED = new AbyssalTokenImbuedCriterion();
-    public static AmalgamatedSpyglassUsedCriterion AMALGAMATED_SPYGLASS_USED = new AmalgamatedSpyglassUsedCriterion();
-    public static AncientGatewayUsedCriterion ANCIENT_GATEWAY_USED = new AncientGatewayUsedCriterion();
-    public static AncientGuardianUsedCriterion ANCIENT_GUARDIAN_USED = new AncientGuardianUsedCriterion();
-    public static AncientOvenDamagedCriterion ANCIENT_OVEN_DAMAGED = new AncientOvenDamagedCriterion();
-    public static ChorusInfestationShearedCriterion CHORUS_INFESTATION_SHEARED = new ChorusInfestationShearedCriterion();
-    public static UltravioletComplexBurnsCriterion ULTRAVIOLET_COMPLEX_BURNS = new UltravioletComplexBurnsCriterion();
-    public static VoidSacrificeCriterion VOID_SACRIFICE = new VoidSacrificeCriterion();
-    public static WarpathCreatedCriterion WARPATH_CREATED = new WarpathCreatedCriterion();
-    public static WarpathUpgradedCriterion WARPATH_UPGRADED = new WarpathUpgradedCriterion();
+    public static void triggerAbyssalAllegianceCycled(ServerPlayerEntity player, boolean passed, boolean passedPrevious) {
+        DataCriteriaAPI.trigger(Purpeille.id("abyssal_allegiance_cycled"), true, player, passed, passedPrevious);
+    }
+
+    public static void triggerAbyssalTokenImbued(ServerPlayerEntity player, int energy, int altars) {
+        DataCriteriaAPI.trigger(Purpeille.id("abyssal_token_imbued"), player, energy, altars);
+    }
+
+    public static void triggerAmalgamatedSpyglassUsed(ServerPlayerEntity player, ItemStack stack, boolean token) {
+        DataCriteriaAPI.trigger(Purpeille.id("amalgamated_spyglass_used"), player, stack, token);
+    }
+
+    public static void triggerAncientGatewayUsed(ServerPlayerEntity player, int blocks) {
+        DataCriteriaAPI.trigger(Purpeille.id("abyssal_allegiance_cycled"), player, blocks);
+    }
+
+    public static void triggerAncientGuardianUsed(ServerPlayerEntity player, EncasedCore.Type coreType, int killed, boolean interdimensional) {
+        DataCriteriaAPI.trigger(Purpeille.id("ancient_guardian_used"), player, coreType, killed, interdimensional);
+    }
+
+    public static void triggerAncientOvenDamaged(ServerPlayerEntity player, Damage damage) {
+        DataCriteriaAPI.trigger(Purpeille.id("ancient_oven_damaged"), player, damage);
+    }
+
+    public static void triggerChorusInfestationSheared(ServerPlayerEntity player, boolean dropChorus) {
+        DataCriteriaAPI.trigger(Purpeille.id("chorus_infestation_sheared"), player, dropChorus);
+    }
+
+    public static void triggerUltravioletComplexBurns(ServerPlayerEntity player, UltravioletComplex.Type complexType, int lightLevel) {
+        DataCriteriaAPI.trigger(Purpeille.id("ultraviolet_complex_burns"), player, complexType, lightLevel);
+    }
+
+    public static void triggerVoidSacrifice(ServerPlayerEntity player, int count) {
+        DataCriteriaAPI.trigger(Purpeille.id("void_sacrifice"), player, count);
+    }
+
+    public static void triggerWarpathCreated(ServerPlayerEntity player, ItemStack item, Identifier revelation, Identifier aspect, Synergy synergy) {
+        DataCriteriaAPI.trigger(Purpeille.id("warpath_created"), player, item, revelation, aspect, synergy);
+    }
+
+    public static void triggerWarpathUpgraded(ServerPlayerEntity player, int positive, int negative) {
+        DataCriteriaAPI.trigger(Purpeille.id("abyssal_allegiance_cycled"), player, positive, negative);
+    }
+
+    public static <T extends Enum<T>> void registerEnum(String name, Class<T> type) {
+        Registry.register(DataCriteriaAPI.getRegistry(), Purpeille.id(name), DataCriteriaAPI.createEnum(type));
+    }
 
     public static void register() {
-        Criteria.register(ABYSSAL_ALLEGIANCE_CYCLED);
-        Criteria.register(ABYSSAL_TOKEN_IMBUED);
-        Criteria.register(AMALGAMATED_SPYGLASS_USED);
-        Criteria.register(ANCIENT_GATEWAY_USED);
-        Criteria.register(ANCIENT_GUARDIAN_USED);
-        Criteria.register(ANCIENT_OVEN_DAMAGED);
-        Criteria.register(CHORUS_INFESTATION_SHEARED);
-        Criteria.register(ULTRAVIOLET_COMPLEX_BURNS);
-        Criteria.register(VOID_SACRIFICE);
-        Criteria.register(WARPATH_CREATED);
-        Criteria.register(WARPATH_UPGRADED);
+        registerEnum("encased_core_type", EncasedCore.Type.class);
+        registerEnum("ancient_oven_damage", Damage.class);
+        registerEnum("ultraviolet_complex_type", UltravioletComplex.Type.class);
+        registerEnum("synergy", Synergy.class);
     }
 }

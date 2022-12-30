@@ -148,7 +148,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
         AbyssalTokens.imbue(stack, (int) energy, itemsUsed);
         // Trigger criterion for the activating player.
         if (player instanceof ServerPlayerEntity serverPlayer) {
-            ModCriteria.ABYSSAL_TOKEN_IMBUED.trigger(serverPlayer, (int) energy, altars.size());
+            ModCriteria.triggerAbyssalTokenImbued(serverPlayer, (int) energy, altars.size());
         }
         // Queue imbuements for all block entities.
         // The animation will automatically be different for the central altar.

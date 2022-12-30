@@ -59,7 +59,7 @@ public class UltravioletComplex extends Block {
             float damage = (light - type.threshold) / ((15.0f - type.threshold) / 2.0f);
             entity.damage(DAMAGE_SOURCE, damage);
             if (entity instanceof ServerPlayerEntity player) {
-                ModCriteria.ULTRAVIOLET_COMPLEX_BURNS.trigger(player, type, light);
+                ModCriteria.triggerUltravioletComplexBurns(player, type, light);
             }
         }
         super.onSteppedOn(world, pos, state, entity);

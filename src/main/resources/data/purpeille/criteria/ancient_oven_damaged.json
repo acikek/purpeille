@@ -1,0 +1,9 @@
+{
+  "optional": true,
+  "parameters": [
+    {
+      "name": "damage",
+      "type": "purpeille:ancient_oven_damage"
+    }
+  ]
+}

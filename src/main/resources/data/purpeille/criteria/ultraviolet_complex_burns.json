@@ -1,0 +1,13 @@
+{
+  "optional": true,
+  "parameters": [
+    {
+      "name": "complex_type",
+      "type": "purpeille:ultraviolet_complex_type"
+    },
+    {
+      "name": "light_level",
+      "type": "datacriteria:int"
+    }
+  ]
+}

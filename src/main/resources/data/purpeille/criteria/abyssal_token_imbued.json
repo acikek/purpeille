@@ -1,0 +1,13 @@
+{
+  "optional": true,
+  "parameters": [
+    {
+      "name": "energy",
+      "type": "datacriteria:int"
+    },
+    {
+      "name": "altars",
+      "type": "datacriteria:int"
+    }
+  ]
+}

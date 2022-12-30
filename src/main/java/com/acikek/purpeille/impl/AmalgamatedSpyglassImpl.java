@@ -29,6 +29,6 @@ public class AmalgamatedSpyglassImpl implements ServerPlayNetworking.PlayChannel
     public static void register() {
         AmalgamatedSpyglassImpl impl = new AmalgamatedSpyglassImpl();
         ServerPlayNetworking.registerGlobalReceiver(CHANNEL, impl);
-        AmalgamatedSpyglass.ITEM_OBSERVED.register(ModCriteria.AMALGAMATED_SPYGLASS_USED::trigger);
+        AmalgamatedSpyglass.ITEM_OBSERVED.register(ModCriteria::triggerAmalgamatedSpyglassUsed);
     }
 }

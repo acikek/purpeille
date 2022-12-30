@@ -71,7 +71,7 @@ public class SmithingScreenHandlerMixin {
     private void purpeille$output(PlayerEntity player, ItemStack stack, CallbackInfo ci) {
         if (purpeille$isOutputUpgraded) {
             if (player instanceof ServerPlayerEntity serverPlayer) {
-                ModCriteria.WARPATH_UPGRADED.trigger(serverPlayer, purpeille$positive, purpeille$negative);
+                ModCriteria.triggerWarpathUpgraded(serverPlayer, purpeille$positive, purpeille$negative);
             }
             purpeille$isOutputUpgraded = false;
         }

@@ -1,0 +1,21 @@
+{
+  "optional": true,
+  "parameters": [
+    {
+      "name": "item",
+      "type": "minecraft:item"
+    },
+    {
+      "name": "revelation",
+      "type": "datacriteria:id"
+    },
+    {
+      "name": "aspect",
+      "type": "datacriteria:id"
+    },
+    {
+      "name": "synergy",
+      "type": "purpeille:synergy"
+    }
+  ]
+}

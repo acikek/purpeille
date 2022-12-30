@@ -74,7 +74,7 @@ public class ChorusInfestedBlocks implements UseBlockCallback {
                 if (!player.isCreative()) {
                     stack.damage(1, serverPlayer, serverPlayerEntity -> serverPlayerEntity.sendToolBreakStatus(hand));
                 }
-                ModCriteria.CHORUS_INFESTATION_SHEARED.trigger(serverPlayer, dropped);
+                ModCriteria.triggerChorusInfestationSheared(serverPlayer, dropped);
             }
             return true;
         }

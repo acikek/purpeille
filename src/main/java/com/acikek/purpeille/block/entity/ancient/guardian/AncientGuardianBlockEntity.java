@@ -161,7 +161,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
                 }
             }
             world.setBlockState(pos, newState);
-            ModCriteria.ANCIENT_GUARDIAN_USED.trigger(player, coreType, killed, interdimensional);
+            ModCriteria.triggerAncientGuardianUsed(player, coreType, killed, interdimensional);
         }
     }
 

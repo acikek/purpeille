@@ -1,0 +1,17 @@
+{
+  "optional": true,
+  "parameters": [
+    {
+      "name": "type",
+      "type": "purpeille:encased_core_type"
+    },
+    {
+      "name": "killed",
+      "type": "datacriteria:int"
+    },
+    {
+      "name": "interdimensional",
+      "type": "datacriteria:bool"
+    }
+  ]
+}

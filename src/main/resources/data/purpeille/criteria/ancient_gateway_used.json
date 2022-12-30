@@ -1,0 +1,9 @@
+{
+  "optional": true,
+  "parameters": [
+    {
+      "name": "blocks",
+      "type": "datacriteria:int"
+    }
+  ]
+}

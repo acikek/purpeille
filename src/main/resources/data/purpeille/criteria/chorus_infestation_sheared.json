@@ -1,0 +1,9 @@
+{
+  "optional": true,
+  "parameters": [
+    {
+      "name": "drop_chorus",
+      "type": "datacriteria:bool"
+    }
+  ]
+}

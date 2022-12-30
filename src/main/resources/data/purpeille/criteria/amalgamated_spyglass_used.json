@@ -1,0 +1,13 @@
+{
+  "optional": true,
+  "parameters": [
+    {
+      "name": "item",
+      "type": "minecraft:item"
+    },
+    {
+      "name": "token",
+      "type": "datacriteria:bool"
+    }
+  ]
+}

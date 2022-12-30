@@ -112,11 +112,11 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
                         instance.addPersistentModifier(getTreasonousModifier(data.neglected()));
                     }
                 }
-                ModCriteria.ABYSSAL_ALLEGIANCE_CYCLED.trigger(player, data.passed(), data.passedLast);
+                ModCriteria.triggerAbyssalAllegianceCycled(player, data.passed(), data.passedLast);
                 data.cycle();
             }
             else if (seriesId.equals(VOIDED_SERIES)) {
-                ModCriteria.VOID_SACRIFICE.trigger(player, data.cyclic);
+                ModCriteria.triggerVoidSacrifice(player, data.cyclic);
             }
         }
     }
