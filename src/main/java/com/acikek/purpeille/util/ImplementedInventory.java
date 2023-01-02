@@ -1,4 +1,4 @@
-package lib;
+package com.acikek.purpeille.util;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;

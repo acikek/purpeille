@@ -1,7 +1,7 @@
 package com.acikek.purpeille.block.entity;
 
 import com.acikek.purpeille.item.core.EncasedCore;
-import lib.ImplementedInventory;
+import com.acikek.purpeille.util.ImplementedInventory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -20,12 +20,10 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class SingleSlotBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory {

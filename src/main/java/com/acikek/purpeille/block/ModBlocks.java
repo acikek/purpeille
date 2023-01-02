@@ -8,7 +8,7 @@ import com.acikek.purpeille.block.entity.ancient.oven.Damage;
 import com.acikek.purpeille.block.entity.monolithic.MonolithicPurpur;
 import com.acikek.purpeille.block.entity.rubble.EndRubble;
 import com.acikek.purpeille.item.ModItems;
-import lib.BlockItemProvider;
+import com.acikek.purpeille.util.BlockItemProvider;
 import net.minecraft.block.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
