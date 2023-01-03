@@ -28,9 +28,9 @@
     ],
     "attribute": {
       "id": "purpeille:generic.regeneration_chance",
-      "multiply": true
+      "multiply": false
     },
-    "max": 1.0,
+    "max": 100.0,
     "base_bonus": 2.0
   }
 }

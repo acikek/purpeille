@@ -24,15 +24,15 @@ public class ModAttributes {
     public static final EntityAttribute GENERIC_POISON_RESISTANCE = new ClampedEntityAttribute("attribute.name.generic_poison_resistance", 0.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_JUMP_BOOST = new ClampedEntityAttribute("attribute.name.generic_jump_boost", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_WATER_SPEED = new ClampedEntityAttribute("attribute.name.generic_water_speed", 1.0, 0.0, 1024.0).setTracked(true);
-    public static final EntityAttribute GENERIC_ATTACKER_KNOCKBACK_CHANCE = new ClampedEntityAttribute("attribute.name.generic_attacker_knockback_chance", 0.0, 0.0, 1.0).setTracked(true);
+    public static final EntityAttribute GENERIC_ATTACKER_KNOCKBACK_CHANCE = new ClampedEntityAttribute("attribute.name.generic_attacker_knockback_chance", 0.0, 0.0, 100.0).setTracked(true);
     public static final EntityAttribute GENERIC_ATTACK_PULL = new ClampedEntityAttribute("attribute.name.generic_attack_pull", 0.0, 0.0, 1.0).setTracked(true);
-    public static final EntityAttribute GENERIC_REGENERATION_CHANCE = new ClampedEntityAttribute("attribute.name.generic_regeneration_chance", 0.0, 0.0, 1.0).setTracked(true);
+    public static final EntityAttribute GENERIC_REGENERATION_CHANCE = new ClampedEntityAttribute("attribute.name.generic_regeneration_chance", 0.0, 0.0, 100.0).setTracked(true);
     public static final EntityAttribute GENERIC_MINING_CONTINUATION_EFFICIENCY = new ClampedEntityAttribute("attribute.name.generic_mining_continuation_efficiency", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_POTION_USED_POTENCY = new ClampedEntityAttribute("attribute.name.generic_potion_used_potency", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_CRITICAL_DAMAGE = new ClampedEntityAttribute("attribute.name.generic_critical_damage", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_AIR_VELOCITY = new ClampedEntityAttribute("attribute.name.generic_air_velocity", 1.0, 0.0, 1024.0).setTracked(true);
     public static final EntityAttribute GENERIC_SWIMMING_RESPIRATION = new ClampedEntityAttribute("attribute.name.generic_swimming_respiration", 0.0, 0.0, 1024.0).setTracked(true);
-    public static final EntityAttribute GENERIC_ABYSSAL_ALLEGIANCE = new ClampedEntityAttribute("attribute.name.generic_abyssal_allegiance", 0.0, 0.0, 1024.0);
+    public static final EntityAttribute GENERIC_ABYSSAL_ALLEGIANCE = new ClampedEntityAttribute("attribute.name.generic_abyssal_allegiance", 0.0, 0.0, 1024.0).setTracked(true);
 
     public static Map<String, EntityAttribute> ATTRIBUTES = new LinkedHashMap<>();
 

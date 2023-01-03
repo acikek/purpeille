@@ -64,8 +64,6 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
             if (newDamage != null && newDamage.compareTo(block.damage) < 0 && world.random.nextFloat() > 0.75f) {
                 voidAmalgams++;
             }
-            System.out.println(world.getBlockEntity(pos) instanceof AncientOvenBlockEntity);
-            System.out.println(voidAmalgams);
             if (world.getBlockEntity(pos) instanceof AncientOvenBlockEntity blockEntity) {
                 blockEntity.durability = durability;
                 blockEntity.voidAmalgams = voidAmalgams;

@@ -10,7 +10,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -89,11 +88,10 @@ public abstract class AttributeLivingEntityMixin {
             if (instance == null || instance.getValue() == 0.0) {
                 return;
             }
-            World world = ((Entity) (Object) this).world;
-            if (world.random.nextDouble() < instance.getValue()) {
-                Vec3d velocity = attacker.getVelocity();
-                Vec3d pos = attacker.getPos().subtract(velocity.multiply(1.5));
-                attacker.takeKnockback(velocity.length(), pos.x, pos.z);
+            Entity entity = (Entity) (Object) this;
+            if (entity.world.random.nextInt(100) < instance.getValue()) {
+                Vec3d pos = entity.getPos().subtract(attacker.getPos());
+                attacker.takeKnockback(0.4f + entity.world.random.nextFloat() * 0.35f, pos.x, pos.z);
             }
         }
     }
@@ -104,8 +102,8 @@ public abstract class AttributeLivingEntityMixin {
         if (instance == null || instance.getValue() == 0.0) {
             return;
         }
-        if (getHealth() / getMaxHealth() <= 0.5f && ((Entity) (Object) this).world.random.nextDouble() < instance.getValue()) {
-            addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, (int) (instance.getValue() / 0.3)));
+        if (getHealth() / getMaxHealth() <= 0.5f && ((Entity) (Object) this).world.random.nextInt(100) < instance.getValue()) {
+            addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, (int) (instance.getValue() / 30.0)));
         }
     }
 

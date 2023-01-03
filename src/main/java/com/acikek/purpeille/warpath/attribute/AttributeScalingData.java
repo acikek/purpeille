@@ -31,8 +31,6 @@ public class AttributeScalingData {
     }
 
     public double getModifierValue(int i, double base) {
-        System.out.println("#" + i + ", Base: " + base + ", Output: " + (i == 0 ? base
-                : (Math.pow(scalingDropoff, -i) * (scalingMultiplier)) * base));
         return i == 0 ? base
                 : (Math.pow(scalingDropoff, -i) * (scalingMultiplier)) * base;
     }

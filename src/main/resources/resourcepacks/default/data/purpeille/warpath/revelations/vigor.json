@@ -35,7 +35,7 @@
     ],
     "attribute": {
       "id": "purpeille:generic.attack_pull",
-      "multiply": true
+      "multiply": false
     },
     "max": 1.0,
     "base_bonus": 0.10
