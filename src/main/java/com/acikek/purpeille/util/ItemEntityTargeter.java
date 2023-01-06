@@ -1,4 +1,4 @@
-package com.acikek.purpeille.api.client;
+package com.acikek.purpeille.util;
 
 import net.minecraft.entity.ItemEntity;
 

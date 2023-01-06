@@ -1,6 +1,6 @@
 package com.acikek.purpeille.mixin.client;
 
-import com.acikek.purpeille.api.client.ItemEntityTargeter;
+import com.acikek.purpeille.util.ItemEntityTargeter;
 import com.acikek.purpeille.api.warpath.Components;
 import com.acikek.purpeille.impl.AmalgamatedSpyglassImpl;
 import com.acikek.purpeille.warpath.AbyssaliteData;

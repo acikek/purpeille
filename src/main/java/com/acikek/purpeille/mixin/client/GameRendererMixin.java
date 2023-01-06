@@ -1,7 +1,7 @@
 package com.acikek.purpeille.mixin.client;
 
 import com.acikek.purpeille.api.abyssal.AmalgamatedSpyglass;
-import com.acikek.purpeille.api.client.ItemEntityTargeter;
+import com.acikek.purpeille.util.ItemEntityTargeter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.Entity;

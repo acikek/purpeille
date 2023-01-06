@@ -28,9 +28,9 @@
     ],
     "attribute": {
       "id": "purpeille:generic.mining_continuation_efficiency",
-      "multiply": true
+      "multiply": false
     },
     "base_bonus": 0.5,
-    "max": 4.0
+    "max": 20.0
   }
 }

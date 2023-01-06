@@ -92,6 +92,10 @@ public class ChorusInfestedBlocks implements UseBlockCallback {
         return ActionResult.PASS;
     }
 
+    public static void register() {
+        UseBlockCallback.EVENT.register(new ChorusInfestedBlocks());
+    }
+
     public interface ChorusInfested extends Fertilizable {
 
         @Override

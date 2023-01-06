@@ -16,8 +16,10 @@
     "attribute.AttributePlayerEntityMixin",
     "attribute.BlockMixin",
     "attribute.EntityAttributeInstanceMixin",
+    "attribute.mining.MiningContinuationEfficiencyPlayerEntityMixin",
     "attribute.PotionEntityMixin",
     "attribute.PotionItemMixin",
+    "attribute.mining.ServerPlayNetworkHandlerMixin",
     "attribute.StatusEffectMixin",
     "attribute.allegiance.AbyssalAllegianceLivingEntityMixin",
     "attribute.allegiance.MinecraftServerMixin"

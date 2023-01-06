@@ -15,6 +15,7 @@ import com.acikek.purpeille.impl.AmalgamatedSpyglassImpl;
 import com.acikek.purpeille.impl.AncientMessagesImpl;
 import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.loot.RandomRevelationLootFunction;
+import com.acikek.purpeille.attribute.MiningContinuationEfficiency;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathCreateRecipe;
 import com.acikek.purpeille.recipe.warpath.WarpathRemoveRecipe;
@@ -25,7 +26,6 @@ import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -68,6 +68,7 @@ public class Purpeille implements ModInitializer {
         AncientOvenRecipe.register();
         EndCityProximityPlacementModifier.register();
         EndLandStructure.register();
+        RandomRevelationLootFunction.register();
         PurpurRemnants.build();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             VacuousBlastCommand.register(dispatcher);
@@ -75,12 +76,12 @@ public class Purpeille implements ModInitializer {
             AncientMessageCommand.register(dispatcher);
             AbyssalAllegianceImpl.registerCommand(dispatcher);
         });
-        UseBlockCallback.EVENT.register(new ChorusInfestedBlocks());
-        RandomRevelationLootFunction.register();
+        ChorusInfestedBlocks.register();
         ReloadHandler.register();
         AbyssalAllegianceImpl.register();
         AncientMessagesImpl.register();
         AmalgamatedSpyglassImpl.register();
+        MiningContinuationEfficiency.register();
         FabricLoader.getInstance().getModContainer(ID).ifPresent(mod ->
                 ResourceManagerHelper.registerBuiltinResourcePack(
                         id("default"), mod, "Default Warpaths",

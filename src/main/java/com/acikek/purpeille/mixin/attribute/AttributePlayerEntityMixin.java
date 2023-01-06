@@ -3,7 +3,6 @@ package com.acikek.purpeille.mixin.attribute;
 import com.acikek.purpeille.attribute.ModAttributes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MovementType;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
