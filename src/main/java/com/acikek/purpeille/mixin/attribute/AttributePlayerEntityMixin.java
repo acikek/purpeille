@@ -26,8 +26,9 @@ public class AttributePlayerEntityMixin {
         if (instance == null || instance.getValue() == 0.0) {
             return;
         }
-        Vec3d between = target.getPos().subtract(livingEntity.getPos());
-        livingEntity.move(MovementType.SELF, between.multiply(instance.getValue()));
+        Vec3d between = target.getPos().subtract(livingEntity.getPos()).multiply(instance.getValue() / 1.5);
+        livingEntity.addVelocity(between.x, between.y, between.z);
+        livingEntity.scheduleVelocityUpdate();
     }
 
     @Inject(method = "attack", locals = LocalCapture.CAPTURE_FAILHARD, at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", shift = At.Shift.BEFORE))
@@ -38,6 +39,6 @@ public class AttributePlayerEntityMixin {
     @ModifyArg(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"), index = 1)
     private float purpeille$applyCriticalDamage(float value) {
         EntityAttributeInstance instance = ((LivingEntity) (Object) this).getAttributeInstance(ModAttributes.GENERIC_CRITICAL_DAMAGE);
-        return instance != null && purpeille$isCriticalHit ? value * (float) instance.getValue() : value;
+        return value + (instance != null && purpeille$isCriticalHit ? (float) instance.getValue() : 0.0f);
     }
 }

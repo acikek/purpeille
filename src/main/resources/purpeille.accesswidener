@@ -7,6 +7,8 @@ accessible method net/minecraft/block/Block spawnBreakParticles (Lnet/minecraft/
 
 accessible method net/minecraft/entity/effect/StatusEffect <init> (Lnet/minecraft/entity/effect/StatusEffectCategory;I)V
 
+accessible method net/minecraft/entity/Entity scheduleVelocityUpdate ()V
+
 accessible method net/minecraft/client/particle/BlockLeakParticle <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/fluid/Fluid;)V
 accessible method net/minecraft/client/particle/BlockLeakParticle$Dripping <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/fluid/Fluid;Lnet/minecraft/particle/ParticleEffect;)V
 accessible method net/minecraft/client/particle/BlockLeakParticle$ContinuousFalling <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/fluid/Fluid;Lnet/minecraft/particle/ParticleEffect;)V
