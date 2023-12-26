@@ -108,7 +108,7 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
         Box area = Box.of(player.getPos(), 10, 10, 10);
         int killed = 0;
         DamageSource damageSource = getDamageSource(player);
-        for (Entity entity : player.world.getOtherEntities(player, area)) {
+        for (Entity entity : player.getWorld().getOtherEntities(player, area)) {
             if (entity instanceof LivingEntity livingEntity) {
                 entity.damage(damageSource, 45.0f);
                 if (livingEntity.isDead()) {

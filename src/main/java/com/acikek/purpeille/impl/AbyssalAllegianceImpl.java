@@ -126,7 +126,7 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
         if (handler.player instanceof AbyssallyAllegiantEntity allegiant && allegiant.getAllegianceData().initialTime != 0L) {
             if (server.getSaveProperties() instanceof LevelProperties levelProperties
                     && levelProperties.getTime() - allegiant.getAllegianceData().initialTime >= 168000L) {
-                cycle(handler.player, handler.player.world.random);
+                cycle(handler.player, handler.player.getWorld().random);
             }
         }
     }

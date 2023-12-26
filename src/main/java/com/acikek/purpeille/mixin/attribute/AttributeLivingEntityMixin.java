@@ -89,9 +89,9 @@ public abstract class AttributeLivingEntityMixin {
                 return;
             }
             Entity entity = (Entity) (Object) this;
-            if (entity.world.random.nextInt(100) < instance.getValue()) {
+            if (entity.getWorld().random.nextInt(100) < instance.getValue()) {
                 Vec3d pos = entity.getPos().subtract(attacker.getPos());
-                attacker.takeKnockback(0.4f + entity.world.random.nextFloat() * 0.35f, pos.x, pos.z);
+                attacker.takeKnockback(0.4f + entity.getWorld().random.nextFloat() * 0.35f, pos.x, pos.z);
             }
         }
     }
@@ -102,7 +102,7 @@ public abstract class AttributeLivingEntityMixin {
         if (instance == null || instance.getValue() == 0.0) {
             return;
         }
-        if (getHealth() / getMaxHealth() <= 0.5f && ((Entity) (Object) this).world.random.nextInt(100) < instance.getValue()) {
+        if (getHealth() / getMaxHealth() <= 0.5f && ((Entity) (Object) this).getWorld().random.nextInt(100) < instance.getValue()) {
             addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, (int) (instance.getValue() / 30.0)));
         }
     }

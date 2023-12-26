@@ -26,7 +26,7 @@ public abstract class MinecraftServerMixin {
         if (getSaveProperties() instanceof LevelProperties levelProperties) {
             if (levelProperties.getTime() % 168000 == 0) {
                 for (ServerPlayerEntity player : playerManager.getPlayerList()) {
-                    AbyssalAllegiance.cycle(player, player.world.random);
+                    AbyssalAllegiance.cycle(player, player.getWorld().random);
                 }
             }
         }

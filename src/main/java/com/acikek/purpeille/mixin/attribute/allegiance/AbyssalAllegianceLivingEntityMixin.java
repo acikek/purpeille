@@ -51,7 +51,7 @@ public abstract class AbyssalAllegianceLivingEntityMixin implements AbyssallyAll
         initAllegianceData();
         double value = instance.getValue();
         if (value > purpeille$allegianceData.cyclic) {
-            World world = ((Entity) (Object) this).world;
+            World world = ((Entity) (Object) this).getWorld();
             if (purpeille$allegianceData.cyclic == 0
                     && world instanceof ServerWorld serverWorld
                     && serverWorld.getServer().getSaveProperties() instanceof LevelProperties levelProperties) {
