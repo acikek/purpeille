@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.12.+'
+    id 'fabric-loom' version '1.4-SNAPSHOT'
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
     id 'io.github.p03w.machete' version '1.0.7'
@@ -48,9 +48,8 @@ dependencies {
     modImplementation include("com.github.emilyploszaj:step-height-entity-attribute:v${project.step_height_entity_attribute_version}")
 
     // EMI
-    modImplementation "dev.emi:emi:${emi_version}", {
-        transitive = false
-    }
+    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
 
     // REI
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
