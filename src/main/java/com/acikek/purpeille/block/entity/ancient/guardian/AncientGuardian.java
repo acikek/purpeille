@@ -17,7 +17,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
@@ -152,7 +152,7 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     }
 
     @Override
-    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
         return state.get(ON_COOLDOWN)
                 ? Collections.emptyList()
                 : Collections.singletonList(new ItemStack(ModBlocks.ANCIENT_GUARDIAN));
