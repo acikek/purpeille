@@ -3,7 +3,6 @@ package com.acikek.purpeille.block.entity.rubble;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class EndRubble extends CommonBlockWithEntity<EndRubbleBlockEntity> {
 
-    public static final Settings SETTINGS = FabricBlockSettings.of(Material.STONE)
+    public static final Settings SETTINGS = FabricBlockSettings.create()
             .strength(2.5f)
             .collidable(false)
             .requiresTool();

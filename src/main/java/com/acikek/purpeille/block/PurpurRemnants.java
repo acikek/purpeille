@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.util.Identifier;
@@ -30,7 +29,7 @@ import java.util.Arrays;
 
 public class PurpurRemnants {
 
-    public static final AbstractBlock.Settings SETTINGS = FabricBlockSettings.of(Material.STONE)
+    public static final AbstractBlock.Settings SETTINGS = FabricBlockSettings.create()
             .requiresTool()
             .sounds(BlockSoundGroup.NETHER_ORE)
             .strength(7.0f, 50.0f);
