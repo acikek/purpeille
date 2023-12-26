@@ -70,7 +70,7 @@ public class AbyssalAllegianceImpl implements AncientMessages.SeriesCompleted, S
         }
         else if (!data.passedLast) {
             result.add(getSuccessMessage(3).build());
-            result.add(getSuccessMessage(4).soundEvent(SoundEvents.AMBIENT_NETHER_WASTES_MOOD).build());
+            result.add(getSuccessMessage(4).soundEvent(SoundEvents.AMBIENT_NETHER_WASTES_MOOD.value()).build());
         }
         return result;
     }

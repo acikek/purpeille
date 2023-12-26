@@ -240,7 +240,7 @@ public class MonolithicPurpur extends CommonBlockWithEntity<MonolithicPurpurBloc
     public ActionResult removeItem(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack handStack, SingleSlotBlockEntity blockEntity) {
         if (blockEntity instanceof MonolithicPurpurBlockEntity monolithicPurpur && monolithicPurpur.canRemove()) {
             super.removeItem(state, world, pos, player, hand, handStack, blockEntity);
-            playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE);
+            playSound(world, blockEntity, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value());
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;

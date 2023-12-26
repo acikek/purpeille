@@ -32,7 +32,7 @@ public class SmithingScreenHandlerMixin {
         }
     }
 
-    @Inject(method = "isUsableAsAddition", cancellable = true, at = @At("HEAD"))
+    @Inject(method = "isValidIngredient", cancellable = true, at = @At("HEAD"))
     private void purpeille$setAbyssalTokensUsable(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (stack.getItem() instanceof AbyssalToken token && token.isAbyssalToken()) {
             Inventory input = ((ForgingScreenHandler) (Object) this).input;

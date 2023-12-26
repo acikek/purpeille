@@ -1,8 +1,6 @@
 package com.acikek.purpeille.warpath.attribute;
 
-import com.acikek.purpeille.api.warpath.Components;
 import com.acikek.purpeille.attribute.ModAttributes;
-import com.acikek.purpeille.warpath.component.Revelation;
 import com.google.gson.JsonObject;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;

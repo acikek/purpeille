@@ -1,8 +1,6 @@
 package com.acikek.purpeille.block;
 
 import com.acikek.purpeille.advancement.ModCriteria;
-import net.fabricmc.fabric.mixin.content.registry.OxidizableMixin;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;

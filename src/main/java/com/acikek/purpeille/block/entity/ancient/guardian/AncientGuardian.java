@@ -11,7 +11,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.Waterloggable;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -39,7 +38,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -111,7 +109,7 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
         if (!world.isClient() && world.getBlockEntity(pos) instanceof AncientGuardianBlockEntity blockEntity && blockEntity.cooldown != 0) {
-            world.createExplosion(null, DamageSource.badRespawnPoint(), null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 5.0f, true, Explosion.DestructionType.DESTROY);
+            world.createExplosion(null, world.getDamageSources().badRespawnPoint(pos.toCenterPos()), null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 5.0f, true, World.ExplosionSourceType.BLOCK);
         }
     }
 
@@ -146,7 +144,7 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }

@@ -51,7 +51,7 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "damage", cancellable = true, at = @At("HEAD"))
     private void purpeille$applyVoidImmunity(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (source == DamageSource.OUT_OF_WORLD && getStatusEffect(ModStatusEffects.VOID_IMMUNITY) != null) {
+        if (source == ((LivingEntity)(Object)this).getDamageSources().outOfWorld() && getStatusEffect(ModStatusEffects.VOID_IMMUNITY) != null) {
             cir.setReturnValue(false);
         }
     }

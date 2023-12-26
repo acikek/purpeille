@@ -40,8 +40,8 @@ import java.util.function.Function;
 @Environment(EnvType.CLIENT)
 public class PurpeilleClient implements ClientModInitializer {
 
-    public static final ModelIdentifier GUARDIAN_HAND_MODEL = new ModelIdentifier("purpeille:ancient_guardian_in_hand#inventory");
-    public static final ModelIdentifier AMALGAMATED_SPYGLASS_HAND_MODEL = new ModelIdentifier("purpeille:amalgamated_spyglass_in_hand#inventory");
+    public static final ModelIdentifier GUARDIAN_HAND_MODEL = new ModelIdentifier("purpeille", "ancient_guardian_in_hand", "inventory");
+    public static final ModelIdentifier AMALGAMATED_SPYGLASS_HAND_MODEL = new ModelIdentifier("purpeille", "amalgamated_spyglass_in_hand", "inventory");
 
     public static int rotationTicks;
 

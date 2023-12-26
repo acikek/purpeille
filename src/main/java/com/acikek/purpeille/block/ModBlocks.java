@@ -21,7 +21,7 @@ import java.util.Map;
 public class ModBlocks {
 
     // Blocks
-    public static final Block PURPUR_REMNANTS = new OreBlock(PurpurRemnants.SETTINGS, UniformIntProvider.create(2, 3));
+    public static final Block PURPUR_REMNANTS = new Block(PurpurRemnants.SETTINGS);
     public static final Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
     public static final Block ANCIENT_MECHANICAL_BRICKS = new ChorusInfestedBlocks.InfestedBlock(BlockSettings.ANCIENT_MACHINE);
     public static final EndRubble END_RUBBLE = new EndRubble(EndRubble.SETTINGS);

@@ -18,7 +18,7 @@ public class ModSoundEvents {
     public static final SoundEvent IMBUE_COLLAPSE = create("imbue.collapse");
 
     public static SoundEvent create(String id) {
-        return new SoundEvent(Purpeille.id(id));
+        return SoundEvent.of(Purpeille.id(id));
     }
 
     public static SoundEvent[] SOUNDS = {

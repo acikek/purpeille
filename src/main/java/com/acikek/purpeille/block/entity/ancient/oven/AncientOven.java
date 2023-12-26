@@ -78,7 +78,7 @@ public class AncientOven extends CommonBlockWithEntity<AncientOvenBlockEntity> i
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         if (state.get(LIT) && random.nextDouble() < 0.1 && world instanceof ClientWorld clientWorld) {
-            clientWorld.playSound(pos, SoundEvents.BLOCK_BLASTFURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
+            clientWorld.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_BLASTFURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
         }
     }
 

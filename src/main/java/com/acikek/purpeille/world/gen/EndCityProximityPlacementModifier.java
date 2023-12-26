@@ -3,7 +3,7 @@ package com.acikek.purpeille.world.gen;
 import com.acikek.purpeille.Purpeille;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.structure.StructureSets;
+import net.minecraft.structure.StructureSetKeys;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -40,7 +40,7 @@ public class EndCityProximityPlacementModifier extends PlacementModifier {
     @Override
     public Stream<BlockPos> getPositions(FeaturePlacementContext context, Random random, BlockPos pos) {
         ChunkPos chunk = new ChunkPos(pos);
-        boolean withinEndCity = context.getChunkGenerator().shouldStructureGenerateInRange(StructureSets.END_CITIES, null, context.getWorld().getSeed(), chunk.x, chunk.z, distance.get(context.getWorld().getRandom()));
+        boolean withinEndCity = context.getChunkGenerator().shouldStructureGenerateInRange(StructureSetKeys.END_CITIES, null, context.getWorld().getSeed(), chunk.x, chunk.z, distance.get(context.getWorld().getRandom()));
         return withinEndCity ? Stream.of(pos) : Stream.empty();
     }
 

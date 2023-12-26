@@ -74,7 +74,7 @@ public class AncientGatewayBlockEntity extends CorePoweredAncientMachineBlockEnt
         Direction facing = state.get(AncientGateway.FACING);
         if (getCore() != null && getCore().type == EncasedCore.Type.VACUOUS) {
             Vec3d rotation = player.getRotationVec(1f).multiply(blocks);
-            return player.getBlockPos().add(new Vec3i(rotation.x, 0, rotation.z));
+            return player.getBlockPos().add(new Vec3i((int) rotation.x, 0, (int) rotation.z));
         }
         return player.getBlockPos().offset(facing, blocks);
     }
