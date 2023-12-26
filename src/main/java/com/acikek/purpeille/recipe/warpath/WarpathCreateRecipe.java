@@ -12,7 +12,8 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.World;
 
 import java.util.Map;
@@ -147,6 +148,6 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
     }
 
     public static void register() {
-        SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, Purpeille.id("crafting_special_warpath_create"), new SpecialRecipeSerializer<>(WarpathCreateRecipe::new));
+        SERIALIZER = Registry.register(Registries.RECIPE_SERIALIZER, Purpeille.id("crafting_special_warpath_create"), new SpecialRecipeSerializer<>(WarpathCreateRecipe::new));
     }
 }

@@ -19,7 +19,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 import java.util.*;
 
@@ -69,7 +69,7 @@ public class Revelation extends Aspect implements Writer {
         for (Map.Entry<Identifier, Revelation> pair : hasAbyssalite) {
             if (duplicates.contains(pair.getValue().abyssalite.token)) {
                 if (log) {
-                    Identifier tokenId = Registry.ITEM.getId(pair.getValue().abyssalite.token);
+                    Identifier tokenId = Registries.ITEM.getId(pair.getValue().abyssalite.token);
                     Purpeille.LOGGER.error("Revelation '" + pair.getKey() + "' has duplicate abyssal token: '" + tokenId + "'");
                 }
                 continue;

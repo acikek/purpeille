@@ -3,7 +3,7 @@ package com.acikek.purpeille.api.amsg;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class AncientMessageData {
     public static AncientMessageData read(PacketByteBuf buf) {
         return new Builder()
                 .lines(buf.readCollection(i -> new ArrayList<>(), PacketByteBuf::readText))
-                .soundEvent(buf.readOptional((byteBuf) -> byteBuf.readRegistryValue(Registry.SOUND_EVENT)).orElse(null))
+                .soundEvent(buf.readOptional((byteBuf) -> byteBuf.readRegistryValue(Registries.SOUND_EVENT)).orElse(null))
                 .ticks(buf.readOptional(PacketByteBuf::readInt).orElse(null))
                 .color(buf.readOptional(PacketByteBuf::readInt).orElse(null))
                 .build();
@@ -84,7 +84,7 @@ public class AncientMessageData {
 
     public void write(PacketByteBuf buf) {
         buf.writeCollection(lines, PacketByteBuf::writeText);
-        buf.writeOptional(Optional.ofNullable(soundEvent), (byteBuf, event) -> byteBuf.writeRegistryValue(Registry.SOUND_EVENT, event));
+        buf.writeOptional(Optional.ofNullable(soundEvent), (byteBuf, event) -> byteBuf.writeRegistryValue(Registries.SOUND_EVENT, event));
         buf.writeOptional(Optional.ofNullable(ticks), PacketByteBuf::writeInt);
         buf.writeOptional(Optional.ofNullable(color), PacketByteBuf::writeInt);
     }

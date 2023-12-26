@@ -11,8 +11,8 @@ import com.acikek.purpeille.item.ModItems;
 import com.acikek.purpeille.util.BlockItemProvider;
 import net.minecraft.block.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -128,8 +128,8 @@ public class ModBlocks {
     public static void register(Map<String, Block> blocks) {
         for (Map.Entry<String, Block> pair : blocks.entrySet()) {
             Identifier id = Purpeille.id(pair.getKey());
-            Registry.register(Registry.BLOCK, id, pair.getValue());
-            Registry.register(Registry.ITEM, id, BlockItemProvider.getBlockItem(pair.getValue(), ModItems.defaultSettings()));
+            Registry.register(Registries.BLOCK, id, pair.getValue());
+            Registry.register(Registries.ITEM, id, BlockItemProvider.getBlockItem(pair.getValue(), ModItems.defaultSettings()));
         }
     }
 }

@@ -8,7 +8,8 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.World;
 
 public class WarpathRemoveRecipe extends SpecialCraftingRecipe {
@@ -47,6 +48,6 @@ public class WarpathRemoveRecipe extends SpecialCraftingRecipe {
     }
 
     public static void register() {
-        SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, Purpeille.id("crafting_special_warpath_remove"), new SpecialRecipeSerializer<>(WarpathRemoveRecipe::new));
+        SERIALIZER = Registry.register(Registries.RECIPE_SERIALIZER, Purpeille.id("crafting_special_warpath_remove"), new SpecialRecipeSerializer<>(WarpathRemoveRecipe::new));
     }
 }

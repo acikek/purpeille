@@ -11,10 +11,11 @@ import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.BuiltinRegistries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -58,7 +59,7 @@ public class PurpurRemnants {
         BiomeModifications.addFeature(
                 BiomeSelectors.foundInTheEnd(),
                 GenerationStep.Feature.UNDERGROUND_ORES,
-                RegistryKey.of(Registry.PLACED_FEATURE_KEY, id)
+                RegistryKey.of(RegistryKeys.PLACED_FEATURE, id)
         );
     }
 

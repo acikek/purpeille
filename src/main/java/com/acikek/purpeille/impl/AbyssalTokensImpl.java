@@ -14,7 +14,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -96,7 +96,7 @@ public class AbyssalTokensImpl {
         NbtCompound nbt = stack.getOrCreateNbt();
         WarpathData data = Warpath.getData(stack);
         if (data != null) {
-            data.appliedToken = Registry.ITEM.getId(appliedToken);
+            data.appliedToken = Registries.ITEM.getId(appliedToken);
             data.writeNbt(nbt.getCompound(WarpathData.KEY));
         }
         // Apply negative abyssal allegiance value

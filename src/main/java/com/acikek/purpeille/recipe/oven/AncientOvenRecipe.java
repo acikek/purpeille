@@ -6,7 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.World;
 
 public record AncientOvenRecipe(Ingredient input, int damage, int cookTime,
@@ -58,7 +59,7 @@ public record AncientOvenRecipe(Ingredient input, int damage, int cookTime,
     }
 
     public static void register() {
-        Registry.register(Registry.RECIPE_TYPE, ID, Type.INSTANCE);
-        Registry.register(Registry.RECIPE_SERIALIZER, ID, AncientOvenRecipeSerializer.INSTANCE);
+        Registry.register(Registries.RECIPE_TYPE, ID, Type.INSTANCE);
+        Registry.register(Registries.RECIPE_SERIALIZER, ID, AncientOvenRecipeSerializer.INSTANCE);
     }
 }

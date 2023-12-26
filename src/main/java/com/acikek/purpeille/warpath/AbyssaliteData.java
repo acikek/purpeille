@@ -14,7 +14,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.text.Text;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Pair;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -103,7 +103,7 @@ public class AbyssaliteData {
     }
 
     public static AbyssaliteData read(PacketByteBuf buf) {
-        Item token = buf.readRegistryValue(Registry.ITEM);
+        Item token = buf.readRegistryValue(Registries.ITEM);
         List<Pair<Ingredient, Float>> modifierList = buf.readList(byteBuf -> {
             Ingredient item = Ingredient.fromPacket(byteBuf);
             float modifier = byteBuf.readFloat();
@@ -118,7 +118,7 @@ public class AbyssaliteData {
     }
 
     public void write(PacketByteBuf buf) {
-        buf.writeRegistryValue(Registry.ITEM, token);
+        buf.writeRegistryValue(Registries.ITEM, token);
         List<Pair<Ingredient, Float>> modifierList = modifiers.entrySet().stream()
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue().getLeft()))
                 .toList();

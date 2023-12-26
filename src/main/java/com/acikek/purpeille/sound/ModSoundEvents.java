@@ -2,8 +2,8 @@ package com.acikek.purpeille.sound;
 
 import com.acikek.purpeille.Purpeille;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 public class ModSoundEvents {
 
@@ -35,7 +35,7 @@ public class ModSoundEvents {
 
     public static void register() {
         for (SoundEvent sound : SOUNDS) {
-            Registry.register(Registry.SOUND_EVENT, sound.getId(), sound);
+            Registry.register(Registries.SOUND_EVENT, sound.getId(), sound);
         }
     }
 }

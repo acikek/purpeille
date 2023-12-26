@@ -9,7 +9,8 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.util.Pair;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import org.apache.commons.lang3.EnumUtils;
 
 import java.util.LinkedHashMap;
@@ -56,7 +57,7 @@ public class ModAttributes {
 
     public static void register() {
         for (Map.Entry<String, EntityAttribute> pair : ATTRIBUTES.entrySet()) {
-            Registry.register(Registry.ATTRIBUTE, Purpeille.id(pair.getKey()), pair.getValue());
+            Registry.register(Registries.ATTRIBUTE, Purpeille.id(pair.getKey()), pair.getValue());
         }
     }
 

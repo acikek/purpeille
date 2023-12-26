@@ -4,7 +4,8 @@ import com.acikek.purpeille.Purpeille;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleType;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class ModParticleTypes {
 
     public static void register() {
         for (Map.Entry<String, ParticleType<?>> entry : PARTICLES.entrySet()) {
-            Registry.register(Registry.PARTICLE_TYPE, Purpeille.id(entry.getKey()), entry.getValue());
+            Registry.register(Registries.PARTICLE_TYPE, Purpeille.id(entry.getKey()), entry.getValue());
         }
     }
 }

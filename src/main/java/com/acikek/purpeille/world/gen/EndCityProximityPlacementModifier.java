@@ -9,7 +9,8 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.feature.FeaturePlacementContext;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import net.minecraft.world.gen.placementmodifier.PlacementModifierType;
@@ -49,6 +50,6 @@ public class EndCityProximityPlacementModifier extends PlacementModifier {
     }
 
     public static void register() {
-        END_CITY_PROXIMITY = Registry.register(Registry.PLACEMENT_MODIFIER_TYPE, Purpeille.id("end_city_proximity"), () -> CODEC);
+        END_CITY_PROXIMITY = Registry.register(Registries.PLACEMENT_MODIFIER_TYPE, Purpeille.id("end_city_proximity"), () -> CODEC);
     }
 }

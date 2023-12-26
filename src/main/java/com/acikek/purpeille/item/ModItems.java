@@ -9,7 +9,8 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -107,7 +108,7 @@ public class ModItems {
 
     public static void register() {
         for (Map.Entry<String, Item> item : ITEMS.entrySet()) {
-            Registry.register(Registry.ITEM, Purpeille.id(item.getKey()), item.getValue());
+            Registry.register(Registries.ITEM, Purpeille.id(item.getKey()), item.getValue());
         }
     }
 }

@@ -6,7 +6,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +33,7 @@ public class ImbuementData {
         NbtList items = nbt.getList("ItemsUsed", NbtElement.STRING_TYPE);
         Set<Item> itemsUsed = new HashSet<>();
         for (NbtElement element : items) {
-            itemsUsed.add(Registry.ITEM.get(Identifier.tryParse(element.asString())));
+            itemsUsed.add(Registries.ITEM.get(Identifier.tryParse(element.asString())));
         }
         return itemsUsed;
     }
@@ -50,7 +50,7 @@ public class ImbuementData {
         nbt.putInt("Count", count);
         NbtList items = new NbtList();
         for (Item used : itemsUsed) {
-            items.add(NbtString.of(Registry.ITEM.getId(used).toString()));
+            items.add(NbtString.of(Registries.ITEM.getId(used).toString()));
         }
         nbt.put("ItemsUsed", items);
     }

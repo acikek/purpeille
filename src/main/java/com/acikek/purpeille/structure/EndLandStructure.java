@@ -8,8 +8,9 @@ import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.HeightContext;
 import net.minecraft.world.gen.heightprovider.HeightProvider;
@@ -82,6 +83,6 @@ public class EndLandStructure extends Structure {
     }
 
     public static void register() {
-        TYPE = Registry.register(Registry.STRUCTURE_TYPE, Purpeille.id("end_land"), () -> CODEC);
+        TYPE = Registry.register(Registries.STRUCTURE_TYPE, Purpeille.id("end_land"), () -> CODEC);
     }
 }
