@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.util.math.MatrixStack;
@@ -35,7 +36,8 @@ public class AncientMessageHud implements HudRenderCallback {
     }
 
     @Override
-    public void onHudRender(MatrixStack matrixStack, float tickDelta) {
+    public void onHudRender(DrawContext ctx, float tickDelta) {
+        MatrixStack matrixStack = ctx.getMatrices();
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.world == null || client.player == null) {
             return;
@@ -83,7 +85,7 @@ public class AncientMessageHud implements HudRenderCallback {
             matrixStack.scale(2.5f, 2.5f, 2.5f);
             for (int i = 0; i < lines.size(); i++) {
                 int textWidth = client.textRenderer.getWidth(lines.get(i));
-                client.textRenderer.drawWithShadow(matrixStack, lines.get(i), -textWidth / 2.0f, (i * (7 + client.textRenderer.fontHeight / 2.0f)), color);
+                ctx.drawTextWithShadow(client.textRenderer, lines.get(i).asOrderedText(), (int) (-textWidth / 2.0f), (int) (i * (7 + client.textRenderer.fontHeight / 2.0f)), color);
             }
             matrixStack.pop();
             // If not paused, tick down

@@ -3,14 +3,12 @@ package com.acikek.purpeille.compat.emi;
 import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.recipe.oven.AncientOvenRecipe;
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -29,9 +27,8 @@ public class EmiAncientOvenRecipe implements EmiRecipe {
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(
             Purpeille.id("ancient_oven"),
             EmiStack.of(ModBlocks.ANCIENT_OVEN),
-            (matrices, x, y, delta) -> {
-                RenderSystem.setShaderTexture(0, PurpeillePlugin.WIDGETS);
-                DrawableHelper.drawTexture(matrices, x, y, 240, 240, 16, 16, 256, 256);
+            (ctx, x, y, delta) -> {
+                ctx.drawTexture(PurpeillePlugin.WIDGETS, x, y, 240, 240, 16, 16, 256, 256);
             });
 
     public Identifier id;
