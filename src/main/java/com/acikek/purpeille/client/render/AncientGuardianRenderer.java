@@ -11,7 +11,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 
 public class AncientGuardianRenderer implements SingleSlotRenderer<AncientGuardianBlockEntity> {
 
@@ -35,7 +35,7 @@ public class AncientGuardianRenderer implements SingleSlotRenderer<AncientGuardi
         Direction direction = entity.getCachedState().get(CommonBlockWithEntity.FACING);
         translate(matrices, AncientGuardian.isZ(direction), isOffset(direction));
         float angle = MathHelper.sin((PurpeilleClient.rotationTicks % 120 + tickDelta) / 120.0f * MathHelper.TAU) * 145.0f;
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(angle + direction.asRotation()));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(angle + direction.asRotation()));
         matrices.scale(0.45f, 0.45f, 0.45f);
         return true;
     }
