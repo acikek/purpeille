@@ -89,7 +89,7 @@ public class EmiAncientOvenRecipe implements EmiRecipe {
         widgets.addSlot(input, 0, inputY);
         if (!isRandom) {
             widgets.addFillingArrow(24, inputY + 1, 50 * cookTime).tooltip((x, y) -> arrowTooltip);
-            widgets.addSlot(outputs.get(0), 56, 0).output(true).recipeContext(this);
+            widgets.addSlot(outputs.get(0), 56, 0).large(true).recipeContext(this);
         }
         else {
             for (int i = 0; i < outputs.size(); i++) {
