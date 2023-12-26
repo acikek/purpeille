@@ -47,10 +47,10 @@ public class ModItems {
     public static final Item DARK_QUANTUM_WISP = new Item(defaultSettings());
 
     // Armor
-    public static final ArmorItem PURPEILLE_HELMET = PurpeilleArmorMaterial.getItem(EquipmentSlot.HEAD);
-    public static final ArmorItem PURPEILLE_CHESTPLATE = PurpeilleArmorMaterial.getItem(EquipmentSlot.CHEST);
-    public static final ArmorItem PURPEILLE_LEGGINGS = PurpeilleArmorMaterial.getItem(EquipmentSlot.LEGS);
-    public static final ArmorItem PURPEILLE_BOOTS = PurpeilleArmorMaterial.getItem(EquipmentSlot.FEET);
+    public static final ArmorItem PURPEILLE_HELMET = PurpeilleArmorMaterial.getItem(ArmorItem.Type.HELMET);
+    public static final ArmorItem PURPEILLE_CHESTPLATE = PurpeilleArmorMaterial.getItem(ArmorItem.Type.CHESTPLATE);
+    public static final ArmorItem PURPEILLE_LEGGINGS = PurpeilleArmorMaterial.getItem(ArmorItem.Type.LEGGINGS);
+    public static final ArmorItem PURPEILLE_BOOTS = PurpeilleArmorMaterial.getItem(ArmorItem.Type.BOOTS);
 
     // Tools
     public static final ToolItem PURPEILLE_SWORD = new SwordItem(PurpeilleToolMaterial.INSTANCE, 4, -2.4f, defaultSettings());
