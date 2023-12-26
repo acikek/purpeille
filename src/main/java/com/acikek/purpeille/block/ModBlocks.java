@@ -10,9 +10,9 @@ import com.acikek.purpeille.block.entity.rubble.EndRubble;
 import com.acikek.purpeille.item.ModItems;
 import lib.BlockItemProvider;
 import net.minecraft.block.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
-import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.Map;
 public class ModBlocks {
 
     // Blocks
-    public static final Block PURPUR_REMNANTS = new OreBlock(PurpurRemnants.SETTINGS, UniformIntProvider.create(2, 3));
+    public static final Block PURPUR_REMNANTS = new Block(PurpurRemnants.SETTINGS);
     public static final Block REMNANT_BRICKS = new Block(BlockSettings.REMNANT_BRICKS);
     public static final Block ANCIENT_MECHANICAL_BRICKS = new ChorusInfestedBlocks.InfestedBlock(BlockSettings.ANCIENT_MACHINE);
     public static final EndRubble END_RUBBLE = new EndRubble(EndRubble.SETTINGS);
@@ -128,8 +128,8 @@ public class ModBlocks {
     public static void register(Map<String, Block> blocks) {
         for (Map.Entry<String, Block> pair : blocks.entrySet()) {
             Identifier id = Purpeille.id(pair.getKey());
-            Registry.register(Registry.BLOCK, id, pair.getValue());
-            Registry.register(Registry.ITEM, id, BlockItemProvider.getBlockItem(pair.getValue(), ModItems.defaultSettings()));
+            Registry.register(Registries.BLOCK, id, pair.getValue());
+            Registry.register(Registries.ITEM, id, BlockItemProvider.getBlockItem(pair.getValue(), ModItems.defaultSettings()));
         }
     }
 }

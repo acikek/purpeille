@@ -21,11 +21,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,7 +41,7 @@ public class PurpeillePlugin implements EmiPlugin {
     };
 
     public static Optional<List<Item>> getTagItems(TagKey<Item> tag) {
-        return Registry.ITEM.getEntryList(tag)
+        return Registries.ITEM.getEntryList(tag)
                 .map(holders -> holders.stream().map(RegistryEntry::value).collect(Collectors.toList()));
     }
 
@@ -65,11 +65,11 @@ public class PurpeillePlugin implements EmiPlugin {
     }
 
     public static Identifier getWarpathRecipeId(String method, Item base) {
-        return new Identifier("emi", "purpeille/warpath_" + method + "/" + Registry.ITEM.getId(base).getPath());
+        return new Identifier("emi", "purpeille/warpath_" + method + "/" + Registries.ITEM.getId(base).getPath());
     }
 
     public static Identifier getInfestedInteractionId(String method, Block block) {
-        return new Identifier("emi", "purpeille/" + method + "/" + Registry.BLOCK.getId(block).getPath());
+        return new Identifier("emi", "purpeille/" + method + "/" + Registries.BLOCK.getId(block).getPath());
     }
 
     public static TooltipComponent getChanceTooltip(double chance) {

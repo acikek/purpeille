@@ -1,5 +1,6 @@
 package com.acikek.purpeille.block.entity.ancient.guardian;
 
+import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.advancement.ModCriteria;
 import com.acikek.purpeille.block.ModBlocks;
 import com.acikek.purpeille.block.entity.CommonBlockWithEntity;
@@ -16,13 +17,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.EntityDamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -101,14 +105,18 @@ public class AncientGuardianBlockEntity extends CorePoweredAncientMachineBlockEn
     }
 
     public static DamageSource getDamageSource(PlayerEntity player) {
-        return new EntityDamageSource("guardianWrath", player).setUsesMagic();
+        RegistryEntry.Reference<DamageType> damageType = player.getWorld()
+                .getRegistryManager()
+                .getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE)
+                .getOrThrow(RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Purpeille.id("guardian_wrath")));
+        return new DamageSource(damageType, player);
     }
 
     public static int damageAOE(ServerPlayerEntity player) {
         Box area = Box.of(player.getPos(), 10, 10, 10);
         int killed = 0;
         DamageSource damageSource = getDamageSource(player);
-        for (Entity entity : player.world.getOtherEntities(player, area)) {
+        for (Entity entity : player.getWorld().getOtherEntities(player, area)) {
             if (entity instanceof LivingEntity livingEntity) {
                 entity.damage(damageSource, 45.0f);
                 if (livingEntity.isDead()) {

@@ -3,7 +3,8 @@ package com.acikek.purpeille.attribute;
 import com.acikek.purpeille.Purpeille;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class ModAttributes {
 
     public static void register() {
         for (Map.Entry<String, EntityAttribute> pair : ATTRIBUTES.entrySet()) {
-            Registry.register(Registry.ATTRIBUTE, Purpeille.id(pair.getKey()), pair.getValue());
+            Registry.register(Registries.ATTRIBUTE, Purpeille.id(pair.getKey()), pair.getValue());
         }
     }
 }

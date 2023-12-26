@@ -19,12 +19,15 @@ import com.acikek.purpeille.sound.ModSoundEvents;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,9 +36,11 @@ public class Purpeille implements ModInitializer {
 
     public static final String ID = "purpeille";
 
-    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(id("main"))
+    public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
+            .displayName(Text.translatable("itemGroup.purpeille.main"))
             .icon(() -> new ItemStack(ModItems.PURPEILLE_INGOT))
             .build();
+    public static final RegistryKey<ItemGroup> ITEM_GROUP_REGISTRY_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, id("main"));
 
     public static Identifier id(String key) {
         return new Identifier(ID, key);
@@ -61,7 +66,7 @@ public class Purpeille implements ModInitializer {
         WarpathRemoveRecipe.register();
         AncientOvenRecipe.register();
         EndCityProximityPlacementModifier.register();
-        PurpurRemnants.build();
+        PurpurRemnants.register();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             VacuousBlastCommand.register(dispatcher);
             WarpathCommand.register(dispatcher);

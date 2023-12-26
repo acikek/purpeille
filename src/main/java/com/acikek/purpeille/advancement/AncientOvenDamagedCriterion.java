@@ -8,7 +8,7 @@ import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
-import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
@@ -17,7 +17,7 @@ public class AncientOvenDamagedCriterion extends AbstractCriterion<AncientOvenDa
     public static Identifier ID = Purpeille.id("ancient_oven_damaged");
 
     @Override
-    protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+    protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         EnumPredicate<Damage> damage = EnumPredicate.fromJson(obj.get("damage"), Damage::valueOf);
         return new Conditions(playerPredicate, damage);
     }
@@ -35,7 +35,7 @@ public class AncientOvenDamagedCriterion extends AbstractCriterion<AncientOvenDa
 
         public EnumPredicate<Damage> damage;
 
-        public Conditions(EntityPredicate.Extended playerPredicate, EnumPredicate<Damage> damage) {
+        public Conditions(LootContextPredicate playerPredicate, EnumPredicate<Damage> damage) {
             super(ID, playerPredicate);
             this.damage = damage;
         }

@@ -7,7 +7,7 @@ import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
-import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -17,7 +17,7 @@ public class ChorusInfestationSheared extends AbstractCriterion<ChorusInfestatio
     public static Identifier ID = Purpeille.id("chorus_infestation_sheared");
 
     @Override
-    protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+    protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         boolean dropChorus = JsonHelper.getBoolean(obj, "drop_chorus", false);
         return new Conditions(playerPredicate, dropChorus);
     }
@@ -35,7 +35,7 @@ public class ChorusInfestationSheared extends AbstractCriterion<ChorusInfestatio
 
         public boolean dropChorus;
 
-        public Conditions(EntityPredicate.Extended playerPredicate, boolean dropChorus) {
+        public Conditions(LootContextPredicate playerPredicate, boolean dropChorus) {
             super(ID, playerPredicate);
             this.dropChorus = dropChorus;
         }

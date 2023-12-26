@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -43,7 +44,7 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
     public void addRecipe(AncientOvenRecipe recipe) {
         cookTime = recipe.cookTime();
         damageToTake = recipe.damage();
-        result = (world != null ? recipe.getOutput(world.random) : recipe.getOutput()).copy();
+        result = (world != null ? recipe.getOutput(world.random) : recipe.getOutput((DynamicRegistryManager) null)).copy();
     }
 
     public boolean checkDamage(World world, PlayerEntity player, BlockPos pos, BlockState state) {

@@ -20,7 +20,7 @@ public class VacuousBlastListener implements ClientPlayNetworking.PlayChannelHan
         if (entity == null || client.world == null) {
             return;
         }
-        client.world.playSound(entity.getBlockPos(), SoundEvents.AMBIENT_NETHER_WASTES_MOOD, SoundCategory.AMBIENT, 5.0f, 1.0f, false);
+        client.world.playSoundAtBlockCenter(entity.getBlockPos(), SoundEvents.AMBIENT_NETHER_WASTES_MOOD.value(), SoundCategory.AMBIENT, 5.0f, 1.0f, false);
         for (int i = 0; i < 90; i++) {
             float angle = i / 90.0f * MathHelper.TAU;
             float x = MathHelper.cos(angle);

@@ -3,13 +3,18 @@ package com.acikek.purpeille.world.gen;
 import com.acikek.purpeille.Purpeille;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.structure.StructureSets;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.world.ServerChunkManager;
+import net.minecraft.structure.StructureSet;
+import net.minecraft.structure.StructureSetKeys;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.FeaturePlacementContext;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import net.minecraft.world.gen.placementmodifier.PlacementModifierType;
@@ -39,7 +44,13 @@ public class EndCityProximityPlacementModifier extends PlacementModifier {
     @Override
     public Stream<BlockPos> getPositions(FeaturePlacementContext context, Random random, BlockPos pos) {
         ChunkPos chunk = new ChunkPos(pos);
-        boolean withinEndCity = context.getChunkGenerator().shouldStructureGenerateInRange(StructureSets.END_CITIES, null, context.getWorld().getSeed(), chunk.x, chunk.z, distance.get(context.getWorld().getRandom()));
+        RegistryWrapper<StructureSet> structureSetRegistry = context.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.STRUCTURE_SET);
+        boolean withinEndCity = context.getChunkGenerator()
+                .createStructurePlacementCalculator(
+                        structureSetRegistry,
+                        ((ServerChunkManager)context.getWorld().getChunkManager()).getNoiseConfig(),
+                        context.getWorld().getSeed()
+                ).canGenerate(structureSetRegistry.getOrThrow(StructureSetKeys.END_CITIES), chunk.x, chunk.z, distance.get(context.getWorld().getRandom()));
         return withinEndCity ? Stream.of(pos) : Stream.empty();
     }
 
@@ -49,6 +60,6 @@ public class EndCityProximityPlacementModifier extends PlacementModifier {
     }
 
     public static void register() {
-        END_CITY_PROXIMITY = Registry.register(Registry.PLACEMENT_MODIFIER_TYPE, Purpeille.id("end_city_proximity"), () -> CODEC);
+        END_CITY_PROXIMITY = Registry.register(Registries.PLACEMENT_MODIFIER_TYPE, Purpeille.id("end_city_proximity"), () -> CODEC);
     }
 }

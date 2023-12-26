@@ -1,6 +1,5 @@
 package com.acikek.purpeille.block.entity;
 
-import com.acikek.purpeille.block.entity.monolithic.MonolithicPurpurBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -111,7 +110,7 @@ public abstract class CommonBlockWithEntity<T extends BlockEntity> extends Block
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+        return getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
     }
 
     @Override

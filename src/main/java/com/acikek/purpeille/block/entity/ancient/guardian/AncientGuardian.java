@@ -11,13 +11,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.Waterloggable;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
@@ -33,15 +32,14 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.Collections;
 import java.util.List;
@@ -111,7 +109,7 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
         if (!world.isClient() && world.getBlockEntity(pos) instanceof AncientGuardianBlockEntity blockEntity && blockEntity.cooldown != 0) {
-            world.createExplosion(null, DamageSource.badRespawnPoint(), null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 5.0f, true, Explosion.DestructionType.DESTROY);
+            world.createExplosion(null, world.getDamageSources().badRespawnPoint(pos.toCenterPos()), null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 5.0f, true, World.ExplosionSourceType.BLOCK);
         }
     }
 
@@ -125,16 +123,16 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
         boolean full = state.get(FULL);
         boolean cooldown = state.get(ON_COOLDOWN);
         if (full || cooldown) {
-            Vec3f center = new Vec3f(Vec3d.ofCenter(pos));
+            Vector3f center = Vec3d.ofCenter(pos).toVector3f();
             boolean isZ = isZ(state.get(FACING));
-            float x = center.getX() + ((random.nextFloat() * 2) - 1) * (isZ ? 0.3f : 0.1f);
-            float y = center.getY() + ((random.nextFloat() * 2) - 1) * 0.15f;
-            float z = center.getZ() + ((random.nextFloat() * 2) - 1) * (isZ ? 0.1f : 0.3f);
+            float x = center.x + ((random.nextFloat() * 2) - 1) * (isZ ? 0.3f : 0.1f);
+            float y = center.y + ((random.nextFloat() * 2) - 1) * 0.15f;
+            float z = center.z + ((random.nextFloat() * 2) - 1) * (isZ ? 0.1f : 0.3f);
             DefaultParticleType particle = cooldown ? ParticleTypes.REVERSE_PORTAL : ParticleTypes.SMALL_FLAME;
             world.addParticle(particle, x, y, z, 0.0, 0.01, 0.0);
             if (!cooldown || random.nextFloat() > 0.9f) {
                 SoundEvent event = cooldown ? SoundEvents.ENTITY_ENDERMAN_AMBIENT : SoundEvents.BLOCK_CANDLE_AMBIENT;
-                world.playSound(center.getX(), center.getY(), center.getZ(), event, SoundCategory.BLOCKS, 0.5f, random.nextFloat() * 0.5f + 0.1f, false);
+                world.playSound(center.x, center.y, center.z, event, SoundCategory.BLOCKS, 0.5f, random.nextFloat() * 0.5f + 0.1f, false);
             }
         }
     }
@@ -146,13 +144,13 @@ public class AncientGuardian extends CorePoweredAncientMachine<AncientGuardianBl
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
-    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
         return state.get(ON_COOLDOWN)
                 ? Collections.emptyList()
                 : Collections.singletonList(new ItemStack(ModBlocks.ANCIENT_GUARDIAN));

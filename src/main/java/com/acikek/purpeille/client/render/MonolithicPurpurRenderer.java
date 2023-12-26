@@ -1,6 +1,5 @@
 package com.acikek.purpeille.client.render;
 
-import com.acikek.purpeille.block.entity.monolithic.MonolithicPurpur;
 import com.acikek.purpeille.block.entity.monolithic.MonolithicPurpurBlockEntity;
 import com.acikek.purpeille.client.PurpeilleClient;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
@@ -14,9 +13,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 
 public class MonolithicPurpurRenderer implements SingleSlotRenderer<MonolithicPurpurBlockEntity> {
 
@@ -38,12 +36,12 @@ public class MonolithicPurpurRenderer implements SingleSlotRenderer<MonolithicPu
                 matrices.translate(0.3, 0.0, 0.0);
             }
             matrices.translate(-0.285f - scale * 0.3, -0.3f, 0.0f);
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(45));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(45));
             matrices.scale(0.4f, 0.4f, 0.4f);
         }
         else {
             matrices.translate(0.0f, 0.1f - MathHelper.cos((PurpeilleClient.rotationTicks % 60 + tickDelta) / 60.0f * MathHelper.TAU) * 0.1f, 0.0f);
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0f - MinecraftClient.getInstance().cameraEntity.getYaw()));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f - MinecraftClient.getInstance().cameraEntity.getYaw()));
         }
         if (shouldScale) {
             matrices.scale(scale, scale, scale);

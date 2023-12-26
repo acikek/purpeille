@@ -10,7 +10,8 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 public class ModBlockEntities {
 
@@ -24,7 +25,7 @@ public class ModBlockEntities {
 
     public static <T extends BlockEntity> BlockEntityType<T> build(String id, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {
         return Registry.register(
-                Registry.BLOCK_ENTITY_TYPE,
+                Registries.BLOCK_ENTITY_TYPE,
                 Purpeille.id(id),
                 FabricBlockEntityTypeBuilder.create(factory, blocks)
                         .build(null)
