@@ -24,13 +24,18 @@ import com.acikek.purpeille.structure.EndLandStructure;
 import com.acikek.purpeille.world.gen.EndCityProximityPlacementModifier;
 import com.acikek.purpeille.world.reload.ReloadHandler;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,9 +44,12 @@ public class Purpeille implements ModInitializer {
 
     public static final String ID = "purpeille";
 
-    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(id("main"))
+    public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
+            .displayName(Text.translatable("itemGroup.purpeille.main"))
             .icon(() -> new ItemStack(ModItems.PURPEILLE_INGOT))
             .build();
+
+    public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, id("main"));
 
     public static Identifier id(String key) {
         return new Identifier(ID, key);
@@ -55,6 +63,7 @@ public class Purpeille implements ModInitializer {
         if (FabricLoader.getInstance().isModLoaded("roughlyenoughitems")) {
             LOGGER.warn("Purpeille support for REI is limited; use EMI for better integration! https://modrinth.com/mod/emi");
         }
+        Registry.register(Registries.ITEM_GROUP, ITEM_GROUP_KEY, ITEM_GROUP);
         ModBlocks.register(ModBlocks.BLOCKS);
         ModBlockEntities.register();
         ModItems.register();

@@ -6,7 +6,7 @@ import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.item.material.PurpeilleArmorMaterial;
 import com.acikek.purpeille.item.material.PurpeilleToolMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.entity.EquipmentSlot;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.util.Rarity;
 import net.minecraft.registry.Registries;
@@ -64,7 +64,7 @@ public class ModItems {
     public static final Item ANCIENTS_ALMANAC = new AncientsAlmanac(defaultSettings().rarity(Rarity.UNCOMMON).maxCount(1));
 
     public static FabricItemSettings defaultSettings() {
-        return new FabricItemSettings().group(Purpeille.ITEM_GROUP);
+        return new FabricItemSettings();
     }
 
     public static Map<String, Item> ITEMS = new LinkedHashMap<>();
@@ -109,6 +109,7 @@ public class ModItems {
     public static void register() {
         for (Map.Entry<String, Item> item : ITEMS.entrySet()) {
             Registry.register(Registries.ITEM, Purpeille.id(item.getKey()), item.getValue());
+            ItemGroupEvents.modifyEntriesEvent(Purpeille.ITEM_GROUP_KEY).register(entries -> entries.add(item.getValue()));
         }
     }
 }
