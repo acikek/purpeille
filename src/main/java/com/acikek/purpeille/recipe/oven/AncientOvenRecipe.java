@@ -4,6 +4,7 @@ import com.acikek.purpeille.Purpeille;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.registry.Registries;
@@ -21,7 +22,7 @@ public record AncientOvenRecipe(Ingredient input, int damage, int cookTime,
     }
 
     @Override
-    public ItemStack craft(SimpleInventory inventory) {
+    public ItemStack craft(SimpleInventory inventory, DynamicRegistryManager manager) {
         return null;
     }
 
@@ -35,7 +36,7 @@ public record AncientOvenRecipe(Ingredient input, int damage, int cookTime,
     }
 
     @Override
-    public ItemStack getOutput() {
+    public ItemStack getOutput(DynamicRegistryManager manager) {
         return getOutput(Random.create());
     }
 

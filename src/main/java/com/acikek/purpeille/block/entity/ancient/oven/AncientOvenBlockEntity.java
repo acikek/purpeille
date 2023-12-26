@@ -49,7 +49,7 @@ public class AncientOvenBlockEntity extends SingleSlotBlockEntity {
     public void addRecipe(AncientOvenRecipe recipe) {
         cookTime = recipe.cookTime();
         damageToTake = recipe.damage();
-        result = (world != null ? recipe.getOutput(world.random) : recipe.getOutput()).copy();
+        result = (world != null ? recipe.getOutput(world.random) : recipe.getOutput(world.getRegistryManager())).copy();
     }
 
     public boolean checkDamage(World world, PlayerEntity player, BlockPos pos, BlockState state) {

@@ -6,11 +6,13 @@ import com.acikek.purpeille.tag.ModTags;
 import com.acikek.purpeille.warpath.Warpath;
 import com.acikek.purpeille.warpath.component.Aspect;
 import com.acikek.purpeille.warpath.component.Revelation;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -22,8 +24,8 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
 
     public static SpecialRecipeSerializer<WarpathCreateRecipe> SERIALIZER;
 
-    public WarpathCreateRecipe(Identifier id) {
-        super(id);
+    public WarpathCreateRecipe(Identifier id, CraftingRecipeCategory category) {
+        super(id, category);
     }
 
     public record ComponentData<T extends Aspect>(ItemStack stack, int index) {
@@ -76,7 +78,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    public static ItemStack getBase(CraftingInventory inventory) {
+    public static ItemStack getBase(RecipeInputInventory inventory) {
         ItemStack base = null;
         for (int i = 0; i < inventory.size(); i++) {
             ItemStack stack = inventory.getStack(i);
@@ -90,7 +92,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
         return base;
     }
 
-    public static ComponentPair getRecipeData(CraftingInventory inventory) {
+    public static ComponentPair getRecipeData(RecipeInputInventory inventory) {
         ComponentPair components = ComponentPair.getEmpty();
         for (int i = 0; i < inventory.size(); i++) {
             ItemStack stack = inventory.getStack(i);
@@ -108,7 +110,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public boolean matches(CraftingInventory inventory, World world) {
+    public boolean matches(RecipeInputInventory inventory, World world) {
         ItemStack base = getBase(inventory);
         if (base == null || Warpath.getData(base) != null) {
             return false;
@@ -121,7 +123,7 @@ public class WarpathCreateRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(CraftingInventory inventory) {
+    public ItemStack craft(RecipeInputInventory inventory, DynamicRegistryManager manager) {
         ItemStack base = getBase(inventory);
         ComponentPair data = getRecipeData(inventory);
         if (base == null || data == null) {
