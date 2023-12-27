@@ -12,7 +12,7 @@ import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
-import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -22,7 +22,7 @@ public class WarpathCreatedCriterion extends AbstractCriterion<WarpathCreatedCri
     public static Identifier ID = Purpeille.id("warpath_created");
 
     @Override
-    protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+    protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         ItemPredicate item = ItemPredicate.fromJson(obj.get("item"));
         Identifier revelation = obj.has("revelation") ? Identifier.tryParse(obj.get("revelation").getAsString()) : null;
         Identifier aspect = obj.has("aspect") ? Identifier.tryParse(obj.get("aspect").getAsString()) : null;
@@ -46,7 +46,7 @@ public class WarpathCreatedCriterion extends AbstractCriterion<WarpathCreatedCri
         public Identifier aspect;
         public EnumPredicate<Synergy> synergy;
 
-        public Conditions(EntityPredicate.Extended playerPredicate, ItemPredicate item, Identifier revelation, Identifier aspect, EnumPredicate<Synergy> synergy) {
+        public Conditions(LootContextPredicate playerPredicate, ItemPredicate item, Identifier revelation, Identifier aspect, EnumPredicate<Synergy> synergy) {
             super(ID, playerPredicate);
             this.item = item;
             this.revelation = revelation;

@@ -5,22 +5,18 @@ import com.acikek.purpeille.warpath.ClampedColor;
 import com.acikek.purpeille.warpath.Synergy;
 import com.acikek.purpeille.warpath.Tone;
 import com.google.gson.JsonObject;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
 
 import java.util.*;
 
@@ -55,7 +51,7 @@ public class Revelation extends Component {
     }
 
     public void updateAttribute() {
-        attribute = Registry.ATTRIBUTE.get(attributeId);
+        attribute = Registries.ATTRIBUTE.get(attributeId);
     }
 
     public static void finishReload(boolean log) {
@@ -136,7 +132,7 @@ public class Revelation extends Component {
         }
 
         public Builder attribute(EntityAttribute attribute) {
-            return attribute(Registry.ATTRIBUTE.getId(attribute));
+            return attribute(Registries.ATTRIBUTE.getId(attribute));
         }
 
         public Builder affinity(Ingredient affinity) {

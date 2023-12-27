@@ -11,6 +11,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -100,7 +101,7 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "damage", cancellable = true, at = @At("HEAD"))
     private void purpeille$applyVoidImmunity(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (source == DamageSource.OUT_OF_WORLD && getStatusEffect(ModStatusEffects.VOID_IMMUNITY) != null) {
+        if (source.isOf(DamageTypes.OUT_OF_WORLD) && getStatusEffect(ModStatusEffects.VOID_IMMUNITY) != null) {
             cir.setReturnValue(false);
         }
     }

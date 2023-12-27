@@ -6,10 +6,11 @@ import com.acikek.purpeille.item.core.EncasedCore;
 import com.acikek.purpeille.item.material.PurpeilleArmorMaterial;
 import com.acikek.purpeille.item.material.PurpeilleToolMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.entity.EquipmentSlot;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,10 +35,10 @@ public class ModItems {
     public static final CreativeCore CREATIVE_CORE = new CreativeCore(defaultSettings());
 
     // Armor
-    public static final ArmorItem PURPEILLE_HELMET = PurpeilleArmorMaterial.getItem(EquipmentSlot.HEAD);
-    public static final ArmorItem PURPEILLE_CHESTPLATE = PurpeilleArmorMaterial.getItem(EquipmentSlot.CHEST);
-    public static final ArmorItem PURPEILLE_LEGGINGS = PurpeilleArmorMaterial.getItem(EquipmentSlot.LEGS);
-    public static final ArmorItem PURPEILLE_BOOTS = PurpeilleArmorMaterial.getItem(EquipmentSlot.FEET);
+    public static final ArmorItem PURPEILLE_HELMET = PurpeilleArmorMaterial.getItem(ArmorItem.Type.HELMET);
+    public static final ArmorItem PURPEILLE_CHESTPLATE = PurpeilleArmorMaterial.getItem(ArmorItem.Type.CHESTPLATE);
+    public static final ArmorItem PURPEILLE_LEGGINGS = PurpeilleArmorMaterial.getItem(ArmorItem.Type.LEGGINGS);
+    public static final ArmorItem PURPEILLE_BOOTS = PurpeilleArmorMaterial.getItem(ArmorItem.Type.BOOTS);
 
     // Tools
     public static final ToolItem PURPEILLE_SWORD = new SwordItem(PurpeilleToolMaterial.INSTANCE, 4, -2.4f, defaultSettings());
@@ -50,7 +51,7 @@ public class ModItems {
     public static final Item ANCIENTS_ALMANAC = new AncientsAlmanac(defaultSettings().rarity(Rarity.UNCOMMON).maxCount(1));
 
     public static FabricItemSettings defaultSettings() {
-        return new FabricItemSettings().group(Purpeille.ITEM_GROUP);
+        return new FabricItemSettings();
     }
 
     public static Map<String, Item> ITEMS = new LinkedHashMap<>();
@@ -83,7 +84,9 @@ public class ModItems {
 
     public static void register() {
         for (Map.Entry<String, Item> item : ITEMS.entrySet()) {
-            Registry.register(Registry.ITEM, Purpeille.id(item.getKey()), item.getValue());
+            Registry.register(Registries.ITEM, Purpeille.id(item.getKey()), item.getValue());
         }
+        ItemGroupEvents.modifyEntriesEvent(Purpeille.ITEM_GROUP_REGISTRY_KEY)
+                .register(entries -> ITEMS.values().forEach(entries::add));
     }
 }

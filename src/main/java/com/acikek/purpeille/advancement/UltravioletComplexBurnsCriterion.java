@@ -9,7 +9,7 @@ import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
-import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
@@ -18,7 +18,7 @@ public class UltravioletComplexBurnsCriterion extends AbstractCriterion<Ultravio
     public static Identifier ID = Purpeille.id("ultraviolet_complex_burns");
 
     @Override
-    protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+    protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         EnumPredicate<UltravioletComplex.Type> complexType = EnumPredicate.fromJson(obj.get("complex_type"), UltravioletComplex.Type::valueOf);
         NumberRange.IntRange blocks = NumberRange.IntRange.fromJson(obj.get("light_level"));
         return new Conditions(playerPredicate, complexType, blocks);
@@ -38,7 +38,7 @@ public class UltravioletComplexBurnsCriterion extends AbstractCriterion<Ultravio
         public EnumPredicate<UltravioletComplex.Type> complexType;
         public NumberRange.IntRange lightLevel;
 
-        public Conditions(EntityPredicate.Extended playerPredicate, EnumPredicate<UltravioletComplex.Type> complexType, NumberRange.IntRange lightLevel) {
+        public Conditions(LootContextPredicate playerPredicate, EnumPredicate<UltravioletComplex.Type> complexType, NumberRange.IntRange lightLevel) {
             super(ID, playerPredicate);
             this.complexType = complexType;
             this.lightLevel = lightLevel;

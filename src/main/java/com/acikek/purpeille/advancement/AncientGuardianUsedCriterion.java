@@ -9,7 +9,7 @@ import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
-import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -19,7 +19,7 @@ public class AncientGuardianUsedCriterion extends AbstractCriterion<AncientGuard
     public static Identifier ID = Purpeille.id("ancient_guardian_used");
 
     @Override
-    protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+    protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         EnumPredicate<EncasedCore.Type> coreType = EnumPredicate.fromJson(obj.get("core_type"), EncasedCore.Type::valueOf);
         NumberRange.IntRange killed = NumberRange.IntRange.fromJson(obj.get("killed"));
         boolean interdimensional = JsonHelper.getBoolean(obj, "interdimensional", false);
@@ -41,7 +41,7 @@ public class AncientGuardianUsedCriterion extends AbstractCriterion<AncientGuard
         public NumberRange.IntRange killed;
         public boolean interdimensional;
 
-        public Conditions(EntityPredicate.Extended playerPredicate, EnumPredicate<EncasedCore.Type> coreType, NumberRange.IntRange killed, boolean interdimensional) {
+        public Conditions(LootContextPredicate playerPredicate, EnumPredicate<EncasedCore.Type> coreType, NumberRange.IntRange killed, boolean interdimensional) {
             super(ID, playerPredicate);
             this.coreType = coreType;
             this.killed = killed;

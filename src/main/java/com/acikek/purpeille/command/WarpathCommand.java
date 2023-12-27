@@ -42,7 +42,7 @@ public class WarpathCommand {
         ItemStack stack = getStack(context);
         Warpath.remove(stack);
         Warpath.add(stack, revelation, hasAspect ? aspect : null);
-        context.getSource().sendFeedback(getMessage(ADD_SUCCESS, Warpath.getWarpath(revelation, aspect, false, false).get(0)), false);
+        context.getSource().sendFeedback(() -> getMessage(ADD_SUCCESS, Warpath.getWarpath(revelation, aspect, false, false).get(0)), false);
         return 0;
     }
 
@@ -53,7 +53,7 @@ public class WarpathCommand {
             throw new SimpleCommandExceptionType(INVALID_WARPATH).create();
         }
         Warpath.remove(stack);
-        context.getSource().sendFeedback(getMessage(REMOVE_SUCCESS, warpath.get(0)), false);
+        context.getSource().sendFeedback(() -> getMessage(REMOVE_SUCCESS, warpath.get(0)), false);
         return 0;
     }
 

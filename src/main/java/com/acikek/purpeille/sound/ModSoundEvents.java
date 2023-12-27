@@ -1,9 +1,9 @@
 package com.acikek.purpeille.sound;
 
 import com.acikek.purpeille.Purpeille;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.registry.Registry;
 
 public class ModSoundEvents {
 
@@ -16,7 +16,7 @@ public class ModSoundEvents {
     public static final SoundEvent RUBBLE_CLOSE = create("block.rubble.close");
 
     public static SoundEvent create(String id) {
-        return new SoundEvent(Purpeille.id(id));
+        return SoundEvent.of(Purpeille.id(id));
     }
 
     public static SoundEvent[] SOUNDS = {
@@ -31,7 +31,7 @@ public class ModSoundEvents {
 
     public static void register() {
         for (SoundEvent sound : SOUNDS) {
-            Registry.register(Registry.SOUND_EVENT, sound.getId(), sound);
+            Registry.register(Registries.SOUND_EVENT, sound.getId(), sound);
         }
     }
 }

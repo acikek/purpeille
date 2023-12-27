@@ -11,7 +11,8 @@ import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.function.ConditionalLootFunction;
 import net.minecraft.loot.function.LootFunctionType;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class RandomRevelationLootFunction extends ConditionalLootFunction {
 
     public static void register() {
         LOOT_FUNCTION_TYPE = Registry.register(
-                Registry.LOOT_FUNCTION_TYPE,
+                Registries.LOOT_FUNCTION_TYPE,
                 Purpeille.id("random_revelation"),
                 new LootFunctionType(new Serializer())
         );

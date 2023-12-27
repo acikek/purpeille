@@ -1,14 +1,15 @@
 package com.acikek.purpeille.block;
 
+import com.acikek.purpeille.Purpeille;
 import com.acikek.purpeille.advancement.ModCriteria;
-import net.fabricmc.fabric.mixin.content.registry.OxidizableMixin;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
@@ -28,17 +29,15 @@ public class UltravioletComplex extends Block {
         }
     }
 
-    public static final AbstractBlock.Settings SETTINGS = BlockSettings.baseSettings(Material.STONE)
+    public static final AbstractBlock.Settings SETTINGS = BlockSettings.baseSettings()
             .strength(1.5f)
             .sounds(BlockSoundGroup.CALCITE)
             .luminance(2);
 
-    public static final AbstractBlock.Settings POLISHED_SETTINGS = BlockSettings.baseSettings(Material.AMETHYST)
+    public static final AbstractBlock.Settings POLISHED_SETTINGS = BlockSettings.baseSettings()
             .strength(2.0f)
             .sounds(BlockSoundGroup.AMETHYST_BLOCK)
             .luminance(4);
-
-    public static final DamageSource DAMAGE_SOURCE = new DamageSource("ultravioletComplex").setFire();
 
     public Type type;
 
@@ -57,7 +56,10 @@ public class UltravioletComplex extends Block {
                 && entity instanceof LivingEntity livingEntity
                 && !EnchantmentHelper.hasFrostWalker(livingEntity)) {
             float damage = (light - type.threshold) / ((15.0f - type.threshold) / 2.0f);
-            entity.damage(DAMAGE_SOURCE, damage);
+            entity.damage(new DamageSource(world.getRegistryManager()
+                    .getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE)
+                    .getOrThrow(RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Purpeille.id("ultraviolet_complex")))
+            ), damage);
             if (entity instanceof ServerPlayerEntity player) {
                 ModCriteria.ULTRAVIOLET_COMPLEX_BURNS.trigger(player, type, light);
             }

@@ -1,7 +1,6 @@
 package com.acikek.purpeille.item.material;
 
 import com.acikek.purpeille.item.ModItems;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
@@ -15,18 +14,18 @@ public class PurpeilleArmorMaterial implements ArmorMaterial {
     public static int[] BASE_DURABILITY = { 13, 15, 16, 11 };
     public static int[] PROTECTION_VALUES = { 4, 7, 9, 4 };
 
-    public static ArmorItem getItem(EquipmentSlot slot) {
-        return new ArmorItem(INSTANCE, slot, ModItems.defaultSettings());
+    public static ArmorItem getItem(ArmorItem.Type type) {
+        return new ArmorItem(INSTANCE, type, ModItems.defaultSettings());
     }
 
     @Override
-    public int getDurability(EquipmentSlot slot) {
-        return BASE_DURABILITY[slot.getEntitySlotId()] * 45;
+    public int getDurability(ArmorItem.Type type) {
+        return BASE_DURABILITY[type.ordinal()] * 45;
     }
 
     @Override
-    public int getProtectionAmount(EquipmentSlot slot) {
-        return PROTECTION_VALUES[slot.getEntitySlotId()];
+    public int getProtection(ArmorItem.Type type) {
+        return PROTECTION_VALUES[type.ordinal()];
     }
 
     @Override
